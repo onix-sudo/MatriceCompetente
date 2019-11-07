@@ -45,3 +45,40 @@ tr:nth-child(odd) {background: #BBBBBB}
 	margin-bottom: 15px;
 	background: #cccccc;
 }
+
+
+.centerDiv{
+      width: 60%;
+      height:200px;
+      margin: 0 auto;
+      background-color:#FFA500 ;
+ }
+
+.app1{
+    width: 25%;
+    height:200px;
+
+    float:left;
+}
+
+.app2{
+    width: 25%;
+    height:200px;
+
+    float:left;
+}
+
+.app3{
+    width: 25%;
+    height:200px;
+
+    float:left;
+
+}
+
+.app4{
+    width: 25%;
+    height:200px;
+
+    float:left;
+}
