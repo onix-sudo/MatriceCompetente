@@ -92,6 +92,7 @@ public class UserDAOImpl implements UserDAO {
 
         org.apache.lucene.search.Query query = qb
                 .keyword()
+                .fuzzy()
                 .onFields("nume", "prenume", "email")
                 .matching(text)
                 .createQuery();
@@ -103,9 +104,9 @@ public class UserDAOImpl implements UserDAO {
 
 //        System.out.println("ăâîșț");
 
-//        for(Object o : result){
-//            System.out.println( "-----------------" + o );
-//        }
+        for(Object o : result){
+            System.out.println( "-----------------" + o );
+        }
 
 
         tx.commit();

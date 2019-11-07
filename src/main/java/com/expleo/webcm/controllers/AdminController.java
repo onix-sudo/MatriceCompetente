@@ -36,7 +36,7 @@ public class AdminController {
         UserExpleo employee = new UserExpleo();
         theModel.addAttribute("newEmployee", employee);
 
-        userService.searchUser("ovidiu");
+        userService.searchUser("ovi");
 
         return "add-user";
     }

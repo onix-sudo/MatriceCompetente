@@ -20,14 +20,14 @@
 
         <tr>
             <td>
-            <form:label>Name:</form:label>
-            <form:input type="text" placeholder="Enter Text To Search" />
+            Name:
+            <form:input type="text"  name="search" placeholder="Enter Text To Search" />
             </td>
         </tr>
 
         <tr>
-            <td><label></label></td>
-            <td><input type="submit" name="search" value="Search"/></td>
+
+            <td><input type="submit" value="Search"/></td>
         </tr>
 
     </table>
