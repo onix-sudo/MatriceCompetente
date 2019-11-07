@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void searchUser(String text) {
-        userDAO.searchUser(text);
+    public List<UserExpleo> searchUser(String text) {
+       return userDAO.searchUser(text);
     }
 }

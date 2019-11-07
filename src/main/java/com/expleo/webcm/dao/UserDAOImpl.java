@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void searchUser(String text) {
+    public List<UserExpleo> searchUser(String text) {
 
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
@@ -101,14 +101,15 @@ public class UserDAOImpl implements UserDAO {
 
         List result = hibQuery.list();
 
-        System.out.println("ăâîșț");
+//        System.out.println("ăâîșț");
 
-        for(Object o : result){
-            System.out.println( "-----------------" + o );
-        }
+//        for(Object o : result){
+//            System.out.println( "-----------------" + o );
+//        }
+
 
         tx.commit();
         session.close();
-
+        return result;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,7 +34,6 @@ public class AdminController {
     public String addUser(Model theModel){
 
         UserExpleo employee = new UserExpleo();
-
         theModel.addAttribute("newEmployee", employee);
 
         userService.searchUser("ovidiu");
@@ -62,6 +62,7 @@ public class AdminController {
 
     @GetMapping("/updateUser/search")
     public String searchUsers(@RequestParam("text") String text){
+        List<UserExpleo> list = userService.searchUser(text);
 
         return "update-user";
     }

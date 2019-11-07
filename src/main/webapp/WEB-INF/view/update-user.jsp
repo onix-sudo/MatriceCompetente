@@ -15,20 +15,21 @@
 </head>
 <body>
 
-    <form:form action = "updateUser" modelAttribute = "employeeSearch" method="GET">
+    <form:form action = "searchUser"  method="GET">
     <table>
-        <tbody>
+
         <tr>
             <td>
-            <form:input path="freeText" name="freeText" value="${param.freeText}" placeholder="Enter Text To Search" />
+            Name:
+            <form:input type="text"  name="search" placeholder="Enter Text To Search" />
             </td>
         </tr>
 
         <tr>
-            <td><label></label></td>
+
             <td><input type="submit" value="Search"/></td>
         </tr>
-        </tbody>
+
     </table>
 
     </form:form>
