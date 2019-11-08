@@ -1,13 +1,15 @@
+com\expleo\webcm\config\HibernateSearchIndexConfig.class
 com\expleo\webcm\config\DataSourceConfig.class
+com\expleo\webcm\dao\SearchDAO.class
 com\expleo\webcm\helper\BcryptPasswordGenerator.class
 com\expleo\webcm\config\CustomAuthenticationSuccessHandler.class
 com\expleo\webcm\config\TransactionManagerController.class
 com\expleo\webcm\entity\securitydb\LoginRoles.class
 com\expleo\webcm\dao\UserDAOImpl.class
+com\expleo\webcm\service\SearchServiceImpl.class
 com\expleo\webcm\controllers\EmployeeController.class
 com\expleo\webcm\service\UserServiceImpl.class
 com\expleo\webcm\controllers\AdminController.class
-com\expleo\webcm\service\HibernateSearchService.class
 com\expleo\webcm\config\SecurityDataSourceConfig.class
 com\expleo\webcm\config\WebMVCImplConfig.class
 com\expleo\webcm\controllers\UserAccesController.class
@@ -17,6 +19,8 @@ com\expleo\webcm\config\WebDispatcherServletInitializer.class
 com\expleo\webcm\dao\UserDAO.class
 com\expleo\webcm\controllers\HomeController.class
 com\expleo\webcm\config\SecurityWebApplicationInitializer.class
+com\expleo\webcm\dao\SearchDAOImpl.class
+com\expleo\webcm\service\SearchService.class
 com\expleo\webcm\config\HibernateSearchExpleoUserConfig.class
 com\expleo\webcm\controllers\RetexController.class
 com\expleo\webcm\entity\securitydb\LoginUser.class

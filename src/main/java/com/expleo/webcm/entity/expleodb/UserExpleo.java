@@ -8,23 +8,24 @@ import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.bridge.builtin.IntegerBridge;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 
-//@AnalyzerDef(name = "ngram",
-//        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class ),
-//        filters = {
-//                @TokenFilterDef(factory = StandardFilterFactory.class),
-//                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-//                @TokenFilterDef(factory = StopFilterFactory.class),
-//                @TokenFilterDef(factory = NGramFilterFactory.class,
-//                        params = {
-//                                @Parameter(name = "minGramSize", value = "3"),
-//                                @Parameter(name = "maxGramSize", value = "10") } )
-//        }
-//)
+@AnalyzerDef(name = "ngram",
+        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class ),
+        filters = {
+                @TokenFilterDef(factory = StandardFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = StopFilterFactory.class),
+                @TokenFilterDef(factory = NGramFilterFactory.class,
+                        params = {
+                                @Parameter(name = "minGramSize", value = "3"),
+                                @Parameter(name = "maxGramSize", value = "3") } )
+        }
+)
 @Indexed
 @Entity
 @Table(name = "user", schema = "expleodb")
@@ -35,13 +36,13 @@ public class UserExpleo {
     @Column(name="ID_user")
     private int id;
 
-//    @Field(analyzer = @Analyzer(definition = "ngram"))
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @Field(analyzer = @Analyzer(definition = "ngram"))
+//    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
     @Column(name="Nume_user")
     private String nume;
 
-//    @Field(analyzer = @Analyzer(definition = "ngram"))
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @Field(analyzer = @Analyzer(definition = "ngram"))
+//    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
     @Column(name="Prenume_user")
     private String prenume;
 
@@ -50,7 +51,7 @@ public class UserExpleo {
     @Max(value = 9999, message = "Numar format din 4 cifre")
     @Column(name="Numar_matricol")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-    @NumericField
+    @FieldBridge(impl = IntegerBridge.class)
     private int numarMatricol;
 
     @NotEmpty(message = "is required")

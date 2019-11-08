@@ -1,6 +1,7 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class AdminController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SearchService searchService;
 
     //add req mapping for /admin
     @GetMapping()
@@ -36,7 +40,7 @@ public class AdminController {
         UserExpleo employee = new UserExpleo();
         theModel.addAttribute("newEmployee", employee);
 
-        userService.searchUser("ovi");
+        searchService.searchUser("3465");
 
         return "add-user";
     }
@@ -62,7 +66,7 @@ public class AdminController {
 
     @GetMapping("/updateUser/search")
     public String searchUsers(@RequestParam("text") String text){
-        List<UserExpleo> list = userService.searchUser(text);
+        List<UserExpleo> list = searchService.searchUser(text);
 
         return "update-user";
     }

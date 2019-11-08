@@ -32,9 +32,4 @@ public class UserServiceImpl implements UserService {
         return userDAO.getUserExpleo(search);
     }
 
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public List<UserExpleo> searchUser(String text) {
-       return userDAO.searchUser(text);
-    }
 }

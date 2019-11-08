@@ -13,6 +13,7 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
@@ -74,43 +75,4 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    @Override
-    public List<UserExpleo> searchUser(String text) {
-
-        Session session = sessionFactory.openSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-
-        try {
-            fullTextSession.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Transaction tx = fullTextSession.beginTransaction();
-
-        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
-                .forEntity(UserExpleo.class).get();
-
-        org.apache.lucene.search.Query query = qb
-                .keyword()
-                .fuzzy()
-                .onFields("nume", "prenume", "email")
-                .matching(text)
-                .createQuery();
-
-        org.hibernate.query.Query hibQuery =
-                fullTextSession.createFullTextQuery(query, UserExpleo.class);
-
-        List result = hibQuery.list();
-
-//        System.out.println("ăâîșț");
-
-        for(Object o : result){
-            System.out.println( "-----------------" + o );
-        }
-
-
-        tx.commit();
-        session.close();
-        return result;
-    }
 }

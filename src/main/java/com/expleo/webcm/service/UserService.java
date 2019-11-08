@@ -8,5 +8,4 @@ public interface UserService {
     public void saveNewUser(UserExpleo newUser);
     public void saveNewUserSecurityDb(UserExpleo newUser);
     public UserExpleo getUserExpleo(String search);
-    public List<UserExpleo> searchUser(String text);
 }
