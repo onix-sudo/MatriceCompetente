@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -15,25 +15,55 @@
 </head>
 <body>
 
-    <form:form action = "searchUser"  method="GET">
-    <table>
 
-        <tr>
-            <td>
-            Name:
-            <form:input type="text"  name="search" placeholder="Enter Text To Search" />
-            </td>
-        </tr>
+        <spring:url var="go" value="/admin/updateUser/search" >
 
-        <tr>
+        </spring:url>
 
-            <td><input type="submit" value="Search"/></td>
-        </tr>
+        <form action="${go}" method="get">
+            <table>
+                <tr>
+                    <td><label>Search</label></td>
+                    <td><input type="text", name = "searchTerm"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="search"/></td>
+                </tr>
+            </table>
+        </form>
+<div id="container">
+    <div id="content">
+        <p>
+        		User: <security:authentication property="principal.username" />
+        </p>
+        <core:if test="${result != null}">
+        <table>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Numar Matricol</th>
+                <th>Email</th>
+                <th>Functie</th>
+            </tr>
+            <core:forEach var="tempResult" items="${result}">
+            <tr>
+                <td>${tempResult.nume}</td>
+                <td>${tempResult.prenume}</td>
+                <td>${tempResult.numarMatricol}</td>
+                <td>${tempResult.email}</td>
+                <td>${tempResult.functie}</td>
+            </tr>
+            </core:forEach>
 
-    </table>
+        </table>
+        </core:if>
 
-    </form:form>
 
+    </div>
+
+
+</div>
 
 </body>
 

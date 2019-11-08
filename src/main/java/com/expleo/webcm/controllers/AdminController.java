@@ -40,7 +40,7 @@ public class AdminController {
         UserExpleo employee = new UserExpleo();
         theModel.addAttribute("newEmployee", employee);
 
-        searchService.searchUser("3465");
+        searchService.searchUser("Ovi");
 
         return "add-user";
     }
@@ -61,12 +61,23 @@ public class AdminController {
 
     @GetMapping("/updateUser")
     public String updateUser(){
-        return "update-user";
+        return "search-update-user";
     }
 
     @GetMapping("/updateUser/search")
-    public String searchUsers(@RequestParam("text") String text){
-        List<UserExpleo> list = searchService.searchUser(text);
+    public String searchUsers(@RequestParam(value = "searchTerm") String text, Model theModel){
+        List<UserExpleo> result = searchService.searchUser(text);
+
+//        for(Object o : result){
+//            System.out.println( "-----------------" + o );
+//        }
+        theModel.addAttribute("result", result);
+
+        return "search-update-user";
+    }
+
+    @PostMapping("/updateUser/modify")
+    public String modifyUser(@RequestParam("userId") int theId, Model theModel){
 
         return "update-user";
     }

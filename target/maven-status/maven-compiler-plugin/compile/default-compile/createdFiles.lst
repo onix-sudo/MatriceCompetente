@@ -21,7 +21,6 @@ com\expleo\webcm\controllers\HomeController.class
 com\expleo\webcm\config\SecurityWebApplicationInitializer.class
 com\expleo\webcm\dao\SearchDAOImpl.class
 com\expleo\webcm\service\SearchService.class
-com\expleo\webcm\config\HibernateSearchExpleoUserConfig.class
 com\expleo\webcm\controllers\RetexController.class
 com\expleo\webcm\entity\securitydb\LoginUser.class
 com\expleo\webcm\service\UserService.class

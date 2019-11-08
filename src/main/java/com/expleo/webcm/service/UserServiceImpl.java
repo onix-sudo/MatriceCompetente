@@ -2,11 +2,10 @@ package com.expleo.webcm.service;
 
 import com.expleo.webcm.dao.UserDAO;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.securitydb.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,8 +27,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public UserExpleo getUserExpleo(String search) {
-        return userDAO.getUserExpleo(search);
+    public UserExpleo getUserExpleoById(int id) {
+        return userDAO.getUserExpleoById(id);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public LoginUser getLoginUserById(int id) {
+        return userDAO.getLoginUserById(id);
     }
 
 }

@@ -71,8 +71,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserExpleo getUserExpleo(String search) {
-        return null;
+    public UserExpleo getUserExpleoById(int id) {
+        Session session = sessionFactory.openSession();
+        UserExpleo result = session.get(UserExpleo.class, id);
+        return result;
     }
 
+    @Override
+    public LoginUser getLoginUserById(int id) {
+        Session session = sessionFactory.openSession();
+        LoginUser result = session.get(LoginUser.class, id);
+        return result;
+    }
 }

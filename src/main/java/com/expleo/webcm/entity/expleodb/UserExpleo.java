@@ -2,7 +2,9 @@ package com.expleo.webcm.entity.expleodb;
 
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.StopFilterFactory;
-import org.apache.lucene.analysis.ngram.NGramFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.apache.lucene.analysis.ngram.*;
 import org.apache.lucene.analysis.standard.StandardFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
@@ -15,15 +17,16 @@ import javax.validation.constraints.*;
 
 
 @AnalyzerDef(name = "ngram",
-        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class ),
+        tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
         filters = {
-                @TokenFilterDef(factory = StandardFilterFactory.class),
+//                @TokenFilterDef(factory = StandardFilterFactory.class),
                 @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-                @TokenFilterDef(factory = StopFilterFactory.class),
-                @TokenFilterDef(factory = NGramFilterFactory.class,
+//                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+//                @TokenFilterDef(factory = StopFilterFactory.class),
+                @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
                                 @Parameter(name = "minGramSize", value = "3"),
-                                @Parameter(name = "maxGramSize", value = "3") } )
+                                @Parameter(name = "maxGramSize", value = "5") } )
         }
 )
 @Indexed
@@ -36,12 +39,12 @@ public class UserExpleo {
     @Column(name="ID_user")
     private int id;
 
-    @Field(analyzer = @Analyzer(definition = "ngram"))
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngram"))
 //    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
     @Column(name="Nume_user")
     private String nume;
 
-    @Field(analyzer = @Analyzer(definition = "ngram"))
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngram"))
 //    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
     @Column(name="Prenume_user")
     private String prenume;
@@ -50,7 +53,7 @@ public class UserExpleo {
     @Min(value = 1000, message = "Numar format din 4 cifre")
     @Max(value = 9999, message = "Numar format din 4 cifre")
     @Column(name="Numar_matricol")
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
     @FieldBridge(impl = IntegerBridge.class)
     private int numarMatricol;
 

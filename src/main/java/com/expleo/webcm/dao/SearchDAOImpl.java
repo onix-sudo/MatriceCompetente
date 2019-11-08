@@ -43,9 +43,9 @@ public class SearchDAOImpl implements SearchDAO {
         List result = hibQuery.list();
 
 
-        for(Object o : result){
-            System.out.println( "-----------------" + o );
-        }
+//        for(Object o : result){
+//            System.out.println( "-----------------" + o );
+//        }
 
 
         tx.commit();
