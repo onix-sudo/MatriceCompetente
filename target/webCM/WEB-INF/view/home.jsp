@@ -5,10 +5,13 @@
 <head>
     <title>Home Page</title>
 
-            <link rel="stylesheet"
-                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
             <link rel="stylesheet" href="resources/css/style.css">
+
+            <link rel="stylesheet" href="resources/css/header.css">
 
             <link rel="stylesheet" href="resources/css/main.css">
 
@@ -24,6 +27,15 @@
 <%@ include file="navigation.jspf"%>
 
 <body>
+
+<div class="fixed-header">
+    <div class="container">
+        <nav>
+            <a href="#">Expleo</a>
+            <a href="#">About</a>
+        </nav>
+    </div>
+</div>
 <h2>Home Page</h2>
 <hr>
 <p>
@@ -74,6 +86,10 @@
 
     <input type="submit" value="Logout" class="btn btn-warning"/>
 </form:form>
+
+<div class="fixed-footer">
+    <div class="container">Copyright &copy; 2016 Your Company</div>
+</div>
 
 
 </body>
