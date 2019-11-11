@@ -20,10 +20,10 @@ body{
         bottom: 0;
     }
     /* Some more styles to beutify this example */
-    nav a{
+    #hdr a{
         color: #fff;
         text-decoration: none;
-        padding: 7px 25px;
+        padding: 10px 25px;
         display: inline-block;
     }
     .container p{

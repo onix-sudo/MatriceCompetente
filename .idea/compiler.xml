@@ -7,8 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="webCM" />
-        <module name="loginformsecurity" />
         <module name="webcustomertracker" />
+        <module name="loginformsecurity" />
       </profile>
     </annotationProcessing>
   </component>

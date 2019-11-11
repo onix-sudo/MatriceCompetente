@@ -67,6 +67,9 @@ public class SecurityDataSourceConfig {
         securityDataSource.setMaxIdleTime(getIntProperty("logsec.connection.pool.maxIdleTime"));
         myLogger.info("================= logsec.maxIdleTime--- set====================");
 
+        myLogger.info("SECURITY BRO : " + securityDataSource);
+
+
         return securityDataSource;
     }
 

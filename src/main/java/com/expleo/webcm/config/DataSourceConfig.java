@@ -52,6 +52,8 @@ public class DataSourceConfig {
         dataSource.setInitialPoolSize(getIntProperty("connection.pool.maxPoolSize"));
         dataSource.setInitialPoolSize(getIntProperty("connection.pool.maxIdleTime"));
 
+        myLogger.info("A INTRAT AICI" + dataSource);
+
         return dataSource;
     }
 

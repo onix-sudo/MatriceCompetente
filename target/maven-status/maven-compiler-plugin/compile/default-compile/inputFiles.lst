@@ -4,6 +4,9 @@ C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\RetexCon
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\helper\BcryptPasswordGenerator.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\WebDispatcherServletInitializer.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\UserSearchDAO.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\Proiect.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\ProiectDaoImpl.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\ProiectDao.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\UserExpleo.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\TransactionManagerController.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\LeadersController.java
@@ -15,6 +18,7 @@ C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\UserDAOImpl.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\service\HibernateSearchService.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\WebMVCImplConfig.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\UserDAO.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\UserProiect.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\DataSourceConfig.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\AdminController.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\service\UserService.java

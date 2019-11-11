@@ -1,19 +1,7 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="header.jspf"%>
+<%@ include file="navigation.jspf"%>
 
-<html>
-<head>
-    <title>Retex</title>
 
-            <link rel="stylesheet"
-                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<body>
 <h2>Home Page</h2>
 <hr>
 <p>
@@ -38,6 +26,34 @@
 
 
 <hr>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>ID Proiect</th>
+            <th>Nume Proiect</th>
+            <th>Cod</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="proiect" items="${proiectList}" varStatus="status">
+            <tr>
+                <td>${status.index + 1}</td>
+                <td>${proiect.proiectId}</td>
+                <td>
+                    <form method="GET" action="/leaders/projectMemb">
+                        <input type="submit" value="${proiect.numeProiect}" name="proiect">
+                        <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
+                    </form>
+                </td>
+                <td>${proiect.codProiect}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
+<br>
 
 
  <button type="button" class="btn btn-success" onclick="window.location.href='/retex/employee'">Angajat</button>
