@@ -1,8 +1,9 @@
 package com.expleo.webcm.entity.securitydb;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "webcm_security")
@@ -14,6 +15,7 @@ public class LoginUser {
     private int id;
 
     @Column(name = "username")
+    @UniqueElements(message = "Acest user a mai fost introdus in baza de date")
     private String userName;
 
     @Column(name = "password")
@@ -25,13 +27,14 @@ public class LoginUser {
     @Column(name = "reset_token")
     private String resetToken;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "authorities",
             joinColumns = {@JoinColumn(name = "username")},
             inverseJoinColumns = {@JoinColumn(name = "authority")}
     )
-    private Set<LoginRoles> roles = new HashSet<>();
+    private List<LoginRoles> role;
 
     public LoginUser() {
     }
@@ -76,12 +79,12 @@ public class LoginUser {
         this.resetToken = resetToken;
     }
 
-    public Set<LoginRoles> getRoles() {
-        return roles;
+    public List<LoginRoles> getRole() {
+        return role;
     }
 
-    public void setRoles(Set<LoginRoles> roles) {
-        this.roles = roles;
+    public void setRole(List<LoginRoles> role) {
+        this.role = role;
     }
 
     @Override
@@ -94,7 +97,11 @@ public class LoginUser {
                 '}';
     }
 
-    public void addRoles(LoginRoles user_roles) {
-        roles.add(user_roles);
+    public void addRoles(LoginRoles user_role) {
+        role.add(user_role);
+    }
+
+    public void removeRoles(LoginRoles user_role){
+        role.remove(user_role);
     }
 }

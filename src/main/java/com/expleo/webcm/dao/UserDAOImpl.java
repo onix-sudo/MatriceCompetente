@@ -37,8 +37,6 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-//        System.out.println(newUser);
-
         session.save(newUser);
         session.getTransaction().commit();
         session.close();
@@ -71,16 +69,75 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public void updateUserExpleo(UserExpleo userExpleo) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.update(userExpleo);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
     public UserExpleo getUserExpleoById(int id) {
         Session session = sessionFactory.openSession();
+
         UserExpleo result = session.get(UserExpleo.class, id);
+
+        session.close();
         return result;
     }
 
     @Override
     public LoginUser getLoginUserById(int id) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionSecurityFactory.openSession();
+
+        session.beginTransaction();
         LoginUser result = session.get(LoginUser.class, id);
+
+        session.getTransaction().commit();
+//        session.close();
+//        sessionSecurityFactory.close();
         return result;
+    }
+
+    @Override
+    public void removeManagerRole(int theId) {
+        Session session = sessionSecurityFactory.openSession();
+        int manager = 2;
+
+        session.beginTransaction();
+        LoginUser loginUser = session.get(LoginUser.class, theId);
+        LoginRoles role = session.get(LoginRoles.class, manager);
+
+        loginUser.removeRoles(role);
+        session.getTransaction().commit();
+
+        session.close();
+
+        UserExpleo userExpleo = getUserExpleoById(theId);
+        userExpleo.setFunctie("Colaborator");
+        updateUserExpleo(userExpleo);
+    }
+
+    @Override
+    public void addManagerRole(int theId) {
+        Session session = sessionSecurityFactory.openSession();
+        int manager = 2;
+
+        session.beginTransaction();
+        LoginUser loginUser = session.get(LoginUser.class, theId);
+        LoginRoles role = session.get(LoginRoles.class, manager);
+
+        loginUser.addRoles(role);
+        session.getTransaction().commit();
+
+        session.close();
+
+        UserExpleo userExpleo = getUserExpleoById(theId);
+        userExpleo.setFunctie("Manager");
+        updateUserExpleo(userExpleo);
     }
 }

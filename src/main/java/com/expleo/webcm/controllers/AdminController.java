@@ -1,13 +1,17 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.securitydb.LoginRoles;
+import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,7 +44,7 @@ public class AdminController {
         UserExpleo employee = new UserExpleo();
         theModel.addAttribute("newEmployee", employee);
 
-        searchService.searchUser("Ovi");
+//        searchService.searchUser("Ovi");
 
         return "add-user";
     }
@@ -67,18 +71,60 @@ public class AdminController {
     @GetMapping("/updateUser/search")
     public String searchUsers(@RequestParam(value = "searchTerm") String text, Model theModel){
         List<UserExpleo> result = searchService.searchUser(text);
-
-//        for(Object o : result){
-//            System.out.println( "-----------------" + o );
-//        }
         theModel.addAttribute("result", result);
 
         return "search-update-user";
     }
 
-    @PostMapping("/updateUser/modify")
-    public String modifyUser(@RequestParam("userId") int theId, Model theModel){
+    @GetMapping("/updateUser/modify")
+    public ModelAndView modifyUser(@RequestParam("userId") int theId, ModelMap userModel){
+        boolean managerCheck = false;
+        ModelAndView modelAndView = new ModelAndView();
 
-        return "update-user";
+        UserExpleo userExpleo = userService.getUserExpleoById(theId);
+        LoginUser loginUser = userService.getLoginUserById(theId);
+
+        for(LoginRoles loginRoles:loginUser.getRole()){
+            if(loginRoles.getRoles().contains("ROLE_MANAGER")){
+                managerCheck = true;
+                break;
+            }
+        }
+
+        System.out.println("--------------------------------------------- " + managerCheck);
+
+        userModel.addAttribute("managerCheck", managerCheck);
+        userModel.addAttribute("user", userExpleo);
+        modelAndView.addAllObjects(userModel);
+
+        modelAndView.setViewName("update-user");
+
+        return modelAndView;
     }
+
+    @PostMapping("/updateUser/removeManagerRole")
+    public String removeManagerRole(@RequestParam("userId") int theId){
+
+        userService.removeManagerRole(theId);
+
+        return "redirect:/admin/updateUser/modify?userId="+theId;
+    }
+
+    @PostMapping("/updateUser/addManagerRole")
+    public String addManagerRole(@RequestParam("userId") int theId){
+
+        userService.addManagerRole(theId);
+
+        return "redirect:/admin/updateUser/modify?userId="+theId;
+    }
+
+    @PostMapping("/updateUser/update")
+    public String updateUserExpleo(@ModelAttribute ("updateUser") UserExpleo updateUser){
+
+        userService.updateUserExpleo(updateUser);
+
+        return "search-update-user";
+    }
+
+
 }

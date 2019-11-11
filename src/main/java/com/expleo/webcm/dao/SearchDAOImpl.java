@@ -9,7 +9,6 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,12 +40,6 @@ public class SearchDAOImpl implements SearchDAO {
                 fullTextSession.createFullTextQuery(query, UserExpleo.class);
 
         List result = hibQuery.list();
-
-
-//        for(Object o : result){
-//            System.out.println( "-----------------" + o );
-//        }
-
 
         tx.commit();
         session.close();

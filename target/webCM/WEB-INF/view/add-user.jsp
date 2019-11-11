@@ -21,7 +21,7 @@
     <table>
         <tbody>
         <tr>
-            <td><label> Nume (ăâîșț): </label><td>
+            <td><label> Nume: </label><td>
             <td><form:input path="nume" /></td>
         </tr>
 

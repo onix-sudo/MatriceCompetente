@@ -27,14 +27,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
+    public void updateUserExpleo(UserExpleo userExpleo) {
+        userDAO.updateUserExpleo(userExpleo);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
     public UserExpleo getUserExpleoById(int id) {
         return userDAO.getUserExpleoById(id);
     }
 
     @Override
-    @Transactional("transactionExpleoDBManager")
+    @Transactional("transactionSecurityManager")
     public LoginUser getLoginUserById(int id) {
         return userDAO.getLoginUserById(id);
     }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void removeManagerRole(int theId) {
+        userDAO.removeManagerRole(theId);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void addManagerRole(int theId) {
+        userDAO.addManagerRole(theId);
+    }
+
 
 }
