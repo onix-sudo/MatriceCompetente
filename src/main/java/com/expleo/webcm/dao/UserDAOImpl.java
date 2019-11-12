@@ -54,17 +54,12 @@ public class UserDAOImpl implements UserDAO {
         LoginUser userLogin = new LoginUser();
         LoginRoles userRoles = session.get(LoginRoles.class, rolesId);
 
-        System.out.println(newUser);
-        System.out.println(userRoles.getRoles());
-
 //        ====== SET DETAILS ======
         userLogin.setUserName(newUser.getEmail());
         userLogin.setPassword(new BcryptPasswordGenerator()
                 .makePassword(newUser.getNume(), newUser.getNumarMatricol()));
         userLogin.setEnabled(1);
         userLogin.setResetToken(null);
-
-        System.out.println(userLogin);
 
         userLogin.addRoles(userRoles);
 
