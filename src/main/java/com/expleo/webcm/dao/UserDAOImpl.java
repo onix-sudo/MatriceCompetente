@@ -13,6 +13,7 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
@@ -36,8 +37,6 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-//        System.out.println(newUser);
-
         session.save(newUser);
         session.getTransaction().commit();
         session.close();
@@ -55,12 +54,17 @@ public class UserDAOImpl implements UserDAO {
         LoginUser userLogin = new LoginUser();
         LoginRoles userRoles = session.get(LoginRoles.class, rolesId);
 
+        System.out.println(newUser);
+        System.out.println(userRoles.getRoles());
+
 //        ====== SET DETAILS ======
         userLogin.setUserName(newUser.getEmail());
         userLogin.setPassword(new BcryptPasswordGenerator()
                 .makePassword(newUser.getNume(), newUser.getNumarMatricol()));
         userLogin.setEnabled(1);
         userLogin.setResetToken(null);
+
+        System.out.println(userLogin);
 
         userLogin.addRoles(userRoles);
 
@@ -70,45 +74,75 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserExpleo getUserExpleo(String search) {
-        return null;
+    public void updateUserExpleo(UserExpleo userExpleo) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.update(userExpleo);
+
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
-    public void searchUser(String text) {
-
+    public UserExpleo getUserExpleoById(int id) {
         Session session = sessionFactory.openSession();
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
 
-        try {
-            fullTextSession.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Transaction tx = fullTextSession.beginTransaction();
+        UserExpleo result = session.get(UserExpleo.class, id);
 
-        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
-                .forEntity(UserExpleo.class).get();
+        session.close();
+        return result;
+    }
 
-        org.apache.lucene.search.Query query = qb
-                .keyword()
-                .onFields("nume", "prenume", "email")
-                .matching(text)
-                .createQuery();
+    @Override
+    public LoginUser getLoginUserById(int id) {
+        Session session = sessionSecurityFactory.openSession();
 
-        org.hibernate.query.Query hibQuery =
-                fullTextSession.createFullTextQuery(query, UserExpleo.class);
+        session.beginTransaction();
+        LoginUser result = session.get(LoginUser.class, id);
 
-        List result = hibQuery.list();
+        session.getTransaction().commit();
+//        session.close();
+//        sessionSecurityFactory.close();
+        return result;
+    }
 
-        System.out.println("ăâîșț");
+    @Override
+    public void removeManagerRole(int theId) {
+        Session session = sessionSecurityFactory.openSession();
+        int manager = 2;
 
-        for(Object o : result){
-            System.out.println( "-----------------" + o );
-        }
+        session.beginTransaction();
+        LoginUser loginUser = session.get(LoginUser.class, theId);
+        LoginRoles role = session.get(LoginRoles.class, manager);
 
-        tx.commit();
+        loginUser.removeRoles(role);
+        session.getTransaction().commit();
+
         session.close();
 
+        UserExpleo userExpleo = getUserExpleoById(theId);
+        userExpleo.setFunctie("Colaborator");
+        updateUserExpleo(userExpleo);
+    }
+
+    @Override
+    public void addManagerRole(int theId) {
+        Session session = sessionSecurityFactory.openSession();
+        int manager = 2;
+
+        session.beginTransaction();
+        LoginUser loginUser = session.get(LoginUser.class, theId);
+        LoginRoles role = session.get(LoginRoles.class, manager);
+
+        loginUser.addRoles(role);
+        session.getTransaction().commit();
+
+        session.close();
+
+        UserExpleo userExpleo = getUserExpleoById(theId);
+        userExpleo.setFunctie("Manager");
+        updateUserExpleo(userExpleo);
     }
 }

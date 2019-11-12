@@ -18,9 +18,15 @@ public class LoginRoles {
     @Column(name = "user_roles")
     private String roles;
 
-    @ManyToMany(mappedBy = "roles")
-
-    private Set<LoginUser> users = new HashSet<>();
+//    @ManyToMany(mappedBy = "role")
+        @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+        name = "authorities",
+        joinColumns = {@JoinColumn(name = "authority")},
+        inverseJoinColumns = {@JoinColumn(name = "username")}
+)
+    private Set<LoginUser> users;
 
     public LoginRoles() {
 
@@ -51,7 +57,18 @@ public class LoginRoles {
     }
 
     public void addUsers(LoginUser user){
+        if(users == null){
+            users = new HashSet<>();
+        }
+
         users.add(user);
     }
 
+    @Override
+    public String toString() {
+        return "LoginRoles{" +
+                "id=" + id +
+                ", roles='" + roles + '\'' +
+                "}\n";
+    }
 }

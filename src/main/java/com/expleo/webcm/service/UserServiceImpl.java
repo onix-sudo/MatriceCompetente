@@ -2,6 +2,7 @@ package com.expleo.webcm.service;
 
 import com.expleo.webcm.dao.UserDAO;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.securitydb.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +27,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public UserExpleo getUserExpleo(String search) {
-        return userDAO.getUserExpleo(search);
+    public void updateUserExpleo(UserExpleo userExpleo) {
+        userDAO.updateUserExpleo(userExpleo);
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void searchUser(String text) {
-        userDAO.searchUser(text);
+    public UserExpleo getUserExpleoById(int id) {
+        return userDAO.getUserExpleoById(id);
     }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public LoginUser getLoginUserById(int id) {
+        return userDAO.getLoginUserById(id);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void removeManagerRole(int theId) {
+        userDAO.removeManagerRole(theId);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void addManagerRole(int theId) {
+        userDAO.addManagerRole(theId);
+    }
+
+
 }
