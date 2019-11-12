@@ -1,8 +1,9 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.dao.ProiectDao;
-import com.expleo.webcm.dao.ProiectDaoImpl;
+import com.expleo.webcm.dao.SkillDao;
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,9 @@ public class RetexController {
     @Autowired
     private ProiectDao proiectDao;
 
+    @Autowired
+    private SkillDao skillDao;
+
     @GetMapping
     public String retex(ModelMap model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -34,5 +38,13 @@ public class RetexController {
         model.addAttribute("proiectList", proiectList);
 
         return "retex";
+    }
+
+    @GetMapping(value = "/cmptMat")
+    public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
+        List<Skill> skills = skillDao.showSkillsforProject(proiectId);
+        model.addAttribute("skillList", skills);
+
+        return "cmptMat";
     }
 }

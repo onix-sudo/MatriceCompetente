@@ -1,3 +1,4 @@
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\UserSkill.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\SecurityConfig.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\HibernateSearchExpleoUserConfig.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\RetexController.java
@@ -5,9 +6,12 @@ C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\helper\BcryptPasswor
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\WebDispatcherServletInitializer.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\UserSearchDAO.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\Proiect.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\SkillDao.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\UserSkillId.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\ProiectDaoImpl.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\ProiectDao.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\UserExpleo.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\dao\SkillDaoImpl.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\TransactionManagerController.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\LeadersController.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\UserAccesController.java
@@ -26,5 +30,6 @@ C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\aspepcts\WebCMLoggin
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\SecurityWebApplicationInitializer.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\config\CustomAuthenticationSuccessHandler.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\EmployeeController.java
+C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\expleodb\Skill.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\entity\securitydb\LoginUser.java
 C:\Users\trusu\Desktop\webCM\src\main\java\com\expleo\webcm\controllers\HomeController.java

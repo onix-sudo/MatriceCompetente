@@ -1,6 +1,8 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "proiect", schema = "expleodb")
@@ -15,6 +17,16 @@ public class Proiect {
 
     @Column(name="Cod")
     private String codProiect;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "proiect_skill",
+            joinColumns = { @JoinColumn(name = "ID_Proiect")},
+            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
+    )
+    private List<Skill> skills = new ArrayList<>();
 
     public Proiect() {
 
@@ -48,6 +60,14 @@ public class Proiect {
 
     public void setCodProiect(String codProiect) {
         this.codProiect = codProiect;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 
     @Override

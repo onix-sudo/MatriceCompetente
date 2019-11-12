@@ -6,14 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +23,6 @@ public class ProiectDaoImpl implements ProiectDao{
 
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
-
     @Override
     public List<Proiect> findUserIdByEmail(String username) {
         Session session = sessionFactory.openSession();
@@ -41,6 +33,12 @@ public class ProiectDaoImpl implements ProiectDao{
         query.setParameter("email", username);
         List<Proiect> proiecte = query.list();
 
+        session.getTransaction().commit();
+
         return proiecte;
     }
+
+
+
+
 }
