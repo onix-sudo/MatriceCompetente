@@ -3,7 +3,10 @@ package com.expleo.webcm.entity.securitydb;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "webcm_security")
@@ -15,7 +18,6 @@ public class LoginUser {
     private int id;
 
     @Column(name = "username")
-    @UniqueElements(message = "Acest user a mai fost introdus in baza de date")
     private String userName;
 
     @Column(name = "password")
@@ -34,7 +36,7 @@ public class LoginUser {
             joinColumns = {@JoinColumn(name = "username")},
             inverseJoinColumns = {@JoinColumn(name = "authority")}
     )
-    private List<LoginRoles> role;
+    private Set<LoginRoles> role;
 
     public LoginUser() {
     }
@@ -79,13 +81,14 @@ public class LoginUser {
         this.resetToken = resetToken;
     }
 
-    public List<LoginRoles> getRole() {
+    public Set<LoginRoles> getRole() {
         return role;
     }
 
-    public void setRole(List<LoginRoles> role) {
+    public void setRole(Set<LoginRoles> role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {
@@ -98,6 +101,9 @@ public class LoginUser {
     }
 
     public void addRoles(LoginRoles user_role) {
+        if(role == null){
+            role = new HashSet<>();
+        }
         role.add(user_role);
     }
 

@@ -27,11 +27,9 @@
         <p>
         		User: <security:authentication property="principal.username" />
         </p>
-
-
-    <form:form action = "/updateUser/update" modelAttribute = "updateUser" method="POST" accept-charset="utf-8">
-    			<%--need to associate this data with customer id--%>
-    			<form:hidden path="id"/>
+    <form:form action = "update" modelAttribute = "user" method="POST" accept-charset="utf-8">
+    			<!-- need to associate this data with customer id -->
+    			<form:hidden path="id" />
     <table>
         <tbody>
         <tr>
@@ -72,6 +70,8 @@
             <td><input type="submit" value="Save" class="save"/></td>
         </tr>
         </tbody>
+
+
 
         </form:form>
 

@@ -10,10 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Controller
@@ -57,7 +61,6 @@ public class AdminController {
         }
 
         userService.saveNewUser(employee);
-        System.out.println("================================================" + employee.getNume());
         userService.saveNewUserSecurityDb(employee);
 
         return "redirect:/admin";
@@ -70,8 +73,9 @@ public class AdminController {
 
     @GetMapping("/updateUser/search")
     public String searchUsers(@RequestParam(value = "searchTerm") String text, Model theModel){
-        List<UserExpleo> result = searchService.searchUser(text);
-        theModel.addAttribute("result", result);
+
+        List<UserExpleo> searchResult = searchService.searchUser(text);
+        theModel.addAttribute("result", searchResult);
 
         return "search-update-user";
     }
@@ -90,8 +94,6 @@ public class AdminController {
                 break;
             }
         }
-
-        System.out.println("--------------------------------------------- " + managerCheck);
 
         userModel.addAttribute("managerCheck", managerCheck);
         userModel.addAttribute("user", userExpleo);
@@ -119,11 +121,11 @@ public class AdminController {
     }
 
     @PostMapping("/updateUser/update")
-    public String updateUserExpleo(@ModelAttribute ("updateUser") UserExpleo updateUser){
+    public String updateUserExpleo(@ModelAttribute ("user") UserExpleo updateUser){
 
         userService.updateUserExpleo(updateUser);
 
-        return "search-update-user";
+        return "redirect:/admin/updateUser";
     }
 
 

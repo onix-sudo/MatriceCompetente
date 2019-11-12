@@ -20,18 +20,18 @@
 
         </spring:url>
 
-        <form action="${go}" method="get">
+        <form:form action="${go}" method="get">
             <table>
                 <tr>
                     <td><label>Search</label></td>
-                    <td><input type="text", name = "searchTerm"/></td>
+                    <td><input type="text" minlength="3" name = "searchTerm" title="Campul trebuie sa contina cel putin 2 caractere." required/>
                 </tr>
                 <tr>
                     <td></td>
                     <td><input type="submit" value="search"/></td>
                 </tr>
             </table>
-        </form>
+        </form:form>
 <div id="container">
     <div id="content">
         <p>

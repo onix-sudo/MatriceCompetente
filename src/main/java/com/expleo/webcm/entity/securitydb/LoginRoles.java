@@ -18,7 +18,7 @@ public class LoginRoles {
     @Column(name = "user_roles")
     private String roles;
 
-//    @ManyToMany(mappedBy = "roles")
+//    @ManyToMany(mappedBy = "role")
         @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
         CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
@@ -26,7 +26,7 @@ public class LoginRoles {
         joinColumns = {@JoinColumn(name = "authority")},
         inverseJoinColumns = {@JoinColumn(name = "username")}
 )
-    private List<LoginUser> users;
+    private Set<LoginUser> users;
 
     public LoginRoles() {
 
@@ -48,15 +48,19 @@ public class LoginRoles {
         this.roles = roles;
     }
 
-    public List<LoginUser> getUsers() {
+    public Set<LoginUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<LoginUser> users) {
+    public void setUsers(Set<LoginUser> users) {
         this.users = users;
     }
 
     public void addUsers(LoginUser user){
+        if(users == null){
+            users = new HashSet<>();
+        }
+
         users.add(user);
     }
 
