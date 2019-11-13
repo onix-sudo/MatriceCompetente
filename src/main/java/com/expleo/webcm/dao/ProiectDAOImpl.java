@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ProiectDaoImpl implements ProiectDao{
+public class ProiectDAOImpl implements ProiectDAO {
 
     @Qualifier("sessionFactory")
     @Autowired
@@ -24,7 +24,7 @@ public class ProiectDaoImpl implements ProiectDao{
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     @Override
-    public List<Proiect> findUserIdByEmail(String username) {
+    public List<Proiect> findProjectByEmail(String username) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Proiect where proiectId in \n" +
