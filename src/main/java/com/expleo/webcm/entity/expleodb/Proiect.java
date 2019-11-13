@@ -7,9 +7,10 @@ import java.util.List;
 @Entity
 @Table(name = "proiect", schema = "expleodb")
 public class Proiect {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_proiect")
+    @Column(name="ID_Proiect")
     private int proiectId;
 
     @Column(name="Nume_proiect")
@@ -17,6 +18,9 @@ public class Proiect {
 
     @Column(name="Cod")
     private String codProiect;
+
+    @Column(name = "Manager_nrMatricol")
+    private int manager;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -32,11 +36,11 @@ public class Proiect {
 
     }
 
-    public Proiect(int proiectId, String numeProiect, String codProiect) {
-        this.proiectId = proiectId;
-        this.numeProiect = numeProiect;
-        this.codProiect = codProiect;
-    }
+//    public Proiect(int proiectId, String numeProiect, String codProiect) {
+//        this.proiectId = proiectId;
+//        this.numeProiect = numeProiect;
+//        this.codProiect = codProiect;
+//    }
 
     public int getProiectId() {
         return proiectId;
@@ -60,6 +64,14 @@ public class Proiect {
 
     public void setCodProiect(String codProiect) {
         this.codProiect = codProiect;
+    }
+
+    public int getManager() {
+        return manager;
+    }
+
+    public void setManager(int manager) {
+        this.manager = manager;
     }
 
     public List<Skill> getSkills() {

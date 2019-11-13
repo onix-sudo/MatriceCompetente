@@ -38,6 +38,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional("transactionExpleoDBManager")
+    public UserExpleo getUserExpleoByEmail(String email) {
+        return userDAO.getUserExpleoByEmail(email);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public UserExpleo getUserExpleoPrincipal() {
+        return userDAO.getUserExpleoPrincipal();
+    }
+
+    @Override
     @Transactional("transactionSecurityManager")
     public LoginUser getLoginUserById(int id) {
         return userDAO.getLoginUserById(id);

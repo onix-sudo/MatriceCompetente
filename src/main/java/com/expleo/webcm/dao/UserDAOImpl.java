@@ -4,10 +4,11 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.helper.BcryptPasswordGenerator;
-import org.apache.lucene.search.Query;
+import com.expleo.webcm.helper.Principal;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -88,6 +89,29 @@ public class UserDAOImpl implements UserDAO {
 
         session.close();
         return result;
+    }
+
+    @Override
+    public UserExpleo getUserExpleoByEmail(String email) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("FROM UserExpleo WHERE email= :email");
+        query.setParameter("email", email);
+
+        UserExpleo user = (UserExpleo) query.getSingleResult();
+
+        session.getTransaction().commit();
+
+        return user;
+    }
+
+    @Override
+    public UserExpleo getUserExpleoPrincipal() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        return getUserExpleoByEmail(Principal.getPrincipal());
     }
 
     @Override

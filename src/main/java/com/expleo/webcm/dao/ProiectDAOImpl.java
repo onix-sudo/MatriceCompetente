@@ -38,7 +38,14 @@ public class ProiectDAOImpl implements ProiectDAO {
         return proiecte;
     }
 
+    @Override
+    public void saveNewProject(Proiect proiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
+        session.save(proiect);
 
-
+        session.getTransaction().commit();
+        session.close();
+    }
 }

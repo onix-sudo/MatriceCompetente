@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface ProiectDAO {
 
-    public List<Proiect> findProjectByEmail(String username);
+    List<Proiect> findProjectByEmail(String username);
+
+    void saveNewProject(Proiect proiect);
+
 }
