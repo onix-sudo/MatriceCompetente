@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class SkillDaoImpl implements SkillDao{
+public class SkillDAOImpl implements SkillDAO {
     @Qualifier("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;

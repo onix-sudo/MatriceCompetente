@@ -1,7 +1,7 @@
 package com.expleo.webcm.controllers;
 
-import com.expleo.webcm.dao.ProiectDao;
-import com.expleo.webcm.dao.SkillDao;
+import com.expleo.webcm.dao.ProiectDAO;
+import com.expleo.webcm.dao.SkillDAO;
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import java.util.List;
 @RequestMapping("/retex")
 public class RetexController {
     @Autowired
-    private ProiectDao proiectDao;
+    private ProiectDAO proiectDao;
 
     @Autowired
-    private SkillDao skillDao;
+    private SkillDAO skillDao;
 
     @GetMapping
     public String retex(ModelMap model){

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ProiectDaoImpl implements ProiectDao{
+public class ProiectDAOImpl implements ProiectDAO {
 
     @Qualifier("sessionFactory")
     @Autowired
