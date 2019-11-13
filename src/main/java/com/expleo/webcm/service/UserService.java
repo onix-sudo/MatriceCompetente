@@ -10,8 +10,12 @@ public interface UserService {
     void updateUserExpleo(UserExpleo userExpleo);
 
     UserExpleo getUserExpleoById(int id);
+    UserExpleo getUserExpleoByEmail(String email);
+    UserExpleo getUserExpleoPrincipal();
     LoginUser getLoginUserById(int id);
 
     void removeManagerRole(int theId);
     void addManagerRole(int theId);
+
+
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProiectDao {
 
     public List<Proiect> findUserIdByEmail(String username);
+
+    void saveNewProject(Proiect proiect);
 }
