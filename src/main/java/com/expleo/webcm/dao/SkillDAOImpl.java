@@ -1,18 +1,18 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.Skill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ProiectDaoImpl implements ProiectDao{
-
+public class SkillDAOImpl implements SkillDAO {
     @Qualifier("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
@@ -23,22 +23,17 @@ public class ProiectDaoImpl implements ProiectDao{
 
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
-    @Override
-    public List<Proiect> findUserIdByEmail(String username) {
+    public List<Skill> showSkillsforProject(int idProject) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Proiect where proiectId in \n" +
-                "(Select idProiect from UserProiect WHERE idUser = \n" +
-                "(Select id from UserExpleo WHERE email = :email))");
-        query.setParameter("email", username);
-        List<Proiect> proiecte = query.list();
 
-        session.getTransaction().commit();
+        Proiect proiect = session.get(Proiect.class, idProject);
 
-        return proiecte;
+        List<Skill> skills = proiect.getSkills();
+
+        myLogger.info(skills.toString());
+
+        return skills;
+
     }
-
-
-
-
 }

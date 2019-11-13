@@ -5,7 +5,7 @@ import com.expleo.webcm.entity.expleodb.Proiect;
 import javax.sql.DataSource;
 import java.util.List;
 
-public interface ProiectDao {
+public interface ProiectDAO {
 
-    public List<Proiect> findUserIdByEmail(String username);
+    public List<Proiect> findProjectByEmail(String username);
 }

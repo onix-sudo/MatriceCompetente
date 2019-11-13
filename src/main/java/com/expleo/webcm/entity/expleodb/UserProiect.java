@@ -15,8 +15,6 @@ public class UserProiect {
     @Column(name="ID_proiect")
     private int idProiect;
 
-    @Column(name="Timp")
-    private int timp;
 
     public UserProiect() {
 
@@ -38,20 +36,11 @@ public class UserProiect {
         this.idProiect = idProiect;
     }
 
-    public int getTimp() {
-        return timp;
-    }
-
-    public void setTimp(int timp) {
-        this.timp = timp;
-    }
-
     @Override
     public String toString() {
         return "UserProiect{" +
                 "idUser=" + idUser +
                 ", idProiect=" + idProiect +
-                ", timp=" + timp +
                 '}';
     }
 }
