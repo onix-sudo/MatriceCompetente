@@ -4,43 +4,52 @@ import com.expleo.webcm.dao.UserDAO;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="UserProiect")
 @Table(name="user_proiect", schema="expleodb")
 public class UserProiect {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_user")
-    private int idUser;
+    @EmbeddedId
+    private UserProiectId id;
 
-    @Column(name="ID_proiect")
-    private int idProiect;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ID_user", insertable = false, updatable = false)
+    // @MapsId("userId")
+    private UserExpleo user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_proiect", insertable = false, updatable = false)
+    // @MapsId("skillId")
+    private Proiect proiect;
 
     public UserProiect() {
 
     }
 
-    public int getIdUser() {
-        return idUser;
+    public UserProiect(UserExpleo user, Proiect proiect) {
+        this.user = user;
+        this.proiect = proiect;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public UserProiectId getId() {
+        return id;
     }
 
-    public int getIdProiect() {
-        return idProiect;
+    public void setId(UserProiectId id) {
+        this.id = id;
     }
 
-    public void setIdProiect(int idProiect) {
-        this.idProiect = idProiect;
+    public UserExpleo getUser() {
+        return user;
     }
 
-    @Override
-    public String toString() {
-        return "UserProiect{" +
-                "idUser=" + idUser +
-                ", idProiect=" + idProiect +
-                '}';
+    public void setUser(UserExpleo user) {
+        this.user = user;
+    }
+
+    public Proiect getProiect() {
+        return proiect;
+    }
+
+    public void setProiect(Proiect proiect) {
+        this.proiect = proiect;
     }
 }
