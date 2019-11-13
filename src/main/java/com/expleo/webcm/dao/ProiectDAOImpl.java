@@ -1,6 +1,9 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.service.UserService;
+import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -24,14 +27,17 @@ public class ProiectDAOImpl implements ProiectDAO {
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     @Override
-    public List<Proiect> findProjectByEmail(String username) {
+    public List<Proiect> findProjectByEmail(UserExpleo user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Proiect where proiectId in \n" +
-                "(Select idProiect from UserProiect WHERE idUser = \n" +
-                "(Select id from UserExpleo WHERE email = :email))");
-        query.setParameter("email", username);
-        List<Proiect> proiecte = query.list();
+//        Query query = session.createQuery("from Proiect where proiectId in \n" +
+//                "(Select idProiect from UserProiectId WHERE idUser = \n" +
+//                "(Select id from UserExpleo WHERE email = :email))");
+//        query.setParameter("email", username);
+//        UserService userService = new UserServiceImpl();
+//        userService.getUserExpleoByEmail(username);
+
+        List<Proiect> proiecte = user.getProiecte();
 
         session.getTransaction().commit();
 

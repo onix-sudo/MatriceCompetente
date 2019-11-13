@@ -14,6 +14,8 @@ import org.hibernate.search.bridge.builtin.IntegerBridge;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @AnalyzerDef(name = "ngram",
@@ -71,6 +73,16 @@ public class UserExpleo {
 
     @Column(name="Functie")
     private String functie;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "user_proiect",
+            joinColumns = { @JoinColumn(name = "ID_user")},
+            inverseJoinColumns = { @JoinColumn(name = "ID_proiect")}
+    )
+    List<Proiect> proiecte = new ArrayList<>();
 
     public UserExpleo() {
     }
@@ -136,6 +148,14 @@ public class UserExpleo {
 
     public void setFunctie(String functie) {
         this.functie = functie;
+    }
+
+    public List<Proiect> getProiecte() {
+        return proiecte;
+    }
+
+    public void setProiecte(List<Proiect> proiecte) {
+        this.proiecte = proiecte;
     }
 
     @Override

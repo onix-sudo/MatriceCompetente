@@ -20,7 +20,7 @@ public class Proiect {
     private String codProiect;
 
     @Column(name = "Manager_nrMatricol")
-    private int manager;
+    private Integer manager;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -31,6 +31,16 @@ public class Proiect {
             inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
     )
     private List<Skill> skills = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "user_proiect",
+            joinColumns = { @JoinColumn(name = "ID_proiect")},
+            inverseJoinColumns = { @JoinColumn(name = "ID_user")}
+    )
+    private List<UserExpleo> users = new ArrayList<>();
 
     public Proiect() {
 
@@ -66,11 +76,11 @@ public class Proiect {
         this.codProiect = codProiect;
     }
 
-    public int getManager() {
+    public Integer getManager() {
         return manager;
     }
 
-    public void setManager(int manager) {
+    public void setManager(Integer manager) {
         this.manager = manager;
     }
 
@@ -80,6 +90,14 @@ public class Proiect {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    public List<UserExpleo> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserExpleo> users) {
+        this.users = users;
     }
 
     @Override
