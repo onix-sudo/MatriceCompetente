@@ -57,7 +57,7 @@ public class UserExpleo {
     @Column(name="Numar_matricol")
     @Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
     @FieldBridge(impl = IntegerBridge.class)
-    private int numarMatricol;
+    private Integer numarMatricol;
 
     @NotEmpty(message = "is required")
     @Email(message = "Nu este valid")
@@ -82,7 +82,7 @@ public class UserExpleo {
             joinColumns = { @JoinColumn(name = "ID_user")},
             inverseJoinColumns = { @JoinColumn(name = "ID_proiect")}
     )
-    List<Proiect> proiecte = new ArrayList<>();
+    private List<Proiect> proiecte = new ArrayList<>();
 
     public UserExpleo() {
     }
@@ -111,11 +111,11 @@ public class UserExpleo {
         this.prenume = prenume;
     }
 
-    public int getNumarMatricol() {
+    public Integer getNumarMatricol() {
         return numarMatricol;
     }
 
-    public void setNumarMatricol(int numarMatricol) {
+    public void setNumarMatricol(Integer numarMatricol) {
         this.numarMatricol = numarMatricol;
     }
 

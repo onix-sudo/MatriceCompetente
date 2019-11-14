@@ -5,6 +5,7 @@ import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.helper.BcryptPasswordGenerator;
 import com.expleo.webcm.helper.Principal;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -65,6 +66,7 @@ public class UserDAOImpl implements UserDAO {
         userLogin.addRoles(userRoles);
 
         session.save(userLogin);
+
         session.getTransaction().commit();
         session.close();
     }
@@ -100,30 +102,30 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
 
         UserExpleo user = (UserExpleo) query.getSingleResult();
+        Hibernate.initialize(user.getProiecte());
 
         session.getTransaction().commit();
+        session.close();
 
         return user;
     }
 
     @Override
     public UserExpleo getUserExpleoPrincipal() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
         return getUserExpleoByEmail(Principal.getPrincipal());
     }
 
     @Override
     public LoginUser getLoginUserById(int id) {
         Session session = sessionSecurityFactory.openSession();
-
         session.beginTransaction();
+
         LoginUser result = session.get(LoginUser.class, id);
+        Hibernate.initialize(result.getRole());
 
         session.getTransaction().commit();
-//        session.close();
-//        sessionSecurityFactory.close();
+        session.close();
+
         return result;
     }
 

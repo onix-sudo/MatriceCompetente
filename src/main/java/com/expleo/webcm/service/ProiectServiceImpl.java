@@ -15,15 +15,15 @@ import java.util.List;
 public class ProiectServiceImpl implements ProiectService {
 
     @Autowired
-    ProiectDAO proiectDao;
+    private ProiectDAO proiectDao;
 
     @Autowired
-    SkillDAO skillDAO;
+    private SkillDAO skillDAO;
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Proiect> findProjectByEmail(UserExpleo user) {
-        return proiectDao.findProjectByEmail(user);
+    public List<Proiect> findProjectByUser(UserExpleo user) {
+        return proiectDao.findProjectByUser(user);
     }
 
     @Override
@@ -36,5 +36,11 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public List<Skill> showSkillsforProject(int idProject) {
         return skillDAO.showSkillsforProject(idProject);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
+        return proiectDao.findManagerProjects(userExpleo);
     }
 }

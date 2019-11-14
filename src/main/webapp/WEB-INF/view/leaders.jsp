@@ -17,8 +17,30 @@
  <button type="button" class="btn btn-danger"
  onclick="window.location.href='/retex/employee'">Renunta la proiect</button>
 
+<hr>
+    <table>
+        <thead>
+            <h2>Proiectele tale:</h2>
+            <tr>
+                <th>Nume proiect</th>
+                <th>Cod proiect</th>
+                <th>Modifica</th>
+            </tr>
+        </thead>
 
+        <tbody>
+            <c:forEach var="proiecte" items="${projects}">
+                <tr>
+                    <td>${proiecte.numeProiect}</td>
+                    <td>${proiecte.codProiect}</td>
+                    <td>
+                        <a href="/retex/leaders/${proiecte.codProiect}"> Modifica </a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
 
+    </table>
 <hr>
 <a href="${pageContext.request.contextPath}/">Back to home page.</a>
 

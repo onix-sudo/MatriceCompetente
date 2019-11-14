@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface ProiectService {
 
-    List<Proiect> findProjectByEmail(UserExpleo user);
+    List<Proiect> findProjectByUser(UserExpleo user);
 
     void saveNewProject(Proiect proiect);
 
-    public List<Skill> showSkillsforProject(int idProject);
+    List<Skill> showSkillsforProject(int idProject);
+
+    List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
 }

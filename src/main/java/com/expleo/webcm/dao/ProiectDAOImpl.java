@@ -27,7 +27,7 @@ public class ProiectDAOImpl implements ProiectDAO {
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     @Override
-    public List<Proiect> findProjectByEmail(UserExpleo user) {
+    public List<Proiect> findProjectByUser(UserExpleo user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 //        Query query = session.createQuery("from Proiect where proiectId in \n" +
@@ -39,7 +39,9 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         List<Proiect> proiecte = user.getProiecte();
 
+
         session.getTransaction().commit();
+        session.close();
 
         return proiecte;
     }
@@ -53,5 +55,23 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where manager = :nrMat");
+        query.setParameter("nrMat", userExpleo.getNumarMatricol());
+
+        List<Proiect> result = (List<Proiect>) query.list();
+
+
+        session.getTransaction().commit();
+        session.close();
+
+        return result;
     }
 }
