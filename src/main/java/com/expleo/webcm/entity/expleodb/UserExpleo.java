@@ -84,6 +84,23 @@ public class UserExpleo {
     )
     private List<Proiect> proiecte = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserSkill> skills = new ArrayList<>();
+
+    public List<UserSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<UserSkill> skills) {
+        this.skills = skills;
+    }
+
+    public void addSkill(Skill skill){
+        UserSkill userSkill = new UserSkill(skill,this);
+        skills.add(userSkill);
+        skill.getUsers().add(userSkill);
+    }
+
     public UserExpleo() {
     }
 
