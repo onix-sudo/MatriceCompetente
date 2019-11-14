@@ -13,4 +13,6 @@ public interface ProiectDAO {
     void saveNewProject(Proiect proiect);
 
     List<Proiect> findManagerProjects(UserExpleo userExpleo);
+
+    Proiect findProjectByCodProiect(String codProiect);
 }

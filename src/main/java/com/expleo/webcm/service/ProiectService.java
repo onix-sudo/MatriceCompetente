@@ -15,4 +15,6 @@ public interface ProiectService {
     List<Skill> showSkillsforProject(int idProject);
 
     List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
+
+    Proiect findProjectByCodProiect(String codProiect);
 }

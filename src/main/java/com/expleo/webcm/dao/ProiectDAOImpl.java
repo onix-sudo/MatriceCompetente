@@ -74,4 +74,21 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         return result;
     }
+
+    @Override
+    public Proiect findProjectByCodProiect(String codProiect) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+
+        Proiect result = (Proiect) query.getSingleResult();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return result;
+    }
 }

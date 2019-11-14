@@ -5,11 +5,6 @@
  <button type="button" class="btn btn-success"
  onclick="window.location.href='/retex/leaders/addNewProject'">Creeaza un proiect</button>
 
- <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/employee'">Adauga angajati</button>
-
- <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/employee'">Adauga competente</button>
 
  <button type="button" class="btn btn-success"
  onclick="window.location.href='/retex/employee'">Alege un proiect fara manager</button>
@@ -34,7 +29,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <a href="/retex/leaders/${proiecte.codProiect}"> Modifica </a>
+                        <a href="/retex/leaders/${proiecte.codProiect}/detaliiProiect"> Modifica </a>
                     </td>
                 </tr>
             </c:forEach>

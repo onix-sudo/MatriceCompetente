@@ -43,4 +43,10 @@ public class ProiectServiceImpl implements ProiectService {
     public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
         return proiectDao.findManagerProjects(userExpleo);
     }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public Proiect findProjectByCodProiect(String codProiect) {
+        return proiectDao.findProjectByCodProiect(codProiect);
+    }
 }
