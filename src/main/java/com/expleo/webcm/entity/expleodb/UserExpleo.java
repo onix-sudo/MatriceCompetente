@@ -82,7 +82,7 @@ public class UserExpleo {
             joinColumns = { @JoinColumn(name = "ID_user")},
             inverseJoinColumns = { @JoinColumn(name = "ID_proiect")}
     )
-    private List<Proiect> proiecte = new ArrayList<>();
+    private List<Proiect> proiecte;
 
     public UserExpleo() {
     }
@@ -158,6 +158,18 @@ public class UserExpleo {
         this.proiecte = proiecte;
     }
 
+    public void addProiecte(Proiect proiect){
+
+        if(proiecte == null){
+            proiecte = new ArrayList<>();
+        }
+        proiecte.add(proiect);
+    }
+
+    public void removeProiecte(Proiect proiect) {
+        proiecte.remove(proiect);
+    }
+
     @Override
     public String toString() {
         return "UserExpleo{" +
@@ -170,4 +182,6 @@ public class UserExpleo {
                 ", functie='" + functie + '\'' +
                 '}';
     }
+
+
 }

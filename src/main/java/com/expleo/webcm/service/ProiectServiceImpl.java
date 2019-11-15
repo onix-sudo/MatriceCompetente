@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProiectServiceImpl implements ProiectService {
@@ -48,5 +49,35 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public Proiect findProjectByCodProiect(String codProiect) {
         return proiectDao.findProjectByCodProiect(codProiect);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void addUserToProject(String codProiect, Integer userId) {
+        proiectDao.addUserToProject(codProiect, userId);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void removeUserFromProject(Integer IDcodProiect, Integer userId) {
+        proiectDao.removeUserFromProject(IDcodProiect, userId);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void dropTheProject(String codProiect) {
+        proiectDao.dropTheProject(codProiect);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Proiect> getFreeProjects() {
+        return proiectDao.getFreeProjects();
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void addFreeProject(String codProiect, UserExpleo principal) {
+        proiectDao.addFreeProject(codProiect, principal);
     }
 }

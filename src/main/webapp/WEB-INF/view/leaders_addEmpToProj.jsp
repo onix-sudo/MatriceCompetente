@@ -1,4 +1,4 @@
-<%@ include file="leadersHeader.jspf"%>
+<%@ include file="leaders_leadersHeader.jspf"%>
 
 <br>
 
@@ -8,10 +8,6 @@
  <button type="button" class="btn btn-info"
  onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaCompetente'">Adauga competente</button>
  <br><hr>
- <font size="5">Detaliile proiectului: ${project.numeProiect}</font>
- <br>
- <font size="5"> Cod: ${project.codProiect}</font>
-
         <form:form action="adaugaColaboratori" method="POST">
             <table>
                 <tr>
@@ -33,7 +29,7 @@
                  <th>Adaugare</th>
              </tr>
              <c:forEach var="tempResult" items="${result}">
-                 <spring:url var="modifyUser" value="/admin/updateUser/modify">
+                 <spring:url var="modifyUser" value="/retex/leaders/${varPath}/adaugaColaboratori/add">
                      <spring:param name="userId" value="${tempResult.id}"/>
                  </spring:url>
              <tr>
@@ -50,7 +46,9 @@
                         </c:when>
 
                         <c:otherwise>
-                              <a href="${modifyUser}">Adauga-l</a>
+                              <form:form action="${modifyUser}" method="POST">
+                                <input type="submit" class="btn btn-success" value="Adauga-l">
+                              </form:form>
                         </c:otherwise>
                     </c:choose>
                  </td>

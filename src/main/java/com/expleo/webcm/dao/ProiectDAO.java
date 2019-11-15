@@ -5,6 +5,7 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Set;
 
 public interface ProiectDAO {
 
@@ -15,4 +16,14 @@ public interface ProiectDAO {
     List<Proiect> findManagerProjects(UserExpleo userExpleo);
 
     Proiect findProjectByCodProiect(String codProiect);
+
+    void addUserToProject(String codProiect, Integer userId);
+
+    void removeUserFromProject(Integer IDcodProiect, Integer userId);
+
+    void dropTheProject(String codProiect);
+
+    List<Proiect> getFreeProjects();
+
+    void addFreeProject(String codProiect, UserExpleo principal);
 }

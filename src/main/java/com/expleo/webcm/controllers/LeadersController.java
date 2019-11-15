@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/retex/leaders")
@@ -34,7 +35,7 @@ public class LeadersController {
         List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
         model.addAttribute("projects", projects);
 
-        return "leaders";
+        return "leaders_leaders";
     }
 
     @GetMapping("/addNewProject")
@@ -43,7 +44,7 @@ public class LeadersController {
         Proiect newProject = new Proiect();
         model.addAttribute("newProject", newProject);
 
-        return "leadersAddNewProject";
+        return "leaders_leadersAddNewProject";
     }
 
     @PostMapping("/addProject")
@@ -57,7 +58,7 @@ public class LeadersController {
         return "redirect:/retex/leaders";
     }
 
-    @GetMapping("/{codProiect}/detaliiProiect")
+    @GetMapping("/{codProiect}")
     public ModelAndView detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
 
@@ -68,27 +69,25 @@ public class LeadersController {
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
         model.addAttribute("project", proiect);
+        model.addAttribute("varPath",codProiect);
         mav.addAllObjects(model);
 
-        mav.setViewName("detaliiProiect");
+        mav.setViewName("leaders_detaliiProiect");
 
         return mav;
     }
 
     @GetMapping("/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(){
-        return "addEmpToProj";
+        return "leaders_addEmpToProj";
     }
 
     @PostMapping("/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@RequestParam("cauta") String cauta,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
         boolean hasProject = false;
-//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
-//        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
         List<UserExpleo> resultList = searchService.searchUser(cauta);
 
-//        List<Proiect> userProjects = userExpleo.getProiecte();
         for(UserExpleo temp:resultList){
             for(Proiect tempProiect: temp.getProiecte()){
                 if(tempProiect.getCodProiect().equals(codProiect)){
@@ -100,17 +99,55 @@ public class LeadersController {
         }
 
 
-        System.out.println("==============================================================         " + hasProject);
         model.addAttribute("result", resultList);
         model.addAttribute("hasProject", hasProject);
+        model.addAttribute("varPath", codProiect);
 
-        return "addEmpToProj";
+        return "leaders_addEmpToProj";
     }
 
     @PostMapping("/{codProiect}/adaugaColaboratori/add")
-    public String adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect)
+    public String adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect,
+                                        @RequestParam("userId") Integer userId)
+    {
+        proiectService.addUserToProject(codProiect, userId);
+        return "redirect:/retex/leaders/"+codProiect;
+    }
+
+    @PostMapping("/{codProiect}/removeEmp")
+    public String removeEmpFromProject(@PathVariable("codProiect") String codProiect,
+                                        @RequestParam("userId") Integer userId)
+    {
+        proiectService.removeUserFromProject(
+                proiectService.findProjectByCodProiect(codProiect).getProiectId(), userId);
+
+        return "redirect:/retex/leaders/"+codProiect;
+    }
+
+    @PostMapping("/{codProiect}/renuntaLaProiect")
+    public String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
 
-        return "redirect:/";
+        proiectService.dropTheProject(codProiect);
+
+        return "redirect:/retex/leaders/";
+    }
+
+    @GetMapping("/freeProjects")
+    public String freeProjects(Model model){
+
+        List<Proiect> result = proiectService.getFreeProjects();
+        model.addAttribute("result", result);
+
+        return "leaders_freeProjects";
+    }
+
+    @PostMapping("/freeProjects/add")
+    public String addFreeProject(@RequestParam("codProiect") String codProiect)
+    {
+        UserExpleo principal = userService.getUserExpleoPrincipal();
+        proiectService.addFreeProject(codProiect, principal);
+
+        return "redirect:/retex/leaders/freeProjects";
     }
 }

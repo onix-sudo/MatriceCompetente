@@ -1,7 +1,10 @@
 package com.expleo.webcm.entity.expleodb;
 
+import org.springframework.security.core.userdetails.User;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -40,7 +43,7 @@ public class Proiect {
             joinColumns = { @JoinColumn(name = "ID_proiect")},
             inverseJoinColumns = { @JoinColumn(name = "ID_user")}
     )
-    private List<UserExpleo> users = new ArrayList<>();
+    private List<UserExpleo> users;
 
     public Proiect() {
 
@@ -98,6 +101,14 @@ public class Proiect {
 
     public void setUsers(List<UserExpleo> users) {
         this.users = users;
+    }
+
+    public void addUsers(UserExpleo userExpleo){
+
+        if(users == null){
+            users = new ArrayList<>();
+        }
+        users.add(userExpleo);
     }
 
     @Override

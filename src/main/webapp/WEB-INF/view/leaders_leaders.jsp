@@ -1,4 +1,4 @@
-<%@ include file="leadersHeader.jspf"%>
+<%@ include file="leaders_leadersHeader.jspf"%>
 
 <br>
 
@@ -7,10 +7,7 @@
 
 
  <button type="button" class="btn btn-success"
- onclick="window.location.href='/retex/employee'">Alege un proiect fara manager</button>
-
- <button type="button" class="btn btn-danger"
- onclick="window.location.href='/retex/employee'">Renunta la proiect</button>
+ onclick="window.location.href='/retex/leaders/freeProjects'">Alege un proiect fara manager</button>
 
 <hr>
     <table>
@@ -29,7 +26,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <a href="/retex/leaders/${proiecte.codProiect}/detaliiProiect"> Modifica </a>
+                        <a href="/retex/leaders/${proiecte.codProiect}"> Modifica </a>
                     </td>
                 </tr>
             </c:forEach>

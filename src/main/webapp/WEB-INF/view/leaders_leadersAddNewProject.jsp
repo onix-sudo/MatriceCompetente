@@ -1,5 +1,4 @@
-<%@ include file="leadersHeader.jspf"%>
-
+<%@ include file="leaders_leadersHeader.jspf"%>
 
 <form:form action= "addProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
     <table>

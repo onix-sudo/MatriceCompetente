@@ -33,7 +33,7 @@ public class AdminController {
     //add req mapping for /admin
     @GetMapping()
     public String showAdmin(){
-        return "admin";
+        return "admin_admin";
     }
 
     @RequestMapping("/tomcatManager")
@@ -50,14 +50,14 @@ public class AdminController {
 
 //        searchService.searchUser("Ovi");
 
-        return "add-user";
+        return "admin_add-user";
     }
 
     @PostMapping("/saveUser")
     public String saveUser(@Valid @ModelAttribute("newEmployee") UserExpleo employee, BindingResult result){
 
         if (result.hasErrors()){
-            return "add-user";
+            return "admin_add-user";
         }
 
         userService.saveNewUser(employee);
@@ -68,7 +68,7 @@ public class AdminController {
 
     @GetMapping("/updateUser")
     public String updateUser(){
-        return "search-update-user";
+        return "admin_search-update-user";
     }
 
     @GetMapping("/updateUser/search")
@@ -77,7 +77,7 @@ public class AdminController {
         List<UserExpleo> searchResult = searchService.searchUser(text);
         theModel.addAttribute("result", searchResult);
 
-        return "search-update-user";
+        return "admin_search-update-user";
     }
 
     @GetMapping("/updateUser/modify")
@@ -99,7 +99,7 @@ public class AdminController {
         userModel.addAttribute("user", userExpleo);
         modelAndView.addAllObjects(userModel);
 
-        modelAndView.setViewName("update-user");
+        modelAndView.setViewName("admin_update-user");
 
         return modelAndView;
     }

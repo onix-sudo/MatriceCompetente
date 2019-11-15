@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Repository
@@ -93,5 +94,72 @@ public class ProiectDAOImpl implements ProiectDAO {
         session.close();
 
         return result;
+    }
+
+    @Override
+    public void addUserToProject(String codProiect, Integer userId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect = findProjectByCodProiect(codProiect);
+        UserExpleo user = session.get(UserExpleo.class, userId);
+        user.addProiecte(proiect);
+
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void removeUserFromProject(Integer IDcodProiect, Integer userId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect = session.get(Proiect.class, IDcodProiect);
+        UserExpleo user = session.get(UserExpleo.class, userId);
+        user.removeProiecte(proiect);
+
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void dropTheProject(String codProiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        proiect.setManager(null);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public List<Proiect> getFreeProjects() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where manager = null");
+
+        List<Proiect> result = (List<Proiect>)query.list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return result;
+    }
+
+    @Override
+    public void addFreeProject(String codProiect, UserExpleo principal) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        proiect.setManager(principal.getNumarMatricol());
+
+        session.getTransaction().commit();
+        session.close();
     }
 }
