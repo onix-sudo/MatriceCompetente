@@ -1,5 +1,5 @@
 var jsVarList = [];
-
+var dataList = [];
 
 
 function pushSkill(val) {

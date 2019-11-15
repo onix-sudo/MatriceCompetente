@@ -23,7 +23,7 @@
                         <c:forEach var="skill" items="${skillList}" varStatus="status">
                            <script>pushSkill("${skill.numeSkill}");</script>
                             <tr>
-                                <td>${status.index + 1}</td>
+                                <td>${status.count}</td>
                                 <td>${skill.idSkill}</td>
 
                                 <td>${skill.numeSkill}</td>

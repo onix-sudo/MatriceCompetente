@@ -35,6 +35,8 @@ public class RetexController {
         List<Skill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", skills);
 
+
+
         return "cmptMat";
     }
 }

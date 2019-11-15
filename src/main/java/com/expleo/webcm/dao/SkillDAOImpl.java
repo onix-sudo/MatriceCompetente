@@ -2,6 +2,7 @@ package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.Skill;
+import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,15 @@ public class SkillDAOImpl implements SkillDAO {
 
         List<Skill> skills = proiect.getSkills();
 
-        myLogger.info(skills.toString());
+        session.close();
 
         return skills;
+
+    }
+
+    public void showEvalForUserSkills(List<Skill> skills, int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
     }
 }
