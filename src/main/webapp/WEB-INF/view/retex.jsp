@@ -17,6 +17,11 @@
     <br><br>
     Role(s):
     <security:authentication property="principal.authorities"/>
+    <br><br>
+
+    <button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile'">Personal Profile</button>
+
+
 </p>
 
 <hr>
@@ -45,7 +50,7 @@
                     <form method="GET" action="/retex/cmptMat">
                         <input type="submit" value="${proiect.numeProiect}" name="proiect">
                         <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
-                                               </form>
+                    </form>
                 </td>
                 <td>${proiect.codProiect}</td>
             </tr>

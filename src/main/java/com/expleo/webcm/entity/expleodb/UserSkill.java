@@ -9,12 +9,12 @@ public class UserSkill {
     @EmbeddedId
     private UserSkillId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="ID_user", insertable = false, updatable = false)
     // @MapsId("userId")
     private UserExpleo user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_skill", insertable = false, updatable = false)
     // @MapsId("skillId")
     private Skill skill;
@@ -30,6 +30,8 @@ public class UserSkill {
         this.skill = skill;
         this.id = new UserSkillId(user.getId(), skill.getIdSkill());
     }
+
+
 
     public UserSkillId getId() {
         return id;

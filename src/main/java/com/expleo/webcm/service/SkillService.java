@@ -1,11 +1,11 @@
-package com.expleo.webcm.dao;
+package com.expleo.webcm.service;
 
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 
 import java.util.List;
 
-public interface SkillDAO {
+public interface SkillService {
     List<Skill> showSkillsforProject(int idProject);
 
     List<Skill> getSkills();
