@@ -65,6 +65,9 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         List<UserSkill> result = (List<UserSkill>) query.list();
 
+//        List<UserSkill> result = session.get(UserExpleo.class, userExpleo.getId()).getSkills();
+//        Hibernate.initialize(session.get(UserExpleo.class, userExpleo.getId()).getSkills());
+
         session.getTransaction().commit();
         session.close();
 

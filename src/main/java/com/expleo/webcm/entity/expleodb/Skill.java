@@ -1,10 +1,31 @@
 package com.expleo.webcm.entity.expleodb;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Parameter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@AnalyzerDef(name = "skilldef",
+        tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+        filters = {
+//                @TokenFilterDef(factory = StandardFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+//                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+//                @TokenFilterDef(factory = StopFilterFactory.class),
+                @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
+                        params = {
+                                @org.hibernate.search.annotations.Parameter(name = "minGramSize", value = "3"),
+                                @Parameter(name = "maxGramSize", value = "5") } )
+        }
+)
+@Indexed
 @Entity
 @Table(name = "skill", schema = "expleodb")
 public class Skill {
@@ -13,9 +34,11 @@ public class Skill {
     @Column(name="ID_skill")
     private int idSkill;
 
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "skilldef"))
     @Column(name="Nume_skill")
     private String numeSkill;
 
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "skilldef"))
     @Column(name="Categorie")
     private String categorie;
 

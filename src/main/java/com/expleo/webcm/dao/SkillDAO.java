@@ -19,4 +19,5 @@ public interface SkillDAO {
 //    List<Skill> showSkillsforUser(int idUser);
 
     void addUser(UserExpleo theUser, int id);
+
 }

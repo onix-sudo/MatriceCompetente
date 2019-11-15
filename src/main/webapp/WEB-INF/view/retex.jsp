@@ -50,7 +50,7 @@
                     <form method="GET" action="/retex/cmptMat">
                         <input type="submit" value="${proiect.numeProiect}" name="proiect">
                         <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
-                    </form>
+                                               </form>
                 </td>
                 <td>${proiect.codProiect}</td>
             </tr>
