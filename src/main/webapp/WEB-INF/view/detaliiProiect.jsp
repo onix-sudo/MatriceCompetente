@@ -24,7 +24,7 @@
          </thead>
 
          <tbody>
-            <c:forEach var="user" items="${user}">
+            <c:forEach var="user" items="${users}">
                <tr>
                  <td>${user.nume}</td>
                  <td>${user.prenume}</td>
@@ -48,7 +48,7 @@
          </thead>
 
          <tbody>
-            <c:forEach var="skill" items="${skill}">
+            <c:forEach var="skill" items="${skills}">
                <tr>
                  <td>${skill.numeSkill}</td>
                  <td>${skill.categorie}</td>

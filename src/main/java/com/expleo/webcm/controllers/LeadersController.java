@@ -84,18 +84,23 @@ public class LeadersController {
     public String adaugaColaboratoriView(@RequestParam("cauta") String cauta,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
         boolean hasProject = false;
-        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 //        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
+        List<UserExpleo> resultList = searchService.searchUser(cauta);
 
-        List<Proiect> userProjects = userExpleo.getProiecte();
-        for(Proiect temp:userProjects){
-            if (temp.getCodProiect()==codProiect){
-                hasProject = true;
-                break;
+//        List<Proiect> userProjects = userExpleo.getProiecte();
+        for(UserExpleo temp:resultList){
+            for(Proiect tempProiect: temp.getProiecte()){
+                if(tempProiect.getCodProiect().equals(codProiect)){
+                    hasProject = true;
+                    break;
+                }
+
             }
         }
 
-        List<UserExpleo> resultList = searchService.searchUser(cauta);
+
+        System.out.println("==============================================================         " + hasProject);
         model.addAttribute("result", resultList);
         model.addAttribute("hasProject", hasProject);
 

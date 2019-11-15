@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -39,7 +40,11 @@ public class SearchDAOImpl implements SearchDAO {
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, UserExpleo.class);
 
-        List result = hibQuery.list();
+        List<UserExpleo> result = hibQuery.list();
+
+        for(UserExpleo temp:result){
+            Hibernate.initialize(temp.getProiecte());
+        }
 
         tx.commit();
         session.close();

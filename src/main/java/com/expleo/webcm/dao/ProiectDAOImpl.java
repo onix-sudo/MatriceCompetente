@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -85,6 +86,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         query.setParameter("codProiect", codProiect);
 
         Proiect result = (Proiect) query.getSingleResult();
+        Hibernate.initialize(result.getUsers());
+        Hibernate.initialize(result.getSkills());
 
         session.getTransaction().commit();
         session.close();

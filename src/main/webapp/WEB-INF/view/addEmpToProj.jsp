@@ -45,7 +45,7 @@
 
                  <td>
                     <c:choose>
-                        <c:when test="${hasProject}'">
+                        <c:when test="${hasProject}">
                             Deja adaugat
                         </c:when>
 
