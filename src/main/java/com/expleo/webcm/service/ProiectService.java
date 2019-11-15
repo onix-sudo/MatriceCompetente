@@ -1,6 +1,7 @@
 package com.expleo.webcm.service;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 
@@ -13,7 +14,7 @@ public interface ProiectService {
 
     void saveNewProject(Proiect proiect);
 
-    List<Skill> showSkillsforProject(int idProject);
+    List<ProiectSkill> showSkillsforProject(int idProject);
 
     List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
 
@@ -28,4 +29,6 @@ public interface ProiectService {
     List<Proiect> getFreeProjects();
 
     void addFreeProject(String codProiect, UserExpleo principal);
+
+    void addSkillToProject(String codProiect, Integer skillId);
 }

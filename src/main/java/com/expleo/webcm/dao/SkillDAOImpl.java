@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,13 +24,13 @@ public class SkillDAOImpl implements SkillDAO {
 
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
-    public List<Skill> showSkillsforProject(int idProject) {
+    public List<ProiectSkill> showSkillsforProject(int idProject) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Proiect proiect = session.get(Proiect.class, idProject);
 
-        List<Skill> skills = proiect.getSkills();
+        List<ProiectSkill> skills = proiect.getSkills();
 
         myLogger.info(skills.toString());
 

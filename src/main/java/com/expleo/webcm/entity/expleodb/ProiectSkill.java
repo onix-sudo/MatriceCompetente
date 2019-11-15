@@ -4,16 +4,21 @@ import javax.persistence.*;
 
 @Entity(name="ProiectSkill")
 @Table(name = "proiect_skill")
+//@Entity
+//@Table(name = "expleodb", schema = "proiect_skill")
 public class ProiectSkill {
+
     @EmbeddedId
     private ProiectSkillId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_Proiect", insertable = false, updatable = false)
+    @MapsId("ID_Proiect")
+    @JoinColumn(name="ID_Proiect")
     private Proiect proiect;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_skill", insertable = false, updatable = false)
+    @MapsId("ID_skill")
+    @JoinColumn(name = "ID_skill")
     // @MapsId("skillId")
     private Skill skill;
 
@@ -22,12 +27,6 @@ public class ProiectSkill {
 
     public ProiectSkill() {
 
-    }
-
-    public ProiectSkill(Proiect proiect, Skill skill, int pondere) {
-        this.proiect = proiect;
-        this.skill = skill;
-        this.pondere = pondere;
     }
 
     public ProiectSkillId getId() {

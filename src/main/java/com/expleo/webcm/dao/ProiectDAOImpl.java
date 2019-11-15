@@ -1,6 +1,8 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
@@ -87,6 +89,7 @@ public class ProiectDAOImpl implements ProiectDAO {
         query.setParameter("codProiect", codProiect);
 
         Proiect result = (Proiect) query.getSingleResult();
+
         Hibernate.initialize(result.getUsers());
         Hibernate.initialize(result.getSkills());
 
@@ -158,6 +161,24 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
         proiect.setManager(principal.getNumarMatricol());
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void addSkillToProject(String codProiect, Integer skillId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill = session.get(Skill.class, skillId);
+
+        ProiectSkill ps = new ProiectSkill();
+        ps.setProiect(proiect);
+        ps.setSkill(skill);
+
+        skill.addProiect(ps);
 
         session.getTransaction().commit();
         session.close();

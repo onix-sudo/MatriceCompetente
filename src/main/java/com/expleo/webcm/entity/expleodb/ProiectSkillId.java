@@ -6,31 +6,30 @@ import java.io.Serializable;
 
 @Embeddable
 public class ProiectSkillId implements Serializable {
+
     @Column(name="ID_proiect")
-    private int proiectId;
+    private Integer proiectId;
 
     @Column(name="ID_skill")
-    private int skillId;
+    private Integer skillId;
 
     public ProiectSkillId() {
 
     }
 
-    public int getProiectId() {
+    public Integer getProiectId() {
         return proiectId;
     }
 
-    public void setProiectId(int proiectId) {
+    public void setProiectId(Integer proiectId) {
         this.proiectId = proiectId;
     }
 
-    public int getSkillId() {
+    public Integer getSkillId() {
         return skillId;
     }
 
-    public void setSkillId(int skillId) {
+    public void setSkillId(Integer skillId) {
         this.skillId = skillId;
     }
-
-
 }

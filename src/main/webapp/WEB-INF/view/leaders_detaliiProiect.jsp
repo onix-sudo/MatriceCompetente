@@ -6,7 +6,7 @@
  onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaCompetente'">Adauga competente</button>
+ onclick="window.location.href='/retex/leaders/${project.codProiect}/addSkills'">Adauga competente</button>
 
  <spring:url var="renunta" value="/retex/leaders/${project.codProiect}/renuntaLaProiect"></spring:url>
 
@@ -70,8 +70,8 @@
          <tbody>
             <c:forEach var="skill" items="${skills}">
                <tr>
-                 <td>${skill.numeSkill}</td>
-                 <td>${skill.categorie}</td>
+                 <td>${skill.skill.numeSkill}</td>
+                 <td>${skill.skill.categorie}</td>
                </tr>
             </c:forEach>
          </tbody>

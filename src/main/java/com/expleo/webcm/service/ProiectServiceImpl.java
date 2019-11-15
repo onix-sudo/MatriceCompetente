@@ -3,6 +3,7 @@ package com.expleo.webcm.service;
 import com.expleo.webcm.dao.ProiectDAO;
 import com.expleo.webcm.dao.SkillDAO;
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Skill> showSkillsforProject(int idProject) {
+    public List<ProiectSkill> showSkillsforProject(int idProject) {
         return skillDAO.showSkillsforProject(idProject);
     }
 
@@ -79,5 +80,11 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public void addFreeProject(String codProiect, UserExpleo principal) {
         proiectDao.addFreeProject(codProiect, principal);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void addSkillToProject(String codProiect, Integer skillId) {
+        proiectDao.addSkillToProject(codProiect, skillId);
     }
 }

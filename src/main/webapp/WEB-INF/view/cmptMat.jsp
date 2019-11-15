@@ -23,9 +23,9 @@
                     <c:forEach var="skill" items="${skillList}" varStatus="status">
                         <tr>
                             <td>${status.index + 1}</td>
-                            <td>${skill.idSkill}</td>
-                            <td>${skill.numeSkill}</td>
-                            <td>${skill.categorie}</td>
+                            <td>${skill.skill.idSkill}</td>
+                            <td>${skill.skill.numeSkill}</td>
+                            <td>${skill.skill.categorie}</td>
                             <td>
                                 <select form="nrForm">
                                     <option value="1">1</option>

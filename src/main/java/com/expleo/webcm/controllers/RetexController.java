@@ -1,6 +1,7 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
@@ -32,7 +33,7 @@ public class RetexController {
 
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
-        List<Skill> skills = proiectService.showSkillsforProject(proiectId);
+        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", skills);
 
         return "cmptMat";

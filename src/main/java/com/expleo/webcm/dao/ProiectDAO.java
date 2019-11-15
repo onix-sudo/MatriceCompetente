@@ -26,4 +26,6 @@ public interface ProiectDAO {
     List<Proiect> getFreeProjects();
 
     void addFreeProject(String codProiect, UserExpleo principal);
+
+    void addSkillToProject(String codProiect, Integer skillId);
 }

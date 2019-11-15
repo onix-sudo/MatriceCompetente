@@ -25,15 +25,16 @@ public class Proiect {
     @Column(name = "Manager_nrMatricol")
     private Integer manager;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name = "proiect_skill",
-            joinColumns = { @JoinColumn(name = "ID_Proiect")},
-            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
-    )
-    private List<Skill> skills = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//                    CascadeType.DETACH, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "proiect_skill",
+//            joinColumns = { @JoinColumn(name = "ID_Proiect")},
+//            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
+//    )
+    @OneToMany(mappedBy = "proiect")
+    private List<ProiectSkill> skills;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -87,11 +88,11 @@ public class Proiect {
         this.manager = manager;
     }
 
-    public List<Skill> getSkills() {
+    public List<ProiectSkill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<ProiectSkill> skills) {
         this.skills = skills;
     }
 
@@ -109,6 +110,14 @@ public class Proiect {
             users = new ArrayList<>();
         }
         users.add(userExpleo);
+    }
+
+    public void addSkill(ProiectSkill proiectSkill){
+
+        if(skills == null){
+            skills = new ArrayList<>();
+        }
+        skills.add(proiectSkill);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.ProiectService;
@@ -64,7 +65,7 @@ public class LeadersController {
 
         Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
         List<UserExpleo> users = proiect.getUsers();
-        List<Skill> skills = proiect.getSkills();
+        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiect.getProiectId());
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -149,5 +150,42 @@ public class LeadersController {
         proiectService.addFreeProject(codProiect, principal);
 
         return "redirect:/retex/leaders/freeProjects";
+    }
+
+    @GetMapping("/{codProiect}/addSkills")
+    public String addSkillsView(){
+        return "leaders_addSkillsToProj";
+    }
+
+    @PostMapping("/{codProiect}/addSkills")
+    public String addSkillsView(@RequestParam("cauta") String cauta,
+                                         @PathVariable ("codProiect") String codProiect, ModelMap model){
+        boolean hasProject = false;
+        List<Skill> resultList = searchService.searchSkill(cauta);
+
+        for(Skill temp:resultList){
+            for(ProiectSkill tempProiect: temp.getProiecte()){
+                if(tempProiect.getProiect().equals(codProiect)){
+                    hasProject = true;
+                    break;
+                }
+
+            }
+        }
+
+
+        model.addAttribute("result", resultList);
+        model.addAttribute("hasProject", hasProject);
+        model.addAttribute("varPath", codProiect);
+
+        return "leaders_addSkillsToProj";
+    }
+
+    @PostMapping("/{codProiect}/addSkills/add")
+    public String addSkillsAdd(@PathVariable("codProiect") String codProiect,
+                                        @RequestParam("skillId") Integer skillId)
+    {
+        proiectService.addSkillToProject(codProiect, skillId);
+        return "redirect:/retex/leaders/"+codProiect;
     }
 }

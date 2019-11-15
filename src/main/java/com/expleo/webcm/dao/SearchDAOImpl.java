@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -50,4 +51,35 @@ public class SearchDAOImpl implements SearchDAO {
         session.close();
         return result;
     }
+
+    @Override
+    public List<Skill> searchSkill(String text) {
+        Session session = sessionFactory.openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        Transaction tx = fullTextSession.beginTransaction();
+
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
+                .forEntity(Skill.class).get();
+
+        org.apache.lucene.search.Query query = qb
+                .keyword()
+                .onFields("numeSkill", "categorie")
+                .matching(text)
+                .createQuery();
+
+        org.hibernate.query.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Skill.class);
+
+        List<Skill> result = hibQuery.list();
+
+        for(Skill temp:result){
+            Hibernate.initialize(temp.getProiecte());
+        }
+
+        tx.commit();
+        session.close();
+        return result;
+    }
+
 }
