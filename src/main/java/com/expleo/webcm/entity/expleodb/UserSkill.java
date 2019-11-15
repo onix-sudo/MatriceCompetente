@@ -10,13 +10,13 @@ public class UserSkill {
     private UserSkillId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("ID_user")
     @JoinColumn(name="ID_user", insertable = false, updatable = false)
-    // @MapsId("userId")
     private UserExpleo user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("ID_skill")
     @JoinColumn(name = "ID_skill", insertable = false, updatable = false)
-    // @MapsId("skillId")
     private Skill skill;
 
     @Column(name="Evaluare")

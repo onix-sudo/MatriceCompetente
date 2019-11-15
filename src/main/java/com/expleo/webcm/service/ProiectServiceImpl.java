@@ -5,6 +5,7 @@ import com.expleo.webcm.dao.SkillDAO;
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +43,11 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
         return proiectDao.findManagerProjects(userExpleo);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<UserSkill> showEvalForUserSkills(List<Skill> skills, UserExpleo userExpleo) {
+        return skillDAO.showEvalForUserSkills(skills, userExpleo);
     }
 }

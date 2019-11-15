@@ -16,6 +16,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @AnalyzerDef(name = "ngram",
@@ -83,6 +84,16 @@ public class UserExpleo {
             inverseJoinColumns = { @JoinColumn(name = "ID_proiect")}
     )
     private List<Proiect> proiecte = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_skill",
+            joinColumns = @JoinColumn(name = "ID_user"),
+            inverseJoinColumns = @JoinColumn(name = "ID_skill"))
+    Set<Skill> skillsRequired;
+
+    @OneToMany(mappedBy = "user")
+    Set<UserSkill> userSkills;
 
     public UserExpleo() {
     }
@@ -156,6 +167,22 @@ public class UserExpleo {
 
     public void setProiecte(List<Proiect> proiecte) {
         this.proiecte = proiecte;
+    }
+
+    public Set<Skill> getSkillsRequired() {
+        return skillsRequired;
+    }
+
+    public void setSkillsRequired(Set<Skill> skillsRequired) {
+        this.skillsRequired = skillsRequired;
+    }
+
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 
     @Override

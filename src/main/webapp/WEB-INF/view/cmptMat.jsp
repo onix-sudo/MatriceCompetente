@@ -16,24 +16,25 @@
                         <th>Nume Skill</th>
                         <th>Categorie</th>
                         <th>Evaluare</th>
+                        <th>Schimba evaluare</th>
                     </tr>
                     </thead>
 
                     <tbody>
                         <c:forEach var="skill" items="${skillList}" varStatus="status">
-                           <script>pushSkill("${skill.numeSkill}");</script>
+                           <script>pushSkill("${skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
                             <tr>
                                 <td>${status.count}</td>
                                 <td>${skill.idSkill}</td>
-
                                 <td>${skill.numeSkill}</td>
                                 <td>${skill.categorie}</td>
+                                <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
                                     <select form="nrForm">
                                         <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </td>
                                 </td>

@@ -3,6 +3,7 @@ package com.expleo.webcm.entity.expleodb;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "skill", schema = "expleodb")
@@ -27,6 +28,12 @@ public class Skill {
             inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
     )
     private List<Proiect> proiecte = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "skillsRequired")
+    Set<UserExpleo> users;
+
+    @OneToMany(mappedBy = "skill")
+    Set<UserSkill> userSkills;
 
     public Skill() {
 
@@ -62,5 +69,21 @@ public class Skill {
 
     public void setProiecte(List<Proiect> proiecte) {
         this.proiecte = proiecte;
+    }
+
+    public Set<UserExpleo> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserExpleo> users) {
+        this.users = users;
+    }
+
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 }

@@ -2,10 +2,12 @@ var jsVarList = [];
 var dataList = [];
 
 
-function pushSkill(val) {
+function pushSkill(val, data) {
     console.log(val);
     jsVarList.push(val);
     console.log(jsVarList);
+    dataList.push(data);
+    console.log(dataList);
 }
 
 
@@ -13,7 +15,7 @@ function plotRadar() {
 
     data = [{
       type: 'scatterpolar',
-      r: [1, 2],
+      r: dataList,
       theta: jsVarList,
       fill: 'toself'
       }
