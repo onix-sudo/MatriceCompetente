@@ -121,8 +121,16 @@ public class RetexController {
 
     @GetMapping("/deleteSkill")
     public String deleteSkill(@RequestParam("skillId") int theId){
-        skillService.deleteSkill(theId);
-        return "redirect:/skill/list";
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        Skill skill = new Skill();
+
+        skill = skillService.getSkill(theId);
+
+        skill.removeUser(user);
+
+        return "redirect:/retex/personalProfile";
     }
 
 }
