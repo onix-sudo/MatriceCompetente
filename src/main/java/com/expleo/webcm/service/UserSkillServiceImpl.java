@@ -13,7 +13,7 @@ import java.util.List;
 public class UserSkillServiceImpl implements UserSkillService {
 
     @Autowired
-    UserSkillDAO userSkillDAO;
+    private UserSkillDAO userSkillDAO;
 
     @Override
     @Transactional("transactionExpleoDBManager")
@@ -32,5 +32,10 @@ public class UserSkillServiceImpl implements UserSkillService {
     @Override
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
         return userSkillDAO.getUserSkillByUser(userExpleo);
+    }
+
+    @Override
+    public void removeUserSkill(UserSkill userSkill) {
+        userSkillDAO.removeUserSkill(userSkill);
     }
 }

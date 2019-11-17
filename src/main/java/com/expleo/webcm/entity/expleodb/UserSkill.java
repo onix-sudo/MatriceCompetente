@@ -9,14 +9,14 @@ public class UserSkill {
     @EmbeddedId
     private UserSkillId id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="ID_user", insertable = false, updatable = false)
-    // @MapsId("userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ID_user")//, insertable = false, updatable = false)
+    @MapsId("userId")
     private UserExpleo user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_skill", insertable = false, updatable = false)
-    // @MapsId("skillId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_skill")//, insertable = false, updatable = false)
+    @MapsId("skillId")
     private Skill skill;
 
     @Column(name="Evaluare")

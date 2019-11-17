@@ -52,7 +52,7 @@ public class Skill {
     )
     private List<Proiect> proiecte = new ArrayList<>();
 
-    @OneToMany(mappedBy = "skill",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "skill",fetch = FetchType.LAZY)//, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserSkill> users = new ArrayList<>();
 
     public List<UserSkill> getUsers() {

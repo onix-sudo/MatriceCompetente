@@ -43,8 +43,8 @@
                 <tr>
                     <th>Nume Skill</th>
                     <th>Categorie</th>
-                </thead>
                 </tr>
+                </thead>
                 <core:forEach var="tempResult" items="${result}">
                     <spring:url var="addSkill" value="/retex/personalProfile/showFormForAddSkill/search/addSkillToUser">
                         <spring:param name="skillId" value="${tempResult.idSkill}"/>
@@ -52,7 +52,6 @@
                     <tr>
                         <td>${tempResult.numeSkill}</td>
                         <td>${tempResult.categorie}</td>
-
                         <td>
                             <a href="${addSkill}">Add</a>
                         </td>

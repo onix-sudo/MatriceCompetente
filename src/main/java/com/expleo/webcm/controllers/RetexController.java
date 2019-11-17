@@ -101,7 +101,7 @@ public class RetexController {
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
-    public String addSkilltoUser(@RequestParam(value = "skillId") int skillId, Model theModel){
+    public String addSkilltoUser(@RequestParam(value = "skillId") int skillId){
 
         Skill skill = skillService.getSkill(skillId);
 
@@ -109,12 +109,11 @@ public class RetexController {
 
         UserSkill userSkill = new UserSkill(skill, user);
 
-
         userSkillService.saveUserSkill(userSkill);
-//
+
+        System.out.println("userSkill = " + userSkill);
 
         System.out.println("skill = " + skill);
-
 
         return "redirect:/retex/personalProfile";
     }
@@ -124,11 +123,11 @@ public class RetexController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-        Skill skill = new Skill();
+        Skill skill = skillService.getSkill(theId);
 
-        skill = skillService.getSkill(theId);
+        UserSkill userSkill = new UserSkill(skill, user);
 
-        skill.removeUser(user);
+        userSkillService.removeUserSkill(userSkill);
 
         return "redirect:/retex/personalProfile";
     }

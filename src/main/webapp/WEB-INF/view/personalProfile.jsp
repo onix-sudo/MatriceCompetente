@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<h2>Personal Profile</h2>
+<h2>Profil Personal</h2>
 
 <%--
 <!--            Display username and role-->
@@ -26,8 +26,6 @@
     <tr>
         <th>Nume Skill</th>
         <th>Categorie</th>
-        <th>evaluare</th>
-        <th>Evaluare</th>
         <th>Elimina</th>
     </tr>
     </thead>
@@ -42,17 +40,6 @@
     <tr>
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>
-        <td>${userSkill.evaluation}</td>
-
-        <td>
-            <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </td>
         <td>
             <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
                 <button type="button" class="btn btn-danger">X</button>
@@ -63,6 +50,7 @@
 </c:forEach>
     </tbody>
 </table>
+<br>
 <button type="button" class="btn btn-success" onclick="window.location.href='/retex/employee'">Angajat</button>
 <button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
 

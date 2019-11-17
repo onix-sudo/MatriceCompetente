@@ -49,6 +49,9 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         System.out.println("theUser = " + theUserSkill);
 
         currentSession.saveOrUpdate(theUserSkill);
+
+        currentSession.getTransaction().commit();
+
         currentSession.close();
 
     }
@@ -69,8 +72,24 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 //        Hibernate.initialize(session.get(UserExpleo.class, userExpleo.getId()).getSkills());
 
         session.getTransaction().commit();
-        session.close();
 
         return result;
     }
+
+    @Override
+    public void removeUserSkill(UserSkill userSkill) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.delete(userSkill);
+
+        session.getTransaction().commit();
+
+        session.close();
+
+
+    }
+
+
 }

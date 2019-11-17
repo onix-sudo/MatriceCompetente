@@ -13,4 +13,6 @@ public interface UserSkillService {
 
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo);
 
+    public void removeUserSkill(UserSkill userSkill);
+
 }
