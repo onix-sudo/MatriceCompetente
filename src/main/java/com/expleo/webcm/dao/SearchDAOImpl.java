@@ -1,6 +1,5 @@
 package com.expleo.webcm.dao;
 
-import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -74,6 +73,7 @@ public class SearchDAOImpl implements SearchDAO {
         List<Skill> result = hibQuery.list();
 
         for(Skill temp:result){
+            Hibernate.initialize(temp.getUsers());
             Hibernate.initialize(temp.getProiecte());
         }
 

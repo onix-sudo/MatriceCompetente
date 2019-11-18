@@ -17,6 +17,11 @@
     <br><br>
     Role(s):
     <security:authentication property="principal.authorities"/>
+    <br><br>
+
+    <button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile'">Personal Profile</button>
+
+
 </p>
 
 <hr>
