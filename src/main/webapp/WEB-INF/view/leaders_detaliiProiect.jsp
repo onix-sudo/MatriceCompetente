@@ -15,6 +15,7 @@
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
+
  <br><hr>
 
 

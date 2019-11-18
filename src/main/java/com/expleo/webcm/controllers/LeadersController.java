@@ -91,28 +91,23 @@ public class LeadersController {
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
         boolean hasProject = false;
         List<UserExpleo> resultList = searchService.searchUser(cauta);
+        List<UserExpleo> pickedUsers = new ArrayList<>();
 
 //        Iterator<UserExpleo> iter = resultList.iterator();
 
-        if(resultList != null) {
+        if(!resultList.isEmpty()) {
             for (UserExpleo user : resultList) {
-                UserExpleo temp = user;
-                for (Proiect tempProiect : temp.getProiecte()) {
-                    if (resultList.size() == 1 && tempProiect.getCodProiect().equals(codProiect)) {
-                        resultList = null;
-                    } else if (tempProiect.getCodProiect().equals(codProiect)) {
-                        resultList.remove(temp);
+                List<Proiect> listProiect = user.getProiecte();
+                for (Proiect tempProiect : listProiect) {
+                    if (tempProiect.getCodProiect().equals(codProiect)) {
+                        pickedUsers.add(user);
                     }
-
                 }
             }
         }
-//        for(UserExpleo ue:resultList){
-//            System.out.println(ue);
-//        }
-//        System.out.println(resultList.isEmpty());
-//        System.out.println(resultList.size());
-
+        for(UserExpleo userExpleo:pickedUsers){
+            resultList.remove(userExpleo);
+        }
 
         model.addAttribute("result", resultList);
         model.addAttribute("hasProject", hasProject);
@@ -177,29 +172,22 @@ public class LeadersController {
         boolean hasSkill = false;
         List<Skill> resultList = searchService.searchSkill(cauta);
         List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
-
-//        for(ProiectSkill test: proiectSkills){
-//            System.out.println(test.getSkill().getNumeSkill());
-//        }
+        List<Skill> pickedSkill = new ArrayList<>();
 
         Iterator<Skill> iter = resultList.iterator();
 
-        if(resultList != null) {
+        if(!resultList.isEmpty()) {
             for (ProiectSkill tempProjSkill : proiectSkills) {
-                while (iter.hasNext()) {
-//                System.out.println("*************************************************************************");
-//                System.out.println(tempProjSkill.getSkill().getNumeSkill());
-//                System.out.println(tempSkill.getNumeSkill());
-//                System.out.println(tempProjSkill.getSkill().getNumeSkill().equals(tempSkill.getNumeSkill()));
-//                System.out.println("*************************************************************************");
-                    Skill skill = iter.next();
-                    if (resultList.size() == 1 && tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        resultList = null;
-                    } else if (tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        iter.remove();
+                for(Skill skillFromResult : resultList) {
+                    Skill skill = skillFromResult;
+                    if (tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
+                        pickedSkill.add(skill);
                     }
                 }
             }
+        }
+        for(Skill skill:pickedSkill){
+            resultList.remove(skill);
         }
 
 

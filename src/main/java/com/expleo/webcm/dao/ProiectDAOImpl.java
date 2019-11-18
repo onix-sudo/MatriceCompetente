@@ -6,11 +6,13 @@ import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -85,7 +87,7 @@ public class ProiectDAOImpl implements ProiectDAO {
         Hibernate.initialize(result.getUsers());
         Hibernate.initialize(result.getSkills());
 
-        for(ProiectSkill temp:result.getSkills()){
+        for (ProiectSkill temp : result.getSkills()) {
             Hibernate.initialize(temp.getSkill());
         }
 
@@ -107,13 +109,12 @@ public class ProiectDAOImpl implements ProiectDAO {
         user.addProiecte(proiect);
 
 
-        for(ProiectSkill ps:listSkills){
-            if(!user.getUserSkills().contains(ps)) {
+        for (ProiectSkill ps : listSkills) {
+            if (!user.getUserSkills().contains(ps)) {
                 UserSkill userSkill = new UserSkill(ps.getSkill(), user);
                 session.merge(userSkill);
             }
         }
-
 
 
         session.getTransaction().commit();
@@ -153,7 +154,7 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Query query = session.createQuery("from Proiect where manager = null");
 
-        List<Proiect> result = (List<Proiect>)query.list();
+        List<Proiect> result = (List<Proiect>) query.list();
 
         session.getTransaction().commit();
         session.close();
@@ -178,15 +179,36 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect =session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
-        Skill skill =session.get(Skill.class, skillId);
+        boolean hasSkill;
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill = session.get(Skill.class, skillId);
 
-        ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
-//        ps.setProiect(proiect);
-//        ps.setSkill(skill);
-//        ps.setPondere(1);
+        List<ProiectSkill> proiectSkills = proiect.getSkills();
 
-        session.save(ps);
+        for (ProiectSkill temp : proiectSkills) {
+            List<UserExpleo> userExpleoList = temp.getProiect().getUsers();
+
+            for (UserExpleo ue : userExpleoList) {
+                hasSkill = false;
+                Set<UserSkill> userSkillsList = ue.getUserSkills();
+                for (UserSkill us : userSkillsList) {
+                    if (us.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
+                        hasSkill = true;
+                    }
+
+                }
+                System.out.println(hasSkill + "//////////------------------///////////////");
+                if (hasSkill == false) {
+                    UserSkill userSkill = new UserSkill(skill, session.get(UserExpleo.class, ue.getId()));
+                    session.merge(userSkill);
+                }
+
+            }
+        }
+
+        ProiectSkill ps = new ProiectSkill(proiect, skill);
+
+        session.merge(ps);
         session.getTransaction().commit();
         session.close();
     }
@@ -196,8 +218,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect =session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
-        Skill skill =session.get(Skill.class, skillId);
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill = session.get(Skill.class, skillId);
 
         ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
 
