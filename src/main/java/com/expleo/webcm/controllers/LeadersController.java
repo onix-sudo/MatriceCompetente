@@ -160,22 +160,29 @@ public class LeadersController {
     @PostMapping("/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam("cauta") String cauta,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-        boolean hasProject = false;
+        boolean hasSkill = false;
         List<Skill> resultList = searchService.searchSkill(cauta);
+        List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
+
+//        for(ProiectSkill test: proiectSkills){
+//            System.out.println(test.getSkill().getNumeSkill());
+//        }
+
 
         for(Skill temp:resultList){
-            for(ProiectSkill tempProiect: temp.getProiecte()){
-                if(tempProiect.getProiect().equals(codProiect)){
-                    hasProject = true;
+            for(ProiectSkill tempSkill: proiectSkills){
+                if(proiectSkills.contains(tempSkill)){
+                    hasSkill = true;
                     break;
                 }
 
             }
         }
 
+        System.out.println("====================================" + hasSkill);
 
         model.addAttribute("result", resultList);
-        model.addAttribute("hasProject", hasProject);
+        model.addAttribute("hasSkill", hasSkill);
         model.addAttribute("varPath", codProiect);
 
         return "leaders_addSkillsToProj";

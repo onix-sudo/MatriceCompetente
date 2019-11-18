@@ -171,15 +171,15 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
-        Skill skill = session.get(Skill.class, skillId);
+        Proiect proiect =(Proiect) session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill = (Skill) session.get(Skill.class, skillId);
 
-        ProiectSkill ps = new ProiectSkill();
-        ps.setProiect(proiect);
-        ps.setSkill(skill);
+        ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
+//        ps.setProiect(proiect);
+//        ps.setSkill(skill);
+//        ps.setPondere(1);
 
-        skill.addProiect(ps);
-
+        session.save(ps);
         session.getTransaction().commit();
         session.close();
     }

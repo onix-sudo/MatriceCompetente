@@ -17,6 +17,11 @@ public class ProiectSkillId implements Serializable {
 
     }
 
+    public ProiectSkillId(Integer proiectId, Integer skillId) {
+        this.proiectId = proiectId;
+        this.skillId = skillId;
+    }
+
     public Integer getProiectId() {
         return proiectId;
     }

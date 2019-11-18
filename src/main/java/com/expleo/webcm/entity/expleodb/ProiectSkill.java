@@ -29,6 +29,16 @@ public class ProiectSkill {
 
     }
 
+    public ProiectSkill(Proiect proiect, Skill skill, int pondere) {
+        this.proiect = proiect;
+        this.skill = skill;
+        this.pondere = pondere;
+        this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
+
+        proiect.getSkills().add(this);
+        skill.getProiecte().add(this);
+    }
+
     public ProiectSkillId getId() {
         return id;
     }
