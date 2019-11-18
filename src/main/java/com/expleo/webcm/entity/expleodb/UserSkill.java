@@ -29,6 +29,9 @@ public class UserSkill {
         this.user = user;
         this.skill = skill;
         this.id = new UserSkillId(user.getId(), skill.getIdSkill());
+
+        user.getUserSkills().add(this);
+        skill.getUserSkills().add(this);
     }
 
     public UserSkillId getId() {

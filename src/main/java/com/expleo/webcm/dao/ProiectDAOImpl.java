@@ -1,9 +1,6 @@
 package com.expleo.webcm.dao;
 
-import com.expleo.webcm.entity.expleodb.Proiect;
-import com.expleo.webcm.entity.expleodb.ProiectSkill;
-import com.expleo.webcm.entity.expleodb.Skill;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
@@ -12,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Set;
@@ -34,12 +32,6 @@ public class ProiectDAOImpl implements ProiectDAO {
     public List<Proiect> findProjectByUser(UserExpleo user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-//        Query query = session.createQuery("from Proiect where proiectId in \n" +
-//                "(Select idProiect from UserProiectId WHERE idUser = \n" +
-//                "(Select id from UserExpleo WHERE email = :email))");
-//        query.setParameter("email", username);
-//        UserService userService = new UserServiceImpl();
-//        userService.getUserExpleoByEmail(username);
 
         List<Proiect> proiecte = user.getProiecte();
 
@@ -108,9 +100,20 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = findProjectByCodProiect(codProiect);
+        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        List<ProiectSkill> listSkills = proiect.getSkills();
+
         UserExpleo user = session.get(UserExpleo.class, userId);
         user.addProiecte(proiect);
+
+
+        for(ProiectSkill ps:listSkills){
+            if(!user.getUserSkills().contains(ps)) {
+                UserSkill userSkill = new UserSkill(ps.getSkill(), user);
+                session.merge(userSkill);
+            }
+        }
+
 
 
         session.getTransaction().commit();

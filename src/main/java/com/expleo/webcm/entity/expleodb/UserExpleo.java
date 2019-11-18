@@ -15,6 +15,7 @@ import org.hibernate.search.bridge.builtin.IntegerBridge;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -175,6 +176,13 @@ public class UserExpleo {
             proiecte = new ArrayList<>();
         }
         proiecte.add(proiect);
+    }
+
+    public void addSkill(UserSkill skill){
+        if(userSkills == null){
+            userSkills = new HashSet<>();
+        }
+        userSkills.add(skill);
     }
 
     public void removeProiecte(Proiect proiect) {
