@@ -1,7 +1,10 @@
 package com.expleo.webcm.entity.expleodb;
 
+import org.springframework.security.core.userdetails.User;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -22,15 +25,16 @@ public class Proiect {
     @Column(name = "Manager_nrMatricol")
     private Integer manager;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name = "proiect_skill",
-            joinColumns = { @JoinColumn(name = "ID_Proiect")},
-            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
-    )
-    private List<Skill> skills = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//                    CascadeType.DETACH, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "proiect_skill",
+//            joinColumns = { @JoinColumn(name = "ID_Proiect")},
+//            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
+//    )
+    @OneToMany(mappedBy = "proiect")
+    private List<ProiectSkill> skills;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -40,7 +44,7 @@ public class Proiect {
             joinColumns = { @JoinColumn(name = "ID_proiect")},
             inverseJoinColumns = { @JoinColumn(name = "ID_user")}
     )
-    private List<UserExpleo> users = new ArrayList<>();
+    private List<UserExpleo> users;
 
     public Proiect() {
 
@@ -84,11 +88,11 @@ public class Proiect {
         this.manager = manager;
     }
 
-    public List<Skill> getSkills() {
+    public List<ProiectSkill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<ProiectSkill> skills) {
         this.skills = skills;
     }
 
@@ -98,6 +102,22 @@ public class Proiect {
 
     public void setUsers(List<UserExpleo> users) {
         this.users = users;
+    }
+
+    public void addUsers(UserExpleo userExpleo){
+
+        if(users == null){
+            users = new ArrayList<>();
+        }
+        users.add(userExpleo);
+    }
+
+    public void addSkill(ProiectSkill proiectSkill){
+
+        if(skills == null){
+            skills = new ArrayList<>();
+        }
+        skills.add(proiectSkill);
     }
 
     @Override

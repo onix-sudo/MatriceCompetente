@@ -83,7 +83,7 @@ public class UserExpleo {
             joinColumns = { @JoinColumn(name = "ID_user")},
             inverseJoinColumns = { @JoinColumn(name = "ID_proiect")}
     )
-    private List<Proiect> proiecte = new ArrayList<>();
+    private List<Proiect> proiecte;
 
     @ManyToMany
     @JoinTable(
@@ -167,6 +167,18 @@ public class UserExpleo {
 
     public void setProiecte(List<Proiect> proiecte) {
         this.proiecte = proiecte;
+    }
+
+    public void addProiecte(Proiect proiect){
+
+        if(proiecte == null){
+            proiecte = new ArrayList<>();
+        }
+        proiecte.add(proiect);
+    }
+
+    public void removeProiecte(Proiect proiect) {
+        proiecte.remove(proiect);
     }
 
     public Set<Skill> getSkillsRequired() {

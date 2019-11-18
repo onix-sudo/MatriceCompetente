@@ -1,19 +1,25 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name="ProiectSkill")
 @Table(name = "proiect_skill")
+//@Entity
+//@Table(name = "expleodb", schema = "proiect_skill")
 public class ProiectSkill {
+
     @EmbeddedId
     private ProiectSkillId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_Proiect", insertable = false, updatable = false)
+    @MapsId("ID_Proiect")
+    @JoinColumn(name="ID_Proiect")
     private Proiect proiect;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_skill", insertable = false, updatable = false)
+    @MapsId("ID_skill")
+    @JoinColumn(name = "ID_skill")
     // @MapsId("skillId")
     private Skill skill;
 
@@ -28,6 +34,10 @@ public class ProiectSkill {
         this.proiect = proiect;
         this.skill = skill;
         this.pondere = pondere;
+        this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
+
+        proiect.getSkills().add(this);
+        skill.getProiecte().add(this);
     }
 
     public ProiectSkillId getId() {
@@ -60,5 +70,21 @@ public class ProiectSkill {
 
     public void setPondere(int pondere) {
         this.pondere = pondere;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProiectSkill that = (ProiectSkill) o;
+        return pondere == that.pondere &&
+                id.equals(that.id) &&
+                proiect.equals(that.proiect) &&
+                skill.equals(that.skill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, proiect, skill, pondere);
     }
 }
