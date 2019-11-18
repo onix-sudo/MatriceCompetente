@@ -1,6 +1,7 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name="ProiectSkill")
 @Table(name = "proiect_skill")
@@ -69,5 +70,21 @@ public class ProiectSkill {
 
     public void setPondere(int pondere) {
         this.pondere = pondere;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProiectSkill that = (ProiectSkill) o;
+        return pondere == that.pondere &&
+                id.equals(that.id) &&
+                proiect.equals(that.proiect) &&
+                skill.equals(that.skill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, proiect, skill, pondere);
     }
 }

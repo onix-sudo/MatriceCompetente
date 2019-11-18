@@ -87,4 +87,10 @@ public class ProiectServiceImpl implements ProiectService {
     public void addSkillToProject(String codProiect, Integer skillId) {
         proiectDao.addSkillToProject(codProiect, skillId);
     }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void removeSkillFromProject(String codProiect, Integer skillId) {
+        proiectDao.removeSkillFromProject(codProiect, skillId);
+    }
 }

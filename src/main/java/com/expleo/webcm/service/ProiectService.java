@@ -31,4 +31,6 @@ public interface ProiectService {
     void addFreeProject(String codProiect, UserExpleo principal);
 
     void addSkillToProject(String codProiect, Integer skillId);
+
+    void removeSkillFromProject(String codProiect, Integer skillId);
 }

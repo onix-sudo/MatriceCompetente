@@ -40,6 +40,8 @@
                     <spring:param name="userId" value="${user.id}"/>
                 </spring:url>
 
+
+
                <tr>
                  <td>${user.nume}</td>
                  <td>${user.prenume}</td>
@@ -64,14 +66,25 @@
          <tr>
             <th>Competenta</th>
             <th>Categorie</th>
+            <th></th>
          </tr>
          </thead>
 
          <tbody>
             <c:forEach var="skill" items="${skills}">
+
+               <spring:url var="removeSkill" value="/retex/leaders/${varPath}/removeSkill">
+                   <spring:param name="skillId" value="${skill.skill.idSkill}"/>
+               </spring:url>
+
                <tr>
                  <td>${skill.skill.numeSkill}</td>
                  <td>${skill.skill.categorie}</td>
+                 <td>
+                    <form:form action="${removeSkill}" method="POST">
+                        <input type="submit" class="btn btn-danger" value="Elimina competenta"
+                    </form:form>
+                 </td>
                </tr>
             </c:forEach>
          </tbody>

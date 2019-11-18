@@ -93,6 +93,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Hibernate.initialize(result.getUsers());
         Hibernate.initialize(result.getSkills());
 
+        for(ProiectSkill temp:result.getSkills()){
+            Hibernate.initialize(temp.getSkill());
+        }
+
         session.getTransaction().commit();
         session.close();
 
@@ -171,8 +175,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect =(Proiect) session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
-        Skill skill = (Skill) session.get(Skill.class, skillId);
+        Proiect proiect =session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill =session.get(Skill.class, skillId);
 
         ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
 //        ps.setProiect(proiect);
@@ -180,6 +184,21 @@ public class ProiectDAOImpl implements ProiectDAO {
 //        ps.setPondere(1);
 
         session.save(ps);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void removeSkillFromProject(String codProiect, Integer skillId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Proiect proiect =session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill =session.get(Skill.class, skillId);
+
+        ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
+
+        session.remove(ps);
         session.getTransaction().commit();
         session.close();
     }

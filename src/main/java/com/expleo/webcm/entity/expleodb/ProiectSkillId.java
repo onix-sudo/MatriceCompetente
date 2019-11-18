@@ -3,6 +3,7 @@ package com.expleo.webcm.entity.expleodb;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ProiectSkillId implements Serializable {
@@ -36,5 +37,19 @@ public class ProiectSkillId implements Serializable {
 
     public void setSkillId(Integer skillId) {
         this.skillId = skillId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProiectSkillId that = (ProiectSkillId) o;
+        return proiectId.equals(that.proiectId) &&
+                skillId.equals(that.skillId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(proiectId, skillId);
     }
 }
