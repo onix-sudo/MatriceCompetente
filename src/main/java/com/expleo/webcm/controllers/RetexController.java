@@ -126,7 +126,7 @@ public class RetexController {
     }
 
     @GetMapping("/modify")
-    public String modify(@RequestParam("skillId") int theId, Model model){
+    public String modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
@@ -134,23 +134,13 @@ public class RetexController {
 
         UserSkill userSkill = new UserSkill(skill, user);
 
-        model.addAttribute("userSkill", userSkill);
+        userSkill.setEvaluation(eval);
 
-        return "personalProfile_AddNewEvaluation";
-    }
+        userSkillService.saveUserSkill(userSkill);
 
-    @PostMapping("/modify/addEvaluation")
-    public String addEvaluation(@RequestParam("skillId") int theId, Model model){
+        System.out.println("userSkill = " + userSkill);
 
-        UserExpleo user = userService.getUserExpleoPrincipal();
-
-        Skill skill = skillService.getSkill(theId);
-
-        UserSkill userSkill = new UserSkill(skill, user);
-
-        model.addAttribute("userSkill", userSkill);
-
-        return "personalProfile_AddNewEvaluation";
+        return "redirect:/retex/personalProfile";
     }
 
 }

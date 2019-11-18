@@ -26,8 +26,9 @@
     <tr>
         <th>Nume Skill</th>
         <th>Categorie</th>
+        <th>Auto-Evaluare</th>
+        <th>Valoare noua</th>
         <th>Elimina</th>
-        <th>Modifica</th>
     </tr>
     </thead>
     <tbody>
@@ -38,21 +39,33 @@
        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
    </c:url>
 
-    <c:url var="modify" value="/retex/modify">
-        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
-    </c:url>
-
+<!--    <c:url var="modify" value="/retex/modify">-->
+<!--        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>-->
+<!--    </c:url>-->
+<!--    <form action="${modify}">-->
+<!--        <input type="int" name="evaluation" value="1-4"/>-->
+<!--        <input type='submit' value='Edit' />-->
+<!--    </form>-->
     <tr>
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>
+        <td>${userSkill.evaluation}</td>
+        <td>
+                <form method = "get" action="${modify}">
+                    <select name="evaluation">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+<!--                    <input type="number" name="evaluation" value=""/>-->
+                    <input type=hidden name="idskill" value="${userSkill.skill.idSkill}"/>
+                    <input type='submit' value='Submit' />
+                </form>
+        </td>
         <td>
             <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
                 <button type="button" class="btn btn-danger">X</button>
-            </a><!--Java script code-->
-        </td>
-        <td>
-            <a href="${modify}">
-                <button type="button" class="btn btn-warning">X</button>
             </a><!--Java script code-->
         </td>
 
