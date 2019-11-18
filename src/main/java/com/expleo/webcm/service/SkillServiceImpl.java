@@ -1,6 +1,7 @@
 package com.expleo.webcm.service;
 
 import com.expleo.webcm.dao.SkillDAO;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Skill> showSkillsforProject(int idProject) {
+    public List<ProiectSkill> showSkillsforProject(int idProject) {
         return skillDAO.showSkillsforProject(idProject);
     }
 
@@ -45,11 +46,5 @@ public class SkillServiceImpl implements SkillService {
         skillDAO.deleteSkill(theId);
     }
 
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public void addUser(UserExpleo theUser, int id) {
 
-        skillDAO.addUser(theUser,id);
-
-    }
 }

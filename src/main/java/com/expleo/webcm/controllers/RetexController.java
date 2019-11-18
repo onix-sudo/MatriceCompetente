@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,23 +62,6 @@ public class RetexController {
         return "cmptMat";
     }
 
-    //        List<Skill> skills = skillDAO.getSkills();
-//
-//        UserExpleo user = userService.getUserExpleoPrincipal();
-//
-//        System.out.println(user);
-//
-//        model.addAttribute("skill", skills);
-    //        for (Iterator<UserSkill> iterator = userSkills.iterator(); iterator.hasNext();){
-//            UserSkill userSkill = iterator.next();
-//
-//            if (userSkill.getUser().equals(user) && userSkill.getSkill().equals(this)){
-//
-//                System.out.println("userSkill = " + userSkill);
-//
-//                userSkill.getUser().getSkills();}
-//
-//        }
     @GetMapping("/personalProfile")
     public String personalProfile(ModelMap model){
 
@@ -139,6 +123,34 @@ public class RetexController {
         userSkillService.removeUserSkill(userSkill);
 
         return "redirect:/retex/personalProfile";
+    }
+
+    @GetMapping("/modify")
+    public String modify(@RequestParam("skillId") int theId, Model model){
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        Skill skill = skillService.getSkill(theId);
+
+        UserSkill userSkill = new UserSkill(skill, user);
+
+        model.addAttribute("userSkill", userSkill);
+
+        return "personalProfile_AddNewEvaluation";
+    }
+
+    @PostMapping("/modify/addEvaluation")
+    public String addEvaluation(@RequestParam("skillId") int theId, Model model){
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        Skill skill = skillService.getSkill(theId);
+
+        UserSkill userSkill = new UserSkill(skill, user);
+
+        model.addAttribute("userSkill", userSkill);
+
+        return "personalProfile_AddNewEvaluation";
     }
 
 }

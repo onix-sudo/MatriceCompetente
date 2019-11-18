@@ -49,21 +49,6 @@ public class SkillDAOImpl implements SkillDAO {
 
     }
 
-//    @Override
-//    public List<Skill> showSkillsforUser(int idUser) {
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//
-//        UserExpleo userExpleo = session.get(UserExpleo.class, idUser);
-//
-//        List<Skill> skills = userExpleo.getSkills();
-//
-//        myLogger.info(skills.toString());
-//
-//        return skills
-//
-//    }
-
 
     @Override
     public List<Skill> getSkills() {
@@ -100,23 +85,6 @@ public class SkillDAOImpl implements SkillDAO {
     }
 
 
-
-    @Override
-    public void addUser(UserExpleo theUser, int id) {
-
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Skill skill = session.get(Skill.class, id);
-
-        skill.addUser(theUser);
-
-        session.save(skill);
-        session.getTransaction().commit();
-        System.out.println("\n.......Records Saved Successfully To The Database.......");
-        session.close();
-
-    }
 
     @Override
     public void saveSkill(Skill theSkill) {

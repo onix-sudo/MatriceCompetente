@@ -22,8 +22,4 @@ public interface SkillDAO {
 
     void deleteSkill(int theId);
 
-//    List<Skill> showSkillsforUser(int idUser);
-
-    void addUser(UserExpleo theUser, int id);
-
 }

@@ -27,6 +27,7 @@
         <th>Nume Skill</th>
         <th>Categorie</th>
         <th>Elimina</th>
+        <th>Modifica</th>
     </tr>
     </thead>
     <tbody>
@@ -37,12 +38,21 @@
        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
    </c:url>
 
+    <c:url var="modify" value="/retex/modify">
+        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
+    </c:url>
+
     <tr>
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>
         <td>
             <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
                 <button type="button" class="btn btn-danger">X</button>
+            </a><!--Java script code-->
+        </td>
+        <td>
+            <a href="${modify}">
+                <button type="button" class="btn btn-warning">X</button>
             </a><!--Java script code-->
         </td>
 

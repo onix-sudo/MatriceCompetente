@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;

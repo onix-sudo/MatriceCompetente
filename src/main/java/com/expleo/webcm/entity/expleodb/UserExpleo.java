@@ -95,25 +95,21 @@ public class UserExpleo {
     @OneToMany(mappedBy = "user")
     Set<UserSkill> userSkills;
 
-    //de la mine:
-
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)//, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserSkill> skills = new ArrayList<>();
-
-    public List<UserSkill> getSkills() {
-        return skills;
+    public Set<Skill> getSkillsRequired() {
+        return skillsRequired;
     }
 
-    public void setSkills(List<UserSkill> skills) {
-        this.skills = skills;
+    public void setSkillsRequired(Set<Skill> skillsRequired) {
+        this.skillsRequired = skillsRequired;
     }
 
-    public void addSkill(Skill skill){
-        UserSkill userSkill = new UserSkill(skill,this);
-        skills.add(userSkill);
-        skill.getUsers().add(userSkill);
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
     }
 
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
+    }
 
     public UserExpleo() {
     }
@@ -199,22 +195,6 @@ public class UserExpleo {
 
     public void removeProiecte(Proiect proiect) {
         proiecte.remove(proiect);
-    }
-
-    public Set<Skill> getSkillsRequired() {
-        return skillsRequired;
-    }
-
-    public void setSkillsRequired(Set<Skill> skillsRequired) {
-        this.skillsRequired = skillsRequired;
-    }
-
-    public Set<UserSkill> getUserSkills() {
-        return userSkills;
-    }
-
-    public void setUserSkills(Set<UserSkill> userSkills) {
-        this.userSkills = userSkills;
     }
 
     @Override
