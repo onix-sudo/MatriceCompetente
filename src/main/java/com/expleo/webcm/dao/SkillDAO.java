@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SkillDAO {
     public List<ProiectSkill> showSkillsforProject(int idProject);
-    public List<Skill> showSkillsforProject(int idProject);
+//    public List<Skill> showSkillsforProject(int idProject);
 
-    public List<UserSkill> showEvalForUserSkills(List<Skill> skills, UserExpleo userExpleo);
+    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo);
 }

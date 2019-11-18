@@ -19,7 +19,7 @@ public interface ProiectService {
 
     List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
 
-    public List<UserSkill> showEvalForUserSkills(List<Skill> skills, UserExpleo userExpleo);
+    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo);
 
     Proiect findProjectByCodProiect(String codProiect);
 

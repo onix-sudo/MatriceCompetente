@@ -22,12 +22,12 @@
 
                     <tbody>
                         <c:forEach var="skill" items="${skillList}" varStatus="status">
-                           <script>pushSkill("${skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
+                           <script>pushSkill("${skill.skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
                             <tr>
                                 <td>${status.count}</td>
-                                <td>${skill.idSkill}</td>
-                                <td>${skill.numeSkill}</td>
-                                <td>${skill.categorie}</td>
+                                <td>${skill.skill.idSkill}</td>
+                                <td>${skill.skill.numeSkill}</td>
+                                <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
                                     <select form="nrForm">

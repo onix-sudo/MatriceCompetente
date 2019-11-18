@@ -49,7 +49,7 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<UserSkill> showEvalForUserSkills(List<Skill> skills, UserExpleo userExpleo) {
+    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo) {
         return skillDAO.showEvalForUserSkills(skills, userExpleo);
     }
 

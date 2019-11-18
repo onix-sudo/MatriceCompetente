@@ -36,8 +36,8 @@ public class SkillDAOImpl implements SkillDAO {
 
         List<ProiectSkill> skills = proiect.getSkills();
 
-        for(Skill skill:skills){
-            Hibernate.initialize(skill);
+        for(ProiectSkill skill:skills){
+            Hibernate.initialize(skill.getSkill());
         }
 
         session.getTransaction().commit();
@@ -47,13 +47,13 @@ public class SkillDAOImpl implements SkillDAO {
     }
 
     @Override
-    public List<UserSkill> showEvalForUserSkills(List<Skill> skills, UserExpleo userExpleo) {
+    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<UserSkill> userSkills = new ArrayList<>();
-        for(Skill skill : skills) {
-            UserSkill userSkill = new UserSkill(skill, userExpleo);
+        for(ProiectSkill skill : skills) {
+            UserSkill userSkill = new UserSkill(skill.getSkill(), userExpleo);
             userSkills.add(session.get(UserSkill.class, userSkill.getId()));
         }
 
