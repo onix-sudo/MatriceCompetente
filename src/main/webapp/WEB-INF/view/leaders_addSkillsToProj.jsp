@@ -6,7 +6,7 @@
  onclick="window.location.href='/retex/leaders/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-warning"
- onclick="location.href='/retex/leaders/"+document.getElementById('varPath').value+"'">Inapoi</button>
+ onclick="window.location.href='/retex/leaders/${varPath}'">Inapoi</button>
 
  <br><hr>
         <form:form action="addSkills" method="POST">

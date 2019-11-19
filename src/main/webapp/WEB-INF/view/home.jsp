@@ -18,13 +18,15 @@
     --%>
     <security:authorize access="hasRole('MANAGER')">
         <p>
-            <a href="${pageContext.request.contextPath}/leaders">Leaders Page</a>
+            <%--<a href="${pageContext.request.contextPath}/retex/leaders">Manager</a>--%>
+             <button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
         </p>
     </security:authorize>
 
     <security:authorize access="hasRole('ADMIN')">
     <p>
-        <a href="${pageContext.request.contextPath}/admin">Admin Page</a>
+        <%--<a href="${pageContext.request.contextPath}/admin">Admin Page</a>--%>
+        <button type="button" class="btn btn-success" onclick="window.location.href='/admin'">Admin</button>
     </p>
     </security:authorize>
 
@@ -45,17 +47,4 @@
     <!--        Add a logout button-->
     --%>
 
-    <br><br>
-    <form:form action="${pageContext.request.contextPath}/logout"
-               method="POST">
-
-        <input type="submit" value="Logout" class="btn btn-warning"/>
-    </form:form>
-
-    <div class="fixed-footer">
-        <div class="container">Copyright &copy; 2016 Your Company</div>
-    </div>
-
-
-</body>
-</html>
+<%@ include file="footer.jspf"%>

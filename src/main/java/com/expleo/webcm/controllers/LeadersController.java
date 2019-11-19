@@ -8,7 +8,6 @@ import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/retex/leaders")
@@ -82,7 +79,8 @@ public class LeadersController {
     }
 
     @GetMapping("/{codProiect}/adaugaColaboratori")
-    public String adaugaColaboratoriView(){
+    public String adaugaColaboratoriView(@PathVariable ("codProiect") String codProiect, ModelMap model){
+        model.addAttribute("varPath", codProiect);
         return "leaders_addEmpToProj";
     }
 
@@ -93,12 +91,9 @@ public class LeadersController {
         List<UserExpleo> resultList = searchService.searchUser(cauta);
         List<UserExpleo> pickedUsers = new ArrayList<>();
 
-//        Iterator<UserExpleo> iter = resultList.iterator();
-
         if(!resultList.isEmpty()) {
             for (UserExpleo user : resultList) {
-                List<Proiect> listProiect = user.getProiecte();
-                for (Proiect tempProiect : listProiect) {
+                for (Proiect tempProiect : user.getProiecte()) {
                     if (tempProiect.getCodProiect().equals(codProiect)) {
                         pickedUsers.add(user);
                     }
@@ -162,7 +157,8 @@ public class LeadersController {
     }
 
     @GetMapping("/{codProiect}/addSkills")
-    public String addSkillsView(){
+    public String addSkillsView(@PathVariable ("codProiect") String codProiect, ModelMap model){
+        model.addAttribute("varPath", codProiect);
         return "leaders_addSkillsToProj";
     }
 
@@ -174,14 +170,11 @@ public class LeadersController {
         List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
         List<Skill> pickedSkill = new ArrayList<>();
 
-        Iterator<Skill> iter = resultList.iterator();
-
         if(!resultList.isEmpty()) {
             for (ProiectSkill tempProjSkill : proiectSkills) {
                 for(Skill skillFromResult : resultList) {
-                    Skill skill = skillFromResult;
-                    if (tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        pickedSkill.add(skill);
+                    if (tempProjSkill.getSkill().getNumeSkill().equals(skillFromResult.getNumeSkill())) {
+                        pickedSkill.add(skillFromResult);
                     }
                 }
             }
@@ -190,8 +183,6 @@ public class LeadersController {
             resultList.remove(skill);
         }
 
-
-//        System.out.println("====================================" + hasSkill);
 
         model.addAttribute("result", resultList);
         model.addAttribute("hasSkill", hasSkill);

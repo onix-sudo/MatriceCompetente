@@ -8,10 +8,11 @@
  <button type="button" class="btn btn-info"
  onclick="window.location.href='/retex/leaders/${project.codProiect}/addSkills'">Adauga competente</button>
 
- <spring:url var="renunta" value="/retex/leaders/${project.codProiect}/renuntaLaProiect"></spring:url>
+  <button type="button" class="btn btn-warning"
+  onclick="window.location.href='/retex/leaders/'">Proiecte</button>
 
 
-<form:form action = "${renunta}" method = "POST">
+<form:form action = "/retex/leaders/${project.codProiect}/renuntaLaProiect" method = "POST">
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
@@ -19,10 +20,11 @@
  <br><hr>
 
 
- <font size="5">Detaliile proiectului: ${project.numeProiect}</font>
+ <font size="5">Numele proiectului: ${project.numeProiect}</font>
  <br>
  <font size="5"> Cod: ${project.codProiect}</font>
- <br><br><br>
+ <br><hr>
+ <br>
 
      <table>
          <tbody>
@@ -59,7 +61,6 @@
 
        <br>
        <hr>
-       <br>
 
      <table>
          <tbody>

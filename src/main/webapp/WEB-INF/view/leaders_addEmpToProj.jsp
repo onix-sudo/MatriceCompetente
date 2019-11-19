@@ -3,14 +3,11 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
-<form method="GET" action="/retex/leaders/${varPath}">
-    <input type="submit" class="btn btn-warning" value="Inapoi">
-</form>
+ onclick="window.location.href='/retex/leaders/${varPath}/addSkills'">Adauga competente</button>
+
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/retex/leaders/"+${varPath}+"'">Inapo2i</button>
- ${varPath}
- ${hasProject}
+ onclick="window.location.href='/retex/leaders/${varPath}'">Inapoi</button>
+
 
 
  <br><hr>
