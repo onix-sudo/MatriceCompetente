@@ -11,20 +11,21 @@
   <button type="button" class="btn btn-warning"
   onclick="window.location.href='/retex/leaders/'">Proiecte</button>
 
+<br>
+<br>
 
 <form:form action = "/retex/leaders/${project.codProiect}/renuntaLaProiect" method = "POST">
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
 
- <br><hr>
+ <hr>
 
 
  <font size="5">Numele proiectului: ${project.numeProiect}</font>
  <br>
  <font size="5"> Cod: ${project.codProiect}</font>
  <br><hr>
- <br>
 
      <table>
          <tbody>

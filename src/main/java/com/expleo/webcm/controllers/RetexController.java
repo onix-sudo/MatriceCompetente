@@ -133,15 +133,7 @@ public class RetexController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-        Skill skill = skillService.getSkill(theId);
-
-        UserSkill userSkill = new UserSkill(skill, user);
-
-        userSkill.setEvaluation(eval);
-
-        userSkillService.saveUserSkill(userSkill);
-
-        System.out.println("userSkill = " + userSkill);
+        userSkillService.saveUserSkill(user.getId(), theId, eval);
 
         return "redirect:/retex/personalProfile";
     }
