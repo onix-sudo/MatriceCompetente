@@ -25,7 +25,7 @@ function plotRadar() {
       polar: {
         radialaxis: {
           visible: true,
-          range: [0, 50]
+          range: [0, 5]
         }
       },
       showlegend: false
