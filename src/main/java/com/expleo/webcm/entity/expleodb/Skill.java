@@ -98,6 +98,14 @@ public class Skill {
         this.users = users;
     }
 
+    public Set<UserSkill> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(Set<UserSkill> userSkills) {
+        this.userSkills = userSkills;
+    }
+
     public void addProiect(ProiectSkill proiectSkill){
         if(proiecte == null){
             proiecte = new ArrayList<>();
