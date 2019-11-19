@@ -39,23 +39,24 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         return userSkills;
     }
 
+
     @Override
-    public void saveUserSkill(UserSkill theUserSkill) {
+    public void saveUserSkill(int idUserExpleo, int idSkill) {
 
-        Session currentSession = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-        currentSession.beginTransaction();
+        session.beginTransaction();
 
+        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
 
-        System.out.println("theUser = " + theUserSkill);
+        session.merge(userSkill);
 
-        currentSession.saveOrUpdate(theUserSkill);
+        session.getTransaction().commit();
 
-        currentSession.getTransaction().commit();
-
-        currentSession.close();
+        session.close();
 
     }
+
 
     @Override
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
@@ -81,10 +82,13 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
     @Override
-    public void removeUserSkill(UserSkill userSkill) {
-
+    public void removeUserSkill(int idUserExpleo, int idSkill) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
+        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
+
+        session.clear();
 
         session.delete(userSkill);
 
@@ -92,9 +96,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         session.close();
 
-
     }
-
 
     public void saveUserSkill(int idUser, int idSkill, int eval) {
         Session session = sessionFactory.openSession();
@@ -108,7 +110,6 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         session.getTransaction().commit();
 
         session.close();
-
 
     }
 

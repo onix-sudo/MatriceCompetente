@@ -9,11 +9,11 @@ public interface UserSkillService {
 
     public List<UserSkill> getUserSkill();
 
-    public void saveUserSkill(UserSkill theUserSkill);
-
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo);
 
-    public void removeUserSkill(UserSkill userSkill);
+    public void removeUserSkill(int idUserExpleo, int idSkill);
+
+    public void saveUserSkill(int idUser, int idSkill);
 
     public void saveUserSkill(int idUser, int idSkill, int eval);
 

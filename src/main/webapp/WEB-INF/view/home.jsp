@@ -1,7 +1,6 @@
 <%@ include file="header.jspf"%>
-<%@ include file="navigation.jspf"%>
 
-
+<div class="ownBody">
     <h2>Home Page</h2>
     <hr>
     <p>
@@ -47,4 +46,5 @@
     <!--        Add a logout button-->
     --%>
 
+</div>
 <%@ include file="footer.jspf"%>

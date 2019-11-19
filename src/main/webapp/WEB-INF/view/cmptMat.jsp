@@ -1,7 +1,8 @@
+
 <%@ include file="header.jspf"%>
 
 <div>
-    <%@ include file="navigation.jspf"%>
+
 </div>
 
 

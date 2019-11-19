@@ -88,3 +88,7 @@ tr:nth-child(odd) {background: #BBBBBB}
     bottom: 250px;
     left: 500px;
 }
+
+.ownBody{
+    padding-left: 5px;
+}

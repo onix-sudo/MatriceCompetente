@@ -36,12 +36,5 @@
     </head>
 <body>
 
-    <div class="fixed-header">
-        <div class="container">
-            <nav id="hdr">
-                <a href="#">Expleo</a>
-                <a href="#">About</a>
-            </nav>
-        </div>
-    </div>
-    <%@ include file="navigation.jspf"%>
+<div class="ownBody">
+

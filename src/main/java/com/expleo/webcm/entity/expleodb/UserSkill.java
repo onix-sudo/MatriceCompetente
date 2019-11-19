@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "user_skill")
 public class UserSkill {
     @EmbeddedId
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UserSkillId id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,6 +1,4 @@
 <%@ include file="header.jspf"%>
-<%@ include file="navigation.jspf"%>
-
 
 <h2>Home Page</h2>
 <hr>
@@ -8,9 +6,6 @@
     Welcome!
 </p>
 <hr>
-<%--
-<!--            Display username and role-->
---%>
 <p>
     User:
     <security:authentication property="principal.username"/>
@@ -25,10 +20,6 @@
 </p>
 
 <hr>
-<%--
-<!--            Add a link to /leaders and / admin-->
---%>
-
 
 <hr>
 
@@ -63,4 +54,5 @@
 
  <button type="button" class="btn btn-success" onclick="window.location.href='/'">HomePage</button>
  <button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
+
 <%@ include file="footer.jspf"%>

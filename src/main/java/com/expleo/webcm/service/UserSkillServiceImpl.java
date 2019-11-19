@@ -23,22 +23,20 @@ public class UserSkillServiceImpl implements UserSkillService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void saveUserSkill(UserSkill theUserSkill) {
-
-        userSkillDAO.saveUserSkill(theUserSkill);
-
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
         return userSkillDAO.getUserSkillByUser(userExpleo);
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void removeUserSkill(UserSkill userSkill) {
-        userSkillDAO.removeUserSkill(userSkill);
+    public void removeUserSkill(int idUserExpleo, int idSkill) {
+        userSkillDAO.removeUserSkill(idUserExpleo,idSkill);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void saveUserSkill(int idUser, int idSkill) {
+        userSkillDAO.saveUserSkill(idUser,idSkill);
     }
 
     @Override

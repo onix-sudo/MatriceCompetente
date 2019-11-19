@@ -18,10 +18,6 @@
     <form:form action="${pageContext.request.contextPath}/authenticateTheUser"
                 method="POST">
 
-<%--
-<!--        Check for login error-->
---%>
-
         <c:if test="${param.error != null}">
 
             <i class="error">Sorry! Invalid username/password.</i>
