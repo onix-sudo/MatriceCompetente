@@ -71,15 +71,21 @@ public class RetexController {
 
         model.addAttribute("userSkills", userSkills);
 
+        model.addAttribute("user", user);
+
         return "personalProfile";
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill")
     public String showFormForAddSkill(ModelMap model){
 
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
         Skill theSkill = new Skill();
 
         model.addAttribute("skill", theSkill);
+
+        model.addAttribute("user", user);
 
         return "skill-form";
     }

@@ -12,16 +12,25 @@
 <!--            Display username and role-->
 --%>
 <p>
-    User email address:
+<hr>
+    <b>Nume:</b> ${user.nume} ${user.prenume}
+    <br>
+    <b>Numar matricol</b>: ${user.numarMatricol}
+    <br>
+    <b>Adresa email:</b>
     <security:authentication property="principal.username"/>
-    <br><br>
-    Skilluri personale:
+    <br>
+    <b>Data angajare:</b> ${user.dataAngajare}
+    <br>
+    <b>Functie:</b> ${user.functie}
+    <br>
+    <hr>
+    <b>Skilluri personale:</b>
 </p>
 
 <table>
-    <div><button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile/showFormForAddSkill'">Adauga Skill</button>
-    </div>
-    <br>
+
+
     <thead>
     <tr>
         <th>Nume Skill</th>
@@ -52,7 +61,7 @@
         <td>${userSkill.evaluation}</td>
         <td>
                 <form method = "get" action="${modify}">
-                    <select name="evaluation">
+                    <select name="evaluation" default = ${userSkill.evaluation}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -65,7 +74,7 @@
         </td>
         <td>
             <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
-                <button type="button" class="btn btn-danger">X</button>
+                <button type="button" class="btn-info">X</button>
             </a><!--Java script code-->
         </td>
 
@@ -74,8 +83,9 @@
     </tbody>
 </table>
 <br>
-<button type="button" class="btn btn-success" onclick="window.location.href='/retex/employee'">Angajat</button>
-<button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
-
-
+<div>
+<button type="button" class="btn btn-info" onclick="window.location.href='/retex/'">Back</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/retex/leaders'">Manager</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile/showFormForAddSkill'">Adauga Skill</button>
+</div>
 </html>
