@@ -61,13 +61,6 @@
 <br>
 
 
- <button type="button" class="btn btn-success" onclick="window.location.href='/retex/employee'">Angajat</button>
+ <button type="button" class="btn btn-success" onclick="window.location.href='/'">HomePage</button>
  <button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
-<%--
-<!--        Add a logout button-->
---%>
-
-
-
-</body>
-</html>
+<%@ include file="footer.jspf"%>

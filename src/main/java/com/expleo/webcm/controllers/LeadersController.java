@@ -8,7 +8,6 @@ import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/retex/leaders")
@@ -82,7 +79,8 @@ public class LeadersController {
     }
 
     @GetMapping("/{codProiect}/adaugaColaboratori")
-    public String adaugaColaboratoriView(){
+    public String adaugaColaboratoriView(@PathVariable ("codProiect") String codProiect, ModelMap model){
+        model.addAttribute("varPath", codProiect);
         return "leaders_addEmpToProj";
     }
 
@@ -91,28 +89,20 @@ public class LeadersController {
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
         boolean hasProject = false;
         List<UserExpleo> resultList = searchService.searchUser(cauta);
+        List<UserExpleo> pickedUsers = new ArrayList<>();
 
-//        Iterator<UserExpleo> iter = resultList.iterator();
-
-        if(resultList != null) {
+        if(!resultList.isEmpty()) {
             for (UserExpleo user : resultList) {
-                UserExpleo temp = user;
-                for (Proiect tempProiect : temp.getProiecte()) {
-                    if (resultList.size() == 1 && tempProiect.getCodProiect().equals(codProiect)) {
-                        resultList = null;
-                    } else if (tempProiect.getCodProiect().equals(codProiect)) {
-                        resultList.remove(temp);
+                for (Proiect tempProiect : user.getProiecte()) {
+                    if (tempProiect.getCodProiect().equals(codProiect)) {
+                        pickedUsers.add(user);
                     }
-
                 }
             }
         }
-//        for(UserExpleo ue:resultList){
-//            System.out.println(ue);
-//        }
-//        System.out.println(resultList.isEmpty());
-//        System.out.println(resultList.size());
-
+        for(UserExpleo userExpleo:pickedUsers){
+            resultList.remove(userExpleo);
+        }
 
         model.addAttribute("result", resultList);
         model.addAttribute("hasProject", hasProject);
@@ -167,7 +157,8 @@ public class LeadersController {
     }
 
     @GetMapping("/{codProiect}/addSkills")
-    public String addSkillsView(){
+    public String addSkillsView(@PathVariable ("codProiect") String codProiect, ModelMap model){
+        model.addAttribute("varPath", codProiect);
         return "leaders_addSkillsToProj";
     }
 
@@ -177,33 +168,21 @@ public class LeadersController {
         boolean hasSkill = false;
         List<Skill> resultList = searchService.searchSkill(cauta);
         List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
+        List<Skill> pickedSkill = new ArrayList<>();
 
-//        for(ProiectSkill test: proiectSkills){
-//            System.out.println(test.getSkill().getNumeSkill());
-//        }
-
-        Iterator<Skill> iter = resultList.iterator();
-
-        if(resultList != null) {
+        if(!resultList.isEmpty()) {
             for (ProiectSkill tempProjSkill : proiectSkills) {
-                while (iter.hasNext()) {
-//                System.out.println("*************************************************************************");
-//                System.out.println(tempProjSkill.getSkill().getNumeSkill());
-//                System.out.println(tempSkill.getNumeSkill());
-//                System.out.println(tempProjSkill.getSkill().getNumeSkill().equals(tempSkill.getNumeSkill()));
-//                System.out.println("*************************************************************************");
-                    Skill skill = iter.next();
-                    if (resultList.size() == 1 && tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        resultList = null;
-                    } else if (tempProjSkill.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        iter.remove();
+                for(Skill skillFromResult : resultList) {
+                    if (tempProjSkill.getSkill().getNumeSkill().equals(skillFromResult.getNumeSkill())) {
+                        pickedSkill.add(skillFromResult);
                     }
                 }
             }
         }
+        for(Skill skill:pickedSkill){
+            resultList.remove(skill);
+        }
 
-
-//        System.out.println("====================================" + hasSkill);
 
         model.addAttribute("result", resultList);
         model.addAttribute("hasSkill", hasSkill);

@@ -30,11 +30,21 @@ public class ProiectSkill {
 
     }
 
+    public ProiectSkill(Proiect proiect, Skill skill) {
+        this.proiect = proiect;
+        this.skill = skill;
+        this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
+        this.pondere= 1;
+
+        proiect.getSkills().add(this);
+        skill.getProiecte().add(this);
+    }
+
     public ProiectSkill(Proiect proiect, Skill skill, int pondere) {
+        this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
         this.proiect = proiect;
         this.skill = skill;
         this.pondere = pondere;
-        this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
 
         proiect.getSkills().add(this);
         skill.getProiecte().add(this);

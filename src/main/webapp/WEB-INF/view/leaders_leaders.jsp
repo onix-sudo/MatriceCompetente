@@ -9,6 +9,8 @@
  <button type="button" class="btn btn-success"
  onclick="window.location.href='/retex/leaders/freeProjects'">Alege un proiect fara manager</button>
 
+  <button type="button" class="btn btn-warning" onclick="window.location.href='/retex'">Retex</button>
+
 <hr>
     <table>
         <thead>
@@ -34,6 +36,6 @@
 
     </table>
 <hr>
-<a href="${pageContext.request.contextPath}/">Back to home page.</a>
+
 
 <%@ include file="footer.jspf"%>
