@@ -1,13 +1,6 @@
-
 <%@ include file="header.jspf"%>
 
-<div>
-
-</div>
-
-
 <div class="container">
-
         <div class="split left">
             <div class="centered">
                 <table>
@@ -51,11 +44,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <div>
-<!--                <input type="submit" class="btn btn-success place-btn" value="Update" name="updateEv">-->
-<!--                <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >-->
-            </div>
         </div>
 
 
@@ -70,10 +58,10 @@
             </div>
         </div>
     </div>
+
 </div>
 
-<div>
-    <%@ include file="footer.jspf"%>
-</div>
+<%@ include file="footer.jspf"%>
+
 
 
