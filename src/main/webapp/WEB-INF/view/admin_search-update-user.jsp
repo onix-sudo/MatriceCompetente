@@ -24,8 +24,9 @@
             <table>
                 <tr>
                     <td><label>Search</label></td>
-                    <td><input type="text" minlength="3" name = "searchTerm" title="Campul trebuie sa contina cel putin 2 caractere." required/>
+                    <td><input type="text" pattern=".{5,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
                 </tr>
+
                 <tr>
                     <td></td>
                     <td><input type="submit" value="search"/></td>
