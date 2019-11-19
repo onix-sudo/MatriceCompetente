@@ -36,17 +36,11 @@
                  <td>${tempResult.categorie}</td>
 
                  <td>
-                    <c:choose>
-                        <c:when test="${hasSkill}">
-                            Deja adaugat
-                        </c:when>
 
-                        <c:otherwise>
                               <form:form action="${modifyUser}" method="POST">
                                 <input type="submit" class="btn btn-success" value="Adauga">
                               </form:form>
-                        </c:otherwise>
-                    </c:choose>
+
                  </td>
              </tr>
              </c:forEach>

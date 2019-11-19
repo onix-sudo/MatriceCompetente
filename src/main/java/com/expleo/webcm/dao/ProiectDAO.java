@@ -1,7 +1,6 @@
 package com.expleo.webcm.dao;
 
-import com.expleo.webcm.entity.expleodb.Proiect;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.expleodb.*;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -19,7 +18,7 @@ public interface ProiectDAO {
 
     void addUserToProject(String codProiect, Integer userId);
 
-    void removeUserFromProject(Integer IDcodProiect, Integer userId);
+    void removeUserFromProject(String codProiect, Integer userId);
 
     void dropTheProject(String codProiect);
 
@@ -30,4 +29,8 @@ public interface ProiectDAO {
     void addSkillToProject(String codProiect, Integer skillId);
 
     void removeSkillFromProject(String codProiect, Integer skillId);
+
+    List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
+
+    void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills);
 }

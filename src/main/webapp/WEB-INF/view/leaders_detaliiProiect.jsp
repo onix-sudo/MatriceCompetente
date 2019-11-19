@@ -77,12 +77,12 @@
             <c:forEach var="skill" items="${skills}">
 
                <spring:url var="removeSkill" value="/webCM/leaders/${varPath}/removeSkill">
-                   <spring:param name="skillId" value="${skill.skill.idSkill}"/>
+                   <spring:param name="skillId" value="${skill.idSkill}"/>
                </spring:url>
 
                <tr>
-                 <td>${skill.skill.numeSkill}</td>
-                 <td>${skill.skill.categorie}</td>
+                 <td>${skill.numeSkill}</td>
+                 <td>${skill.categorie}</td>
                  <td>
                     <form:form action="${removeSkill}" method="POST">
                         <input type="submit" class="btn btn-danger" value="Elimina competenta"

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -62,19 +63,28 @@ public class LeadersController {
     @GetMapping("/{codProiect}")
     public ModelAndView detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
+        System.out.println("********************************************************************************");
+        Proiect proiect = new Proiect();
+        System.out.println("111111111111111111111111111111111111111111111111111111111111111111111111111111111");
 
-        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
-        List<UserExpleo> users = proiect.getUsers();
-        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiect.getProiectId());
+        List<UserExpleo> users = new ArrayList<>();
+        System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222222222222222");
+
+//        List<ProiectSkill> skills = proiect.getSkills();
+        List<Skill> skills = new ArrayList<>();
+        System.out.println("3333333333333333333333333333333333333333333333333333333333333333333333333333333333");
+
+        proiectService.findProjectByCodProiect(codProiect, proiect, users, skills);
+
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
         model.addAttribute("project", proiect);
-        model.addAttribute("varPath",codProiect);
+        model.addAttribute("varPath", codProiect);
         mav.addAllObjects(model);
 
         mav.setViewName("leaders_detaliiProiect");
-
+        System.out.println("********************************************************************************");
         return mav;
     }
 
@@ -100,8 +110,10 @@ public class LeadersController {
                 }
             }
         }
-        for(UserExpleo userExpleo:pickedUsers){
-            resultList.remove(userExpleo);
+        if(resultList.size()==pickedUsers.size()) {
+            resultList=null;
+        } else {
+            resultList.removeAll(pickedUsers);
         }
 
         model.addAttribute("result", resultList);
@@ -123,8 +135,7 @@ public class LeadersController {
     public String removeEmpFromProject(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
-        proiectService.removeUserFromProject(
-                proiectService.findProjectByCodProiect(codProiect).getProiectId(), userId);
+        proiectService.removeUserFromProject(codProiect, userId);
 
         return "redirect:/webCM/leaders/"+codProiect;
     }
@@ -165,28 +176,35 @@ public class LeadersController {
     @PostMapping("/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam("cauta") String cauta,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-        boolean hasSkill = false;
+//        boolean hasSkill = false;
+        System.out.println("============================================================================");
+        System.out.println("============================================================================");
         List<Skill> resultList = searchService.searchSkill(cauta);
-        List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
+        System.out.println("----------------------------------------------------------------------------");
+        List<ProiectSkill> proiectSkills = proiectService.findProjectSkillsByCodProiect(codProiect);
         List<Skill> pickedSkill = new ArrayList<>();
 
         if(!resultList.isEmpty()) {
-            for (ProiectSkill tempProjSkill : proiectSkills) {
-                for(Skill skillFromResult : resultList) {
-                    if (tempProjSkill.getSkill().getNumeSkill().equals(skillFromResult.getNumeSkill())) {
-                        pickedSkill.add(skillFromResult);
+            for (ProiectSkill tempExistingSkill : proiectSkills) {
+                for(Skill tempSearchedSkill : resultList) {
+                    if (tempExistingSkill.getSkill().getNumeSkill().equals(tempSearchedSkill.getNumeSkill())) {
+                        pickedSkill.add(tempSearchedSkill);
                     }
                 }
             }
         }
-        for(Skill skill:pickedSkill){
-            resultList.remove(skill);
+
+        if(resultList.size()==pickedSkill.size()) {
+            resultList=null;
+        } else {
+            resultList.removeAll(pickedSkill);
         }
 
-
         model.addAttribute("result", resultList);
-        model.addAttribute("hasSkill", hasSkill);
+//        model.addAttribute("hasSkill", hasSkill);
         model.addAttribute("varPath", codProiect);
+        System.out.println("============================================================================");
+        System.out.println("============================================================================");
 
         return "leaders_addSkillsToProj";
     }

@@ -73,10 +73,10 @@ public class SearchDAOImpl implements SearchDAO {
 
         List<Skill> result = hibQuery.list();
 
-        for(Skill temp:result){
-            Hibernate.initialize(temp.getUsers());
-            Hibernate.initialize(temp.getProiecte());
-        }
+//        for(Skill temp:result){
+//            Hibernate.initialize(temp.getUsers());
+//            Hibernate.initialize(temp.getProiecte());
+//        }
 
         tx.commit();
         session.close();

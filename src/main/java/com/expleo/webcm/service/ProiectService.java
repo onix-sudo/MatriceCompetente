@@ -25,7 +25,7 @@ public interface ProiectService {
 
     void addUserToProject(String codProiect, Integer userId);
 
-    void removeUserFromProject(Integer IDcodProiect, Integer userId);
+    void removeUserFromProject(String codProiect, Integer userId);
 
     void dropTheProject(String codProiect);
 
@@ -36,4 +36,8 @@ public interface ProiectService {
     void addSkillToProject(String codProiect, Integer skillId);
 
     void removeSkillFromProject(String codProiect, Integer skillId);
+
+    List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
+
+    void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills);
 }

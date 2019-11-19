@@ -61,14 +61,20 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
+    public void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills) {
+        proiectDao.findProjectByCodProiect(codProiect, proiect, users, skills);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
     public void addUserToProject(String codProiect, Integer userId) {
         proiectDao.addUserToProject(codProiect, userId);
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void removeUserFromProject(Integer IDcodProiect, Integer userId) {
-        proiectDao.removeUserFromProject(IDcodProiect, userId);
+    public void removeUserFromProject(String codProiect, Integer userId) {
+        proiectDao.removeUserFromProject(codProiect, userId);
     }
 
     @Override
@@ -99,5 +105,11 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public void removeSkillFromProject(String codProiect, Integer skillId) {
         proiectDao.removeSkillFromProject(codProiect, skillId);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect) {
+        return proiectDao.findProjectSkillsByCodProiect(codProiect);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -82,17 +83,64 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Proiect result = (Proiect) query.getSingleResult();
 
-        Hibernate.initialize(result.getUsers());
-        Hibernate.initialize(result.getSkills());
-
-        for (ProiectSkill temp : result.getSkills()) {
-            Hibernate.initialize(temp.getSkill());
-        }
+//        Hibernate.initialize(result.getUsers());
+//        Hibernate.initialize(result.getSkills());
+//        for (ProiectSkill temp : result.getSkills()) {
+//            Hibernate.initialize(temp.getSkill());
+//        }
 
         session.getTransaction().commit();
         session.close();
 
         return result;
+    }
+
+    @Override
+    public void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+
+        proiect = (Proiect) query.getSingleResult();
+
+        for(UserExpleo temp: proiect.getUsers()){
+            users.add(temp);
+        }
+
+        for(ProiectSkill temp: proiect.getSkills()){
+            skills.add(temp.getSkill());
+            Hibernate.initialize(temp.getSkill());
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public List<ProiectSkill> findProjectSkillsByCodProiect(String codProject) {
+        System.out.println("***********************************************");
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProject);
+        Proiect result = (Proiect) query.getSingleResult();
+
+        List<ProiectSkill> foundProjectSkill = result.getSkills();
+
+        for(ProiectSkill ps : foundProjectSkill){
+            Hibernate.initialize(ps.getSkill());
+        }
+
+
+        session.getTransaction().commit();
+        session.close();
+        System.out.println("***********************************************");
+
+
+        return foundProjectSkill;
     }
 
     @Override
@@ -120,14 +168,16 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public void removeUserFromProject(Integer IDcodProiect, Integer userId) {
+    public void removeUserFromProject(String codProiect, Integer userId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, IDcodProiect);
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
         UserExpleo user = session.get(UserExpleo.class, userId);
-        user.removeProiecte(proiect);
 
+        user.removeProiecte(proiect);
 
         session.getTransaction().commit();
         session.close();
@@ -184,18 +234,14 @@ public class ProiectDAOImpl implements ProiectDAO {
         List<ProiectSkill> proiectSkills = proiect.getSkills();
 
         for (ProiectSkill temp : proiectSkills) {
-            List<UserExpleo> userExpleoList = temp.getProiect().getUsers();
 
-            for (UserExpleo ue : userExpleoList) {
+            for (UserExpleo ue : temp.getProiect().getUsers()) {
                 hasSkill = false;
-                Set<UserSkill> userSkillsList = ue.getUserSkills();
-                for (UserSkill us : userSkillsList) {
+                for (UserSkill us : ue.getUserSkills()) {
                     if (us.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
                         hasSkill = true;
                     }
-
                 }
-                System.out.println(hasSkill + "//////////------------------///////////////");
                 if (hasSkill == false) {
                     UserSkill userSkill = new UserSkill(skill, session.get(UserExpleo.class, ue.getId()));
                     session.merge(userSkill);
