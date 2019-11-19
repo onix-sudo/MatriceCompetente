@@ -15,4 +15,6 @@ public interface UserSkillDAO {
 
     public void removeUserSkill(UserSkill userSkill);
 
+    public void saveUserSkill(int idUser, int idSkill, int eval);
+
 }

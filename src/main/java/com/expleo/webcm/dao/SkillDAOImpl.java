@@ -75,11 +75,17 @@ public class SkillDAOImpl implements SkillDAO {
 
         List<UserSkill> userSkills = new ArrayList<>();
         for(ProiectSkill skill : skills) {
-            UserSkill userSkill = new UserSkill(skill.getSkill(), userExpleo);
+            UserSkill userSkill = new UserSkill(session.get(Skill.class, skill.getSkill().getIdSkill()),
+                    session.get(UserExpleo.class, userExpleo.getId()));
             userSkills.add(session.get(UserSkill.class, userSkill.getId()));
         }
 
+        for(UserSkill userSkill : userSkills){
+            Hibernate.initialize(userSkill);
+        }
+
         session.getTransaction().commit();
+        session.close();
 
         return userSkills;
     }

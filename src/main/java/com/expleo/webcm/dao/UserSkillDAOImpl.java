@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.hibernate.Hibernate;
@@ -97,5 +98,21 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
     }
 
+
+    public void saveUserSkill(int idUser, int idSkill, int eval) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill), session.get(UserExpleo.class, idUser));
+        userSkill.setEvaluation(eval);
+
+        session.merge(userSkill);
+
+        session.getTransaction().commit();
+
+        session.close();
+
+
+    }
 
 }

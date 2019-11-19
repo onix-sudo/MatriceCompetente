@@ -4,8 +4,9 @@
     <%@ include file="navigation.jspf"%>
 </div>
 
+
 <div class="container">
-    <form method="GET" action="/retex/cmptMat" id="nrForm">
+    <form method="GET" action="/retex/cmptMat/modifyT">
         <div class="split left">
             <div class="centered">
                 <table>
@@ -30,18 +31,29 @@
                                 <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
-                                    <select form="nrForm">
+                                    <select name="evaluation">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                     </select>
+                                    <!--                    <input type="number" name="evaluation" value=""/>-->
+<!--                                    <input type=hidden name="idproiect" value="${skill.proiect.proiectId}"/>-->
+                                    <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
+                                    <input type="hidden" value="${skill.proiect.proiectId}" name="proiectId"
+                                           style="display: none" >
+                                    <input type='submit' value='Submit' />
                                 </td>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+            </div>
+
+            <div>
+<!--                <input type="submit" class="btn btn-success place-btn" value="Update" name="updateEv">-->
+<!--                <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >-->
             </div>
         </div>
     </form>

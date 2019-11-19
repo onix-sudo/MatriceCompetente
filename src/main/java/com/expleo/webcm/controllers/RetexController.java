@@ -1,14 +1,11 @@
 package com.expleo.webcm.controllers;
 
-import com.expleo.webcm.dao.SkillDAO;
-import com.expleo.webcm.dao.UserSkillDAO;
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
 import com.expleo.webcm.service.*;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +52,7 @@ public class RetexController {
         List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
 
-
+        System.out.println("proiectId = " + proiectId);
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
         model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
 
@@ -142,5 +139,17 @@ public class RetexController {
 
         return "redirect:/retex/personalProfile";
     }
+
+    @GetMapping("/cmptMat/modifyT")
+    public String modifyT(@RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
+                          @RequestParam(value = "proiectId", required = false) int idproiect){
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        userSkillService.saveUserSkill(user.getId(), idskill, eval);
+
+        return "redirect:/retex/cmptMat?proiectId=" + idproiect;
+    }
+
 
 }

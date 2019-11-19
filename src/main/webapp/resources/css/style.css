@@ -82,3 +82,9 @@ tr:nth-child(odd) {background: #BBBBBB}
 
     float:left;
 }
+
+.place-btn{
+    position: fixed;
+    bottom: 250px;
+    left: 500px;
+}
