@@ -101,10 +101,6 @@ public class RetexController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-//        UserSkill userSkill = new UserSkill(skill, user);
-//
-//        Skill skill = skillService.getSkill(skillId);
-
         userSkillService.saveUserSkill(user.getId(), skillId);
 
         return "redirect:/retex/personalProfile";
@@ -115,11 +111,6 @@ public class RetexController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-//        Skill skill = skillService.getSkill(theId);
-//
-//        UserSkill userSkill = new UserSkill(skill, user);
-//
-//        userSkillService.removeUserSkill(userSkill);
 
         userSkillService.removeUserSkill(user.getId(), idSkill);
 

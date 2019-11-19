@@ -95,13 +95,9 @@ public class SkillDAOImpl implements SkillDAO {
     @Override
     public void saveSkill(Skill theSkill) {
 
-        //get current hibernate session
-
         Session session = sessionFactory.openSession();
 
         session.beginTransaction();
-
-        //save
 
         System.out.println(theSkill);
 
@@ -120,7 +116,6 @@ public class SkillDAOImpl implements SkillDAO {
 
         session.beginTransaction();
 
-        //retrieve/read from db using primary key
         Skill theSkill = session.get(Skill.class, theId);
 
         session.getTransaction().commit();
@@ -137,9 +132,8 @@ public class SkillDAOImpl implements SkillDAO {
 
         session.beginTransaction();
 
-        //delete from db using pk
-
         Query theQuery = session.createQuery("delete from Skill where id=:skillId");
+
         theQuery.setParameter("skillId", theId);
 
         theQuery.executeUpdate();

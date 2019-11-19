@@ -23,7 +23,7 @@ import java.util.Set;
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
-                                @org.hibernate.search.annotations.Parameter(name = "minGramSize", value = "4"),
+                                @org.hibernate.search.annotations.Parameter(name = "minGramSize", value = "3"),
                                 @Parameter(name = "maxGramSize", value = "6") } )
         }
 )

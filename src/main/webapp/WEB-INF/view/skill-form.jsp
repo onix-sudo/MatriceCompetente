@@ -1,42 +1,41 @@
+<%@ include file="header.jspf"%>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<html>
-<head>
-    <title>Expleo webCM</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Expleo webCM</title>-->
 
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 
-    <link rel="stylesheet" href="/resources/css/style.css">
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 
-    <link rel="stylesheet" href="/resources/css/header&footer.css">
+<!--    <link rel="stylesheet" href="/resources/css/style.css">-->
 
-    <link rel="stylesheet" href="/resources/css/main.css">
+<!--    <link rel="stylesheet" href="/resources/css/header&footer.css">-->
 
-    <link rel="stylesheet" href="/resources/css/util.css">
+<!--    <link rel="stylesheet" href="/resources/css/main.css">-->
 
-    <link rel="stylesheet" href="/resources/css/navbar.css">
+<!--    <link rel="stylesheet" href="/resources/css/util.css">-->
 
-    <link rel="stylesheet" href="/resources/css/split-screen.css">
+<!--    <link rel="stylesheet" href="/resources/css/navbar.css">-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<!--    <link rel="stylesheet" href="/resources/css/split-screen.css">-->
 
-    <script type="text/javascript" src="/resources/js/radar.js">
-    </script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>-->
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!--    <script type="text/javascript" src="/resources/js/radar.js">-->
+<!--    </script>-->
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
 
-</head>
-<body>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<!--</head>-->
+<!--<body>-->
 
 
 
@@ -101,5 +100,9 @@
         </core:forEach>
     </table>
 </core:if>
+
+
+
+<button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile'">Back</button>
 
 <%@ include file="footer.jspf"%>

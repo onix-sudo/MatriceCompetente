@@ -160,13 +160,7 @@ public class UserExpleo {
     }
 
     public void setDataAngajare(String dataAngajare) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-//        Date date = null;
-//        try {
-//            date = dateFormat.parse(dataAngajare);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+
         this.dataAngajare = dataAngajare;
     }
 
