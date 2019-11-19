@@ -15,7 +15,7 @@
             <table>
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{5,}" name = "cauta" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+                    <input type="text" pattern=".{4,}" name = "cauta" title="Campul trebuie sa contina cel putin 4 caractere." required/>
                     <input type="submit" value="search"/></th>
                 </tr>
             </table>
