@@ -1,4 +1,8 @@
 <%@ include file="leaders_leadersHeader.jspf"%>
+<br>
+
+  <button type="button" class="btn btn-warning"
+  onclick="window.location.href='/retex/leaders/'">Proiecte</button>
 
 <h2> Proiecte disponibile: </h2>
 

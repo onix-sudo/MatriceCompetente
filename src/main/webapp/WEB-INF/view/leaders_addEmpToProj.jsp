@@ -3,10 +3,13 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
+ onclick="window.location.href='/retex/leaders/${varPath}/addSkills'">Adauga competente</button>
 
- <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaCompetente'">Adauga competente</button>
+ <button type="button" class="btn btn-warning"
+ onclick="window.location.href='/retex/leaders/${varPath}'">Inapoi</button>
+
+
+
  <br><hr>
         <form:form action="adaugaColaboratori" method="POST">
             <table>
