@@ -64,7 +64,7 @@
 <br>
 
 
-<spring:url var="go" value="/retex/personalProfile/showFormForAddSkill/search" >
+<spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
 <form:form action="${go}" method="get">
@@ -87,7 +87,7 @@
             </tr>
         </thead>
         <core:forEach var="tempResult" items="${result}">
-            <spring:url var="addSkill" value="/retex/personalProfile/showFormForAddSkill/search/addSkillToUser">
+            <spring:url var="addSkill" value="/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser">
                 <spring:param name="skillId" value="${tempResult.idSkill}"/>
             </spring:url>
             <tr>
@@ -103,6 +103,6 @@
 
 
 
-<button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile'">Back</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
 
 <%@ include file="footer.jspf"%>

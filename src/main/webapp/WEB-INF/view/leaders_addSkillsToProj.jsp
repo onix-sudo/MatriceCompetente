@@ -3,10 +3,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/retex/leaders/${varPath}'">Inapoi</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}'">Inapoi</button>
 
  <br><hr>
         <form:form action="addSkills" method="POST">
@@ -28,7 +28,7 @@
 
              </tr>
              <c:forEach var="tempResult" items="${result}">
-                 <spring:url var="modifyUser" value="/retex/leaders/${varPath}/addSkills/add">
+                 <spring:url var="modifyUser" value="/webCM/leaders/${varPath}/addSkills/add">
                      <spring:param name="skillId" value="${tempResult.idSkill}"/>
                  </spring:url>
              <tr>

@@ -3,18 +3,18 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
+ onclick="window.location.href='/webCM/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${project.codProiect}/addSkills'">Adauga competente</button>
+ onclick="window.location.href='/webCM/leaders/${project.codProiect}/addSkills'">Adauga competente</button>
 
   <button type="button" class="btn btn-warning"
-  onclick="window.location.href='/retex/leaders/'">Proiecte</button>
+  onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
 
 <br>
 <br>
 
-<form:form action = "/retex/leaders/${project.codProiect}/renuntaLaProiect" method = "POST">
+<form:form action = "/webCM/leaders/${project.codProiect}/renuntaLaProiect" method = "POST">
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
@@ -40,7 +40,7 @@
 
          <tbody>
             <c:forEach var="user" items="${users}">
-                <spring:url var="removeUser" value="/retex/leaders/${varPath}/removeEmp">
+                <spring:url var="removeUser" value="/webCM/leaders/${varPath}/removeEmp">
                     <spring:param name="userId" value="${user.id}"/>
                 </spring:url>
 
@@ -76,7 +76,7 @@
          <tbody>
             <c:forEach var="skill" items="${skills}">
 
-               <spring:url var="removeSkill" value="/retex/leaders/${varPath}/removeSkill">
+               <spring:url var="removeSkill" value="/webCM/leaders/${varPath}/removeSkill">
                    <spring:param name="skillId" value="${skill.skill.idSkill}"/>
                </spring:url>
 

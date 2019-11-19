@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/retex/leaders")
+@RequestMapping("/webCM/leaders")
 public class LeadersController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class LeadersController {
         List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
         model.addAttribute("projects", projects);
 
-        return "leaders_leaders";
+        return "leaders_home";
     }
 
     @GetMapping("/addNewProject")
@@ -56,7 +56,7 @@ public class LeadersController {
 
         proiectService.saveNewProject(proiect);
 
-        return "redirect:/retex/leaders";
+        return "redirect:/webCM/leaders";
     }
 
     @GetMapping("/{codProiect}")
@@ -116,7 +116,7 @@ public class LeadersController {
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.addUserToProject(codProiect, userId);
-        return "redirect:/retex/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/"+codProiect;
     }
 
     @PostMapping("/{codProiect}/removeEmp")
@@ -126,7 +126,7 @@ public class LeadersController {
         proiectService.removeUserFromProject(
                 proiectService.findProjectByCodProiect(codProiect).getProiectId(), userId);
 
-        return "redirect:/retex/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/"+codProiect;
     }
 
     @PostMapping("/{codProiect}/renuntaLaProiect")
@@ -135,7 +135,7 @@ public class LeadersController {
 
         proiectService.dropTheProject(codProiect);
 
-        return "redirect:/retex/leaders/";
+        return "redirect:/webCM/leaders/";
     }
 
     @GetMapping("/freeProjects")
@@ -153,7 +153,7 @@ public class LeadersController {
         UserExpleo principal = userService.getUserExpleoPrincipal();
         proiectService.addFreeProject(codProiect, principal);
 
-        return "redirect:/retex/leaders/freeProjects";
+        return "redirect:/webCM/leaders/freeProjects";
     }
 
     @GetMapping("/{codProiect}/addSkills")
@@ -196,7 +196,7 @@ public class LeadersController {
                                         @RequestParam("skillId") Integer skillId)
     {
         proiectService.addSkillToProject(codProiect, skillId);
-        return "redirect:/retex/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/"+codProiect;
     }
 
     @PostMapping("/{codProiect}/removeSkill")
@@ -205,6 +205,6 @@ public class LeadersController {
     {
         proiectService.removeSkillFromProject(codProiect, skillId);
 
-        return "redirect:/retex/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/"+codProiect;
     }
 }

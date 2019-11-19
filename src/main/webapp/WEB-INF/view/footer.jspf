@@ -1,4 +1,4 @@
-</div>
+
 
        <br><br>
        <form:form action="${pageContext.request.contextPath}/logout"
@@ -6,6 +6,8 @@
 
            <input type="submit" value="Logout" class="btn btn-warning"/>
        </form:form>
+
+       </div>
 
     <div class="fixed-footer">
             <div class="container">Copyright &copy; 2019 Expleo</div>

@@ -3,10 +3,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/retex/leaders/${varPath}/addSkills'">Adauga competente</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}/addSkills'">Adauga competente</button>
 
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/retex/leaders/${varPath}'">Inapoi</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}'">Inapoi</button>
 
 
 
@@ -32,7 +32,7 @@
                  <th>Adaugare</th>
              </tr>
              <c:forEach var="tempResult" items="${result}">
-                 <spring:url var="modifyUser" value="/retex/leaders/${varPath}/adaugaColaboratori/add">
+                 <spring:url var="modifyUser" value="/webCM/leaders/${varPath}/adaugaColaboratori/add">
                      <spring:param name="userId" value="${tempResult.id}"/>
                  </spring:url>
              <tr>

@@ -3,13 +3,13 @@
 <br>
 
  <button type="button" class="btn btn-success"
- onclick="window.location.href='/retex/leaders/addNewProject'">Creeaza un proiect</button>
+ onclick="window.location.href='/webCM/leaders/addNewProject'">Creeaza un proiect</button>
 
 
  <button type="button" class="btn btn-success"
- onclick="window.location.href='/retex/leaders/freeProjects'">Alege un proiect fara manager</button>
+ onclick="window.location.href='/webCM/leaders/freeProjects'">Alege un proiect fara manager</button>
 
-  <button type="button" class="btn btn-warning" onclick="window.location.href='/retex'">Retex</button>
+  <button type="button" class="btn btn-warning" onclick="window.location.href='/webCM'">webCM</button>
 
 <hr>
     <table>
@@ -28,7 +28,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <a href="/retex/leaders/${proiecte.codProiect}"> Modifica </a>
+                        <a href="/webCM/leaders/${proiecte.codProiect}"> Modifica </a>
                     </td>
                 </tr>
             </c:forEach>

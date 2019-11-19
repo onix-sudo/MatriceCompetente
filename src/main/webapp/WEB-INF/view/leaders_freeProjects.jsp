@@ -2,7 +2,7 @@
 <br>
 
   <button type="button" class="btn btn-warning"
-  onclick="window.location.href='/retex/leaders/'">Proiecte</button>
+  onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
 
 <h2> Proiecte disponibile: </h2>
 
@@ -17,7 +17,7 @@
              <tr>
              <c:forEach var="tempResult" items="${result}">
 
-             <spring:url var="addFreeProject" value="/retex/leaders/freeProjects/add">
+             <spring:url var="addFreeProject" value="/webCM/leaders/freeProjects/add">
                 <spring:param name="codProiect" value="${tempResult.codProiect}"/>
              </spring:url>
 

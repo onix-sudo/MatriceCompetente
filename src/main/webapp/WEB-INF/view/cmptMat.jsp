@@ -25,7 +25,7 @@
                                 <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
-                                    <form method="GET" action="/retex/cmptMat/modifyT">
+                                    <form method="GET" action="/webCM/cmptMat/modifyT">
                                         <select name="evaluation">
                                             <option value="1">1</option>
                                             <option value="2">2</option>

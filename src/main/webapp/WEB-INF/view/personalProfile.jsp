@@ -44,11 +44,11 @@
 
 <c:forEach var="userSkill" items="${userSkills}">
 
-   <c:url var="deleteLink" value="/retex/deleteSkill">
+   <c:url var="deleteLink" value="/webCM/deleteSkill">
        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
    </c:url>
 
-<!--    <c:url var="modify" value="/retex/modify">-->
+<!--    <c:url var="modify" value="/webCM/modify">-->
 <!--        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>-->
 <!--    </c:url>-->
 <!--    <form action="${modify}">-->
@@ -83,8 +83,8 @@
 </table>
 <br>
 <div>
-<button type="button" class="btn btn-info" onclick="window.location.href='/retex/'">Back</button>
-<button type="button" class="btn btn-info" onclick="window.location.href='/retex/leaders'">Manager</button>
-<button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile/showFormForAddSkill'">Adauga Skill</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/'">Back</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Manager</button>
+<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>
 </div>
 </html>

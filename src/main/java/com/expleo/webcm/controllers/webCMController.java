@@ -21,8 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 
 @Controller
-@RequestMapping("/retex")
-public class RetexController {
+@RequestMapping("/webCM")
+public class webCMController {
     @Autowired
     private UserService userService;
 
@@ -39,11 +39,11 @@ public class RetexController {
     private SearchService searchService;
 
     @GetMapping
-    public String retex(ModelMap model){
+    public String webCM(ModelMap model){
         List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
         model.addAttribute("proiectList", proiectList);
 
-        return "retex";
+        return "webCM";
     }
 
     @GetMapping(value = "/cmptMat")
@@ -103,7 +103,7 @@ public class RetexController {
 
         userSkillService.saveUserSkill(user.getId(), skillId);
 
-        return "redirect:/retex/personalProfile";
+        return "redirect:/webCM/personalProfile";
     }
 
     @GetMapping("/deleteSkill")
@@ -114,7 +114,7 @@ public class RetexController {
 
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
-        return "redirect:/retex/personalProfile";
+        return "redirect:/webCM/personalProfile";
     }
 
     @GetMapping("/modify")
@@ -124,7 +124,7 @@ public class RetexController {
 
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
-        return "redirect:/retex/personalProfile";
+        return "redirect:/webCM/personalProfile";
     }
 
     @GetMapping("/cmptMat/modifyT")
@@ -135,7 +135,7 @@ public class RetexController {
 
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
-        return "redirect:/retex/cmptMat?proiectId=" + idproiect;
+        return "redirect:/webCM/cmptMat?proiectId=" + idproiect;
     }
 
 

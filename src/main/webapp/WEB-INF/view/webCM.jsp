@@ -14,7 +14,7 @@
     <security:authentication property="principal.authorities"/>
     <br><br>
 
-    <button type="button" class="btn btn-info" onclick="window.location.href='/retex/personalProfile'">Personal Profile</button>
+    <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Personal Profile</button>
 
 
 </p>
@@ -37,7 +37,7 @@
             <tr>
                 <td>${status.index + 1}</td>
                 <td>${proiect.proiectId}</td>
-                <form method="GET" action="/retex/cmptMat">
+                <form method="GET" action="/webCM/cmptMat">
                     <td>
                         <input type="submit" value="${proiect.numeProiect}" name="proiect">
                         <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
@@ -52,6 +52,6 @@
 <br>
 
 <button type="button" class="btn btn-success" onclick="window.location.href='/'">HomePage</button>
-<button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
+<button type="button" class="btn btn-success" onclick="window.location.href='/webCM/leaders'">Manager</button>
 
 <%@ include file="footer.jspf"%>

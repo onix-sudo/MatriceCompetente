@@ -37,7 +37,6 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         List<Proiect> proiecte = user.getProiecte();
 
-
         session.getTransaction().commit();
         session.close();
 
@@ -65,7 +64,6 @@ public class ProiectDAOImpl implements ProiectDAO {
         query.setParameter("nrMat", userExpleo.getNumarMatricol());
 
         List<Proiect> result = (List<Proiect>) query.list();
-
 
         session.getTransaction().commit();
         session.close();

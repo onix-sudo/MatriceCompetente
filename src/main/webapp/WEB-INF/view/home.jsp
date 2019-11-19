@@ -17,8 +17,8 @@
     --%>
     <security:authorize access="hasRole('MANAGER')">
         <p>
-            <%--<a href="${pageContext.request.contextPath}/retex/leaders">Manager</a>--%>
-             <button type="button" class="btn btn-success" onclick="window.location.href='/retex/leaders'">Manager</button>
+            <%--<a href="${pageContext.request.contextPath}/webCM/leaders">Manager</a>--%>
+             <button type="button" class="btn btn-success" onclick="window.location.href='/webCM/leaders'">Manager</button>
         </p>
     </security:authorize>
 
@@ -33,13 +33,13 @@
 
     <div class="centerDiv">
         <button type="button" class="btn btn-info app1"
-                                    onclick="window.location.href='/retex'">Retex</button>
+                                    onclick="window.location.href='/webCM'">webCM</button>
         <button type="button" class="btn btn-info app2"
-                                    onclick="window.location.href='/retex'">App1</button>
+                                    onclick="window.location.href='/webCM'">App1</button>
         <button type="button" class="btn btn-info app3"
-                                    onclick="window.location.href='/retex'">App2</button>
+                                    onclick="window.location.href='/webCM'">App2</button>
         <button type="button" class="btn btn-info app4"
-                                    onclick="window.location.href='/retex'">App3</button>
+                                    onclick="window.location.href='/webCM'">App3</button>
 
     </div>
     <%--

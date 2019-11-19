@@ -57,9 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                     .antMatchers("/").hasRole("EMPLOYEE")
-                    .antMatchers("/retex").hasAnyRole("EMPLOYEE","MANAGER")
-                    .antMatchers("/retex/employee/**").hasRole("EMPLOYEE")
-                    .antMatchers("/retex/leaders/**").hasRole("MANAGER")
+                    .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
+                    .antMatchers("/webCM/employee/**").hasRole("EMPLOYEE")
+                    .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/manager/**").hasRole("ADMIN")
                 .and()
