@@ -8,14 +8,23 @@
 
 <h2>Add Skill</h2>
 
-<%--
-<!--            Display username and role-->
---%>
 <p>
-    User email address:
-    <security:authentication property="principal.username"/>
-    <br>
+<hr>
+<b>Nume:</b> ${user.nume} ${user.prenume}
+<br>
+<b>Numar matricol</b>: ${user.numarMatricol}
+<br>
+<b>Adresa email:</b>
+<security:authentication property="principal.username"/>
+<br>
+<b>Data angajare:</b> ${user.dataAngajare}
+<br>
+<b>Functie:</b> ${user.functie}
+<br>
+<hr>
+<b>Skilluri personale:</b>
 </p>
+
 
 <br>
 
