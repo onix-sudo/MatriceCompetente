@@ -50,7 +50,7 @@ public class LeadersController {
     }
 
     @GetMapping("/searchPeople/search")
-    public String showLeaders(@RequestParam(value = "searchTerm") String text, Model theModel){
+    public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
 //        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
 //        theModel.addAttribute("projects", projects);
@@ -80,12 +80,15 @@ public class LeadersController {
 
             UserExpleo userExpleo = itUserExpleo.next();
 
-            UserSkill userSkill = new UserSkill(skill,userExpleo);
+            UserSkill userSkill = new UserSkill(skill,userExpleo);  // NU TREBUIE CREAT CI PRELUAT DIN UserSkillService
+
+            userSkill.setEvaluation(eval);
 
             System.out.println("userSkill = " + userSkill);
 
             userSkills.add(userSkill);
         }
+
 
         System.out.println("userExpleos = " + userExpleos);
 
@@ -94,6 +97,8 @@ public class LeadersController {
         theModel.addAttribute("users", userExpleos);
 
         theModel.addAttribute("usersSkills", userSkills);
+
+        System.out.println("eval" + eval);
 
         return "searchPeople";
     }
