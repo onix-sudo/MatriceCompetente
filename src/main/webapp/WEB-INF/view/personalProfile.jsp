@@ -1,4 +1,4 @@
-<%@ include file="header.jspf"%>
+<!--<%@ include file="header.jspf"%>-->
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -28,7 +28,7 @@
     <b>Skilluri personale:</b>
 </p>
 
-<table>
+<table class="table">
 
 
     <thead>

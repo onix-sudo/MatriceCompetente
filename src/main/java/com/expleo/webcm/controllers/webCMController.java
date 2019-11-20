@@ -43,6 +43,15 @@ public class webCMController {
         List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
         model.addAttribute("proiectList", proiectList);
 
+        System.out.println("EXTRAORD");
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
+
+        model.addAttribute("userSkills", userSkills);
+
+        model.addAttribute("user", user);
+
         return "webCM";
     }
 
@@ -60,8 +69,9 @@ public class webCMController {
     }
 
     @GetMapping("/personalProfile")
-    public String personalProfile(ModelMap model){
+    public ModelMap personalProfile(ModelMap model){
 
+        System.out.println("EXTRAORD");
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
@@ -70,7 +80,7 @@ public class webCMController {
 
         model.addAttribute("user", user);
 
-        return "personalProfile";
+        return model;
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill")
