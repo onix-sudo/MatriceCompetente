@@ -33,7 +33,7 @@
 
     <thead>
     <tr>
-        <th>Nume Skill</th>
+        <th>Competente</th>
         <th>Categorie</th>
         <th>Auto-Evaluare</th>
         <th>Valoare noua</th>

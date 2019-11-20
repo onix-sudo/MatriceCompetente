@@ -90,8 +90,10 @@ public class webCMController {
     @GetMapping("/personalProfile/showFormForAddSkill/search")
     public String searchSkills(@RequestParam(value = "searchTerm") String text, Model theModel){
 
+        UserExpleo user = userService.getUserExpleoPrincipal();
         List<Skill> searchResult = searchService.searchSkill(text);
         theModel.addAttribute("result", searchResult);
+        theModel.addAttribute("user", user);
 
         return "skill-form";
     }
