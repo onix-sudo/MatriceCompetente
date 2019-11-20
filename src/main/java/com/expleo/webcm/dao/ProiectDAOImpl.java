@@ -6,6 +6,7 @@ import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projection;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,23 +99,26 @@ public class ProiectDAOImpl implements ProiectDAO {
     @Override
     public void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
 
-        proiect = (Proiect) query.getSingleResult();
+        Proiect loadProiect = (Proiect) query.getSingleResult();
 
-        for(UserExpleo temp: proiect.getUsers()){
+//        Proiect loadProiect = session.load(Proiect.class,  proiect.getProiectId());
+
+        for(UserExpleo temp: loadProiect.getUsers()){
             users.add(temp);
         }
 
-        for(ProiectSkill temp: proiect.getSkills()){
+        for(ProiectSkill temp: loadProiect.getSkills()){
             skills.add(temp.getSkill());
-            Hibernate.initialize(temp.getSkill());
+            session.get(Skill.class, temp.getSkill().getIdSkill());
+//            Hibernate.initialize(temp.getSkill());
         }
 
-        session.getTransaction().commit();
+        tx.commit();
         session.close();
     }
 
@@ -130,9 +134,9 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         List<ProiectSkill> foundProjectSkill = result.getSkills();
 
-        for(ProiectSkill ps : foundProjectSkill){
-            Hibernate.initialize(ps.getSkill());
-        }
+//        for(ProiectSkill ps : foundProjectSkill){
+//            Hibernate.initialize(ps.getSkill());
+//        }
 
 
         session.getTransaction().commit();
@@ -148,7 +152,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
+
         List<ProiectSkill> listSkills = proiect.getSkills();
 
         UserExpleo user = session.get(UserExpleo.class, userId);
@@ -175,7 +182,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
         Proiect proiect = (Proiect) query.getSingleResult();
-        UserExpleo user = session.get(UserExpleo.class, userId);
+
+        UserExpleo user = session.load(UserExpleo.class, userId);
 
         user.removeProiecte(proiect);
 
@@ -188,8 +196,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Proiect proiect = findProjectByCodProiect(codProiect);
         proiect.setManager(null);
+
+        session.update(proiect);
 
         session.getTransaction().commit();
         session.close();
@@ -215,8 +225,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Proiect proiect = findProjectByCodProiect(codProiect);
         proiect.setManager(principal.getNumarMatricol());
+
+        session.update(proiect);
 
         session.getTransaction().commit();
         session.close();

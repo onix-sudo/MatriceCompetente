@@ -64,7 +64,7 @@ public class LeadersController {
     public ModelAndView detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
         System.out.println("********************************************************************************");
-        Proiect proiect = new Proiect();
+        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
         System.out.println("111111111111111111111111111111111111111111111111111111111111111111111111111111111");
 
         List<UserExpleo> users = new ArrayList<>();
@@ -144,7 +144,11 @@ public class LeadersController {
     public String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
 
+        System.out.println("=======================================================");
+
         proiectService.dropTheProject(codProiect);
+        System.out.println("=======================================================");
+
 
         return "redirect:/webCM/leaders/";
     }
@@ -152,8 +156,13 @@ public class LeadersController {
     @GetMapping("/freeProjects")
     public String freeProjects(Model model){
 
+        System.out.println("********************************************************************************");
+
+
         List<Proiect> result = proiectService.getFreeProjects();
         model.addAttribute("result", result);
+
+        System.out.println("********************************************************************************");
 
         return "leaders_freeProjects";
     }

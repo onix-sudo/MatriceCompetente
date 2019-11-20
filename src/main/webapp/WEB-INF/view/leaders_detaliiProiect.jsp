@@ -3,10 +3,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/${project.codProiect}/adaugaColaboratori'">Adauga colaboratori</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/${project.codProiect}/addSkills'">Adauga competente</button>
+ onclick="window.location.href='/webCM/leaders/${varPath}/addSkills'">Adauga competente</button>
 
   <button type="button" class="btn btn-warning"
   onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
