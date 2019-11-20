@@ -23,8 +23,8 @@ import java.util.Set;
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
-                                @Parameter(name = "minGramSize", value = "4"),
-                                @Parameter(name = "maxGramSize", value = "6") } )
+                                @Parameter(name = "minGramSize", value = "3"),
+                                @Parameter(name = "maxGramSize", value = "10") } )
         }
 )
 @Entity
@@ -49,10 +49,10 @@ public class Skill {
     private List<ProiectSkill> proiecte;
 
     @ManyToMany(mappedBy = "skillsRequired")
-    Set<UserExpleo> users;
+    private Set<UserExpleo> users;
 
     @OneToMany(mappedBy = "skill")
-    Set<UserSkill> userSkills;
+    private Set<UserSkill> userSkills;
 
     public Skill() {
 

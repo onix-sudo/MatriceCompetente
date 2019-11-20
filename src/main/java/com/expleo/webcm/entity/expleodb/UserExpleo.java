@@ -29,8 +29,8 @@ import java.util.Set;
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
-                                @Parameter(name = "minGramSize", value = "4"),
-                                @Parameter(name = "maxGramSize", value = "6") } )
+                                @Parameter(name = "minGramSize", value = "3"),
+                                @Parameter(name = "maxGramSize", value = "10") } )
         }
 )
 @Indexed
@@ -90,10 +90,10 @@ public class UserExpleo {
             name = "user_skill",
             joinColumns = @JoinColumn(name = "ID_user"),
             inverseJoinColumns = @JoinColumn(name = "ID_skill"))
-    Set<Skill> skillsRequired;
+    private Set<Skill> skillsRequired;
 
     @OneToMany(mappedBy = "user")
-    Set<UserSkill> userSkills;
+    private Set<UserSkill> userSkills;
 
     public Set<Skill> getSkillsRequired() {
         return skillsRequired;

@@ -13,13 +13,13 @@
             <table>
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{4,}" name = "cauta" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
                     <input type="submit" value="Search"/></th>
                 </tr>
             </table>
         </form:form>
  <br>
-         <c:if test="${result != null}">
+         <c:if test="${not empty result}">
          <table>
              <tr>
                  <th>Competenta</th>

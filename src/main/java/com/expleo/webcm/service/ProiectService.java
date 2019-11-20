@@ -19,9 +19,11 @@ public interface ProiectService {
 
     List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
 
-    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo);
+    List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo);
 
     Proiect findProjectByCodProiect(String codProiect);
+
+    void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills);
 
     void addUserToProject(String codProiect, Integer userId);
 
@@ -39,5 +41,5 @@ public interface ProiectService {
 
     List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
 
-    void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills);
+
 }

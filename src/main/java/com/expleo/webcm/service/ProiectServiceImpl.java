@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ProiectServiceImpl implements ProiectService {
@@ -61,8 +60,8 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void findProjectByCodProiect(String codProiect, Proiect proiect, List<UserExpleo> users, List<Skill> skills) {
-        proiectDao.findProjectByCodProiect(codProiect, proiect, users, skills);
+    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills) {
+        proiectDao.getProjectListsUsersSkills(codProiect, users, skills);
     }
 
     @Override
