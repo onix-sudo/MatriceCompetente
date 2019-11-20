@@ -25,13 +25,15 @@
     <tr>
         <th>Nume User</th>
         <th>Functie</th>
+        <th>Evaluare</th>
         <th></th>
     </tr>
     </thead>
-    <core:forEach var="user" items="${users}">
+    <core:forEach var="userSkill" items="${usersSkills}">
         <tr>
-            <td>${user.nume} ${user.prenume}</td>
-            <td>${user.functie}</td>
+            <td>${userSkill.user.nume} ${userSkill.user.prenume}</td>
+            <td>${userSkill.user.functie}</td>
+            <td>${userSkill.evaluation}</td>
         </tr>
     </core:forEach>
 </table>

@@ -65,6 +65,8 @@ public class LeadersController {
 
         Set<UserExpleo> userExpleos = new HashSet<>();
 
+        Set<UserSkill> userSkills = new HashSet<>();
+
         for (Skill skill : searchResult){
             userExpleos.addAll(skill.getUsers());
         }
@@ -82,12 +84,16 @@ public class LeadersController {
 
             System.out.println("userSkill = " + userSkill);
 
-            System.out.println("skillAAAAAAAAAAAAAAAA = " + skill);
+            userSkills.add(userSkill);
         }
 
         System.out.println("userExpleos = " + userExpleos);
 
+        System.out.println("userSkills = " + userSkills);
+
         theModel.addAttribute("users", userExpleos);
+
+        theModel.addAttribute("usersSkills", userSkills);
 
         return "searchPeople";
     }
