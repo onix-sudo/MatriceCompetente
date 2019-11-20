@@ -9,6 +9,9 @@
  <button type="button" class="btn btn-success"
  onclick="window.location.href='/webCM/leaders/freeProjects'">Alege un proiect fara manager</button>
 
+<button type="button" class="btn btn-success"
+        onclick="window.location.href='/webCM/leaders/searchPeople'">Cauta angajati in functie de competente</button>
+
   <button type="button" class="btn btn-warning" onclick="window.location.href='/webCM'">webCM</button>
 
 <hr>
