@@ -3,10 +3,7 @@ package com.expleo.webcm.entity.securitydb;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users", schema = "webcm_security")
@@ -28,6 +25,9 @@ public class LoginUser {
 
     @Column(name = "reset_token")
     private String resetToken;
+
+    @Column(name = "expiryDate")
+    private Date expiryDate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                             CascadeType.DETACH, CascadeType.REFRESH})
@@ -79,6 +79,24 @@ public class LoginUser {
 
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.MINUTE, 30);
+        this.expiryDate = now.getTime();
+    }
+
+    public void resetExpiryDate(){
+        this.expiryDate = null;
+    }
+
+    public boolean isExpired(){
+        return new Date().after(this.expiryDate);
     }
 
     public Set<LoginRoles> getRole() {

@@ -103,9 +103,9 @@
                     </div>
                 </form:form>
 
-                    <div style="margin-top: -600px" class="form-group">
+                    <div style="padding-top: 0px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="button" class="btn btn-success" onclick="window.location.href='/resetPassword'">Reset Password</button>
+                            <button type="submit" class="btn btn-success" onclick="window.location.href='/resetPassword'">Forgot Password</button>
                         </div>
                     </div>
 

@@ -3,23 +3,17 @@ package com.expleo.webcm.dao;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
-import com.expleo.webcm.helper.BcryptPasswordGenerator;
+import com.expleo.webcm.helper.BcryptPasswordHelper;
 import com.expleo.webcm.helper.Principal;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -32,6 +26,9 @@ public class UserDAOImpl implements UserDAO {
     @Qualifier("sessionSecurityFactory")
     @Autowired
     private SessionFactory sessionSecurityFactory;
+
+    @Autowired
+    BcryptPasswordHelper bcryptPasswordHelper;
 
     @Override
     public void saveNewUser(UserExpleo newUser) {
@@ -58,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
 
 //        ====== SET DETAILS ======
         userLogin.setUserName(newUser.getEmail());
-        userLogin.setPassword(new BcryptPasswordGenerator()
+        userLogin.setPassword(new BcryptPasswordHelper()
                 .makePassword(newUser.getNume(), newUser.getNumarMatricol()));
         userLogin.setEnabled(1);
         userLogin.setResetToken(null);
@@ -165,5 +162,27 @@ public class UserDAOImpl implements UserDAO {
         UserExpleo userExpleo = getUserExpleoById(theId);
         userExpleo.setFunctie("Manager");
         updateUserExpleo(userExpleo);
+    }
+
+    @Override
+    public boolean checkIfValidOldPassowrd(String oldPassword) {
+        Session session = sessionSecurityFactory.openSession();
+        LoginUser user = session.get(LoginUser.class, getUserExpleoPrincipal().getId());
+        session.close();
+        return bcryptPasswordHelper.checkIfValidOldPassowrd(oldPassword, user.getPassword());
+    }
+
+    @Override
+    public void changePassword(String newPassword) {
+        Session session = sessionSecurityFactory.openSession();
+        session.beginTransaction();
+
+        LoginUser user = session.load(LoginUser.class, getUserExpleoPrincipal().getId());
+        user.setPassword(bcryptPasswordHelper.generatePassword(newPassword));
+
+        session.update(user);
+
+        session.getTransaction().commit();
+        session.close();
     }
 }

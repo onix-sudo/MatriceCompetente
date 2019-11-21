@@ -84,7 +84,7 @@
 <br>
 <div>
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/'">Back</button>
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Manager</button>
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>
+<button type="button" class="btn btn-warning" onclick="window.location.href='/changePassword'">Schimba parola</button>
 </div>
 </html>

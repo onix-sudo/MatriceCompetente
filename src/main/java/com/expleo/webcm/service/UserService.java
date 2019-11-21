@@ -18,4 +18,7 @@ public interface UserService {
     void addManagerRole(int theId);
 
 
+    boolean checkIfValidOldPassowrd(String oldPassword);
+
+    void changePassword(String newPassword);
 }
