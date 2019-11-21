@@ -2,8 +2,8 @@
 
 <div class="container">
         <div class="split left">
-            <div class="centered">
-                <table>
+            <div class="">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Nr</th>
@@ -36,7 +36,7 @@
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${skill.proiect.proiectId}" name="proiectId"
                                                style="display: none" >
-                                        <input type='submit' value='Submit' />
+                                        <input class="btn btn-secondary btn-sm" type='submit' value='Submit' />
                                     </form>
                                 </td>
                             </tr>

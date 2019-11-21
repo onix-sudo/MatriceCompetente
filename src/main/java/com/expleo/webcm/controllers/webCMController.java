@@ -44,6 +44,15 @@ public class webCMController {
         List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
         model.addAttribute("proiectList", proiectList);
 
+//        System.out.println("EXTRAORD");
+//        UserExpleo user = userService.getUserExpleoPrincipal();
+//
+//        List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
+//
+//        model.addAttribute("userSkills", userSkills);
+//
+//        model.addAttribute("user", user);
+
         return "webCM";
     }
 
@@ -63,6 +72,7 @@ public class webCMController {
     @GetMapping("/personalProfile")
     public String personalProfile(ModelMap model){
 
+        System.out.println("EXTRAORD");
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
@@ -106,7 +116,7 @@ public class webCMController {
 
         userSkillService.saveUserSkill(user.getId(), skillId);
 
-        return "redirect:/webCM/personalProfile";
+        return "redirect:/webCM";
     }
 
     @GetMapping("/deleteSkill")
@@ -117,7 +127,7 @@ public class webCMController {
 
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
-        return "redirect:/webCM/personalProfile";
+        return "redirect:/webCM";
     }
 
     @GetMapping("/modify")
