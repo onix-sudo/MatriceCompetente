@@ -40,7 +40,8 @@ public class webCMController {
 
     @GetMapping
     public String webCM(ModelMap model){
-        List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
+//        List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
+        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
         model.addAttribute("proiectList", proiectList);
 
         return "webCM";

@@ -9,4 +9,8 @@ public interface SearchService {
     List<UserExpleo> searchUser(String text);
 
     List<Skill> searchSkill(String cauta);
+
+    List<UserExpleo> searchUsersNotInProject(String codProiect, String searchTerm);
+
+    List<Skill> searchSkillsNotInProject(String codProiect, String searchTerm);
 }

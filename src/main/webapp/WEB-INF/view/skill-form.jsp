@@ -70,7 +70,7 @@
 <form:form action="${go}" method="get">
 
     <label>Search</label>
-    <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
 
     <input type="submit" value="search"/>
 

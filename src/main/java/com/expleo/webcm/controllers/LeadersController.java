@@ -1,7 +1,6 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
-import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.ProiectService;
@@ -62,19 +61,21 @@ public class LeadersController {
     @GetMapping("/{codProiect}")
     public ModelAndView detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
-
         Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
-        List<UserExpleo> users = proiect.getUsers();
-        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiect.getProiectId());
+
+        List<UserExpleo> users = new ArrayList<>();
+
+        List<Skill> skills = new ArrayList<>();
+
+        proiectService.getProjectListsUsersSkills(codProiect, users, skills);
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
         model.addAttribute("project", proiect);
-        model.addAttribute("varPath",codProiect);
+        model.addAttribute("varPath", codProiect);
         mav.addAllObjects(model);
 
         mav.setViewName("leaders_detaliiProiect");
-
         return mav;
     }
 
@@ -85,27 +86,12 @@ public class LeadersController {
     }
 
     @PostMapping("/{codProiect}/adaugaColaboratori")
-    public String adaugaColaboratoriView(@RequestParam("cauta") String cauta,
+    public String adaugaColaboratoriView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-        boolean hasProject = false;
-        List<UserExpleo> resultList = searchService.searchUser(cauta);
-        List<UserExpleo> pickedUsers = new ArrayList<>();
 
-        if(!resultList.isEmpty()) {
-            for (UserExpleo user : resultList) {
-                for (Proiect tempProiect : user.getProiecte()) {
-                    if (tempProiect.getCodProiect().equals(codProiect)) {
-                        pickedUsers.add(user);
-                    }
-                }
-            }
-        }
-        for(UserExpleo userExpleo:pickedUsers){
-            resultList.remove(userExpleo);
-        }
+        List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm);
 
-        model.addAttribute("result", resultList);
-        model.addAttribute("hasProject", hasProject);
+        model.addAttribute("result", foundUsers);
         model.addAttribute("varPath", codProiect);
 
         return "leaders_addEmpToProj";
@@ -123,8 +109,7 @@ public class LeadersController {
     public String removeEmpFromProject(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
-        proiectService.removeUserFromProject(
-                proiectService.findProjectByCodProiect(codProiect).getProiectId(), userId);
+        proiectService.removeUserFromProject(codProiect, userId);
 
         return "redirect:/webCM/leaders/"+codProiect;
     }
@@ -133,7 +118,9 @@ public class LeadersController {
     public String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
 
+
         proiectService.dropTheProject(codProiect);
+
 
         return "redirect:/webCM/leaders/";
     }
@@ -141,8 +128,11 @@ public class LeadersController {
     @GetMapping("/freeProjects")
     public String freeProjects(Model model){
 
+
+
         List<Proiect> result = proiectService.getFreeProjects();
         model.addAttribute("result", result);
+
 
         return "leaders_freeProjects";
     }
@@ -163,29 +153,12 @@ public class LeadersController {
     }
 
     @PostMapping("/{codProiect}/addSkills")
-    public String addSkillsView(@RequestParam("cauta") String cauta,
+    public String addSkillsView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-        boolean hasSkill = false;
-        List<Skill> resultList = searchService.searchSkill(cauta);
-        List<ProiectSkill> proiectSkills = proiectService.findProjectByCodProiect(codProiect).getSkills();
-        List<Skill> pickedSkill = new ArrayList<>();
 
-        if(!resultList.isEmpty()) {
-            for (ProiectSkill tempProjSkill : proiectSkills) {
-                for(Skill skillFromResult : resultList) {
-                    if (tempProjSkill.getSkill().getNumeSkill().equals(skillFromResult.getNumeSkill())) {
-                        pickedSkill.add(skillFromResult);
-                    }
-                }
-            }
-        }
-        for(Skill skill:pickedSkill){
-            resultList.remove(skill);
-        }
+        List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm);
 
-
-        model.addAttribute("result", resultList);
-        model.addAttribute("hasSkill", hasSkill);
+        model.addAttribute("result", foundSkills);
         model.addAttribute("varPath", codProiect);
 
         return "leaders_addSkillsToProj";
@@ -196,6 +169,7 @@ public class LeadersController {
                                         @RequestParam("skillId") Integer skillId)
     {
         proiectService.addSkillToProject(codProiect, skillId);
+
         return "redirect:/webCM/leaders/"+codProiect;
     }
 

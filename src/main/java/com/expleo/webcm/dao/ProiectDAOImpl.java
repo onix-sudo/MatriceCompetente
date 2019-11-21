@@ -6,13 +6,16 @@ import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projection;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -63,7 +66,7 @@ public class ProiectDAOImpl implements ProiectDAO {
         Query query = session.createQuery("from Proiect where manager = :nrMat");
         query.setParameter("nrMat", userExpleo.getNumarMatricol());
 
-        List<Proiect> result = (List<Proiect>) query.list();
+        List<Proiect> result = new LinkedList<Proiect>(query.list());
 
         session.getTransaction().commit();
         session.close();
@@ -82,13 +85,6 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Proiect result = (Proiect) query.getSingleResult();
 
-        Hibernate.initialize(result.getUsers());
-        Hibernate.initialize(result.getSkills());
-
-        for (ProiectSkill temp : result.getSkills()) {
-            Hibernate.initialize(temp.getSkill());
-        }
-
         session.getTransaction().commit();
         session.close();
 
@@ -96,14 +92,61 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
+    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+
+        Proiect loadProiect = (Proiect) query.getSingleResult();
+
+        users.addAll(loadProiect.getUsers());
+
+        for(ProiectSkill temp: loadProiect.getSkills()){
+            skills.add(temp.getSkill());
+            Hibernate.initialize(temp.getSkill());
+        }
+
+        tx.commit();
+        session.close();
+    }
+
+    @Override
+    public List<ProiectSkill> findProjectSkillsByCodProiect(String codProject) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProject);
+        Proiect result = (Proiect) query.getSingleResult();
+
+        List<ProiectSkill> foundProjectSkill = result.getSkills();
+
+        for(ProiectSkill ps : foundProjectSkill){
+            Hibernate.initialize(ps.getSkill());
+        }
+
+
+        session.getTransaction().commit();
+        session.close();
+
+
+        return foundProjectSkill;
+    }
+
+    @Override
     public void addUserToProject(String codProiect, Integer userId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
+
         List<ProiectSkill> listSkills = proiect.getSkills();
 
-        UserExpleo user = session.get(UserExpleo.class, userId);
+        UserExpleo user = session.load(UserExpleo.class, userId);
         user.addProiecte(proiect);
 
 
@@ -114,20 +157,22 @@ public class ProiectDAOImpl implements ProiectDAO {
             }
         }
 
-
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public void removeUserFromProject(Integer IDcodProiect, Integer userId) {
+    public void removeUserFromProject(String codProiect, Integer userId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, IDcodProiect);
-        UserExpleo user = session.get(UserExpleo.class, userId);
-        user.removeProiecte(proiect);
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
 
+        UserExpleo user = session.load(UserExpleo.class, userId);
+
+        user.removeProiecte(proiect);
 
         session.getTransaction().commit();
         session.close();
@@ -138,8 +183,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Proiect proiect = findProjectByCodProiect(codProiect);
         proiect.setManager(null);
+
+        session.update(proiect);
 
         session.getTransaction().commit();
         session.close();
@@ -152,7 +199,7 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Query query = session.createQuery("from Proiect where manager = null");
 
-        List<Proiect> result = (List<Proiect>) query.list();
+        List<Proiect> result = new LinkedList<Proiect> (query.list());
 
         session.getTransaction().commit();
         session.close();
@@ -165,8 +212,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Proiect proiect = findProjectByCodProiect(codProiect);
         proiect.setManager(principal.getNumarMatricol());
+
+        session.update(proiect);
 
         session.getTransaction().commit();
         session.close();
@@ -177,30 +226,25 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        boolean hasSkill;
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
         Skill skill = session.get(Skill.class, skillId);
 
-        List<ProiectSkill> proiectSkills = proiect.getSkills();
+        List<UserExpleo> projectUsers = proiect.getUsers();
 
-        for (ProiectSkill temp : proiectSkills) {
-            List<UserExpleo> userExpleoList = temp.getProiect().getUsers();
-
-            for (UserExpleo ue : userExpleoList) {
-                hasSkill = false;
-                Set<UserSkill> userSkillsList = ue.getUserSkills();
-                for (UserSkill us : userSkillsList) {
-                    if (us.getSkill().getNumeSkill().equals(skill.getNumeSkill())) {
-                        hasSkill = true;
+        if(!projectUsers.isEmpty()) {
+            for (UserExpleo tempUser : projectUsers) {
+                if (tempUser.getUserSkills().size() == 0) {
+                    session.merge(new UserSkill(skill, tempUser));
+                } else {
+                    for (UserSkill tempUserSkill : tempUser.getUserSkills()) {
+                        if (!tempUserSkill.getSkill().equals(skill)) {
+                            session.merge(new UserSkill(skill, tempUser));
+                            break;
+                        }
                     }
-
                 }
-                System.out.println(hasSkill + "//////////------------------///////////////");
-                if (hasSkill == false) {
-                    UserSkill userSkill = new UserSkill(skill, session.get(UserExpleo.class, ue.getId()));
-                    session.merge(userSkill);
-                }
-
             }
         }
 
@@ -216,10 +260,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Proiect proiect = session.get(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
-        Skill skill = session.get(Skill.class, skillId);
+        Proiect proiect = session.load(Proiect.class, findProjectByCodProiect(codProiect).getProiectId());
+        Skill skill = session.load(Skill.class, skillId);
 
-        ProiectSkill ps = new ProiectSkill(proiect, skill, 1);
+        ProiectSkill ps = new ProiectSkill(proiect, skill);
 
         session.remove(ps);
         session.getTransaction().commit();

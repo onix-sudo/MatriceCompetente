@@ -15,13 +15,13 @@
             <table>
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{4,}" name = "cauta" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
                     <input type="submit" value="search"/></th>
                 </tr>
             </table>
         </form:form>
  <br>
-         <c:if test="${result != null}">
+         <c:if test="${not empty result}">
          <table>
              <tr>
                  <th>Nume</th>
@@ -43,17 +43,11 @@
                  <td>${tempResult.functie}</td>
 
                  <td>
-                    <c:choose>
-                        <c:when test="${hasProject}">
-                            Deja adaugat
-                        </c:when>
 
-                        <c:otherwise>
                               <form:form action="${modifyUser}" method="POST">
                                 <input type="submit" class="btn btn-success" value="Adauga-l">
                               </form:form>
-                        </c:otherwise>
-                    </c:choose>
+
                  </td>
              </tr>
              </c:forEach>

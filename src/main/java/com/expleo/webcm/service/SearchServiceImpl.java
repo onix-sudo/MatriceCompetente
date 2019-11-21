@@ -13,7 +13,7 @@ import java.util.List;
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
-    SearchDAO searchDAO;
+    private SearchDAO searchDAO;
 
     @Override
     @Transactional("transactionExpleoDBManager")
@@ -25,5 +25,17 @@ public class SearchServiceImpl implements SearchService {
     @Transactional("transactionExpleoDBManager")
     public List<Skill> searchSkill(String text) {
         return searchDAO.searchSkill(text);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<UserExpleo> searchUsersNotInProject(String codProiect, String searchTerm) {
+        return searchDAO.searchUsersNotInProject(codProiect, searchTerm);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Skill> searchSkillsNotInProject(String codProiect, String searchTerm) {
+        return searchDAO.searchSkillsNotInProject(codProiect, searchTerm);
     }
 }
