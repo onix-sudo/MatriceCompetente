@@ -43,10 +43,10 @@ public class UserAccesController {
 
     @GetMapping("/forgotPassword")
     public String forgotPassword(){
-        return "resetPassword";
+        return "forgotPassword";
     }
 
-    @GetMapping("/resetPassword")
+    @GetMapping("forgotPassword/newPassword")
     public String resetPassword(){
         return "resetPassword";
     }
