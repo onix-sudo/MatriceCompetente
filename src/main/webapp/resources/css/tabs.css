@@ -7,7 +7,6 @@ html, body, div, h1, h2, h3, p, pre {
 	color: #333;
 }
 html, body {
-	background: #bdcbe5;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 1.55;
@@ -1010,5 +1009,5 @@ a:hover {
 /**/
 .pcss3t > ul,
 .pcss3t > ul > li {
-	height: 370px;
+	height: 100%;
 }

@@ -1,4 +1,4 @@
-<!--<%@ include file="header.jspf"%>-->
+
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -82,9 +82,10 @@
     </tbody>
 </table>
 <br>
+
 <div>
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/'">Back</button>
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Manager</button>
+
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>
 </div>
+
 </html>

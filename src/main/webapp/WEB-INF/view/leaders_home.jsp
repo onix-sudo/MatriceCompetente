@@ -38,4 +38,3 @@
 <hr>
 
 
-<%@ include file="footer.jspf"%>
