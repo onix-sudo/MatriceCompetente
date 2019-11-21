@@ -96,15 +96,11 @@ public class SkillDAOImpl implements SkillDAO {
     public void saveSkill(Skill theSkill) {
 
         Session session = sessionFactory.openSession();
-
         session.beginTransaction();
-
-        System.out.println(theSkill);
 
         session.saveOrUpdate(theSkill);
 
         session.getTransaction().commit();
-
         session.close();
 
     }

@@ -93,3 +93,5 @@ tr:nth-child(odd) {background: #BBBBBB}
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.error {color:red}

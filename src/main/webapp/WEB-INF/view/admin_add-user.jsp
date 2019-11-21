@@ -1,25 +1,7 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-
-<html>
-<head>
-    <title>
-        ADMIN PAGE -- ADD NEW USER
-    </title>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-        <style>
-            .error {color:red}
-        </style>
-
-</head>
-<body>
+<%@ include file="admin_header.jspf" %>
 
     <form:form action = "saveUser" modelAttribute = "newEmployee" method="POST" accept-charset="utf-8">
     <table>
-        <tbody>
         <tr>
             <td><label> Nume: </label><td>
             <td><form:input path="nume" /></td>
@@ -54,15 +36,11 @@
         </tr>
 
         <tr>
+            <td><input type="submit" value="Adauga" class="btn btn-success"/></td>
             <td><label></label></td>
-            <td><input type="submit" value="Save" class="save"/></td>
         </tr>
-        </tbody>
     </table>
 
     </form:form>
 
-
-</body>
-
-</html>
+<%@ include file="footer.jspf" %>

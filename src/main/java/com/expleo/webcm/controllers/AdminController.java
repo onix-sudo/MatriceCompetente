@@ -1,9 +1,11 @@
 package com.expleo.webcm.controllers;
 
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.service.SearchService;
+import com.expleo.webcm.service.SkillService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class AdminController {
     @Autowired
     SearchService searchService;
 
+    @Autowired
+    SkillService skillService;
+
     //add req mapping for /admin
     @GetMapping()
     public String showAdmin(){
@@ -47,8 +52,6 @@ public class AdminController {
 
         UserExpleo employee = new UserExpleo();
         theModel.addAttribute("newEmployee", employee);
-
-//        searchService.searchUser("Ovi");
 
         return "admin_add-user";
     }
@@ -126,6 +129,22 @@ public class AdminController {
         userService.updateUserExpleo(updateUser);
 
         return "redirect:/admin/updateUser";
+    }
+
+    @GetMapping("/addSkill")
+    public String addSkill(Model model){
+        Skill newSkill = new Skill();
+        model.addAttribute("newSkill", newSkill);
+
+        return "admin_addSkill";
+    }
+
+    @PostMapping("/addSkill/save")
+    public String saveNewSkill(@ModelAttribute("newSkill") Skill skill){
+
+        skillService.saveSkill(skill);
+
+        return "redirect:/admin";
     }
 
 
