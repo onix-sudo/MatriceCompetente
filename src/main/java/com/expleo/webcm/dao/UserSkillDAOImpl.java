@@ -88,7 +88,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
 
-//        session.clear();
+        session.clear();
 
         session.delete(userSkill);
 

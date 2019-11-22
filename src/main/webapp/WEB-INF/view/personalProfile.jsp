@@ -1,5 +1,3 @@
-
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -7,10 +5,6 @@
 
 
 <h2>Profil Personal</h2>
-
-<%--
-<!--            Display username and role-->
---%>
 <p>
 <hr>
     <b>Nume:</b> ${user.nume} ${user.prenume}
@@ -30,7 +24,6 @@
 
 <table class="table">
 
-
     <thead>
     <tr>
         <th>Competente</th>
@@ -41,44 +34,34 @@
     </tr>
     </thead>
     <tbody>
+        <c:forEach var="userSkill" items="${userSkills}">
 
-<c:forEach var="userSkill" items="${userSkills}">
-
-   <c:url var="deleteLink" value="/webCM/deleteSkill">
-       <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
-   </c:url>
-
-<!--    <c:url var="modify" value="/webCM/modify">-->
-<!--        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>-->
-<!--    </c:url>-->
-<!--    <form action="${modify}">-->
-<!--        <input type="int" name="evaluation" value="1-4"/>-->
-<!--        <input type='submit' value='Edit' />-->
-<!--    </form>-->
-    <tr>
-        <td>${userSkill.skill.numeSkill}</td>
-        <td>${userSkill.skill.categorie}</td>
-        <td>${userSkill.evaluation}</td>
-        <form method = "get" action="${modify}">
-            <td>
-                <select name="evaluation" default = ${userSkill.evaluation}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <input type=hidden name="idskill" value="${userSkill.skill.idSkill}"/>
-                <input type='submit' value='Submit' />
-            </td>
-        </form>
-        <td>
-            <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
-                <button type="button" class="btn-info">X</button>
-            </a><!--Java script code-->
-        </td>
-
-    </tr>
-</c:forEach>
+           <c:url var="deleteLink" value="/webCM/deleteSkill">
+               <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
+           </c:url>
+            <tr>
+                <td>${userSkill.skill.numeSkill}</td>
+                <td>${userSkill.skill.categorie}</td>
+                <td>${userSkill.evaluation}</td>
+                <td>
+                    <form method="GET" action="/webCM/modifyP">
+                        <select name="evaluation">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <input type="hidden" name="idskill" value="${userSkill.skill.idSkill}"/>
+                        <input type="submit" value="Submit">
+                    </form>
+                </td>
+                <td>
+                    <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
+                        <button type="button" class="btn-info">X</button>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
 <br>
@@ -87,5 +70,6 @@
 
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>
 </div>
+
 
 </html>

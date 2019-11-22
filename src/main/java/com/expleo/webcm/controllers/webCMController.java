@@ -41,8 +41,8 @@ public class webCMController {
     @GetMapping
     public String webCM(ModelMap model){
 //        List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
-        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
-        model.addAttribute("proiectList", proiectList);
+//        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
+//        model.addAttribute("proiectList", proiectList);
 
 //        System.out.println("EXTRAORD");
 //        UserExpleo user = userService.getUserExpleoPrincipal();
@@ -59,6 +59,8 @@ public class webCMController {
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
 
+
+        System.out.println("AICI MATRICEA DE COMPETENTE");
         List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
 
@@ -130,14 +132,14 @@ public class webCMController {
         return "redirect:/webCM";
     }
 
-    @GetMapping("/modify")
+    @GetMapping("/modifyP")
     public String modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
-
+        System.out.println("AICI///////////////");
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
-        return "redirect:/webCM/personalProfile";
+        return "redirect:/webCM";
     }
 
     @GetMapping("/cmptMat/modifyT")
@@ -149,6 +151,16 @@ public class webCMController {
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
         return "redirect:/webCM/cmptMat?proiectId=" + idproiect;
+    }
+
+    @RequestMapping("/currentProj")
+    public String currentProjects(ModelMap model) {
+        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
+        model.addAttribute("proiectList", proiectList);
+
+        System.out.println(proiectList);
+
+        return "currentProj";
     }
 
 
