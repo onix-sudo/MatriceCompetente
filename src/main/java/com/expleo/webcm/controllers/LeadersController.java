@@ -56,11 +56,9 @@ public class LeadersController {
     @GetMapping("/searchPeople/search")
     public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
-       List<Skill> searchResult = searchService.searchSkill(text);
+        List<Skill> searchResult = searchService.searchSkill(text);
 
         theModel.addAttribute("result", searchResult);
-
-        System.out.println("searchResult = " + searchResult);
 
         Set<UserExpleo> userExpleos = new HashSet<>();
 
