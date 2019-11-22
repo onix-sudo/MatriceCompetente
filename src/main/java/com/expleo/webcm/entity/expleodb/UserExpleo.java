@@ -69,6 +69,7 @@ public class UserExpleo {
 
     @NotNull(message = "is required")
     @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$", message = "aaaa-LL-zz")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="Data_angajare")
     private String dataAngajare;
 

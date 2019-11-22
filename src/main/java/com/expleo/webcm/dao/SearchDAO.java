@@ -13,4 +13,5 @@ public interface SearchDAO {
     List<UserExpleo> searchUsersNotInProject(String codProiect, String searchTerm);
 
     List<Skill> searchSkillsNotInProject(String codProiect, String searchTerm);
+
 }

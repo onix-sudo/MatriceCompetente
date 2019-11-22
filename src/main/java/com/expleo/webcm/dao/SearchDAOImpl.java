@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

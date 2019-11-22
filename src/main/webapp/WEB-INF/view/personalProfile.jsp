@@ -30,7 +30,6 @@
 
 <table class="table">
 
-
     <thead>
     <tr>
         <th>Competente</th>
@@ -48,13 +47,6 @@
        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>
    </c:url>
 
-<!--    <c:url var="modify" value="/webCM/modify">-->
-<!--        <c:param name="skillId" value="${userSkill.skill.idSkill}"/>-->
-<!--    </c:url>-->
-<!--    <form action="${modify}">-->
-<!--        <input type="int" name="evaluation" value="1-4"/>-->
-<!--        <input type='submit' value='Edit' />-->
-<!--    </form>-->
     <tr>
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>

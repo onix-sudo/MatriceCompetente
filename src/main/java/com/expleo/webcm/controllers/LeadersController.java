@@ -3,18 +3,20 @@ package com.expleo.webcm.controllers;
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
+import com.expleo.webcm.service.UserSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/webCM/leaders")
@@ -29,6 +31,9 @@ public class LeadersController {
     @Autowired
     private SearchService searchService;
 
+    @Autowired
+    private UserSkillService userSkillService;
+
     @GetMapping
     public String showLeaders(Model model){
 
@@ -37,6 +42,72 @@ public class LeadersController {
 
         return "leaders_home";
     }
+
+
+    @GetMapping("/searchPeople")
+    public String showSearchPeople(Model theModel){
+
+        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
+
+        Skill theSkill = new Skill();
+
+        theModel.addAttribute("skill", theSkill);
+
+        return "searchPeople";
+    }
+
+    @GetMapping("/searchPeople/search")
+    public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
+
+       List<Skill> searchResult = searchService.searchSkill(text);
+
+        theModel.addAttribute("result", searchResult);
+
+        System.out.println("searchResult = " + searchResult);
+
+        Set<UserExpleo> userExpleos = new HashSet<>();
+
+        for (Skill skill : searchResult){
+            userExpleos.addAll(skill.getUsers());
+        }
+
+        Iterator<Skill> itSkill = searchResult.iterator();
+
+        List<UserSkill> userSkills1 = new ArrayList<>();
+
+        List<UserSkill> userSkills = new ArrayList<>();
+
+        while (itSkill.hasNext()){
+            Skill skill = itSkill.next();
+
+            userSkills1 = userSkillService.getUserSkillBySkill(skill);
+
+            userSkills.addAll(userSkills1);
+
+        }
+
+        Iterator<UserSkill> iterator = userSkills.iterator();
+
+        List<UserSkill> userSkillslast = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+
+            UserSkill userSkill = iterator.next();
+
+            if (userSkill.getEvaluation() >= eval) {
+
+                userSkillslast.add(userSkill);
+
+            }
+        }
+
+        theModel.addAttribute("users", userExpleos);
+
+        theModel.addAttribute("usersSkills", userSkillslast);
+
+        return "searchPeople";
+    }
+
 
     @GetMapping("/addNewProject")
     public String addNewProject(Model model){
