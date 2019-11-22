@@ -7,7 +7,7 @@
 <script>
   setTimeout(function() {
       window.location.href = "/";
-  }, 4000); // <-- this is the delay in milliseconds
+  }, 3000); // <-- this is the delay in milliseconds
 </script>
 
 <%@ include file = "footer.jspf" %>
