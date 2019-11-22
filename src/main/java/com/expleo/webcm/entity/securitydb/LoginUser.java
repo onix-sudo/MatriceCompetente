@@ -85,9 +85,9 @@ public class LoginUser {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(int minutes) {
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.MINUTE, 30);
+        now.add(Calendar.MINUTE, minutes);
         this.expiryDate = now.getTime();
     }
 

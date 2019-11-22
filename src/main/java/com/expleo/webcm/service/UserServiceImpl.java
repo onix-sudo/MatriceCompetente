@@ -76,7 +76,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional("transactionSecurityManager")
-    public void changePassword(String newPassword) {
-        userDAO.changePassword(newPassword);
+    public void changePassword(String newPassword, Integer id) {
+        userDAO.changePassword(newPassword, id);
     }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void createResetPasswordDetails(int id) {
+        userDAO.createResetPasswordDetails(id);
+    }
+
+    @Override
+    public LoginUser getLoginUserByToken(String token) {
+        return userDAO.getLoginUserByToken(token);
+    }
+
+
 }

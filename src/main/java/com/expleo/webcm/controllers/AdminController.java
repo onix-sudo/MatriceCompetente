@@ -73,7 +73,7 @@ public class AdminController {
     @GetMapping("/updateUser/search")
     public String searchUsers(@RequestParam(value = "searchTerm") String text, Model theModel){
 
-        List<UserExpleo> searchResult = searchService.searchUser(text);
+        List<UserExpleo> searchResult = searchService.searchUser(text.trim());
         theModel.addAttribute("result", searchResult);
 
         return "admin_search-update-user";

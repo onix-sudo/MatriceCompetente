@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public class UserDAOImpl implements UserDAO {
 
@@ -173,16 +175,49 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void changePassword(String newPassword) {
+    public void changePassword(String newPassword, Integer id) {
         Session session = sessionSecurityFactory.openSession();
         session.beginTransaction();
 
-        LoginUser user = session.load(LoginUser.class, getUserExpleoPrincipal().getId());
+        LoginUser user = session.load(LoginUser.class, id);
         user.setPassword(bcryptPasswordHelper.generatePassword(newPassword));
 
         session.update(user);
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public void createResetPasswordDetails(int id) {
+        Session session = sessionSecurityFactory.openSession();
+        session.beginTransaction();
+
+        LoginUser loginUser = session.get(LoginUser.class, id);
+
+        //set token
+        loginUser.setResetToken(UUID.randomUUID().toString());
+
+        //set expiry date
+        loginUser.setExpiryDate(30);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public LoginUser getLoginUserByToken(String token) {
+        Session session = sessionSecurityFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from LoginUser where resetToken = :token");
+        query.setParameter("token", token);
+
+        LoginUser loginUser = (LoginUser) query.getSingleResult();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return loginUser;
     }
 }

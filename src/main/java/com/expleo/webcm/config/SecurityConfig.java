@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
+                    .antMatchers("/resources/**").permitAll()
                     .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
 //                    .antMatchers("/webCM/employee/**").hasRole("EMPLOYEE")
                     .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
