@@ -1,6 +1,7 @@
 package com.expleo.webcm.service;
 
 import com.expleo.webcm.dao.UserSkillDAO;
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class UserSkillServiceImpl implements UserSkillService {
     @Transactional("transactionExpleoDBManager")
     public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
         return userSkillDAO.getUserSkillByUser(userExpleo);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<UserSkill> getUserSkillBySkill(Skill skill) {
+        return userSkillDAO.getUserSkillBySkill(skill);
     }
 
     @Override

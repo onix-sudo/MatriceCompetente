@@ -93,7 +93,7 @@ public class UserExpleo {
             inverseJoinColumns = @JoinColumn(name = "ID_skill"))
     Set<Skill> skillsRequired;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER) // SCHIMBAA
+    @OneToMany(mappedBy = "user") // SCHIMBAA
     Set<UserSkill> userSkills;
 
     public Set<Skill> getSkillsRequired() {

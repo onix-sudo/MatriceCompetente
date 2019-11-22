@@ -40,6 +40,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
 
+
     @Override
     public void saveUserSkill(int idUserExpleo, int idSkill) {
 
@@ -80,6 +81,31 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         return result;
     }
+
+    @Override
+    public List<UserSkill> getUserSkillBySkill(Skill skill) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from UserSkill where ID_skill = :id");
+
+        query.setParameter("id", skill.getIdSkill());
+
+        List<UserSkill> result = (List<UserSkill>) query.list();
+
+        for (UserSkill userSkill : result){
+            Hibernate.initialize(userSkill.getSkill());
+            Hibernate.initialize(userSkill.getUser());
+        }
+
+        session.getTransaction().commit();
+
+        session.close();
+
+        return result;
+    }
+
 
     @Override
     public void removeUserSkill(int idUserExpleo, int idSkill) {

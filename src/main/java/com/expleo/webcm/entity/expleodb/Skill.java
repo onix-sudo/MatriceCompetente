@@ -51,7 +51,7 @@ public class Skill {
     @ManyToMany(mappedBy = "skillsRequired")
     Set<UserExpleo> users;
 
-    @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)// SCHIMBAAA IN LAAZYY
+    @OneToMany(mappedBy = "skill")
     Set<UserSkill> userSkills;
 
     public Skill() {

@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
+import com.expleo.webcm.service.UserSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class LeadersController {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private UserSkillService userSkillService;
 
     @GetMapping
     public String showLeaders(Model model){
@@ -52,12 +56,7 @@ public class LeadersController {
     @GetMapping("/searchPeople/search")
     public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
-//        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
-//        theModel.addAttribute("projects", projects);
-//
-//        UserExpleo user = userService.getUserExpleoPrincipal();
-
-        List<Skill> searchResult = searchService.searchSkill(text);
+       List<Skill> searchResult = searchService.searchSkill(text);
 
         theModel.addAttribute("result", searchResult);
 
@@ -65,40 +64,43 @@ public class LeadersController {
 
         Set<UserExpleo> userExpleos = new HashSet<>();
 
-        Set<UserSkill> userSkills = new HashSet<>();
-
         for (Skill skill : searchResult){
             userExpleos.addAll(skill.getUsers());
         }
 
         Iterator<Skill> itSkill = searchResult.iterator();
 
-        Iterator<UserExpleo> itUserExpleo = userExpleos.iterator();
+        List<UserSkill> userSkills1 = new ArrayList<>();
 
-        while (itSkill.hasNext() && itUserExpleo.hasNext()){
+        List<UserSkill> userSkills = new ArrayList<>();
+
+        while (itSkill.hasNext()){
             Skill skill = itSkill.next();
 
-            UserExpleo userExpleo = itUserExpleo.next();
+            userSkills1 = userSkillService.getUserSkillBySkill(skill);
 
-            UserSkill userSkill = new UserSkill(skill,userExpleo);  // NU TREBUIE CREAT CI PRELUAT DIN UserSkillService
+            userSkills.addAll(userSkills1);
 
-            userSkill.setEvaluation(eval);
-
-            System.out.println("userSkill = " + userSkill);
-
-            userSkills.add(userSkill);
         }
 
+        Iterator<UserSkill> iterator = userSkills.iterator();
 
-        System.out.println("userExpleos = " + userExpleos);
+        List<UserSkill> userSkillslast = new ArrayList<>();
 
-        System.out.println("userSkills = " + userSkills);
+        while (iterator.hasNext()) {
+
+            UserSkill userSkill = iterator.next();
+
+            if (userSkill.getEvaluation() >= eval) {
+
+                userSkillslast.add(userSkill);
+
+            }
+        }
 
         theModel.addAttribute("users", userExpleos);
 
-        theModel.addAttribute("usersSkills", userSkills);
-
-        System.out.println("eval" + eval);
+        theModel.addAttribute("usersSkills", userSkillslast);
 
         return "searchPeople";
     }
