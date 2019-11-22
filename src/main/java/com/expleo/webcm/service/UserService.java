@@ -18,4 +18,11 @@ public interface UserService {
     void addManagerRole(int theId);
 
 
+    boolean checkIfValidOldPassowrd(String oldPassword);
+
+    void changePassword(String newPassword, Integer id);
+
+    void createResetPasswordDetails(int id);
+
+    LoginUser getLoginUserByToken(String token);
 }
