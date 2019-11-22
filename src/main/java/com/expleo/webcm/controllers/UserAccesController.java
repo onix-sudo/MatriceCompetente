@@ -4,9 +4,10 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,14 +31,16 @@ public class UserAccesController {
     }
 
     @GetMapping("/changePassword")
-    public String changePassword() {
+    public String changePassword(Model model) {
         return "user_changePassword";
     }
 
     @PostMapping("/changePassword/save")
     public String saveChangePassword(@RequestParam(value = "oldPassword") String oldPassword,
-                                  @RequestParam(value = "password") String newPassword,
-                                  @RequestParam(value = "confirmPassword") String confirmPassword) {
+                                     @RequestParam(value = "password") String newPassword,
+                                     @RequestParam(value = "confirmPassword") String confirmPassword,
+                                     BindingResult result) {
+
 
         if (userService.checkIfValidOldPassowrd(oldPassword)) {
             if (newPassword.equals(confirmPassword)) {
@@ -88,12 +91,12 @@ public class UserAccesController {
     public String newPassword(@RequestParam("token") String token, ModelMap model)
     {
         LoginUser loginUser = userService.getLoginUserByToken(token);
-        UserExpleo userExpleo = userService.getUserExpleoById(loginUser.getId());
 
-        System.out.println(loginUser.isExpired());
-
+        if(loginUser != null) {
+            UserExpleo userExpleo = userService.getUserExpleoById(loginUser.getId());
+            model.addAttribute("userExpleo", userExpleo);
+        }
         model.addAttribute("loginUser", loginUser);
-        model.addAttribute("userExpleo", userExpleo);
 
         return "user_resetPassword";
     }

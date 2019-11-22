@@ -1,9 +1,9 @@
 <%@ include file="header.jspf"%>
 
-<h2>Salut, ${userExpleo.prenume}!</h2>
 
 <c:choose>
-<c:when test="${not loginUser.isExpired()}">
+<c:when test="${loginUser.isExpired()}">
+<h2>Salut, ${userExpleo.prenume}!</h2>
 <div>
     <form:form action="/forgotPassword/newPassword/save" method="POST">
     <table>
@@ -23,6 +23,12 @@
 </c:when>
 <c:otherwise>
 <h2> Token-ul nu este valid. <h2>
+
+<script>
+  setTimeout(function() {
+      window.location.href = "/";
+  }, 3000); // <-- this is the delay in milliseconds
+</script>
 </c:otherwise>
 </c:choose>
 

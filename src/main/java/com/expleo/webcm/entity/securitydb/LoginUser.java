@@ -96,7 +96,7 @@ public class LoginUser {
     }
 
     public boolean isExpired(){
-        return new Date().after(this.expiryDate);
+        return new Date().before(this.expiryDate);
     }
 
     public Set<LoginRoles> getRole() {

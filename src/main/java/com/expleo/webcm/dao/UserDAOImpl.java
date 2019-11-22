@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.UUID;
 
 @Repository
@@ -180,7 +181,10 @@ public class UserDAOImpl implements UserDAO {
         session.beginTransaction();
 
         LoginUser user = session.load(LoginUser.class, id);
+
         user.setPassword(bcryptPasswordHelper.generatePassword(newPassword));
+        user.resetExpiryDate();
+        user.setResetToken(null);
 
         session.update(user);
 
@@ -213,11 +217,16 @@ public class UserDAOImpl implements UserDAO {
         Query query = session.createQuery("from LoginUser where resetToken = :token");
         query.setParameter("token", token);
 
-        LoginUser loginUser = (LoginUser) query.getSingleResult();
+        try {
+            LoginUser loginUser = (LoginUser) query.getSingleResult();
 
-        session.getTransaction().commit();
-        session.close();
-
-        return loginUser;
+            session.getTransaction().commit();
+            return loginUser;
+        }catch (NoResultException e){
+            System.out.println(e);
+        }finally {
+            session.close();
+        }
+        return null;
     }
 }
