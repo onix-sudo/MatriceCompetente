@@ -15,7 +15,6 @@ public interface UserDAO {
     UserExpleo getUserExpleoPrincipal();
     LoginUser getLoginUserById(int id);
 
-
     void removeManagerRole(int theId);
     void addManagerRole(int theId);
 
