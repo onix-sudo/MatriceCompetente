@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -104,6 +106,27 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         session.close();
 
         return result;
+    }
+
+    @Override
+    public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval){
+
+        Iterator<UserSkill> iterator = userSkills.iterator();
+        List<UserSkill> userSkillsLast = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+
+            UserSkill userSkill = iterator.next();
+
+            if (userSkill.getEvaluation() >= eval) {
+
+                userSkillsLast.add(userSkill);
+
+            }
+        }
+
+        return userSkillsLast;
+
     }
 
 

@@ -35,6 +35,11 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
+    public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval) {
+        return userSkillDAO.getUserByEvaluation(userSkills,eval);
+    }
+
+    @Override
     @Transactional("transactionExpleoDBManager")
     public void removeUserSkill(int idUserExpleo, int idSkill) {
         userSkillDAO.removeUserSkill(idUserExpleo,idSkill);

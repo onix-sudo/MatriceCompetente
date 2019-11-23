@@ -51,16 +51,16 @@
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>
         <td>${userSkill.evaluation}</td>
-        <form method = "get" action="${modify}">
+        <form method = "get" action="/webCM/modify">
             <td>
-                <select name="evaluation" default = ${userSkill.evaluation}>
+                <select name="evaluation">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select>
                 <input type=hidden name="idskill" value="${userSkill.skill.idSkill}"/>
-                <input type='submit' value='Submit' />
+                <input type="submit" value="Submit" />
             </td>
         </form>
         <td>

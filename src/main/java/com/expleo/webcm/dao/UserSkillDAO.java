@@ -15,10 +15,14 @@ public interface UserSkillDAO {
 
     List<UserSkill> getUserSkillBySkill(Skill skill);
 
+    List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval);
+
     void removeUserSkill(int idUserExpleo, int idSkill);
 
     void saveUserSkill(int idUser, int idSkill);
 
     void saveUserSkill(int idUser, int idSkill, int eval);
+
+
 
 }

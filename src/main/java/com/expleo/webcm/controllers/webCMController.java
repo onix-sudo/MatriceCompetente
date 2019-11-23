@@ -124,8 +124,11 @@ public class webCMController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-        userSkillService.saveUserSkill(user.getId(), theId, eval);
+        System.out.println("eval = " + eval);
 
+        System.out.println(theId);
+
+        userSkillService.saveUserSkill(user.getId(), theId, eval);
 
         return "redirect:/webCM/personalProfile";
     }
