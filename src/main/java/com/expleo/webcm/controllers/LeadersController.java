@@ -60,8 +60,6 @@ public class LeadersController {
 
         theModel.addAttribute("result", searchResult);
 
-        //skill list provided
-
         Set<UserExpleo> userExpleos = new HashSet<>();
 
         for (Skill skill : searchResult){
@@ -82,21 +80,6 @@ public class LeadersController {
             userSkills.addAll(userSkills1);
 
         }
-
-//        Iterator<UserSkill> iterator = userSkills.iterator();
-//
-//        List<UserSkill> userSkillsLast = new ArrayList<>();
-//
-//        while (iterator.hasNext()) {
-//
-//            UserSkill userSkill = iterator.next();
-//
-//            if (userSkill.getEvaluation() >= eval) {
-//
-//                userSkillsLast.add(userSkill);
-//
-//            }
-//        }
 
         List<UserSkill> userSkillsLast = userSkillService.getUserByEvaluation(userSkills,eval);
 
