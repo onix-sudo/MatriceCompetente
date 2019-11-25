@@ -3,6 +3,7 @@ package com.expleo.webcm.controllers;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.helper.Password;
+import com.expleo.webcm.helper.PasswordValidator;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.NoResultException;
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserAccesController {
@@ -40,18 +43,29 @@ public class UserAccesController {
     }
 
     @PostMapping("/changePassword/save")
-//    public String saveChangePassword(@RequestParam(value = "oldPassword") String oldPassword,
-//                                     @RequestParam(value = "password") String newPassword,
-//                                     @RequestParam(value = "confirmPassword") String confirmPassword) {
+    public String saveChangePassword(@ModelAttribute("password") Password password, ModelMap model) {
+        List<String> errorMessages = new PasswordValidator().isValid(password.getNewPassword());
 
-    public String saveChangePassword(@ModelAttribute("password") Password password) {
 
-        if (userService.checkIfValidOldPassowrd(password.getOldPassword())) {
-            if (password.getNewPassword().equals(password.getConfirmPassword())) {
-                userService.changePassword(password.getNewPassword(), userService.getUserExpleoPrincipal().getId());
-            }
+        if(!userService.checkIfValidOldPassowrd(password.getOldPassword())){
+
+            errorMessages.clear();
+            errorMessages.add("Parola actuala este introdusa gresit.");
+            model.addAttribute("errors", errorMessages);
+
+            return "user_changePassword";
+        } else if(!password.getNewPassword().equals(password.getConfirmPassword())){
+            errorMessages.add("Confirmarea parolei nu coincide cu noua parola.");
+            model.addAttribute("errors", errorMessages);
+            return "user_changePassword";
+
+        } else if(errorMessages != null){
+            model.addAttribute("errors", errorMessages);
+            return "user_changePassword";
+        } else {
+            userService.changePassword(password.getNewPassword(), userService.getUserExpleoPrincipal().getId());
+            return "successChangePassoword";
         }
-        return "successChangePassoword";
     }
 
     @GetMapping("/forgotPassword")
@@ -102,20 +116,33 @@ public class UserAccesController {
 
             model.addAttribute("userExpleo", userExpleo);
             model.addAttribute("password", password);
+            model.addAttribute("token", token);
         }
         model.addAttribute("loginUser", loginUser);
 
         return "user_resetPassword";
     }
 
-    @PostMapping("/forgotPassword/newPassword/save")
+    @PostMapping("/forgotPassword/newPassword")
     public String saveNewPassword(@ModelAttribute("password") Password password,
-                                  @RequestParam(value = "userId") Integer id) {
+                                  @RequestParam(value = "userId") Integer id,
+                                  @RequestParam("token") String token,
+                                  ModelMap model) {
 
-            if (password.getNewPassword().equals(password.getConfirmPassword())) {
-                userService.changePassword(password.getNewPassword(), id);
-            }
+        List<String> errorMessages = new PasswordValidator().isValid(password.getNewPassword());
+        model.addAttribute("token", token);
 
-        return "successChangePassoword";
+         if(!password.getNewPassword().equals(password.getConfirmPassword())){
+            errorMessages.add("Confirmarea parolei nu coincide cu noua parola.");
+            model.addAttribute("errors", errorMessages);
+            return newPassword(token, model);
+
+        } else if(errorMessages != null){
+            model.addAttribute("errors", errorMessages);
+            return newPassword(token, model);
+        } else {
+            userService.changePassword(password.getNewPassword(), id);
+            return "successChangePassoword";
+        }
     }
 }

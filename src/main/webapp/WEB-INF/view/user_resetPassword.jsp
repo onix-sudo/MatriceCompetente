@@ -5,7 +5,7 @@
 <c:when test="${loginUser.isExpired()}">
 <h2>Salut, ${userExpleo.prenume}!</h2>
 <div>
-    <form:form action="/forgotPassword/newPassword/save" method="POST" modelAttribute = "password">
+    <form:form action="${pageContext.request.contextPath}/forgotPassword/newPassword" method="POST" modelAttribute = "password">
     <table>
         <tr>
             <th><label> Parola noua: </label>
@@ -17,7 +17,13 @@
         </tr>
         <input type="hidden" name="userId" value="${loginUser.id}">
     </table>
+<input type="hidden" name = "token" value="${token}">
    <button type="submit" class = "btn btn-success">Change Password</button>
+   <br>
+            <c:forEach var="message"  items = "${errors}">
+           <span class="error">${message}</span>
+           <br>
+            </c:forEach>
    </form:form>
 </div>
 </c:when>
@@ -32,5 +38,4 @@
 </script>
 </c:otherwise>
 </c:choose>
-
 <%@ include file="footer.jspf"%>

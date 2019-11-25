@@ -1,5 +1,6 @@
 package com.expleo.webcm.helper;
 
+
 public class Password {
 
     private String oldPassword;
