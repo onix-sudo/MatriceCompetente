@@ -74,7 +74,6 @@ public class webCMController {
     @GetMapping("/personalProfile")
     public String personalProfile(ModelMap model){
 
-        System.out.println("EXTRAORD");
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
@@ -86,7 +85,7 @@ public class webCMController {
         return "personalProfile";
     }
 
-    @GetMapping("/personalProfile/showFormForAddSkill")
+    @RequestMapping("/personalProfile/showFormForAddSkill")
     public String showFormForAddSkill(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
@@ -103,6 +102,7 @@ public class webCMController {
     @GetMapping("/personalProfile/showFormForAddSkill/search")
     public String searchSkills(@RequestParam(value = "searchTerm") String text, Model theModel){
 
+        System.out.println("text = " + text);
         UserExpleo user = userService.getUserExpleoPrincipal();
         List<Skill> searchResult = searchService.searchSkill(text);
         theModel.addAttribute("result", searchResult);
@@ -122,24 +122,24 @@ public class webCMController {
     }
 
     @GetMapping("/deleteSkill")
-    public String deleteSkill(@RequestParam("skillId") int idSkill){
+    public void deleteSkill(@RequestParam("skillId") int idSkill){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
 
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
-        return "redirect:/webCM";
+//        return "redirect:/webCM";
     }
 
-    @GetMapping("/modifyP")
-    public String modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
+    @RequestMapping("/modifyP")
+    public void modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
         System.out.println("AICI///////////////");
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
-        return "redirect:/webCM";
+        //return "redirect:/webCM";
     }
 
     @GetMapping("/cmptMat/modifyT")

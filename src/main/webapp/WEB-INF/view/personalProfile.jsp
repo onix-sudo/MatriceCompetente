@@ -44,7 +44,7 @@
                 <td>${userSkill.skill.categorie}</td>
                 <td>${userSkill.evaluation}</td>
                 <td>
-                    <form method="GET" action="/webCM/modifyP">
+                    <form method="GET" onsubmit="return sendData()" id="pForm">
                         <select name="evaluation">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -56,8 +56,8 @@
                     </form>
                 </td>
                 <td>
-                    <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
-                        <button type="button" class="btn-info">X</button>
+                    <a onclick="if((confirm('Are you sure you want to delete this skill?'))) return elimina()">
+                        <button type="button" class="btn btn-info">X</button>
                     </a>
                 </td>
             </tr>
@@ -68,8 +68,45 @@
 
 <div>
 
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>
+<button type="button" class="btn btn-info" onclick="addSkill()">Adauga Skill</button>
 </div>
+
+<script>
+    function sendData() {
+        $.ajax({
+            type: "GET",
+            data: $("#pForm").serialize(),
+            url: "/webCM/modifyP",
+            success: function(data){
+                $("#tab2").click();
+            },
+            error: function(xhr, status) {
+                $("#tab2").click();
+            }
+        });
+
+        return false;
+    }
+
+    function elimina() {
+        console.log("AICI");
+        $.ajax({
+            url: "${deleteLink}",
+            success: function(data){
+                $("#tab2").click();
+            },
+            error: function(xhr, status) {
+                $("#tab2").click();
+            }
+        });
+
+        return false;
+    }
+
+    function addSkill() {
+        $("#div2").load("webCM/personalProfile/showFormForAddSkill");
+    }
+</script>
 
 
 </html>
