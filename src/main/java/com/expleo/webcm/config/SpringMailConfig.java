@@ -15,8 +15,6 @@ import java.util.Properties;
 @PropertySource("classpath:emailConfig.properties")
 public class SpringMailConfig {
 
-    private static final String JAVA_MAIL_FILE = "classpath:mail/javamail.properties";
-
     private static final String HOST = "mail.server.host";
     private static final String PORT = "mail.server.port";
     private static final String PROTOCOL = "mail.server.protocol";
@@ -34,7 +32,7 @@ public class SpringMailConfig {
 
         // Basic mail sender configuration, based on emailconfig.properties
         mailSender.setHost(env.getProperty(HOST));
-        mailSender.setPort(Integer.parseInt(this.env.getProperty(PORT)));
+        mailSender.setPort(Integer.parseInt(env.getProperty(PORT)));
         mailSender.setProtocol(env.getProperty(PROTOCOL));
         mailSender.setUsername(env.getProperty(USERNAME));
         mailSender.setPassword(env.getProperty(PASSWORD));
