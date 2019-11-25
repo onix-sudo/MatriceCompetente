@@ -12,6 +12,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
@@ -56,12 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                    .antMatchers("/").hasRole("EMPLOYEE")
+                    .antMatchers("/resources/**").permitAll()
                     .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
-                    .antMatchers("/webCM/employee/**").hasRole("EMPLOYEE")
+//                    .antMatchers("/webCM/employee/**").hasRole("EMPLOYEE")
                     .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/manager/**").hasRole("ADMIN")
+                    .antMatchers("/forgotPassword/**").permitAll()
+                    .antMatchers("/**").hasRole("EMPLOYEE")
                 .and()
                 .formLogin()
                     .loginPage("/login")
@@ -69,7 +72,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(authenticationSuccessHandler)
                     .permitAll()
                 .and()
-                .logout().permitAll()
+                .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
+                .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/access-denied");

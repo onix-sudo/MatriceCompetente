@@ -145,7 +145,7 @@ public class LeadersController {
     public String adaugaColaboratoriView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
-        List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm);
+        List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm.trim());
 
         model.addAttribute("result", foundUsers);
         model.addAttribute("varPath", codProiect);
@@ -212,7 +212,7 @@ public class LeadersController {
     public String addSkillsView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
-        List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm);
+        List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
 
         model.addAttribute("result", foundSkills);
         model.addAttribute("varPath", codProiect);

@@ -1,19 +1,5 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="admin_header.jspf" %>
 
-
-<html>
-<head>
-    <title>
-        ADMIN PAGE -- UPDATE USER
-    </title>
-        <style>
-            .error {color:red}
-        </style>
-</head>
-<body>
 
 
         <spring:url var="go" value="/admin/updateUser/search" >
@@ -23,13 +9,13 @@
         <form:form action="${go}" method="get">
             <table>
                 <tr>
-                    <td><label>Search</label></td>
-                    <td><input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+                    <th><label>Cauta angajat</label></th>
+                    <th><input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
                 </tr>
 
                 <tr>
                     <td></td>
-                    <td><input type="submit" value="search"/></td>
+                    <td><input type="submit" value="Cauta" class="btn btn-success"/></td>
                 </tr>
             </table>
         </form:form>
@@ -38,7 +24,7 @@
         <p>
         		User: <security:authentication property="principal.username" />
         </p>
-        <core:if test="${result != null}">
+        <c:if test="${result != null}">
         <table>
             <tr>
                 <th>Nume</th>
@@ -46,8 +32,9 @@
                 <th>Numar Matricol</th>
                 <th>Email</th>
                 <th>Functie</th>
+                <th></th>
             </tr>
-            <core:forEach var="tempResult" items="${result}">
+            <c:forEach var="tempResult" items="${result}">
                 <spring:url var="modifyUser" value="/admin/updateUser/modify">
                     <spring:param name="userId" value="${tempResult.id}"/>
                 </spring:url>
@@ -59,13 +46,16 @@
                 <td>${tempResult.functie}</td>
 
                 <td>
+                 <button type="button" class="btn btn-info" onclick="window.location.href='${modifyUser}'">Modifica</button>
+<%--
                 <a href="${modifyUser}">Modify</a>
+--%>
                 </td>
             </tr>
-            </core:forEach>
+            </c:forEach>
 
         </table>
-        </core:if>
+        </c:if>
 
 
     </div>
@@ -73,6 +63,4 @@
 
 </div>
 
-</body>
-
-</html>
+<%@ include file="footer.jspf" %>
