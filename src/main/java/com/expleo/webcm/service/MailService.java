@@ -24,7 +24,7 @@ public class MailService {
 
             mimeMessageHelper.setFrom("ovidiu-marian.milea@expleogroup.com");
             mimeMessageHelper.setSubject("Reset password");
-            mimeMessageHelper.setText("<html><body>Salut ,<br/><a href='http://localhost/forgotPassword/newPassword?token="+token+"/'>" +
+            mimeMessageHelper.setText("<html><body>Salut ,<br/><a href='http://localhost/forgotPassword/newPassword?token="+token+"'>" +
                     " Click here</a> to reset password</body></html>", true);
             javaMailSender.send(message);
 
