@@ -35,7 +35,7 @@
         <input type="radio" name="pcss3t" id="tab3" class="tab-content-3" onclick="leaders()">
         <label for="tab3"><i class="icon-cogs"></i>Manage Team</label>
 
-        <input type="radio" name="pcss3t" id="tab5" class="tab-content-last">
+        <input type="radio" name="pcss3t" id="tab5" class="tab-content-last" onclick="searchPeople()">
         <label for="tab5"><i class="icon-globe"></i>Search People</label>
 
         <ul>
@@ -64,10 +64,12 @@
                 </script>
             </li>
 
-            <li class="tab-content tab-content-last typography">
-                <div class="typography">
-
-                </div>
+            <li class="tab-content tab-content-last typography" id="div4">
+                <script>
+                    function searchPeople() {
+                        $("#div4").load("/webCM/leaders/searchPeople");
+                    }
+                </script>
             </li>
         </ul>
     </div>

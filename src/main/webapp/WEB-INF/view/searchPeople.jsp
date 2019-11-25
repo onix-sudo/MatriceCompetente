@@ -1,4 +1,3 @@
-<%@ include file="header.jspf"%>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -59,5 +58,3 @@
 <br>
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Back</button>
 
-
-<%@ include file="footer.jspf"%>
