@@ -79,6 +79,10 @@ public class SearchDAOImpl implements SearchDAO {
 
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
 
+        for (Skill skill : result) {
+            Hibernate.initialize(skill.getUsers());
+        }
+
         tx.commit();
         session.close();
         return result;

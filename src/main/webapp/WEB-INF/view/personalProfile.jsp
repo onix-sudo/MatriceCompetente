@@ -51,8 +51,8 @@
         <td>${userSkill.skill.numeSkill}</td>
         <td>${userSkill.skill.categorie}</td>
         <td>${userSkill.evaluation}</td>
+        <td>
         <form method = "get" action="/webCM/modify">
-            <td>
                 <select name="evaluation">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -61,8 +61,8 @@
                 </select>
                 <input type=hidden name="idskill" value="${userSkill.skill.idSkill}"/>
                 <input type="submit" value="Submit" />
-            </td>
         </form>
+        </td>
         <td>
             <a href="${deleteLink}" onclick="if(!(confirm('Are you sure you want to delete this skill?'))) return false">
                 <button type="button" class="btn-info">X</button>

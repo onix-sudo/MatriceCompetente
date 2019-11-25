@@ -31,6 +31,7 @@ public class SkillDAOImpl implements SkillDAO {
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     public List<ProiectSkill> showSkillsforProject(int idProject) {
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
