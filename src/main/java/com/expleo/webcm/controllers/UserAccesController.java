@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.helper.Password;
 import com.expleo.webcm.helper.PasswordValidator;
+import com.expleo.webcm.service.MailService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class UserAccesController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MailService mailService;
 
     @GetMapping("/login")
     public String login() {
@@ -88,7 +92,8 @@ public class UserAccesController {
             UserExpleo user = userService.getUserExpleoByEmail(email.trim());
 
             if (user != null) {
-                userService.createResetPasswordDetails(user.getId());
+                String token = userService.createResetPasswordDetails(user.getId());
+                mailService.sendMail(token, user.getEmail());
                 return "redirect:/forgotPassword/success?email=" + email.trim();
             }
         } catch (NoResultException e) {

@@ -22,7 +22,7 @@ public interface UserService {
 
     void changePassword(String newPassword, Integer id);
 
-    void createResetPasswordDetails(int id);
+    String createResetPasswordDetails(int id);
 
     LoginUser getLoginUserByToken(String token);
 }

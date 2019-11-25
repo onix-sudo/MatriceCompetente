@@ -193,20 +193,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void createResetPasswordDetails(int id) {
+    public String createResetPasswordDetails(int id) {
         Session session = sessionSecurityFactory.openSession();
         session.beginTransaction();
 
         LoginUser loginUser = session.get(LoginUser.class, id);
 
         //set token
-        loginUser.setResetToken(UUID.randomUUID().toString());
+        String token = UUID.randomUUID().toString();
+        loginUser.setResetToken(token);
 
         //set expiry date
         loginUser.setExpiryDate(30);
 
         session.getTransaction().commit();
         session.close();
+        return token;
     }
 
     @Override
