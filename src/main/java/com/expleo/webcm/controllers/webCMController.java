@@ -83,6 +83,11 @@ public class webCMController {
         model.addAttribute("userSkills", userSkills);
         model.addAttribute("user", user);
 
+        if(userSkills.size() > 1)
+            System.out.println("userSkills.get(0).getSkill() = " + userSkills.get(1).getSkill());
+
+        System.out.println("AICI////");
+
         return "personalProfile";
     }
 
@@ -112,12 +117,14 @@ public class webCMController {
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
-    public String addSkilltoUser(@RequestParam(value = "skillId") int skillId){
+    public void addSkilltoUser(@RequestParam(value = "skillId") int skillId){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), skillId);
+        System.out.println("user = " + user);
+        System.out.println("skillId = " + skillId);
 
-        return "redirect:/webCM";
+//        return "/personalProfile";
     }
 
     @GetMapping("/deleteSkill")

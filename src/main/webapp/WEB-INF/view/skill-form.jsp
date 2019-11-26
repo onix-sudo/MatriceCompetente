@@ -70,7 +70,7 @@
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
-<form:form id="searchForm" onsubmit="search()">
+<form:form id="searchForm" onsubmit="return search()">
 
     <label>Search</label>
     <input type="text" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
@@ -99,7 +99,10 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                    <a href="${addSkill}">Add</a>
+<!--                    <form id="skillForm">-->
+                        <button onclick="return ps(${tempResult.idSkill})">Add</button>
+<!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
+<!--                    </form>-->
                 </td>
             </tr>
         </core:forEach>
@@ -111,11 +114,28 @@
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
 
 <script>
-    function search() {
-        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
-        console.log($("#searchTerm").val());
+    function ps(skillID) {
+    $.ajax({
+            type: "GET",
+            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID,
+            success: function(data){
+                $("#tab2").click();
+            },
+            error: function(xhr, status) {
+                $("#tab2").click();
+            }
+        });
+
+        console.log(skillID);
 
         return false;
     }
+
+        function search() {
+        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
+
+        return false;
+    }
+
 </script>
 
