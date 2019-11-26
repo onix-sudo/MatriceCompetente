@@ -1,9 +1,4 @@
-<%@ include file="leaders_leadersHeader.jspf"%>
-
-<br>
-
- <button type="button" class="btn btn-success"
- onclick="window.location.href='/webCM/leaders/addNewProject'">Creeaza un proiect</button>
+<button type="button" class="btn btn-success" onclick="window.location.href='/webCM/leaders/addNewProject'">Creeaza un proiect</button>
 
 
  <button type="button" class="btn btn-success"
