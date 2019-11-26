@@ -70,7 +70,7 @@
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
-<form:form id="searchForm" onsubmit="search()">
+<form:form id="searchForm" onsubmit="return search()">
 
     <label>Search</label>
     <input type="text" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
@@ -99,7 +99,7 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                    <a href="${addSkill}">Add</a>
+                    <button onclick="return reloadPersonalSkills()">Add</button>
                 </td>
             </tr>
         </core:forEach>
@@ -115,6 +115,24 @@
         $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
         console.log($("#searchTerm").val());
 
+        return false;
+    }
+
+    function reloadPersonalSkills() {
+        $.ajax({
+            url: "${addSkill}",
+            success: function (result) {
+                 console.log("succes");
+
+            },
+            error: function (result) {
+
+                 console.log("eroare");
+
+            }
+        });
+
+         $("#div2").load("/webCM/personalProfile");
         return false;
     }
 </script>
