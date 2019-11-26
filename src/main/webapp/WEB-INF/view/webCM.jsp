@@ -1,31 +1,8 @@
 <%@ include file="header.jspf"%>
 
-<!--<h2>Home Page</h2>-->
-<!--<hr>-->
-<!--<p>-->
-<!--    Welcome!-->
-<!--</p>-->
-<!--<hr>-->
-<!--<p>-->
-<!--    User:-->
-<!--    <security:authentication property="principal.username"/>-->
-<!--    <br><br>-->
-<!--    Role(s):-->
-<!--    <security:authentication property="principal.authorities"/>-->
-<!--    <br><br>-->
-
-<!--&lt;!&ndash;    <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Personal Profile</button>&ndash;&gt;-->
 
 
-<!--</p>-->
 
-<!--<hr>-->
-
-<!--<hr>-->
-
-<script>
-
-</script>
 
 <div class="page">
     <!-- tabs -->

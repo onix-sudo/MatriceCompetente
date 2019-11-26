@@ -1,7 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <h2>Profil Personal</h2>
@@ -44,14 +46,14 @@
                 <td>${userSkill.skill.categorie}</td>
                 <td>${userSkill.evaluation}</td>
                 <td>
-                    <form method="GET" onsubmit="return sendData()" id="pForm">
-                        <select name="evaluation">
+                    <form onsubmit="return sendData(${userSkill.skill.idSkill}, eval.value)" id="pForm">
+                        <select id="eval" name="evaluation">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <input type="hidden" name="idskill" value="${userSkill.skill.idSkill}"/>
+<!--                        <input id="usID" type="hidden" name="idskill" value="${userSkill.skill.idSkill}"/>-->
                         <input type="submit" value="Submit">
                     </form>
                 </td>
@@ -72,18 +74,26 @@
 </div>
 
 <script>
-    function sendData() {
+    function saveSelect() {
+
+    }
+
+    function sendData(idSkill, evaluation) {
         $.ajax({
             type: "GET",
-            data: $("#pForm").serialize(),
-            url: "/webCM/modifyP",
+            url: "/webCM/modifyP?evaluation=" + evaluation + "&idskill=" + idSkill,
             success: function(data){
                 $("#tab2").click();
+                console.log("succes");
             },
             error: function(xhr, status) {
                 $("#tab2").click();
+                console.log("eroare");
             }
         });
+
+        console.log("/webCM/modifyP?evaluation=" + evaluation + "&idskill=" + idSkill);
+
 
         return false;
     }

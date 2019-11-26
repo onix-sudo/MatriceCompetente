@@ -99,7 +99,10 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                    <button onclick="return reloadPersonalSkills()">Add</button>
+<!--                    <form id="skillForm">-->
+                        <button onclick="return ps(${tempResult.idSkill})">Add</button>
+<!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
+<!--                    </form>-->
                 </td>
             </tr>
         </core:forEach>
@@ -111,29 +114,28 @@
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
 
 <script>
-    function search() {
-        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
-        console.log($("#searchTerm").val());
-
-        return false;
-    }
-
-    function reloadPersonalSkills() {
-        $.ajax({
-            url: "${addSkill}",
-            success: function (result) {
-                 console.log("succes");
-
+    function ps(skillID) {
+    $.ajax({
+            type: "GET",
+            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID,
+            success: function(data){
+                $("#tab2").click();
             },
-            error: function (result) {
-
-                 console.log("eroare");
-
+            error: function(xhr, status) {
+                $("#tab2").click();
             }
         });
 
-         $("#div2").load("/webCM/personalProfile");
+        console.log(skillID);
+
         return false;
     }
+
+        function search() {
+        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
+
+        return false;
+    }
+
 </script>
 

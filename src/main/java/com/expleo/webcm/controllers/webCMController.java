@@ -83,7 +83,7 @@ public class webCMController {
         model.addAttribute("user", user);
 
         if(userSkills.size() > 1)
-        System.out.println("userSkills.get(0).getSkill() = " + userSkills.get(1).getSkill());
+            System.out.println("userSkills.get(0).getSkill() = " + userSkills.get(1).getSkill());
 
         System.out.println("AICI////");
 
@@ -125,7 +125,7 @@ public class webCMController {
         System.out.println("user = " + user);
         System.out.println("skillId = " + skillId);
 
-//        return "redirect:/webCM";
+//        return "/personalProfile";
     }
 
     @GetMapping("/deleteSkill")
