@@ -1,6 +1,7 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.service.ProiectService;
@@ -14,11 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/webCM/leaders")
 public class LeadersController {
+
+    private static final int[] INTERVAL_PONDERE = {1,2,3,4,5,6,7,8,9,10};
 
     @Autowired
     private UserService userService;
@@ -63,9 +67,8 @@ public class LeadersController {
         ModelAndView mav = new ModelAndView();
         Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
 
-        List<UserExpleo> users = new ArrayList<>();
-
-        List<Skill> skills = new ArrayList<>();
+        List<UserExpleo> users = new LinkedList<>();
+        List<ProiectSkill> skills = new LinkedList<>();
 
         proiectService.getProjectListsUsersSkills(codProiect, users, skills);
 
@@ -73,6 +76,7 @@ public class LeadersController {
         model.addAttribute("skills", skills);
         model.addAttribute("project", proiect);
         model.addAttribute("varPath", codProiect);
+        model.addAttribute("intervalPondere", INTERVAL_PONDERE);
         mav.addAllObjects(model);
 
         mav.setViewName("leaders_detaliiProiect");
@@ -178,6 +182,17 @@ public class LeadersController {
                                        @RequestParam("skillId") Integer skillId)
     {
         proiectService.removeSkillFromProject(codProiect, skillId);
+
+        return "redirect:/webCM/leaders/"+codProiect;
+    }
+
+    @GetMapping("/{codProiect}/setPondere")
+    public String setPondere(@PathVariable("codProiect") String codProiect,
+                             @RequestParam("skillId") Integer skillId,
+                             @RequestParam("value") Integer pondere)
+    {
+
+        proiectService.setPondere(codProiect, skillId, pondere);
 
         return "redirect:/webCM/leaders/"+codProiect;
     }

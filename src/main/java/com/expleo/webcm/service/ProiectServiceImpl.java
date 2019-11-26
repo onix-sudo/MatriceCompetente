@@ -60,7 +60,7 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills) {
+    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
         proiectDao.getProjectListsUsersSkills(codProiect, users, skills);
     }
 
@@ -110,5 +110,10 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect) {
         return proiectDao.findProjectSkillsByCodProiect(codProiect);
+    }
+
+    @Override
+    public void setPondere(String codProiect, Integer skillId, Integer pondere) {
+        proiectDao.setPondere(codProiect, skillId, pondere);
     }
 }

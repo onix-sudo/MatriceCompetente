@@ -92,19 +92,18 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills) {
+    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
-
         Proiect loadProiect = (Proiect) query.getSingleResult();
 
         users.addAll(loadProiect.getUsers());
 
         for(ProiectSkill temp: loadProiect.getSkills()){
-            skills.add(temp.getSkill());
+            skills.add(temp);
             Hibernate.initialize(temp.getSkill());
         }
 
@@ -266,6 +265,26 @@ public class ProiectDAOImpl implements ProiectDAO {
         ProiectSkill ps = new ProiectSkill(proiect, skill);
 
         session.remove(ps);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void setPondere(String codProiect, Integer skillId, Integer pondere) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
+
+        List<ProiectSkill> proiectSkills = proiect.getSkills();
+        for(ProiectSkill temp:proiectSkills){
+            if(temp.getSkill().getIdSkill()==skillId){
+                temp.setPondere(pondere);
+            }
+        }
+
         session.getTransaction().commit();
         session.close();
     }

@@ -14,7 +14,7 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendMail(String token, String mail){
+    public void sendMail(String token, String mail, String name){
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
 
@@ -24,8 +24,8 @@ public class MailService {
 
             mimeMessageHelper.setFrom("ovidiu-marian.milea@expleogroup.com");
             mimeMessageHelper.setSubject("Reset password");
-            mimeMessageHelper.setText("<html><body>Salut ,<br/><a href='http://localhost/forgotPassword/newPassword?token="+token+"'>" +
-                    " Click here</a> to reset password</body></html>", true);
+            mimeMessageHelper.setText("<html><body>Salut, "+name+"<br/><a href='http://localhost/forgotPassword/newPassword?token="+token+"'>" +
+                    " Apasa aici</a> pentru a reseta parola.</body></html>", true);
             javaMailSender.send(message);
 
         }catch (MessagingException e){

@@ -93,7 +93,7 @@ public class UserAccesController {
 
             if (user != null) {
                 String token = userService.createResetPasswordDetails(user.getId());
-                mailService.sendMail(token, user.getEmail());
+                mailService.sendMail(token, user.getEmail(), user.getPrenume());
                 return "redirect:/forgotPassword/success?email=" + email.trim();
             }
         } catch (NoResultException e) {
