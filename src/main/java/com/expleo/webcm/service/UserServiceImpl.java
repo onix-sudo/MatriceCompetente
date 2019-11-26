@@ -4,6 +4,7 @@ import com.expleo.webcm.dao.UserDAO;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +66,29 @@ public class UserServiceImpl implements UserService {
     @Transactional("transactionSecurityManager")
     public void addManagerRole(int theId) {
         userDAO.addManagerRole(theId);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public boolean checkIfValidOldPassowrd(String oldPassword) {
+        return userDAO.checkIfValidOldPassowrd(oldPassword);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public void changePassword(String newPassword, Integer id) {
+        userDAO.changePassword(newPassword, id);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public String createResetPasswordDetails(int id) {
+         return userDAO.createResetPasswordDetails(id);
+    }
+
+    @Override
+    public LoginUser getLoginUserByToken(String token) {
+        return userDAO.getLoginUserByToken(token);
     }
 
 

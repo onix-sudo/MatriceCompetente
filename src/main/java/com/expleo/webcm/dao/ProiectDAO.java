@@ -16,7 +16,7 @@ public interface ProiectDAO {
 
     Proiect findProjectByCodProiect(String codProiect);
 
-    void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills);
+    void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills);
 
     void addUserToProject(String codProiect, Integer userId);
 
@@ -34,4 +34,5 @@ public interface ProiectDAO {
 
     List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
 
+    void setPondere(String codProiect, Integer skillId, Integer pondere);
 }

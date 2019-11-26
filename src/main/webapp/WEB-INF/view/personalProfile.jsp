@@ -68,6 +68,8 @@
 
 <div>
 
+<!--<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>-->
+<button type="button" class="btn btn-warning" onclick="window.location.href='/changePassword'">Schimba parola</button>
 <button type="button" class="btn btn-info" onclick="addSkill()">Adauga Skill</button>
 </div>
 

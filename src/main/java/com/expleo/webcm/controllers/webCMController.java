@@ -9,6 +9,8 @@ import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,11 +78,9 @@ public class webCMController {
     public String personalProfile(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-
         List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
 
         model.addAttribute("userSkills", userSkills);
-
         model.addAttribute("user", user);
 
         return "personalProfile";
@@ -89,11 +90,9 @@ public class webCMController {
     public String showFormForAddSkill(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-
         Skill theSkill = new Skill();
 
         model.addAttribute("skill", theSkill);
-
         model.addAttribute("user", user);
 
         return "skill-form";
@@ -105,6 +104,7 @@ public class webCMController {
         System.out.println("text = " + text);
         UserExpleo user = userService.getUserExpleoPrincipal();
         List<Skill> searchResult = searchService.searchSkill(text);
+
         theModel.addAttribute("result", searchResult);
         theModel.addAttribute("user", user);
 
@@ -115,7 +115,6 @@ public class webCMController {
     public String addSkilltoUser(@RequestParam(value = "skillId") int skillId){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-
         userSkillService.saveUserSkill(user.getId(), skillId);
 
         return "redirect:/webCM";
@@ -125,8 +124,6 @@ public class webCMController {
     public void deleteSkill(@RequestParam("skillId") int idSkill){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-
-
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
 //        return "redirect:/webCM";
@@ -136,7 +133,6 @@ public class webCMController {
     public void modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
         System.out.println("AICI///////////////");
         UserExpleo user = userService.getUserExpleoPrincipal();
-
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
         //return "redirect:/webCM";
@@ -147,7 +143,6 @@ public class webCMController {
                           @RequestParam(value = "proiectId", required = false) int idproiect){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
         return "redirect:/webCM/cmptMat?proiectId=" + idproiect;

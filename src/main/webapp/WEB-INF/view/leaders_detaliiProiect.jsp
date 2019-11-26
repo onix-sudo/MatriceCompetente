@@ -69,6 +69,7 @@
          <tr>
             <th>Competenta</th>
             <th>Categorie</th>
+            <th>Pondere</th>
             <th></th>
          </tr>
          </thead>
@@ -77,12 +78,30 @@
             <c:forEach var="skill" items="${skills}">
 
                <spring:url var="removeSkill" value="/webCM/leaders/${varPath}/removeSkill">
-                   <spring:param name="skillId" value="${skill.idSkill}"/>
+                   <spring:param name="skillId" value="${skill.skill.idSkill}"/>
                </spring:url>
 
                <tr>
-                 <td>${skill.numeSkill}</td>
-                 <td>${skill.categorie}</td>
+                 <td>${skill.skill.numeSkill}</td>
+                 <td>${skill.skill.categorie}</td>
+                 <td>
+                                 <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
+                                         <c:set var="pondere" value="${skill.pondere}"/>
+                                         <c:forEach items="${intervalPondere}" var="temp">
+                                             <c:choose>
+                                                 <c:when test="${temp eq pondere}">
+                                                     <option value="${temp}" selected="true">${temp}</option>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <option value="${temp}">${temp}</option>
+                                                 </c:otherwise>
+                                             </c:choose>
+                                         </c:forEach>
+
+                                 </form:select>
+
+                 </td>
+
                  <td>
                     <form:form action="${removeSkill}" method="POST">
                         <input type="submit" class="btn btn-danger" value="Elimina competenta"
