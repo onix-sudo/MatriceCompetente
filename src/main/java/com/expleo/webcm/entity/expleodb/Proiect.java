@@ -1,8 +1,10 @@
 package com.expleo.webcm.entity.expleodb;
 
+import com.expleo.webcm.helper.UniqueCodProiect;
 import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,23 +18,18 @@ public class Proiect {
     @Column(name="ID_Proiect")
     private int proiectId;
 
+    @NotEmpty(message = "Campul trebuie completat")
     @Column(name="Nume_proiect")
     private String numeProiect;
 
+    @UniqueCodProiect
+    @NotEmpty(message = "Campul trebuie completat")
     @Column(name="Cod")
     private String codProiect;
 
     @Column(name = "Manager_nrMatricol")
     private Integer manager;
 
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-//                    CascadeType.DETACH, CascadeType.REFRESH})
-//    @JoinTable(
-//            name = "proiect_skill",
-//            joinColumns = { @JoinColumn(name = "ID_Proiect")},
-//            inverseJoinColumns = { @JoinColumn(name = "ID_skill")}
-//    )
     @OneToMany(mappedBy = "proiect")
     private List<ProiectSkill> skills;
 
@@ -49,12 +46,6 @@ public class Proiect {
     public Proiect() {
 
     }
-
-//    public Proiect(int proiectId, String numeProiect, String codProiect) {
-//        this.proiectId = proiectId;
-//        this.numeProiect = numeProiect;
-//        this.codProiect = codProiect;
-//    }
 
     public int getProiectId() {
         return proiectId;

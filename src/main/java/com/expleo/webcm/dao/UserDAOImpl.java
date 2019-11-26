@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
@@ -77,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.update(userExpleo);
+        session.merge(userExpleo);
 
         session.getTransaction().commit();
         session.close();
@@ -201,6 +202,11 @@ public class UserDAOImpl implements UserDAO {
 
         //set token
         String token = UUID.randomUUID().toString();
+
+        while (foundResetToken(token)) {
+            token = UUID.randomUUID().toString();
+        }
+
         loginUser.setResetToken(token);
 
         //set expiry date
@@ -230,5 +236,85 @@ public class UserDAOImpl implements UserDAO {
             session.close();
         }
         return null;
+    }
+
+    @Override
+    public boolean foundEmailExpleo(String email) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from UserExpleo where email = :email");
+        query.setParameter("email", email);
+
+        try {
+            UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e);
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean foundNumarMatricolExpleo(Integer numarMatricol) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from UserExpleo where numarMatricol = :numarMatricol");
+        query.setParameter("numarMatricol", numarMatricol);
+
+        try {
+            UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e);
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean foundCodProiectExpleo(String codProiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        System.out.println("***********************************************************************");
+        System.out.println("codProiect = " + codProiect);
+        try {
+            query.getSingleResult();
+            System.out.println("================try");
+            return true;
+        }catch (NoResultException e){
+            System.out.println("====================catch");
+            System.out.println(e);
+            return false;
+        }finally {
+            System.out.println("***********************************************************************");
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean foundResetToken(String resetToken) {
+        Session session = sessionSecurityFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from LoginUser where resetToken = :resetToken");
+        query.setParameter("resetToken", resetToken);
+
+        try {
+            LoginUser loginUser = (LoginUser) query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e);
+            return false;
+        }finally {
+            session.close();
+        }
     }
 }

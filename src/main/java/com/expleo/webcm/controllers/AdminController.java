@@ -7,7 +7,9 @@ import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.SkillService;
 import com.expleo.webcm.service.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Controller
@@ -58,11 +62,16 @@ public class AdminController {
         if (result.hasErrors()){
             return "admin_add-user";
         }
+        try{
+            userService.saveNewUser(employee);
+            userService.saveNewUserSecurityDb(employee);
+            return "redirect:/admin";
+        } catch (ConstraintViolationException e){
+            result.reject("FOUND_IN_DB","mesaj");
+            System.out.println(e.getLocalizedMessage());;
+            return "admin_add-user";
+        }
 
-        userService.saveNewUser(employee);
-        userService.saveNewUserSecurityDb(employee);
-
-        return "redirect:/admin";
     }
 
     @GetMapping("/updateUser")

@@ -87,9 +87,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional("transactionSecurityManager")
     public LoginUser getLoginUserByToken(String token) {
         return userDAO.getLoginUserByToken(token);
     }
 
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundEmailExpleo(String email) {
+        return userDAO.foundEmailExpleo(email);
+    }
 
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundNumarMatricolExpleo(Integer numarMatricol) {
+        return userDAO.foundNumarMatricolExpleo(numarMatricol);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundCodProiectExpleo(String codProiect) {
+        return userDAO.foundCodProiectExpleo(codProiect);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public boolean foundResetToken(String resetToken) {
+        return userDAO.foundResetToken(resetToken);
+    }
 }

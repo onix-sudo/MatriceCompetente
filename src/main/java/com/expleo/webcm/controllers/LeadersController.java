@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +54,11 @@ public class LeadersController {
     }
 
     @PostMapping("/addProject")
-    public String addProjectToDb(@ModelAttribute("newProject") Proiect proiect){
+    public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+
+        if(result.hasErrors()){
+            return "leaders_leadersAddNewProject";
+        }
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         proiect.setManager(user.getNumarMatricol());

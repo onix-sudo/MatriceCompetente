@@ -12,7 +12,11 @@ public interface UserService {
     UserExpleo getUserExpleoById(int id);
     UserExpleo getUserExpleoByEmail(String email);
     UserExpleo getUserExpleoPrincipal();
+    boolean foundEmailExpleo(String email);
+    boolean foundNumarMatricolExpleo(Integer numarMatricol);
+    boolean foundCodProiectExpleo(String codProiect);
     LoginUser getLoginUserById(int id);
+    boolean foundResetToken(String resetToken);
 
     void removeManagerRole(int theId);
     void addManagerRole(int theId);
