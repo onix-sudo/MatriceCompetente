@@ -18,7 +18,7 @@
 
 
  <br><hr>
-        <form:form id="collabForm" onsubmit="return search('${codProiect}', searchTerm.value)">
+        <form:form id="collabForm" onsubmit="return searchCollab('${codProiect}', searchTerm.value)">
             <table>
                 <tr>
                     <th><label>Search</label>
@@ -65,9 +65,10 @@
 
 <script>
 
-    function search(codProiect, searchTerm) {
+    function searchCollab(codProiect, searchTerm) {
         console.log(codProiect + searchTerm);
-        $("#div3").load("/" + codProiect + "/adaugaColaboratori?searchTerm=" + searchTerm);
+        $("#div3").load($("#collabForm").ajaxSubmit({url: '"/" + codProiect + "/adaugaColaboratori?searchTerm=" +
+        searchTerm', type: 'post'});
 
         return false;
     }
