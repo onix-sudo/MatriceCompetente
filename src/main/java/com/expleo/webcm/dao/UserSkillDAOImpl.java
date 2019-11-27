@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -112,16 +113,13 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval){
 
         Iterator<UserSkill> iterator = userSkills.iterator();
-        List<UserSkill> userSkillsLast = new ArrayList<>();
+        List<UserSkill> userSkillsLast = new LinkedList<>();
 
         while (iterator.hasNext()) {
 
             UserSkill userSkill = iterator.next();
-
             if (userSkill.getEvaluation() >= eval) {
-
                 userSkillsLast.add(userSkill);
-
             }
         }
 

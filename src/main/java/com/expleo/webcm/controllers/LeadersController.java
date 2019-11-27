@@ -8,14 +8,20 @@ import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserSkillService;
+
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 @Controller
@@ -61,34 +67,51 @@ public class LeadersController {
 
         List<Skill> searchResult = searchService.searchSkill(text);
 
-        theModel.addAttribute("result", searchResult);
-
-        Set<UserExpleo> userExpleos = new HashSet<>();
-
-        for (Skill skill : searchResult){
-            userExpleos.addAll(skill.getUsers());
-        }
-
-        Iterator<Skill> itSkill = searchResult.iterator();
-
-        List<UserSkill> userSkills1;
-
-        List<UserSkill> userSkills = new ArrayList<>();
-
-        while (itSkill.hasNext()){
-            Skill skill = itSkill.next();
-
-            userSkills1 = userSkillService.getUserSkillBySkill(skill);
-
-            userSkills.addAll(userSkills1);
-
-        }
-
-        List<UserSkill> userSkillsLast = userSkillService.getUserByEvaluation(userSkills,eval);
-
-        theModel.addAttribute("users", userExpleos);
+        List<UserSkill> userSkillsLast = searchService.searchSkillWithEvaluation(text, eval);
 
         theModel.addAttribute("usersSkills", userSkillsLast);
+
+        theModel.addAttribute("result", searchResult);
+
+        return "searchPeople";
+    }
+
+    @GetMapping("pdfDownload")
+    public String pdfDownload(@RequestParam("downloadSearchTerm") String downloadSearchTerm,
+                              @RequestParam("downloadEvaluationTerm") String downloadEvaluationTerm){
+
+
+               String dest = "C:/Users/vfbaldovin/Desktop/bla.pdf";
+        try{
+            PdfWriter writer = new PdfWriter(dest);
+
+            // Creating a PdfDocument
+            PdfDocument pdf = new PdfDocument(writer);
+
+            // Creating a Document
+            Document document = new Document(pdf);
+
+            // Creating a Paragraph
+            Paragraph paragraph = new Paragraph("Tutorials Point provides the following tutorials");
+
+            // Creating a list
+            com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List();
+
+            List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(downloadSearchTerm, Integer.parseInt(downloadEvaluationTerm));
+
+            for(UserSkill temp:userSkills){
+                list.add(temp.toString());
+            }
+
+            // Adding list to the document
+            document.add(list);
+
+            // Closing the document
+            document.close();
+            System.out.println("List added");
+        }catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
         return "searchPeople";
     }

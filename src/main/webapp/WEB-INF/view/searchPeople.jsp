@@ -43,15 +43,22 @@
     </thead>
 
     <core:forEach var="userSkill" items="${usersSkills}">
+        <spring:url var="download" value="/webCM/leaders/pdfDownload">
+            <spring:param name="downloadSearchTerm" value="${param.searchTerm}"/>
+            <spring:param name="downloadEvaluationTerm" value="${param.evaluation}"/>
+
+        </spring:url>
         <tr>
             <td>${userSkill.user.nume} ${userSkill.user.prenume}</td>
             <td>${userSkill.user.functie}</td>
             <td>${userSkill.skill.numeSkill}</td>
             <td>${userSkill.skill.categorie}</td>
             <td>${userSkill.evaluation}</td>
-            <td> </td>
+            <td>
+            </td>
         </tr>
     </core:forEach>
+    <a href="${download}">Download</a>
 </table>
 </core:if>
 

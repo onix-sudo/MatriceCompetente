@@ -5,6 +5,7 @@ import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
+import com.expleo.webcm.service.UserSkillService;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,6 +28,9 @@ public class SearchDAOImpl implements SearchDAO {
     @Qualifier("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    UserSkillService userSkillService;
 
     @Override
     public List<UserExpleo> searchUser(String text) {
@@ -171,4 +175,36 @@ public class SearchDAOImpl implements SearchDAO {
         return foundSkills;
     }
 
+    @Override
+    public List<UserSkill> searchSkillWithEvaluation(String text, int eval) {
+        Session session = sessionFactory.openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        Transaction tx = fullTextSession.beginTransaction();
+
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
+                .forEntity(Skill.class).get();
+
+        org.apache.lucene.search.Query query = qb
+                .keyword()
+                .onFields("numeSkill", "categorie")
+                .matching(text)
+                .createQuery();
+
+        org.hibernate.query.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, Skill.class);
+
+        List<Skill> result = new LinkedList<Skill>(hibQuery.list());
+
+        List<UserSkill> userSkills = new LinkedList<>();
+
+        for(Skill skill: result){
+            userSkills.addAll(userSkillService.getUserSkillBySkill(skill));
+        }
+
+        tx.commit();
+        session.close();
+
+        return userSkillService.getUserByEvaluation(userSkills,eval);
+    }
 }
