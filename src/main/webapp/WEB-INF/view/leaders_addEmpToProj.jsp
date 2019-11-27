@@ -1,4 +1,11 @@
-<%@ include file="leaders_leadersHeader.jspf"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <br>
 
@@ -11,12 +18,12 @@
 
 
  <br><hr>
-        <form:form action="adaugaColaboratori" method="POST">
+        <form:form id="collabForm" onsubmit="return search('${codProiect}', searchTerm.value)">
             <table>
                 <tr>
                     <th><label>Search</label>
                     <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
-                    <input type="submit" value="search"/></th>
+                    <input type="submit" value="Search"/></th>
                 </tr>
             </table>
         </form:form>
@@ -55,4 +62,13 @@
          </table>
          </c:if>
 
-<%@ include file="footer.jspf"%>
+
+<script>
+
+    function search(codProiect, searchTerm) {
+        console.log(codProiect + searchTerm);
+        $("#div3").load("/" + codProiect + "/adaugaColaboratori?searchTerm=" + searchTerm);
+
+        return false;
+    }
+</script>

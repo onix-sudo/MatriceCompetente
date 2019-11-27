@@ -1,3 +1,12 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <button type="button" class="btn btn-success" onclick="window.location.href='/webCM/leaders/addNewProject'">Creeaza un proiect</button>
 
 
@@ -23,7 +32,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <a href="/webCM/leaders/${proiecte.codProiect}"> Modifica </a>
+                        <button onclick="return modify('${proiecte.codProiect}')">Modifica</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -32,4 +41,12 @@
     </table>
 <hr>
 
+<script>
+    function modify(codProiect) {
+        $("#div3").load("/webCM/leaders/" + codProiect);
+        console.log(codProiect);
+
+        return false;
+    }
+</script>
 

@@ -69,7 +69,7 @@ public class LeadersController {
     }
 
     @GetMapping("/{codProiect}")
-    public ModelAndView detaliiProiect(@PathVariable String codProiect, ModelMap model){
+    public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
         Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
 
@@ -85,8 +85,8 @@ public class LeadersController {
         model.addAttribute("intervalPondere", INTERVAL_PONDERE);
         mav.addAllObjects(model);
 
-        mav.setViewName("leaders_detaliiProiect");
-        return mav;
+//        mav.setViewName("leaders_detaliiProiect");
+        return "leaders_detaliiProiect";
     }
 
     @GetMapping("/{codProiect}/adaugaColaboratori")

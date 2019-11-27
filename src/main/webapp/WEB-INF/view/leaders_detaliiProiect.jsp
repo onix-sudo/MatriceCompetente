@@ -1,9 +1,17 @@
-<%@ include file="leaders_leadersHeader.jspf"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
+         onclick="return addCollaborators('${varPath}')">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
  onclick="window.location.href='/webCM/leaders/${varPath}/addSkills'">Adauga competente</button>
@@ -113,5 +121,10 @@
       </table>
 
 
+<script>
+    function addCollaborators(varPath) {
+        $("#div3").load("/webCM/leaders/" + varPath + "/adaugaColaboratori");
 
-<%@ include file="footer.jspf"%>
+        return false;
+    }
+</script>
