@@ -10,9 +10,12 @@ import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserSkillService;
 
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -77,41 +82,49 @@ public class LeadersController {
     }
 
     @GetMapping("pdfDownload")
-    public String pdfDownload(@RequestParam("downloadSearchTerm") String downloadSearchTerm,
-                              @RequestParam("downloadEvaluationTerm") String downloadEvaluationTerm){
+    public String pdfDownload(@RequestParam("downloadSearchTerm") String text,
+                              @RequestParam("downloadEvaluationTerm") String evaluation){
 
+        List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(text, Integer.parseInt(evaluation));
 
-               String dest = "C:/Users/vfbaldovin/Desktop/bla.pdf";
+        //helper pentru pdf writer
+
+        String dest = "C:/Users/vfbaldovin/Desktop/bla.pdf"; //configurat numele fisierului
+
+        com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List();
+
+        for(UserSkill temp:userSkills){
+            list.add(temp.toString());
+        }
+
+            ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
+
+            Image image = new Image(data);
+
         try{
             PdfWriter writer = new PdfWriter(dest);
 
-            // Creating a PdfDocument
             PdfDocument pdf = new PdfDocument(writer);
 
-            // Creating a Document
             Document document = new Document(pdf);
 
-            // Creating a Paragraph
-            Paragraph paragraph = new Paragraph("Tutorials Point provides the following tutorials");
+            Paragraph paragraph = new Paragraph("View People with skill:"+ text +" and evaluation from:" + evaluation + "\n\n");
 
-            // Creating a list
-            com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List();
+            document.add(image);
 
-            List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(downloadSearchTerm, Integer.parseInt(downloadEvaluationTerm));
+            document.add(paragraph);
 
-            for(UserSkill temp:userSkills){
-                list.add(temp.toString());
-            }
-
-            // Adding list to the document
             document.add(list);
 
             // Closing the document
             document.close();
             System.out.println("List added");
+
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }
+
+
 
         return "searchPeople";
     }
