@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Override
     @Transactional("transactionExpleoDBManager")
@@ -102,12 +102,6 @@ public class UserServiceImpl implements UserService {
     @Transactional("transactionExpleoDBManager")
     public boolean foundNumarMatricolExpleo(Integer numarMatricol) {
         return userDAO.foundNumarMatricolExpleo(numarMatricol);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public boolean foundCodProiectExpleo(String codProiect) {
-        return userDAO.foundCodProiectExpleo(codProiect);
     }
 
     @Override

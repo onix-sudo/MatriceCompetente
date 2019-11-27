@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,10 +20,12 @@ public class Proiect {
     private int proiectId;
 
     @NotEmpty(message = "Campul trebuie completat")
+    @NotNull(message = "Campul trebuie completat")
     @Column(name="Nume_proiect")
     private String numeProiect;
 
     @UniqueCodProiect
+    @NotNull(message = "Campul trebuie completat")
     @NotEmpty(message = "Campul trebuie completat")
     @Column(name="Cod")
     private String codProiect;

@@ -113,7 +113,14 @@ public class ProiectServiceImpl implements ProiectService {
     }
 
     @Override
+    @Transactional("transactionExpleoDBManager")
     public void setPondere(String codProiect, Integer skillId, Integer pondere) {
         proiectDao.setPondere(codProiect, skillId, pondere);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundCodProiectExpleo(String value) {
+        return proiectDao.foundCodProiectExpleo(value);
     }
 }

@@ -1,6 +1,5 @@
 package com.expleo.webcm.config;
 
-import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +20,7 @@ public class DataSourceConfig {
     //set up variable to hold the properties
     @Autowired
     private Environment env;
+
 
     //set up a logger for diag
     private Logger myLogger = Logger.getLogger(getClass().getName());
@@ -62,6 +62,8 @@ public class DataSourceConfig {
         //set hibernate props
         Properties props = new Properties();
 
+        props.setProperty("javax.persistence.validation.mode",
+                env.getProperty("javax.persistence.validation.mode"));
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.setProperty("hibernate.search.default.directory_provider",
@@ -83,20 +85,17 @@ public class DataSourceConfig {
         sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
         sessionFactory.setHibernateProperties(getHibernateProperties());
 
-        sessionFactory.setAnnotatedClasses(UserExpleo.class);
+//        sessionFactory.setAnnotatedClasses(UserExpleo.class);
 
 
         return sessionFactory;
     }
-
-
 
     //--------------------HELPER--------------------
     private int getIntProperty(String propName){
         String propVal = env.getProperty(propName);
 
         //convert to int
-        int intPropVal = Integer.parseInt(propVal);
-        return intPropVal;
+        return Integer.parseInt(propVal);
     }
 }

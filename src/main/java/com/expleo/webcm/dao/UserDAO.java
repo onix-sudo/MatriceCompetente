@@ -30,6 +30,5 @@ public interface UserDAO {
 
     boolean foundEmailExpleo(String email);
     boolean foundNumarMatricolExpleo(Integer numarMatricol);
-    boolean foundCodProiectExpleo(String codProiect);
     boolean foundResetToken(String resetToken);
 }

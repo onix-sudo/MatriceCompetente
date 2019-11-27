@@ -32,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionSecurityFactory;
 
     @Autowired
-    BcryptPasswordHelper bcryptPasswordHelper;
+    private BcryptPasswordHelper bcryptPasswordHelper;
 
     @Override
     public void saveNewUser(UserExpleo newUser) {
@@ -231,7 +231,7 @@ public class UserDAOImpl implements UserDAO {
             session.getTransaction().commit();
             return loginUser;
         }catch (NoResultException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }finally {
             session.close();
         }
@@ -250,7 +250,7 @@ public class UserDAOImpl implements UserDAO {
             UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return false;
         }finally {
             session.close();
@@ -269,32 +269,9 @@ public class UserDAOImpl implements UserDAO {
             UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return false;
         }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean foundCodProiectExpleo(String codProiect) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
-        query.setParameter("codProiect", codProiect);
-        System.out.println("***********************************************************************");
-        System.out.println("codProiect = " + codProiect);
-        try {
-            query.getSingleResult();
-            System.out.println("================try");
-            return true;
-        }catch (NoResultException e){
-            System.out.println("====================catch");
-            System.out.println(e);
-            return false;
-        }finally {
-            System.out.println("***********************************************************************");
             session.close();
         }
     }
@@ -311,7 +288,7 @@ public class UserDAOImpl implements UserDAO {
             LoginUser loginUser = (LoginUser) query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return false;
         }finally {
             session.close();

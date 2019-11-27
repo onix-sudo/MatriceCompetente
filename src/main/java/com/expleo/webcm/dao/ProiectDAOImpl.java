@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -287,5 +289,23 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public boolean foundCodProiectExpleo(String codProiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
     }
 }

@@ -35,4 +35,7 @@ public interface ProiectDAO {
     List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
 
     void setPondere(String codProiect, Integer skillId, Integer pondere);
+
+    boolean foundCodProiectExpleo(String value);
+
 }

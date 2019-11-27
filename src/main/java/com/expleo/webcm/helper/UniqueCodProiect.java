@@ -15,7 +15,7 @@ public @interface UniqueCodProiect {
 
     String message() default "Acest cod de proiect exista deja in baza de date.";
 
-    public Class<?>[] groups() default {};
+    Class<?>[] groups() default { };
 
-    public Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default { };
 }

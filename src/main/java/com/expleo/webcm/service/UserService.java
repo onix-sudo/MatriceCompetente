@@ -14,7 +14,6 @@ public interface UserService {
     UserExpleo getUserExpleoPrincipal();
     boolean foundEmailExpleo(String email);
     boolean foundNumarMatricolExpleo(Integer numarMatricol);
-    boolean foundCodProiectExpleo(String codProiect);
     LoginUser getLoginUserById(int id);
     boolean foundResetToken(String resetToken);
 
