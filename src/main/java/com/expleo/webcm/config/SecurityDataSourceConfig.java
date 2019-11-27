@@ -78,6 +78,8 @@ public class SecurityDataSourceConfig {
         //set hibernate props
         Properties props = new Properties();
 
+        props.setProperty("logsec.javax.persistence.validation.mode",
+                env.getProperty("logsec.javax.persistence.validation.mode"));
         props.setProperty("hibernate.dialect", env.getProperty("logsec.hibernate.dialect"));
         props.setProperty("hibernate.show_sql", env.getProperty("logsec.hibernate.show_sql"));
 
@@ -103,7 +105,6 @@ public class SecurityDataSourceConfig {
         String propVal = env.getProperty(propName);
 
         //convert to int
-        int intPropVal = Integer.parseInt(propVal);
-        return intPropVal;
+        return Integer.parseInt(propVal);
     }
 }

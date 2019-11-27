@@ -27,4 +27,8 @@ public interface UserDAO {
     String createResetPasswordDetails(int id);
 
     LoginUser getLoginUserByToken(String token);
+
+    boolean foundEmailExpleo(String email);
+    boolean foundNumarMatricolExpleo(Integer numarMatricol);
+    boolean foundResetToken(String resetToken);
 }

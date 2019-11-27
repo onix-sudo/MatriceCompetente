@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Override
     @Transactional("transactionExpleoDBManager")
@@ -87,9 +87,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional("transactionSecurityManager")
     public LoginUser getLoginUserByToken(String token) {
         return userDAO.getLoginUserByToken(token);
     }
 
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundEmailExpleo(String email) {
+        return userDAO.foundEmailExpleo(email);
+    }
 
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public boolean foundNumarMatricolExpleo(Integer numarMatricol) {
+        return userDAO.foundNumarMatricolExpleo(numarMatricol);
+    }
+
+    @Override
+    @Transactional("transactionSecurityManager")
+    public boolean foundResetToken(String resetToken) {
+        return userDAO.foundResetToken(resetToken);
+    }
 }
