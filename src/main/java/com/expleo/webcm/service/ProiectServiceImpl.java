@@ -123,4 +123,9 @@ public class ProiectServiceImpl implements ProiectService {
     public boolean foundCodProiectExpleo(String value) {
         return proiectDao.foundCodProiectExpleo(value);
     }
+
+    @Override
+    public boolean hasPrincipalProject(String codProiect) {
+        return proiectDao.hasPrincipalProject(codProiect);
+    }
 }

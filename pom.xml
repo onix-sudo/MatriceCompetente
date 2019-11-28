@@ -99,13 +99,19 @@
             <version>5.11.3.Final</version>
         </dependency>
 
-        <!--      LOGGING-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-log4j12</artifactId>-->
-<!--            <version>1.7.28</version>-->
-<!--        </dependency>-->
+        <!--     DE STEEERSSSSSSSSSSSSSSSSSSSSSSSSSS-->
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
 
         <!--        SPRING-->
         <dependency>
@@ -238,6 +244,27 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.1.8</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>io</artifactId>
+            <version>7.1.8</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.1.8</version>
+            <scope>compile</scope>
         </dependency>
 
 

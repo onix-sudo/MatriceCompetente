@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -38,6 +41,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         return userSkills;
     }
+
 
 
     @Override
@@ -72,6 +76,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         for (UserSkill userSkill : result){
             Hibernate.initialize(userSkill.getSkill());
+            Hibernate.initialize(userSkill.getUser());
         }
 
         session.getTransaction().commit();
@@ -80,6 +85,49 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         return result;
     }
+
+    @Override
+    public List<UserSkill> getUserSkillBySkill(Skill skill) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from UserSkill where ID_skill = :id");
+
+        query.setParameter("id", skill.getIdSkill());
+
+        List<UserSkill> result = (List<UserSkill>) query.list();
+
+        for (UserSkill userSkill : result){
+            Hibernate.initialize(userSkill.getSkill());
+            Hibernate.initialize(userSkill.getUser());
+        }
+
+        session.getTransaction().commit();
+
+        session.close();
+
+        return result;
+    }
+
+    @Override
+    public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval){
+
+        Iterator<UserSkill> iterator = userSkills.iterator();
+        List<UserSkill> userSkillsLast = new LinkedList<>();
+
+        while (iterator.hasNext()) {
+
+            UserSkill userSkill = iterator.next();
+            if (userSkill.getEvaluation() >= eval) {
+                userSkillsLast.add(userSkill);
+            }
+        }
+
+        return userSkillsLast;
+
+    }
+
 
     @Override
     public void removeUserSkill(int idUserExpleo, int idSkill) {
