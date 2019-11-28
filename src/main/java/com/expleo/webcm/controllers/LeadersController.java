@@ -9,6 +9,7 @@ import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserSkillService;
 
+import java.io.*;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -17,6 +18,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import org.apache.lucene.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.FileNotFoundException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -81,9 +85,9 @@ public class LeadersController {
         return "searchPeople";
     }
 
-    @GetMapping("pdfDownload")
+    @GetMapping("/pdfDownload")
     public String pdfDownload(@RequestParam("downloadSearchTerm") String text,
-                              @RequestParam("downloadEvaluationTerm") String evaluation){
+                              @RequestParam("downloadEvaluationTerm") String evaluation, HttpServletResponse response) throws ServletException, IOException {
 
         List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(text, Integer.parseInt(evaluation));
 
@@ -96,34 +100,55 @@ public class LeadersController {
         for(UserSkill temp:userSkills){
             list.add(temp.toString());
         }
-
             ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
-
             Image image = new Image(data);
 
         try{
             PdfWriter writer = new PdfWriter(dest);
-
             PdfDocument pdf = new PdfDocument(writer);
-
             Document document = new Document(pdf);
 
             Paragraph paragraph = new Paragraph("View People with skill:"+ text +" and evaluation from:" + evaluation + "\n\n");
 
             document.add(image);
-
             document.add(paragraph);
-
             document.add(list);
+
+           // document.getPdfDocument();
 
             // Closing the document
             document.close();
+            writer.close();
+            pdf.close();
+
             System.out.println("List added");
+
+////////////////////////////////////////////////////
+
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition","attachment;filename="+ "testPDF.pdf");
+
+            File file1 = new File("C:/Users/vfbaldovin/Desktop/bla.pdf");
+
+            FileInputStream fileInputStream = new FileInputStream(file1);
+            DataOutputStream os = new DataOutputStream(response.getOutputStream());
+
+            response.setHeader("Content-Length",String.valueOf(file1.length()));
+
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = fileInputStream.read(buffer)) >= 0) {
+                os.write(buffer, 0, len);
+            }
+
+            os.flush();
+            os.close();
+            fileInputStream.close();
 
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }
-
 
 
         return "searchPeople";
