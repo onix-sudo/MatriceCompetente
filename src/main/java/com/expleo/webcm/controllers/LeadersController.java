@@ -95,14 +95,20 @@ public class LeadersController {
         return "leaders_addEmpToProj";
     }
 
-    @PostMapping("/{codProiect}/adaugaColaboratori")
+    @PostMapping(value = "/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
         List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm.trim());
 
+
+        System.out.println("///////////////////////////////////////////////////////////////");
         model.addAttribute("result", foundUsers);
+        model.addAttribute("nimic", 0);
         model.addAttribute("varPath", codProiect);
+        model.addAttribute("nume", foundUsers.get(0).getPrenume());
+
+        System.out.println("foundUsers = " + foundUsers);
 
         return "leaders_addEmpToProj";
     }
