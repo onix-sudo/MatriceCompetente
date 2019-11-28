@@ -76,6 +76,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         for (UserSkill userSkill : result){
             Hibernate.initialize(userSkill.getSkill());
+            Hibernate.initialize(userSkill.getUser());
         }
 
         session.getTransaction().commit();
