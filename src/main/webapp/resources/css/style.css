@@ -32,17 +32,33 @@ tr:nth-child(odd) {background: #BBBBBB}
 #container #content {margin-top: 20px;}
 
 .add-button {
-	border: 1px solid #666; 
-	border-radius: 5px; 
-	padding: 4px; 
-	font-size: 12px;
-	font-weight: bold;
-	width: 120px; 
-	padding: 5px 10px; 
-	
-	margin-bottom: 15px;
-	background: #cccccc;
+        	border: 1px solid #666;
+        	border-radius: 5px;
+        	color: white;
+        	padding: 4px;
+        	font-size: 12px;
+        	font-weight: bold;
+        	width: 40px;
+        	padding: 5px 10px;
+        	margin-bottom: 15px;
+        	background: #000000;
 }
+
+.add-button:hover:not(:disabled) {
+  border-color: transparent;
+  color: black;
+  background: linear-gradient(20deg, var(--copartBlue), #1c61d1);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  }
+
+.add-button:disabled {
+  cursor: not-allowed;
+    opacity: 0.4;
+    filter: saturate(0.25);
+    border-color: var(--charcoal);
+    color: var(--charcoal);
+}
+
 
 
 .centerDiv{

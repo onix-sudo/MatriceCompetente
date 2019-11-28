@@ -59,7 +59,7 @@
                 </td>
                 <td>
                     <a onclick="if((confirm('Are you sure you want to delete this skill?'))) return elimina()">
-                        <button type="button" class="btn btn-info">X</button>
+                        <button type="button" class="add-button">X</button>
                     </a>
                 </td>
             </tr>

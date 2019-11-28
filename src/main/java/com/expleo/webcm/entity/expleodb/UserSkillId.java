@@ -50,4 +50,12 @@ public class UserSkillId implements Serializable {
     public int hashCode() {
         return Objects.hash(userId, skillId);
     }
+
+    @Override
+    public String toString() {
+        return "UserSkillId{" +
+                "userId=" + userId +
+                ", skillId=" + skillId +
+                '}';
+    }
 }
