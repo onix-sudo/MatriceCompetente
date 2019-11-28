@@ -10,10 +10,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/${varPath}/addSkills'">Adauga competente</button>
+ onclick="window.location.href='/webCM/leaders/project/${varPath}/addSkills'">Adauga competente</button>
 
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/webCM/leaders/${varPath}'">Inapoi</button>
+ onclick="window.location.href='/webCM/leaders/project/${varPath}'">Inapoi</button>
 
 
  <br><hr>
@@ -21,7 +21,7 @@
             <table>
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 3 caractere." required/>
                     <input type="submit" value="Search"/></th>
                 </tr>
             </table>
@@ -38,7 +38,7 @@
                      <th>Adaugare</th>
                  </tr>
                  <c:forEach var="tempResult" items="${result}">
-                     <spring:url var="modifyUser" value="/webCM/leaders/${varPath}/adaugaColaboratori/add">
+                     <spring:url var="modifyUser" value="/webCM/leaders/project/${varPath}/adaugaColaboratori/add">
                          <spring:param name="userId" value="${tempResult.id}"/>
                      </spring:url>
                  <tr>
@@ -68,7 +68,7 @@
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
             var form = $(this);
-            var url = "webCM/leaders/" + '${codProiect}' + "/adaugaColaboratori";
+            var url = "webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori";
 
             $.ajax({
                    type: "POST",

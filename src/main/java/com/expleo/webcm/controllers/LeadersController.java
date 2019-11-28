@@ -192,7 +192,7 @@ public class LeadersController {
         return "redirect:/webCM/leaders";
     }
 
-    @GetMapping("/{codProiect}")
+    @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
         Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
@@ -213,13 +213,13 @@ public class LeadersController {
         return "leaders_detaliiProiect";
     }
 
-    @GetMapping("/{codProiect}/adaugaColaboratori")
+    @GetMapping("/project/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@PathVariable ("codProiect") String codProiect, ModelMap model){
         model.addAttribute("varPath", codProiect);
         return "leaders_addEmpToProj";
     }
 
-    @PostMapping(value = "/{codProiect}/adaugaColaboratori")
+    @PostMapping(value = "/project/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
@@ -228,33 +228,31 @@ public class LeadersController {
 
         System.out.println("///////////////////////////////////////////////////////////////");
         model.addAttribute("result", foundUsers);
-        model.addAttribute("nimic", 0);
         model.addAttribute("varPath", codProiect);
-        model.addAttribute("nume", foundUsers.get(0).getPrenume());
 
         System.out.println("foundUsers = " + foundUsers);
 
         return "leaders_addEmpToProj";
     }
 
-    @PostMapping("/{codProiect}/adaugaColaboratori/add")
+    @PostMapping("/project/{codProiect}/adaugaColaboratori/add")
     public String adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.addUserToProject(codProiect, userId);
-        return "redirect:/webCM/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @PostMapping("/{codProiect}/removeEmp")
+    @PostMapping("/project/{codProiect}/removeEmp")
     public String removeEmpFromProject(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.removeUserFromProject(codProiect, userId);
 
-        return "redirect:/webCM/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @PostMapping("/{codProiect}/renuntaLaProiect")
+    @PostMapping("/project/{codProiect}/renuntaLaProiect")
     public String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
 
@@ -286,13 +284,13 @@ public class LeadersController {
         return "redirect:/webCM/leaders/freeProjects";
     }
 
-    @GetMapping("/{codProiect}/addSkills")
+    @GetMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@PathVariable ("codProiect") String codProiect, ModelMap model){
         model.addAttribute("varPath", codProiect);
         return "leaders_addSkillsToProj";
     }
 
-    @PostMapping("/{codProiect}/addSkills")
+    @PostMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
@@ -304,25 +302,25 @@ public class LeadersController {
         return "leaders_addSkillsToProj";
     }
 
-    @PostMapping("/{codProiect}/addSkills/add")
+    @PostMapping("/project/{codProiect}/addSkills/add")
     public String addSkillsAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("skillId") Integer skillId)
     {
         proiectService.addSkillToProject(codProiect, skillId);
 
-        return "redirect:/webCM/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @PostMapping("/{codProiect}/removeSkill")
+    @PostMapping("/project/{codProiect}/removeSkill")
     public String removeSkillFromProject(@PathVariable("codProiect") String codProiect,
                                        @RequestParam("skillId") Integer skillId)
     {
         proiectService.removeSkillFromProject(codProiect, skillId);
 
-        return "redirect:/webCM/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @GetMapping("/{codProiect}/setPondere")
+    @GetMapping("/project/{codProiect}/setPondere")
     public String setPondere(@PathVariable("codProiect") String codProiect,
                              @RequestParam("skillId") Integer skillId,
                              @RequestParam("value") Integer pondere)
@@ -330,6 +328,6 @@ public class LeadersController {
 
         proiectService.setPondere(codProiect, skillId, pondere);
 
-        return "redirect:/webCM/leaders/"+codProiect;
+        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 }

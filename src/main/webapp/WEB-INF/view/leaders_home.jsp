@@ -46,7 +46,7 @@
 
 <script>
     function modify(codProiect) {
-        $("#div3").load("/webCM/leaders/" + codProiect);
+        $("#div3").load("/webCM/leaders/project/" + codProiect);
         console.log(codProiect);
 
         return false;

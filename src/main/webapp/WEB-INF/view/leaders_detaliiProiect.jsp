@@ -14,7 +14,7 @@
          onclick="return addCollaborators('${varPath}')">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/${varPath}/addSkills'">Adauga competente</button>
+ onclick="window.location.href='/webCM/leaders/project/${varPath}/addSkills'">Adauga competente</button>
 
   <button type="button" class="btn btn-warning"
   onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
@@ -22,7 +22,7 @@
 <br>
 <br>
 
-<form:form action = "/webCM/leaders/${project.codProiect}/renuntaLaProiect" method = "POST">
+<form:form action = "/webCM/leaders/project/${project.codProiect}/renuntaLaProiect" method = "POST">
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
@@ -48,7 +48,7 @@
 
          <tbody>
             <c:forEach var="user" items="${users}">
-                <spring:url var="removeUser" value="/webCM/leaders/${varPath}/removeEmp">
+                <spring:url var="removeUser" value="/webCM/leaders/project/${varPath}/removeEmp">
                     <spring:param name="userId" value="${user.id}"/>
                 </spring:url>
 
@@ -85,7 +85,7 @@
          <tbody>
             <c:forEach var="skill" items="${skills}">
 
-               <spring:url var="removeSkill" value="/webCM/leaders/${varPath}/removeSkill">
+               <spring:url var="removeSkill" value="/webCM/leaders/project/${varPath}/removeSkill">
                    <spring:param name="skillId" value="${skill.skill.idSkill}"/>
                </spring:url>
 
@@ -93,7 +93,7 @@
                  <td>${skill.skill.numeSkill}</td>
                  <td>${skill.skill.categorie}</td>
                  <td>
-                                 <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
+                                 <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/project/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
                                          <c:set var="pondere" value="${skill.pondere}"/>
                                          <c:forEach items="${intervalPondere}" var="temp">
                                              <c:choose>
@@ -123,7 +123,7 @@
 
 <script>
     function addCollaborators(varPath) {
-        $("#div3").load("/webCM/leaders/" + varPath + "/adaugaColaboratori");
+        $("#div3").load("/webCM/leaders/project/" + varPath + "/adaugaColaboratori");
 
         return false;
     }
