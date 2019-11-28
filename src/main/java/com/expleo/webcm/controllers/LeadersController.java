@@ -184,6 +184,7 @@ public class LeadersController {
         }
 
         UserExpleo user = userService.getUserExpleoPrincipal();
+        proiect.setCodProiect(proiect.getCodProiect().toUpperCase());
         proiect.setManager(user.getNumarMatricol());
 
         proiectService.saveNewProject(proiect);
