@@ -23,7 +23,11 @@ public interface UserDAO {
 
     void changePassword(String newPassword, Integer id);
 
-    void createResetPasswordDetails(int id);
+    String createResetPasswordDetails(int id);
 
     LoginUser getLoginUserByToken(String token);
+
+    boolean foundEmailExpleo(String email);
+    boolean foundNumarMatricolExpleo(Integer numarMatricol);
+    boolean foundResetToken(String resetToken);
 }

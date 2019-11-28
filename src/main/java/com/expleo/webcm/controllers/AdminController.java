@@ -7,7 +7,9 @@ import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.SkillService;
 import com.expleo.webcm.service.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Controller
@@ -23,13 +27,13 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
 
     @Autowired
-    SkillService skillService;
+    private SkillService skillService;
 
     //add req mapping for /admin
     @GetMapping()
@@ -59,10 +63,10 @@ public class AdminController {
             return "admin_add-user";
         }
 
-        userService.saveNewUser(employee);
-        userService.saveNewUserSecurityDb(employee);
+            userService.saveNewUser(employee);
+            userService.saveNewUserSecurityDb(employee);
+            return "redirect:/admin";
 
-        return "redirect:/admin";
     }
 
     @GetMapping("/updateUser")

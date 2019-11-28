@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.UUID;
 
 @Repository
@@ -30,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionSecurityFactory;
 
     @Autowired
-    BcryptPasswordHelper bcryptPasswordHelper;
+    private BcryptPasswordHelper bcryptPasswordHelper;
 
     @Override
     public void saveNewUser(UserExpleo newUser) {
@@ -76,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.update(userExpleo);
+        session.merge(userExpleo);
 
         session.getTransaction().commit();
         session.close();
@@ -132,8 +134,8 @@ public class UserDAOImpl implements UserDAO {
     public void removeManagerRole(int theId) {
         Session session = sessionSecurityFactory.openSession();
         int manager = 2;
-
         session.beginTransaction();
+
         LoginUser loginUser = session.get(LoginUser.class, theId);
         LoginRoles role = session.get(LoginRoles.class, manager);
 
@@ -151,8 +153,8 @@ public class UserDAOImpl implements UserDAO {
     public void addManagerRole(int theId) {
         Session session = sessionSecurityFactory.openSession();
         int manager = 2;
-
         session.beginTransaction();
+
         LoginUser loginUser = session.get(LoginUser.class, theId);
         LoginRoles role = session.get(LoginRoles.class, manager);
 
@@ -180,7 +182,10 @@ public class UserDAOImpl implements UserDAO {
         session.beginTransaction();
 
         LoginUser user = session.load(LoginUser.class, id);
+
         user.setPassword(bcryptPasswordHelper.generatePassword(newPassword));
+        user.resetExpiryDate();
+        user.setResetToken(null);
 
         session.update(user);
 
@@ -189,20 +194,27 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void createResetPasswordDetails(int id) {
+    public String createResetPasswordDetails(int id) {
         Session session = sessionSecurityFactory.openSession();
         session.beginTransaction();
 
         LoginUser loginUser = session.get(LoginUser.class, id);
 
         //set token
-        loginUser.setResetToken(UUID.randomUUID().toString());
+        String token = UUID.randomUUID().toString();
+
+        while (foundResetToken(token)) {
+            token = UUID.randomUUID().toString();
+        }
+
+        loginUser.setResetToken(token);
 
         //set expiry date
         loginUser.setExpiryDate(30);
 
         session.getTransaction().commit();
         session.close();
+        return token;
     }
 
     @Override
@@ -213,11 +225,72 @@ public class UserDAOImpl implements UserDAO {
         Query query = session.createQuery("from LoginUser where resetToken = :token");
         query.setParameter("token", token);
 
-        LoginUser loginUser = (LoginUser) query.getSingleResult();
+        try {
+            LoginUser loginUser = (LoginUser) query.getSingleResult();
+            session.getTransaction().commit();
+            return loginUser;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+        }finally {
+            session.close();
+        }
+        return null;
+    }
 
-        session.getTransaction().commit();
-        session.close();
+    @Override
+    public boolean foundEmailExpleo(String email) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
-        return loginUser;
+        Query query = session.createQuery("from UserExpleo where email = :email");
+        query.setParameter("email", email);
+
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean foundNumarMatricolExpleo(Integer numarMatricol) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from UserExpleo where numarMatricol = :numarMatricol");
+        query.setParameter("numarMatricol", numarMatricol);
+
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean foundResetToken(String resetToken) {
+        Session session = sessionSecurityFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from LoginUser where resetToken = :resetToken");
+        query.setParameter("resetToken", resetToken);
+
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
     }
 }

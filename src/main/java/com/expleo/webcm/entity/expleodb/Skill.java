@@ -2,6 +2,7 @@ package com.expleo.webcm.entity.expleodb;
 
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
@@ -19,7 +20,7 @@ import java.util.Set;
         filters = {
 //                @TokenFilterDef(factory = StandardFilterFactory.class),
                 @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-//                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {

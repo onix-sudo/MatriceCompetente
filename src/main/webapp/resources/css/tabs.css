@@ -369,24 +369,7 @@ a:hover {
 /**/
 /* animation effects */
 /**/
-.pcss3t-effect-scale > ul > li {
-	-webkit-transform: scale(0.1,0.1);
-}
-.pcss3t-effect-rotate  > ul > li {
-	-webkit-transform: rotate(180deg);
-}
-.pcss3t-effect-slide-top > ul > li {
-	top: -40px;
-}
-.pcss3t-effect-slide-right > ul > li {
-	left: 80px;
-}
-.pcss3t-effect-slide-bottom > ul > li {
-	top: 40px;
-}
-.pcss3t-effect-slide-left > ul > li {
-	left: -80px;
-}
+
 
 
 

@@ -44,8 +44,8 @@ public class webCMController {
     @GetMapping
     public String webCM(ModelMap model){
 //        List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
-        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
-        model.addAttribute("proiectList", proiectList);
+//        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
+//        model.addAttribute("proiectList", proiectList);
 
 //        System.out.println("EXTRAORD");
 //        UserExpleo user = userService.getUserExpleoPrincipal();
@@ -62,6 +62,8 @@ public class webCMController {
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
 
+
+        System.out.println("AICI MATRICEA DE COMPETENTE");
         List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
 
@@ -75,17 +77,21 @@ public class webCMController {
     @GetMapping("/personalProfile")
     public String personalProfile(ModelMap model){
 
-        System.out.println("EXTRAORD");
         UserExpleo user = userService.getUserExpleoPrincipal();
         List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
 
         model.addAttribute("userSkills", userSkills);
         model.addAttribute("user", user);
 
+        if(userSkills.size() > 1)
+            System.out.println("userSkills.get(0).getSkill() = " + userSkills.get(1).getSkill());
+
+        System.out.println("AICI////");
+
         return "personalProfile";
     }
 
-    @GetMapping("/personalProfile/showFormForAddSkill")
+    @RequestMapping("/personalProfile/showFormForAddSkill")
     public String showFormForAddSkill(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
@@ -100,6 +106,7 @@ public class webCMController {
     @GetMapping("/personalProfile/showFormForAddSkill/search")
     public String searchSkills(@RequestParam(value = "searchTerm") String text, Model theModel){
 
+        System.out.println("text = " + text);
         UserExpleo user = userService.getUserExpleoPrincipal();
         List<Skill> searchResult = searchService.searchSkill(text);
 
@@ -110,30 +117,32 @@ public class webCMController {
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
-    public String addSkilltoUser(@RequestParam(value = "skillId") int skillId){
+    public void addSkilltoUser(@RequestParam(value = "skillId") int skillId){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), skillId);
+        System.out.println("user = " + user);
+        System.out.println("skillId = " + skillId);
 
-        return "redirect:/webCM";
+//        return "/personalProfile";
     }
 
     @GetMapping("/deleteSkill")
-    public String deleteSkill(@RequestParam("skillId") int idSkill){
+    public void deleteSkill(@RequestParam("skillId") int idSkill){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
-        return "redirect:/webCM";
+//        return "redirect:/webCM";
     }
 
-    @GetMapping("/modify")
-    public String modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
-
+    @RequestMapping("/modifyP")
+    public void modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
+        System.out.println("AICI///////////////");
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
-        return "redirect:/webCM/personalProfile";
+        //return "redirect:/webCM";
     }
 
     @GetMapping("/cmptMat/modifyT")
@@ -144,6 +153,16 @@ public class webCMController {
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
         return "redirect:/webCM/cmptMat?proiectId=" + idproiect;
+    }
+
+    @RequestMapping("/currentProj")
+    public String currentProjects(ModelMap model) {
+        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
+        model.addAttribute("proiectList", proiectList);
+
+        System.out.println(proiectList);
+
+        return "currentProj";
     }
 
 

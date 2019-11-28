@@ -1,5 +1,7 @@
 package com.expleo.webcm.entity.expleodb;
 
+import com.expleo.webcm.helper.UniqueEmail;
+import com.expleo.webcm.helper.UniqueNumarMatricol;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.StopFilterFactory;
 import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
@@ -11,6 +13,7 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.bridge.builtin.IntegerBridge;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -25,7 +28,7 @@ import java.util.Set;
         filters = {
 //                @TokenFilterDef(factory = StandardFilterFactory.class),
                 @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-//                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
@@ -35,7 +38,10 @@ import java.util.Set;
 )
 @Indexed
 @Entity
-@Table(name = "user", schema = "expleodb")
+@Table(name = "user", schema = "expleodb",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "Numar_matricol"),
+            @UniqueConstraint(columnNames = "Email")})
 public class UserExpleo {
 
     @Id
@@ -44,32 +50,33 @@ public class UserExpleo {
     private int id;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngram"))
-//    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @NotEmpty(message = "Campul trebuie completat")
     @Column(name="Nume_user")
     private String nume;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngram"))
-//    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @NotEmpty(message = "Campul trebuie completat")
     @Column(name="Prenume_user")
     private String prenume;
 
-    @NotNull(message = "is required")
+    @NotNull(message = "Campul trebuie completat")
     @Min(value = 1000, message = "Numar format din 4 cifre")
     @Max(value = 9999, message = "Numar format din 4 cifre")
+    @UniqueNumarMatricol
     @Column(name="Numar_matricol")
     @Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
     @FieldBridge(impl = IntegerBridge.class)
     private Integer numarMatricol;
 
-    @NotEmpty(message = "is required")
+    @NotEmpty(message = "Campul trebuie completat")
     @Email(message = "Nu este valid")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+    @UniqueEmail
     @Column(name="Email")
     private String email;
 
-    @NotNull(message = "is required")
-    @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$", message = "aaaa-LL-zz")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Campul trebuie completat")
+    @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$", message = "Format invalid.(aaaa-LL-zz)")
     @Column(name="Data_angajare")
     private String dataAngajare;
 

@@ -1,5 +1,8 @@
-<%@ include file="header.jspf"%>
 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -67,12 +70,14 @@
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
-<form:form action="${go}" method="get">
+<form:form id="searchForm" onsubmit="return search()">
 
     <label>Search</label>
-    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+    <input type="text" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
+    caractere."
+           required/>
 
-    <input type="submit" value="search"/>
+    <input type="submit" value="Search"/>
 
 </form:form>
 
@@ -94,7 +99,10 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                    <a href="${addSkill}">Add</a>
+<!--                    <form id="skillForm">-->
+                        <button onclick="return ps(${tempResult.idSkill})">Add</button>
+<!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
+<!--                    </form>-->
                 </td>
             </tr>
         </core:forEach>
@@ -105,4 +113,29 @@
 
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
 
-<%@ include file="footer.jspf"%>
+<script>
+    function ps(skillID) {
+    $.ajax({
+            type: "GET",
+            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID,
+            success: function(data){
+                $("#tab2").click();
+            },
+            error: function(xhr, status) {
+                $("#tab2").click();
+            }
+        });
+
+        console.log(skillID);
+
+        return false;
+    }
+
+        function search() {
+        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
+
+        return false;
+    }
+
+</script>
+

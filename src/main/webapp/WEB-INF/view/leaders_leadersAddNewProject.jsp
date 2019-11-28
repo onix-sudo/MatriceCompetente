@@ -10,11 +10,13 @@
         <tr>
             <td><label>Nume proiect:</label></td>
             <td><form:input path="numeProiect"/></td>
+            <td><form:errors path="numeProiect" cssClass="error"/></td>
         </tr>
 
         <tr>
             <td><label>Cod proiect:</label></td>
             <td><form:input path="codProiect"/></td>
+            <td><form:errors path="codProiect" cssClass="error"/></td>
         </tr>
 
         <tr>

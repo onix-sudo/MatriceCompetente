@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
 import org.hibernate.Hibernate;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,19 +94,18 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<Skill> skills) {
+    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
-
         Proiect loadProiect = (Proiect) query.getSingleResult();
 
         users.addAll(loadProiect.getUsers());
 
         for(ProiectSkill temp: loadProiect.getSkills()){
-            skills.add(temp.getSkill());
+            skills.add(temp);
             Hibernate.initialize(temp.getSkill());
         }
 
@@ -268,5 +269,43 @@ public class ProiectDAOImpl implements ProiectDAO {
         session.remove(ps);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public void setPondere(String codProiect, Integer skillId, Integer pondere) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
+
+        List<ProiectSkill> proiectSkills = proiect.getSkills();
+        for(ProiectSkill temp:proiectSkills){
+            if(temp.getSkill().getIdSkill()==skillId){
+                temp.setPondere(pondere);
+            }
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public boolean foundCodProiectExpleo(String codProiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
     }
 }
