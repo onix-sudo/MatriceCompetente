@@ -28,7 +28,7 @@ import java.util.Set;
         filters = {
 //                @TokenFilterDef(factory = StandardFilterFactory.class),
                 @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-//                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {

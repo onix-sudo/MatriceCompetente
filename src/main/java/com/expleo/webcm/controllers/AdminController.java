@@ -27,13 +27,13 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
 
     @Autowired
-    SkillService skillService;
+    private SkillService skillService;
 
     //add req mapping for /admin
     @GetMapping()
@@ -62,15 +62,10 @@ public class AdminController {
         if (result.hasErrors()){
             return "admin_add-user";
         }
-        try{
+
             userService.saveNewUser(employee);
             userService.saveNewUserSecurityDb(employee);
             return "redirect:/admin";
-        } catch (ConstraintViolationException e){
-            result.reject("FOUND_IN_DB","mesaj");
-            System.out.println(e.getLocalizedMessage());;
-            return "admin_add-user";
-        }
 
     }
 
