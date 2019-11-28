@@ -1,5 +1,5 @@
 1.Skill Matrix
-    1.1. Sa apara direct cum se incarca pagina webCM
+    1.1. Sa apara direct cum se incarca pagina webCM - DONE
     1.2. Sa se refreshuiasca tab-ul cand dai submit la o noua evaluare
 
 2. Manage Team

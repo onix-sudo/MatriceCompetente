@@ -29,7 +29,7 @@
                                 <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
-                                    <form method="GET" action="/webCM/cmptMat/modifyT">
+                                    <form id="modifyTForm">
                                         <select name="evaluation">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -39,8 +39,8 @@
 
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${skill.proiect.proiectId}" name="proiectId"
-                                               style="display: none" >
-                                        <input class="btn btn-secondary btn-sm" type='submit' value='Submit' />
+                                               style="display: none">
+                                        <input class="btn btn-secondary btn-sm" type='submit' value='Submit'/>
                                     </form>
                                 </td>
                             </tr>
@@ -64,6 +64,33 @@
     </div>
 
 </div>
+
+<script>
+    $("#modifyTForm").submit(function(e){
+        console.log(form.serialize());
+        e.preventDefault();
+
+        var form = $(this);
+        var url = "/webCM/cmptMat/modifyT";
+
+        $.ajax({
+                   type: "GET",
+                   url: url,
+                   data: form.serialize(), // serializes the form's elements.
+                   success: function(data)
+                   {
+                       $("#div1").html(data);
+                       alert(data);
+                   },
+                   error: function(data)
+                   {
+                       console.log("ERROR");
+                       $("#div1").load(data);
+                   }
+        });
+    });
+
+</script>
 
 
 

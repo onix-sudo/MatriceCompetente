@@ -34,11 +34,10 @@
         </table>
 
         <script type="text/javascript">
-                function cmptMat(proiectId) {
-                    console.log("AICI");
-                    $("#div1").load("/webCM/cmptMat?proiectId=" + proiectId);
+            function cmptMat(proiectId) {
+                $("#div1").load("/webCM/cmptMat?proiectId=" + proiectId);
 
-                    return false;
-                }
+                return false;
+            }
         </script>
 
