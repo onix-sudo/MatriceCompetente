@@ -134,8 +134,8 @@ public class UserDAOImpl implements UserDAO {
     public void removeManagerRole(int theId) {
         Session session = sessionSecurityFactory.openSession();
         int manager = 2;
-
         session.beginTransaction();
+
         LoginUser loginUser = session.get(LoginUser.class, theId);
         LoginRoles role = session.get(LoginRoles.class, manager);
 
@@ -153,8 +153,8 @@ public class UserDAOImpl implements UserDAO {
     public void addManagerRole(int theId) {
         Session session = sessionSecurityFactory.openSession();
         int manager = 2;
-
         session.beginTransaction();
+
         LoginUser loginUser = session.get(LoginUser.class, theId);
         LoginRoles role = session.get(LoginRoles.class, manager);
 
@@ -227,7 +227,6 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             LoginUser loginUser = (LoginUser) query.getSingleResult();
-
             session.getTransaction().commit();
             return loginUser;
         }catch (NoResultException e){
@@ -247,7 +246,7 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
 
         try {
-            UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
+            query.getSingleResult();
             return true;
         }catch (NoResultException e){
             System.out.println(e.getMessage());
@@ -266,7 +265,7 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("numarMatricol", numarMatricol);
 
         try {
-            UserExpleo userExpleo = (UserExpleo) query.getSingleResult();
+            query.getSingleResult();
             return true;
         }catch (NoResultException e){
             System.out.println(e.getMessage());
@@ -285,7 +284,7 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("resetToken", resetToken);
 
         try {
-            LoginUser loginUser = (LoginUser) query.getSingleResult();
+            query.getSingleResult();
             return true;
         }catch (NoResultException e){
             System.out.println(e.getMessage());

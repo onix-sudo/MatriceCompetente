@@ -48,11 +48,11 @@ public class DataSourceConfig {
 
         //Set connection pool pros
         dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-        dataSource.setInitialPoolSize(getIntProperty("connection.pool.minPoolSize"));
-        dataSource.setInitialPoolSize(getIntProperty("connection.pool.maxPoolSize"));
-        dataSource.setInitialPoolSize(getIntProperty("connection.pool.maxIdleTime"));
+        dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+        dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+        dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+        dataSource.setAcquireIncrement(getIntProperty("connection.pool.acquireIncrement"));
 
-        myLogger.info("A INTRAT AICI" + dataSource);
 
         return dataSource;
     }

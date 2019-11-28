@@ -47,27 +47,20 @@ public class SecurityDataSourceConfig {
 
         //set database connection props
         securityDataSource.setJdbcUrl(env.getProperty("logsec.jdbc.url"));
-        myLogger.info("================= logsec.jdbc.url--- set====================");
         securityDataSource.setUser(env.getProperty("logsec.jdbc.user"));
-        myLogger.info("================= logsec.jdbc.user--- set====================");
         securityDataSource.setPassword(env.getProperty("logsec.jdbc.password"));
-        myLogger.info("================= logsec.jdbc.password--- set====================");
 
 
         //set connection pool props
 
         securityDataSource.setInitialPoolSize(
                 getIntProperty("logsec.connection.pool.initialPoolSize"));
-        myLogger.info("================= logsec.initialPoolSize--- set====================");
         securityDataSource.setMinPoolSize(
                 getIntProperty("logsec.connection.pool.minPoolSize"));
-        myLogger.info("================= logsec.minPoolSize--- set====================");
         securityDataSource.setMaxPoolSize(getIntProperty("logsec.connection.pool.maxPoolSize"));
-        myLogger.info("================= logsec.maxPoolSize--- set====================");
         securityDataSource.setMaxIdleTime(getIntProperty("logsec.connection.pool.maxIdleTime"));
-        myLogger.info("================= logsec.maxIdleTime--- set====================");
+        securityDataSource.setAcquireIncrement(getIntProperty("logsec.connection.pool.acquireIncrement"));
 
-        myLogger.info("SECURITY BRO : " + securityDataSource);
 
 
         return securityDataSource;
