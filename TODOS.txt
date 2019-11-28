@@ -1,0 +1,15 @@
+1.Skill Matrix
+    1.1. Sa apara direct cum se incarca pagina webCM
+    1.2. Sa se refreshuiasca tab-ul cand dai submit la o noua evaluare
+
+2. Manage Team
+    2.1 Creeaza un proiect - sa apara pe acelasi tab
+    2.2 Alege un proiect fara manager - sa apara pe acelasi tab
+    2.3 Cauta angajati in functie de competente - sa apara pe acelasi tab
+    2.4 Manage Team -> Modifica ->
+        2.4.1 Elimina competenta - sa apara pe aceeasi pagina
+        2.4.2 Adauga competente - sa apara pe aceeasi pagina
+        2.4.3 Proiecte - sa apara pe aceeasi pagina
+
+3. Personal Skills
+    3.1. Schimba parola - sa apara pe acelasi tab
