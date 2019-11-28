@@ -8,15 +8,35 @@
 
 <br>
 
-<form:form action="${go}" method="get">
-<h4>Introduceti numele competentei si evaluarea minima</h4>
-<br>
-    <label>Search</label>
-    <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+<!--<form:form action="${go}" method="get">-->
+<!--<h4>Introduceti numele competentei si evaluarea minima</h4>-->
+<!--<br>-->
+<!--    <label>Search</label>-->
+<!--    <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>-->
 
-    <form method = "get" action="${searchPeopleByEvaluation}">
+<!--    <form method = "get" action="${searchPeopleByEvaluation}">-->
+<!--        <td>-->
+<!--            <select name="evaluation">-->
+<!--                <option value="1">1</option>-->
+<!--                <option value="2">2</option>-->
+<!--                <option value="3">3</option>-->
+<!--                <option value="4">4</option>-->
+<!--            </select>-->
+<!--            <input type='submit' value='Submit' />-->
+<!--        </td>-->
+<!--    </form>-->
+
+<!--</form:form>-->
+
+
+    <form id="searchForm">
+        <h4>Introduceti numele competentei si evaluarea minima</h4>
+        <br>
+        <label>Search</label>
+        <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+
         <td>
-            <select name="evaluation" default = ${userSkill.evaluation}>
+            <select name="evaluation">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -26,7 +46,7 @@
         </td>
     </form>
 
-</form:form>
+
 
 <br>
 
@@ -64,4 +84,27 @@
 
 <br>
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Back</button>
+
+<script>
+    $("#searchForm").submit(function(e){
+        e.preventDefault();
+
+        var form = $(this);
+        var url = "/webCM/leaders/searchPeople/search";
+
+        $.ajax({
+                type: "GET",
+                url: url,
+                data: form.serialize(),
+                success: function(data){
+                    $("#div4").html(data);
+
+                },
+                error: function(data) {
+                    $("#div4").html(data);
+
+                }
+            });
+    })
+</script>
 
