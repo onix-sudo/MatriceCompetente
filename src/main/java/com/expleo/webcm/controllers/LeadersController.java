@@ -104,10 +104,14 @@ public class LeadersController {
 
         String dest = "C:/Users/vfbaldovin/Desktop/bla.pdf"; //configurat numele fisierului
 
-        com.itextpdf.layout.element.List list = new com.itextpdf.layout.element.List();
+        com.itextpdf.layout.element.List listNume = new com.itextpdf.layout.element.List();
+        com.itextpdf.layout.element.List listSkill = new com.itextpdf.layout.element.List();
+        com.itextpdf.layout.element.List listEvaluare = new com.itextpdf.layout.element.List();
 
         for(UserSkill temp:userSkills){
-            list.add(temp.toString());
+            listNume.add(temp.getUser().toString());
+            listSkill.add(temp.getSkill().toString());
+//            listEvaluare.add();
         }
             ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
             Image image = new Image(data);
@@ -121,26 +125,25 @@ public class LeadersController {
 
             document.add(image);
             document.add(paragraph);
-            document.add(list);
+            document.add(listNume);
+            document.add(listSkill);
 
-           // document.getPdfDocument();
-
-            // Closing the document
             document.close();
             writer.close();
             pdf.close();
 
             System.out.println("List added");
 
-////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////// download form
 
             response.setContentType("application/pdf");
+
             response.setHeader("Content-disposition","attachment;filename="+ "testPDF.pdf");
 
             File file1 = new File("C:/Users/vfbaldovin/Desktop/bla.pdf");
 
             FileInputStream fileInputStream = new FileInputStream(file1);
+
             DataOutputStream os = new DataOutputStream(response.getOutputStream());
 
             response.setHeader("Content-Length",String.valueOf(file1.length()));

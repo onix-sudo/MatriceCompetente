@@ -19,7 +19,7 @@
         </security:authorize>
 
         <security:authorize access="hasRole('MANAGER')">
-            <input type="radio" name="pcss3t" id="tab5" class="tab-content-last">
+            <input type="radio" name="pcss3t" id="tab5" class="tab-content-last" onclick="searchPeople()">
             <label for="tab5"><i class="icon-globe"></i>Search People</label>
         </security:authorize>
 
@@ -51,10 +51,12 @@
                 </li>
             </security:authorize>
 
-            <li class="tab-content tab-content-last typography">
-                <div class="typography">
-
-                </div>
+            <li class="tab-content tab-content-last typography" id="div4">
+                <script>
+                        function searchPeople() {
+                            $("#div4").load("/webCM/leaders/searchPeople");
+                        }
+                    </script>
             </li>
         </ul>
     </div>
