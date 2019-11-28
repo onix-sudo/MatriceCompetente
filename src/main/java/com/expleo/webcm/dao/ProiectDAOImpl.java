@@ -33,6 +33,9 @@ public class ProiectDAOImpl implements ProiectDAO {
     @Autowired
     private SessionFactory sessionSecurityFactory;
 
+    @Autowired
+    UserService userService;
+
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     @Override
@@ -298,6 +301,29 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
+        try {
+            query.getSingleResult();
+            return true;
+        }catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean hasPrincipalProject(String codProiect) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect and manager = :numarMatricol ");
+        query.setParameter("codProiect", codProiect);
+        try {
+            query.setParameter("numarMatricol", userService.getUserExpleoPrincipal().getNumarMatricol());
+        }catch (NoResultException e){
+            return false;
+        }
         try {
             query.getSingleResult();
             return true;
