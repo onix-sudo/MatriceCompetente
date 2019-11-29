@@ -22,7 +22,10 @@
 
 </head>
 
-<body>
+
+    <!-- nu IA BACKGROUNDU -->
+
+<body background="expleo-background.jpg">
 
 <div>
 
@@ -96,14 +99,14 @@
 <%--
                     <!-- Login/Submit Button -->
 --%>
-                    <div style="margin-top: 10px" class="form-group">
+                    <div style="float: left; padding-left: 5px" class="form-group">
                         <div class="col-sm-6 controls">
                             <button type="submit" class="btn btn-success">Login</button>
                         </div>
                     </div>
                 </form:form>
 
-                    <div style="padding-top: 0px" class="form-group">
+                    <div style="float: right; padding-right: 5px" class="form-group">
                         <div class="col-sm-6 controls">
                             <button type="submit" class="btn btn-success" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
                         </div>
