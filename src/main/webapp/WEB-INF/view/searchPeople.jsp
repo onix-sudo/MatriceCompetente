@@ -28,8 +28,6 @@
 
 
 
-<br>
-
 <core:if test="${usersSkills != null}">
 <table>
     <thead>
@@ -53,13 +51,16 @@
             <td>
             </td>
         </tr>
-</table>
+
 <br>
     </core:forEach>
+
+</table>
         <spring:url var="download" value="/webCM/leaders/pdfDownload">
             <spring:param name="downloadSearchTerm" value="${param.searchTerm}"/>
             <spring:param name="downloadEvaluationTerm" value="${param.evaluation}"/>
         </spring:url>
+    <br>
                                 <form:form action="${download}" method="POST">
                                     <input type="submit" class="btn btn-warning" value="Descarca lista">
                                 </form:form>
