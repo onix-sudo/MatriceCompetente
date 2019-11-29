@@ -97,13 +97,13 @@ public class LeadersController {
 
     @PostMapping("/pdfDownload")
     public void pdfDownload(@RequestParam("downloadSearchTerm") String text,
-                              @RequestParam("downloadEvaluationTerm") String evaluation, HttpServletResponse response) throws ServletException, IOException {
+                              @RequestParam("downloadEvaluationTerm") String evaluation, HttpServletResponse response) throws IOException {
 
         List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(text, Integer.parseInt(evaluation));
         ByteArrayInputStream input = new CreatePdf().getPdfAsByteArrayInputStream(userSkills,text,evaluation);
 
         response.setContentType("application/pdf");
-        response.setHeader("Content-disposition","attachment;filename=RezultateCautare - "+text+".pdf");
+        response.setHeader("Content-disposition","attachment;filename=RezultateCautare-"+text+".pdf");
         try(ServletOutputStream servletOutputStream = response.getOutputStream()) {
             byte[] buffer = new byte[1024];
             int len;
@@ -125,11 +125,13 @@ public class LeadersController {
     }
 
     @PostMapping("/addProject")
-    public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+    public String addProjectToDb(@Valid @RequestBody Proiect proiect, BindingResult result){
 
         if(result.hasErrors()){
             return "leaders_leadersAddNewProject";
         }
+
+        System.out.println("Ajunge aici");
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         proiect.setCodProiect(proiect.getCodProiect().toUpperCase());

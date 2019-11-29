@@ -62,7 +62,8 @@
 
     <script>
         function loadWebCM() {
-            $("#tab1").click();
+        $("#div1").load("/webCM/currentProj");
+            <%--$("#tab1").click();--%>
 
             return false;
         }
