@@ -62,12 +62,9 @@ public class webCMController {
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
 
-
-        System.out.println("AICI MATRICEA DE COMPETENTE");
         List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
         model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
 
-        System.out.println("proiectId = " + proiectId);
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
         model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
 
@@ -118,13 +115,9 @@ public class webCMController {
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
     public void addSkilltoUser(@RequestParam(value = "skillId") int skillId){
-
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), skillId);
-        System.out.println("user = " + user);
-        System.out.println("skillId = " + skillId);
 
-//        return "/personalProfile";
     }
 
     @GetMapping("/deleteSkill")
@@ -152,15 +145,13 @@ public class webCMController {
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
-        return "redirect:/webCM/cmptMat?proiectId=" + idproiect;
+        return "cmptMat";
     }
 
     @RequestMapping("/currentProj")
     public String currentProjects(ModelMap model) {
         List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
         model.addAttribute("proiectList", proiectList);
-
-        System.out.println(proiectList);
 
         return "currentProj";
     }
