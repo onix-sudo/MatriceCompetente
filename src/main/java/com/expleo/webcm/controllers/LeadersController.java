@@ -103,7 +103,7 @@ public class LeadersController {
         ByteArrayInputStream input = new CreatePdf().getPdfAsByteArrayInputStream(userSkills,text,evaluation);
 
         response.setContentType("application/pdf");
-        response.setHeader("Content-disposition","attachment;filename=RezultateCautare - "+text+".pdf");
+        response.setHeader("Content-disposition","attachment;filename=RezultateCautare-"+text+".pdf");
         try(ServletOutputStream servletOutputStream = response.getOutputStream()) {
             byte[] buffer = new byte[1024];
             int len;
