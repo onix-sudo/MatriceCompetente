@@ -5,6 +5,7 @@ import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.helper.CreatePdf;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
@@ -30,11 +31,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.CacheRequest;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,13 +73,12 @@ public class LeadersController {
 
 
     @GetMapping("/searchPeople")
-    public String showSearchPeople(Model theModel){
+    public String showSearchPeople(){
 
-        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
+//        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
 
-        Skill theSkill = new Skill();
-
-        theModel.addAttribute("skill", theSkill);
+//        Skill theSkill = new Skill();
+//        theModel.addAttribute("skill", theSkill);
 
         return "searchPeople";
     }
@@ -83,87 +86,32 @@ public class LeadersController {
     @GetMapping("/searchPeople/search")
     public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
-        List<Skill> searchResult = searchService.searchSkill(text);
-
+//        List<Skill> searchResult = searchService.searchSkill(text);
         List<UserSkill> userSkillsLast = searchService.searchSkillWithEvaluation(text, eval);
 
         theModel.addAttribute("usersSkills", userSkillsLast);
-
-        theModel.addAttribute("result", searchResult);
+//        theModel.addAttribute("result", searchResult);
 
         return "searchPeople";
     }
 
-    @GetMapping("/pdfDownload")
-    public String pdfDownload(@RequestParam("downloadSearchTerm") String text,
+    @PostMapping("/pdfDownload")
+    public void pdfDownload(@RequestParam("downloadSearchTerm") String text,
                               @RequestParam("downloadEvaluationTerm") String evaluation, HttpServletResponse response) throws ServletException, IOException {
 
         List<UserSkill> userSkills = searchService.searchSkillWithEvaluation(text, Integer.parseInt(evaluation));
+        ByteArrayInputStream input = new CreatePdf().getPdfAsByteArrayInputStream(userSkills,text,evaluation);
 
-        //helper pentru pdf writer
-
-        String dest = "C:/Users/vfbaldovin/Desktop/bla.pdf"; //configurat numele fisierului
-
-        com.itextpdf.layout.element.List listNume = new com.itextpdf.layout.element.List();
-        com.itextpdf.layout.element.List listSkill = new com.itextpdf.layout.element.List();
-        com.itextpdf.layout.element.List listEvaluare = new com.itextpdf.layout.element.List();
-
-        for(UserSkill temp:userSkills){
-            listNume.add(temp.getUser().toString());
-            listSkill.add(temp.getSkill().toString());
-//            listEvaluare.add();
-        }
-            ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
-            Image image = new Image(data);
-
-        try{
-            PdfWriter writer = new PdfWriter(dest);
-            PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
-
-            Paragraph paragraph = new Paragraph("View People with skill:"+ text +" and evaluation from:" + evaluation + "\n\n");
-
-            document.add(image);
-            document.add(paragraph);
-            document.add(listNume);
-            document.add(listSkill);
-
-            document.close();
-            writer.close();
-            pdf.close();
-
-            System.out.println("List added");
-
-//////////////////////////////////////////////////// download form
-
-            response.setContentType("application/pdf");
-
-            response.setHeader("Content-disposition","attachment;filename="+ "testPDF.pdf");
-
-            File file1 = new File("C:/Users/vfbaldovin/Desktop/bla.pdf");
-
-            FileInputStream fileInputStream = new FileInputStream(file1);
-
-            DataOutputStream os = new DataOutputStream(response.getOutputStream());
-
-            response.setHeader("Content-Length",String.valueOf(file1.length()));
-
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition","attachment;filename=RezultateCautare - "+text+".pdf");
+        try(ServletOutputStream servletOutputStream = response.getOutputStream()) {
             byte[] buffer = new byte[1024];
-            int len = 0;
-            while ((len = fileInputStream.read(buffer)) >= 0) {
-                os.write(buffer, 0, len);
+            int len;
+            while ((len = input.read(buffer)) >= 0) {
+                servletOutputStream.write(buffer, 0, len);
+                servletOutputStream.flush();
             }
-
-            os.flush();
-            os.close();
-            fileInputStream.close();
-
-        }catch (FileNotFoundException e){
-            System.out.println(e.getMessage());
         }
-
-
-        return "searchPeople";
     }
 
 

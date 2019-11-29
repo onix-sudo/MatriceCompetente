@@ -8,26 +8,6 @@
 
 <br>
 
-<!--<form:form action="${go}" method="get">-->
-<!--<h4>Introduceti numele competentei si evaluarea minima</h4>-->
-<!--<br>-->
-<!--    <label>Search</label>-->
-<!--    <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>-->
-
-<!--    <form method = "get" action="${searchPeopleByEvaluation}">-->
-<!--        <td>-->
-<!--            <select name="evaluation">-->
-<!--                <option value="1">1</option>-->
-<!--                <option value="2">2</option>-->
-<!--                <option value="3">3</option>-->
-<!--                <option value="4">4</option>-->
-<!--            </select>-->
-<!--            <input type='submit' value='Submit' />-->
-<!--        </td>-->
-<!--    </form>-->
-
-<!--</form:form>-->
-
 
     <form id="searchForm">
         <h4>Introduceti numele competentei si evaluarea minima</h4>
@@ -63,11 +43,7 @@
     </thead>
 
     <core:forEach var="userSkill" items="${usersSkills}">
-        <spring:url var="download" value="/webCM/leaders/pdfDownload">
-            <spring:param name="downloadSearchTerm" value="${param.searchTerm}"/>
-            <spring:param name="downloadEvaluationTerm" value="${param.evaluation}"/>
 
-        </spring:url>
         <tr>
             <td>${userSkill.user.nume} ${userSkill.user.prenume}</td>
             <td>${userSkill.user.functie}</td>
@@ -77,9 +53,16 @@
             <td>
             </td>
         </tr>
-    </core:forEach>
-    <a href="${download}">Download</a>
 </table>
+<br>
+    </core:forEach>
+        <spring:url var="download" value="/webCM/leaders/pdfDownload">
+            <spring:param name="downloadSearchTerm" value="${param.searchTerm}"/>
+            <spring:param name="downloadEvaluationTerm" value="${param.evaluation}"/>
+        </spring:url>
+                                <form:form action="${download}" method="POST">
+                                    <input type="submit" class="btn btn-warning" value="Descarca lista">
+                                </form:form>
 </core:if>
 
 <br>
