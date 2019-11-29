@@ -7,7 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button type="button" class="btn btn-success" onclick="window.location.href='/webCM/leaders/addNewProject'">Creeaza un proiect</button>
+<button type="button" class="btn btn-success" onclick="return createProject()">Creeaza un proiect</button>
 
 
  <button type="button" class="btn btn-success"
@@ -47,7 +47,12 @@
 <script>
     function modify(codProiect) {
         $("#div3").load("/webCM/leaders/project/" + codProiect);
-        console.log(codProiect);
+
+        return false;
+    }
+
+    function createProject() {
+        $("#div3").load("/webCM/leaders/addNewProject");
 
         return false;
     }
