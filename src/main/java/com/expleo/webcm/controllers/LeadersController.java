@@ -13,36 +13,23 @@ import com.expleo.webcm.service.UserSkillService;
 
 import java.io.*;
 
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
-import org.apache.lucene.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.CacheRequest;
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/webCM/leaders")
@@ -124,22 +111,31 @@ public class LeadersController {
         return "leaders_leadersAddNewProject";
     }
 
-    @PostMapping("/addProject")
-    public String addProjectToDb(@Valid @RequestBody Proiect proiect, BindingResult result){
-
+    @PostMapping(value = "/addProject", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+        JsonResponse response = new JsonResponse();
         if(result.hasErrors()){
+            Map<String, String> errors = result.getFieldErrors().stream()
+                    .collect(
+                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
+                    );
+            response.setValidated("false");
+            response.setErrorMessages(errors);
             return "leaders_leadersAddNewProject";
+        }else {
+            System.out.println("Ajunge aici");
+
+            UserExpleo user = userService.getUserExpleoPrincipal();
+            proiect.setCodProiect(proiect.getCodProiect().toUpperCase());
+            proiect.setManager(user.getNumarMatricol());
+
+            proiectService.saveNewProject(proiect);
+            System.out.println("*****************************************************");
+            response.setValidated("true");
+            return response.toString();
         }
 
-        System.out.println("Ajunge aici");
-
-        UserExpleo user = userService.getUserExpleoPrincipal();
-        proiect.setCodProiect(proiect.getCodProiect().toUpperCase());
-        proiect.setManager(user.getNumarMatricol());
-
-        proiectService.saveNewProject(proiect);
-
-        return "redirect:/webCM/leaders";
     }
 
     @GetMapping("/project/{codProiect}")
