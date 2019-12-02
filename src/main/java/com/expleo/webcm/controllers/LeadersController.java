@@ -61,23 +61,14 @@ public class LeadersController {
 
     @GetMapping("/searchPeople")
     public String showSearchPeople(){
-
-//        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
-
-//        Skill theSkill = new Skill();
-//        theModel.addAttribute("skill", theSkill);
-
         return "searchPeople";
     }
 
     @GetMapping("/searchPeople/search")
     public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
-//        List<Skill> searchResult = searchService.searchSkill(text);
         List<UserSkill> userSkillsLast = searchService.searchSkillWithEvaluation(text, eval);
-
         theModel.addAttribute("usersSkills", userSkillsLast);
-//        theModel.addAttribute("result", searchResult);
 
         return "searchPeople";
     }

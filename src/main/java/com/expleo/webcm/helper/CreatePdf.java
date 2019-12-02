@@ -49,12 +49,21 @@ public class CreatePdf {
 
 
         for (int i = 0; i < userSkills.size(); i++) {
-            table.addCell(makeCell(userSkills.get(i).getUser().getNume()+" "+userSkills.get(i).getUser().getPrenume(), TextAlignment.LEFT));
-            table.addCell(makeCell(userSkills.get(i).getUser().getFunctie(), TextAlignment.LEFT));
-            table.addCell(makeCell(String.valueOf(userSkills.get(i).getUser().getNumarMatricol()), TextAlignment.CENTER));
-            table.addCell(makeCell(userSkills.get(i).getSkill().getNumeSkill(),TextAlignment.LEFT));
-            table.addCell(makeCell(userSkills.get(i).getSkill().getCategorie(), TextAlignment.LEFT));
-            table.addCell(makeCell(String.valueOf(userSkills.get(i).getEvaluation()), TextAlignment.CENTER));
+            if(i%2 != 0) {
+                table.addCell(makeCell(userSkills.get(i).getUser().getNume() + " " + userSkills.get(i).getUser().getPrenume(), TextAlignment.LEFT));
+                table.addCell(makeCell(userSkills.get(i).getUser().getFunctie(), TextAlignment.LEFT));
+                table.addCell(makeCell(String.valueOf(userSkills.get(i).getUser().getNumarMatricol()), TextAlignment.CENTER));
+                table.addCell(makeCell(userSkills.get(i).getSkill().getNumeSkill(), TextAlignment.LEFT));
+                table.addCell(makeCell(userSkills.get(i).getSkill().getCategorie(), TextAlignment.LEFT));
+                table.addCell(makeCell(String.valueOf(userSkills.get(i).getEvaluation()), TextAlignment.CENTER));
+            }else{
+                table.addCell(makeCell(userSkills.get(i).getUser().getNume()+" "+userSkills.get(i).getUser().getPrenume(), TextAlignment.LEFT).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+                table.addCell(makeCell(userSkills.get(i).getUser().getFunctie(), TextAlignment.LEFT).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+                table.addCell(makeCell(String.valueOf(userSkills.get(i).getUser().getNumarMatricol()), TextAlignment.CENTER).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+                table.addCell(makeCell(userSkills.get(i).getSkill().getNumeSkill(),TextAlignment.LEFT).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+                table.addCell(makeCell(userSkills.get(i).getSkill().getCategorie(), TextAlignment.LEFT).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+                table.addCell(makeCell(String.valueOf(userSkills.get(i).getEvaluation()), TextAlignment.CENTER).setBackgroundColor(new DeviceRgb(Color.LIGHT_GRAY)));
+            }
         }
 
         try {
