@@ -29,8 +29,9 @@
                                 <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
                                 <td>
-                                    <form id="modifyTForm">
-                                        <select name="evaluation">
+                                    <form id="modifyTForm"
+                                          onsubmit="return reloadMat(${skill.skill.idSkill}, evalCmpt.value, ${skill.proiect.proiectId})">
+                                        <select name="evaluation" id="evalCmpt">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -66,30 +67,32 @@
 </div>
 
 <script>
-    $("#modifyTForm").submit(function(e){
-        console.log(form.serialize());
-        e.preventDefault();
+function reloadMat(idSkill, evaluation, idProiect) {
 
-        var form = $(this);
+    console.log("HERE");
+     //var form = $(this);
+        var csrfParameter = '${_csrf.parameterName}';
+        var csrfToken = '${_csrf.token}';
         var url = "/webCM/cmptMat/modifyT";
+        //console.log(form.serialize());
 
-        $.ajax({
-                   type: "GET",
+        $.get({
                    url: url,
-                   data: form.serialize(), // serializes the form's elements.
+                   data: {idskill: idSkill, evaluation: evaluation, proiectId: idProiect},
                    success: function(data)
                    {
-                       $("#div1").html(data);
-                       alert(data);
+                        $("#div1").html(data);
+
                    },
                    error: function(data)
                    {
-                       console.log("ERROR");
-                       $("#div1").load(data);
+                        console.log("ERROR");
+                        $("#div1").html(data);
                    }
-        });
-    });
+         })
 
+    return false;
+}
 </script>
 
 

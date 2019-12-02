@@ -86,7 +86,7 @@
                    error: function(data)
                    {
                        console.log("ERROR");
-                       $("#div3").load(data);
+                       $("#div3").html(data);
                    }
                  });
 

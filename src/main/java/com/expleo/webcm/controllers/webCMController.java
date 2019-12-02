@@ -9,15 +9,13 @@ import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Iterator;
@@ -138,12 +136,19 @@ public class webCMController {
         //return "redirect:/webCM";
     }
 
-    @GetMapping("/cmptMat/modifyT")
-    public String modifyT(@RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
+    @GetMapping(value = "/cmptMat/modifyT")
+//    @ResponseBody
+    public String modifyT(ModelMap model, @RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
                           @RequestParam(value = "proiectId", required = false) int idproiect){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
+
+        List<ProiectSkill> skills = proiectService.showSkillsforProject(idproiect);
+        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
+
+        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
 
         return "cmptMat";
     }

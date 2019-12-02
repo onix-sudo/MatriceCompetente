@@ -12,7 +12,7 @@
   onclick="return back()">Inapoi</button>
 <hr>
 
-<form:form onsubmit= "return sendData()" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
+<form:form name="newProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
     <table>
         <thead>
         <tr>
@@ -29,35 +29,50 @@
 
         <tr>
             <td><label></label></td>
-            <td><input type="submit" value="Save" class="save"/></td>
+            <td><input type="button" onclick="doAjaxPost()" value="Save" class="save"/></td>
         </tr>
         </thead>
     </table>
 
 </form:form>
 
-<script>
+
+<script type="text/javascript">
     function back() {
         $("#div3").load("/webCM/leaders/");
 
         return false;
     }
 
-        var model = $("#newProject").serialize();
+function doAjaxPost() {
 
-        function sendData() {
-            $.ajax({
-                type: "POST",
-                data: model,
-                url: "/webCM/leaders/addProject",
-                success: function(data){
-                    $("#tab3").click();
-                },
-                error: function(xhr, status) {
-                    $("#tab2").click();
-                }
-            });
-            return false;
-        }
+    $.ajax({
+        type: "POST",
+        url: "/webCM/leaders/addProject",
+        data: $('form[name=newProject]').serialize(),
+        success: function(error){
+            console.log(error)
+            if(error){
+                                $("#errorContainer").html(error);
+             }else{
+<%--                 errorInfo = "";
+                 for(i =0 ; i < response.errorMessages.size ; i++){
+                     errorInfo += "<br>" + (i + 1) +". " + response.errorMessages[i];
+                 }
+                 $('#error').html("Please correct following errors: " + errorInfo);
+                 $('#info').hide('slow');
+                 $('#error').show('slow');--%>
+                 $("#tab1").click();
+             }
+         },
+         error: function(error){
+                console.log(error);
+             alert('Error: ' + error);
+         }
+         return false;
+    });
+}
+
+
 
 </script>
