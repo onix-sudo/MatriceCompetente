@@ -22,15 +22,43 @@
 
 </head>
 
+<style>
+body {
+    background: url( /resources/background.png) no-repeat center center fixed;
+    background-size: 100% 90%;
+    background-color: #6946C6;
+   }
+   .container-login100 {
+     width: 100%;
+     min-height: 100vh;
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -moz-box;
+     display: -ms-flexbox;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     align-items: center;
+     padding: 15px;
 
-    <!-- nu IA BACKGROUNDU -->
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+     position: relative;
+     z-index: 1;
+   }
+   .limiter {
+     width: 100%;
+     margin: 0 auto;
+   }
+</style>
 
-<body background="expleo-background.jpg">
 
-<div>
+<body>
 
-    <div id="loginbox" style="margin-top: 50px;"
-         class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+<div id="limiter">
+
+    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
 
         <div class="panel panel-info">
 
