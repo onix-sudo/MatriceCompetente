@@ -13,3 +13,8 @@
 
 3. Personal Skills
     3.1. Schimba parola - sa apara pe acelasi tab
+
+4. Search People
+    4.1 Too many requests -> Reduce
+    4.2 Clean code
+    4.3

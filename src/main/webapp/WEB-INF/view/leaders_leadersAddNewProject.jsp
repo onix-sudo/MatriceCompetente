@@ -1,10 +1,18 @@
-<%@ include file="leaders_leadersHeader.jspf"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <br>
   <button type="button" class="btn btn-warning"
-  onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
+  onclick="return back()">Inapoi</button>
 <hr>
 
-<form:form action= "addProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
+<form:form onsubmit= "return sendData()" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
     <table>
         <thead>
         <tr>
@@ -28,5 +36,28 @@
 
 </form:form>
 
+<script>
+    function back() {
+        $("#div3").load("/webCM/leaders/");
 
-<%@ include file="footer.jspf"%>
+        return false;
+    }
+
+        var model = $("#newProject").serialize();
+
+        function sendData() {
+            $.ajax({
+                type: "POST",
+                data: model,
+                url: "/webCM/leaders/addProject",
+                success: function(data){
+                    $("#tab3").click();
+                },
+                error: function(xhr, status) {
+                    $("#tab2").click();
+                }
+            });
+            return false;
+        }
+
+</script>

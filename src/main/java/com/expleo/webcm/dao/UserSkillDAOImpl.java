@@ -111,20 +111,19 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
     @Override
-    public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval){
+    public void getUserByEvaluation(List<UserSkill> userSkills, int eval){
 
-        Iterator<UserSkill> iterator = userSkills.iterator();
         List<UserSkill> userSkillsLast = new LinkedList<>();
 
-        while (iterator.hasNext()) {
-
-            UserSkill userSkill = iterator.next();
-            if (userSkill.getEvaluation() >= eval) {
-                userSkillsLast.add(userSkill);
+        for(UserSkill temp: userSkills) {
+            if (temp.getEvaluation() < eval) {
+                userSkillsLast.add(temp);
             }
         }
+        userSkills.removeAll(userSkillsLast);
+        userSkillsLast.clear();
 
-        return userSkillsLast;
+//        return userSkillsLast;
 
     }
 

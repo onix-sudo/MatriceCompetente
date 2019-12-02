@@ -4,6 +4,7 @@ body{
     }
     .container{
         width: 80%;
+        color: #fff;
         margin: 0 auto; /* Center the DIV horizontally */
     }
     .fixed-header, .fixed-footer{

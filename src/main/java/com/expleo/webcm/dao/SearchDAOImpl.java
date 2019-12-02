@@ -30,7 +30,7 @@ public class SearchDAOImpl implements SearchDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    UserSkillService userSkillService;
+    private UserSkillService userSkillService;
 
     @Override
     public List<UserExpleo> searchUser(String text) {
@@ -178,6 +178,7 @@ public class SearchDAOImpl implements SearchDAO {
     @Override
     public List<UserSkill> searchSkillWithEvaluation(String text, int eval) {
         Session session = sessionFactory.openSession();
+        System.out.println("*************************************************************************");
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
         Transaction tx = fullTextSession.beginTransaction();
@@ -196,15 +197,27 @@ public class SearchDAOImpl implements SearchDAO {
 
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
 
+        System.out.println("************************************************* " +result.size());
+
         List<UserSkill> userSkills = new LinkedList<>();
-
+        System.out.println("ADD ALL-------------------------------------------------------------");
         for(Skill skill: result){
-            userSkills.addAll(userSkillService.getUserSkillBySkill(skill));
+//            userSkills.addAll(userSkillService.getUserSkillBySkill(skill));
+            userSkills.addAll(skill.getUserSkills());
         }
+        userSkillService.getUserByEvaluation(userSkills,eval);
+        System.out.println("ADD ALL-------------------------------------------------------------");
 
+        for(UserSkill userSkill:userSkills){
+            Hibernate.initialize(userSkill.getUser());
+        }
+        System.out.println("INIT-------------------------------------------------------------");
+
+
+        System.out.println("***************************************************");
         tx.commit();
         session.close();
 
-        return userSkillService.getUserByEvaluation(userSkills,eval);
+        return userSkills;
     }
 }

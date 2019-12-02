@@ -35,8 +35,8 @@ public class UserSkillServiceImpl implements UserSkillService {
     }
 
     @Override
-    public List<UserSkill> getUserByEvaluation(List<UserSkill> userSkills, int eval) {
-        return userSkillDAO.getUserByEvaluation(userSkills,eval);
+    public void getUserByEvaluation(List<UserSkill> userSkills, int eval) {
+        userSkillDAO.getUserByEvaluation(userSkills,eval);
     }
 
     @Override
