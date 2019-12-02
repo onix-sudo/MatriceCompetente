@@ -209,6 +209,8 @@ public class SearchDAOImpl implements SearchDAO {
             Hibernate.initialize(userSkill.getUser());
         }
 
+        Collections.sort(userSkills);
+
         tx.commit();
         session.close();
 
