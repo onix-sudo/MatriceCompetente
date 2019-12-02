@@ -209,13 +209,11 @@ public class SearchDAOImpl implements SearchDAO {
             Hibernate.initialize(userSkill.getUser());
         }
 
-        userSkillsResult.sort((Comparator.<UserSkill>
-                comparingInt(character1 -> character1.getUser().getNume().length())
-                .thenComparingInt(character2 -> character2.getUser().getNume().length())));
+        Collections.sort(userSkills);
 
         tx.commit();
         session.close();
 
-        return userSkillsResult;
+        return userSkills;
     }
 }
