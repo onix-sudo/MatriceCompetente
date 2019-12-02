@@ -25,40 +25,17 @@
 <style>
 body {
     background: url( /resources/background.png) no-repeat center center fixed;
-    background-size: 100% 90%;
+    background-size: 100% 85%;
     background-color: #6946C6;
-   }
-   .container-login100 {
-     width: 100%;
-     min-height: 100vh;
-     display: -webkit-box;
-     display: -webkit-flex;
-     display: -moz-box;
-     display: -ms-flexbox;
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: center;
-     align-items: center;
-     padding: 15px;
-
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: cover;
-     position: relative;
-     z-index: 1;
-   }
-   .limiter {
-     width: 100%;
-     margin: 0 auto;
    }
 </style>
 
 
 <body>
 
-<div id="limiter">
+<div class = "container">
 
-    <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+    <div id="loginbox" style="margin-top: 310px; margin-left:100px" class="mainbox col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1">
 
         <div class="panel panel-info">
 
@@ -129,14 +106,14 @@ body {
 --%>
                     <div style="float: left; padding-left: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-success">Login</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
                         </div>
                     </div>
                 </form:form>
 
                     <div style="float: right; padding-right: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-success" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
+                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
                         </div>
                     </div>
 
