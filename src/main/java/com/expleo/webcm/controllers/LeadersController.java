@@ -114,14 +114,11 @@ public class LeadersController {
     @PostMapping(value = "/addProject", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
-        JsonResponse response = new JsonResponse();
         if(result.hasErrors()){
             Map<String, String> errors = result.getFieldErrors().stream()
                     .collect(
                             Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
                     );
-            response.setValidated("false");
-            response.setErrorMessages(errors);
             return "leaders_leadersAddNewProject";
         }else {
             System.out.println("Ajunge aici");
@@ -132,8 +129,7 @@ public class LeadersController {
 
             proiectService.saveNewProject(proiect);
             System.out.println("*****************************************************");
-            response.setValidated("true");
-            return response.toString();
+            return "ceva";
         }
 
     }
