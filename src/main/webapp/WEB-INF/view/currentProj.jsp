@@ -36,6 +36,7 @@
         <script type="text/javascript">
             function cmptMat(proiectId) {
                 $("#div1").load("/webCM/cmptMat?proiectId=" + proiectId);
+                console.log("A intrat aici");
 
                 return false;
             }
