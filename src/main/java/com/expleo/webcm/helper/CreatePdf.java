@@ -40,21 +40,12 @@ public class CreatePdf {
         table.setMarginTop(0);
         table.setMarginBottom(0);
 
-        Cell antet = new Cell(1, 10).add(new Paragraph("Rezultate Cautare"));
-
-
-        antet.setTextAlignment(TextAlignment.CENTER);
-        antet.setPadding(5);
-        antet.setBackgroundColor(new DeviceRgb(111, 66, 193));
-        antet.setFontColor(new DeviceRgb(Color.white));
-        table.addCell(antet);
-
-        table.addCell(makeCell("Nume", TextAlignment.CENTER).setBold());
-        table.addCell(makeCell("Rol", TextAlignment.CENTER).setBold());
-        table.addCell(makeCell("Numar matricol", TextAlignment.CENTER).setBold());
-        table.addCell(makeCell("Competenta", TextAlignment.CENTER).setBold());
-        table.addCell(makeCell("Categorie", TextAlignment.CENTER).setBold());
-        table.addCell(makeCell("Evaluare", TextAlignment.CENTER).setBold());
+        table.addCell(makeCell("Nume", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Rol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Numar matricol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Competenta", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Categorie", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Evaluare", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
 
 
         for (int i = 0; i < userSkills.size(); i++) {
@@ -67,9 +58,9 @@ public class CreatePdf {
         }
 
         try {
-            DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+            DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
             Date dateobj = new Date();
-            Paragraph paragraph = new Paragraph(df.format(dateobj) + "\nAngajati cu competenta:" + text + " si evaluare >" + evaluation + " \n\n");
+            Paragraph paragraph = new Paragraph(df.format(dateobj) + "\nTermenul cautarii: " + text + "\nEvaluare minimum: " + evaluation + " \n\n");
 
             document.add(image);
             document.add(paragraph);
