@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class SearchDAOImpl implements SearchDAO {
@@ -177,10 +175,9 @@ public class SearchDAOImpl implements SearchDAO {
 
     @Override
     public List<UserSkill> searchSkillWithEvaluation(String text, int eval) {
-        Session session = sessionFactory.openSession();
-        System.out.println("*************************************************************************");
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
 
+        Session session = sessionFactory.openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
         Transaction tx = fullTextSession.beginTransaction();
 
         QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
@@ -195,29 +192,28 @@ public class SearchDAOImpl implements SearchDAO {
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
+        org.hibernate.query.Query userSkillQuery = session.createQuery("from UserSkill where evaluation >= :eval");
+        userSkillQuery.setParameter("eval", eval);
+
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
-
-        System.out.println("************************************************* " +result.size());
-
+        List<UserSkill> userSkillsResult = new LinkedList<UserSkill>(userSkillQuery.list());
         List<UserSkill> userSkills = new LinkedList<>();
-        System.out.println("ADD ALL-------------------------------------------------------------");
-        for(Skill skill: result){
-//            userSkills.addAll(userSkillService.getUserSkillBySkill(skill));
-            userSkills.addAll(skill.getUserSkills());
+
+        for(UserSkill us: userSkillsResult){
+            if(result.contains(us.getSkill())){
+                userSkills.add(us);
+            }
         }
-        userSkillService.getUserByEvaluation(userSkills,eval);
-        System.out.println("ADD ALL-------------------------------------------------------------");
 
         for(UserSkill userSkill:userSkills){
             Hibernate.initialize(userSkill.getUser());
         }
-        System.out.println("INIT-------------------------------------------------------------");
 
+        Collections.sort(userSkills);
 
-        System.out.println("***************************************************");
         tx.commit();
         session.close();
 
-        return userSkills;
+        return userSkillsResult;
     }
 }

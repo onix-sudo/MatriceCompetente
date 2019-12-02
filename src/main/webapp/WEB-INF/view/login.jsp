@@ -22,12 +22,20 @@
 
 </head>
 
+<style>
+body {
+    background: url( /resources/background.png) no-repeat center center fixed;
+    background-size: 100% 85%;
+    background-color: #6946C6;
+   }
+</style>
+
+
 <body>
 
-<div>
+<div class = "container">
 
-    <div id="loginbox" style="margin-top: 50px;"
-         class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+    <div id="loginbox" style="margin-top: 310px; margin-left:100px" class="mainbox col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1">
 
         <div class="panel panel-info">
 
@@ -96,16 +104,16 @@
 <%--
                     <!-- Login/Submit Button -->
 --%>
-                    <div style="margin-top: 10px" class="form-group">
+                    <div style="float: left; padding-left: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-success">Login</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
                         </div>
                     </div>
                 </form:form>
 
-                    <div style="padding-top: 0px" class="form-group">
+                    <div style="float: right; padding-right: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-success" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
+                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
                         </div>
                     </div>
 

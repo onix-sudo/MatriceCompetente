@@ -6,15 +6,11 @@
 <spring:url var="go" value="/webCM/leaders/searchPeople/search" >
     </spring:url>
 
-<br>
-
-
     <form id="searchForm">
         <h4>Introduceti numele competentei si evaluarea minima</h4>
         <br>
         <label>Search</label>
         <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
-
         <td>
             <select name="evaluation">
                 <option value="1">1</option>
@@ -26,9 +22,8 @@
         </td>
     </form>
 
-
-
 <core:if test="${usersSkills != null}">
+
 <table>
     <thead>
     <tr>
@@ -41,7 +36,6 @@
     </thead>
 
     <core:forEach var="userSkill" items="${usersSkills}">
-
         <tr>
             <td>${userSkill.user.nume} ${userSkill.user.prenume}</td>
             <td>${userSkill.user.functie}</td>
@@ -51,10 +45,8 @@
             <td>
             </td>
         </tr>
-
-<br>
     </core:forEach>
-
+    <br>
 </table>
         <spring:url var="download" value="/webCM/leaders/pdfDownload">
             <spring:param name="downloadSearchTerm" value="${param.searchTerm}"/>
@@ -86,7 +78,6 @@
                 },
                 error: function(data) {
                     $("#div4").html(data);
-
                 }
             });
     })
