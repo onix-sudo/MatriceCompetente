@@ -111,14 +111,14 @@ public class LeadersController {
         return "leaders_leadersAddNewProject";
     }
 
-    @PostMapping(value = "/addProject", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/addProject")
     @ResponseBody
     public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
         if(result.hasErrors()){
-            Map<String, String> errors = result.getFieldErrors().stream()
-                    .collect(
-                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
-                    );
+//            Map<String, String> errors = result.getFieldErrors().stream()
+//                    .collect(
+//                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
+//                    );
             return "leaders_leadersAddNewProject";
         }else {
             System.out.println("Ajunge aici");
@@ -207,23 +207,21 @@ public class LeadersController {
 
     @GetMapping("/freeProjects")
     public String freeProjects(Model model){
-
-
-
         List<Proiect> result = proiectService.getFreeProjects();
         model.addAttribute("result", result);
-
-
+        
         return "leaders_freeProjects";
     }
 
-    @PostMapping("/freeProjects/add")
-    public String addFreeProject(@RequestParam("codProiect") String codProiect)
+    @GetMapping("/freeProjects/add")
+    public void addFreeProject(@RequestParam("codProiect") String codProiect)
     {
         UserExpleo principal = userService.getUserExpleoPrincipal();
         proiectService.addFreeProject(codProiect, principal);
 
-        return "redirect:/webCM/leaders/freeProjects";
+        System.out.println("codProiect = " + codProiect);
+
+//        return "redirect:/webCM/leaders/freeProjects";
     }
 
     @GetMapping("/project/{codProiect}/addSkills")

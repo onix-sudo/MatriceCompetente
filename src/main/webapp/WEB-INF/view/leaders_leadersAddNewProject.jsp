@@ -12,7 +12,7 @@
   onclick="return back()">Inapoi</button>
 <hr>
 
-<form:form name="newProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
+<form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
     <table>
         <thead>
         <tr>
@@ -29,7 +29,7 @@
 
         <tr>
             <td><label></label></td>
-            <td><input type="button" onclick="doAjaxPost()" value="Save" class="save"/></td>
+            <td><input type="submit" value="Save" class="save"/></td>
         </tr>
         </thead>
     </table>
@@ -50,11 +50,11 @@ function doAjaxPost() {
         type: "POST",
         url: "/webCM/leaders/addProject",
         data: $('form[name=newProject]').serialize(),
-        success: function(error){
-            console.log(error)
-            if(error){
-                                $("#errorContainer").html(error);
-             }else{
+        success: function(response){
+            console.log(response)
+            if(response){
+                $("#errorContainer").html(error);
+            }else{
 <%--                 errorInfo = "";
                  for(i =0 ; i < response.errorMessages.size ; i++){
                      errorInfo += "<br>" + (i + 1) +". " + response.errorMessages[i];
@@ -63,14 +63,16 @@ function doAjaxPost() {
                  $('#info').hide('slow');
                  $('#error').show('slow');--%>
                  $("#tab1").click();
-             }
+            }
          },
          error: function(error){
                 console.log(error);
              alert('Error: ' + error);
          }
-         return false;
+
     });
+
+    return false;
 }
 
 
