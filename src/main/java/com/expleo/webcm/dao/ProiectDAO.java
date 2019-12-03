@@ -12,11 +12,11 @@ public interface ProiectDAO {
 
     void saveNewProject(Proiect proiect);
 
-    List<Proiect> findManagerProjects(UserExpleo userExpleo);
+    List<Proiect> findManagerProjects(String userExpleo);
 
     Proiect findProjectByCodProiect(String codProiect);
 
-    void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills);
+    Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills);
 
     void addUserToProject(String codProiect, Integer userId);
 
@@ -26,7 +26,7 @@ public interface ProiectDAO {
 
     List<Proiect> getFreeProjects();
 
-    void addFreeProject(String codProiect, UserExpleo principal);
+    void addFreeProject(String codProiect, String principal);
 
     void addSkillToProject(String codProiect, Integer skillId);
 

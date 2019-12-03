@@ -6,6 +6,7 @@ import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.CreatePdf;
+import com.expleo.webcm.helper.Principal;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
@@ -52,7 +53,7 @@ public class LeadersController {
     @GetMapping
     public String showLeaders(Model model){
 
-        List<Proiect> projects = proiectService.findManagerProjects(userService.getUserExpleoPrincipal());
+        List<Proiect> projects = proiectService.findManagerProjects(Principal.getPrincipal());
         model.addAttribute("projects", projects);
 
         return "leaders_home";
@@ -114,9 +115,9 @@ public class LeadersController {
         }else {
             System.out.println("Ajunge aici");
 
-            UserExpleo user = userService.getUserExpleoPrincipal();
+//            UserExpleo user = userService.getUserExpleoPrincipal();
             proiect.setCodProiect(proiect.getCodProiect().toUpperCase());
-            proiect.setManager(user.getNumarMatricol());
+            proiect.setManager(Principal.getPrincipal());
 
             proiectService.saveNewProject(proiect);
             System.out.println("*****************************************************");
@@ -128,12 +129,13 @@ public class LeadersController {
     @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
         ModelAndView mav = new ModelAndView();
-        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
+//        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
 
         List<UserExpleo> users = new LinkedList<>();
         List<ProiectSkill> skills = new LinkedList<>();
 
-        proiectService.getProjectListsUsersSkills(codProiect, users, skills);
+        Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
+
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -207,8 +209,8 @@ public class LeadersController {
     @GetMapping("/freeProjects/add")
     public void addFreeProject(@RequestParam("codProiect") String codProiect)
     {
-        UserExpleo principal = userService.getUserExpleoPrincipal();
-        proiectService.addFreeProject(codProiect, principal);
+
+        proiectService.addFreeProject(codProiect, Principal.getPrincipal());
 
         System.out.println("codProiect = " + codProiect);
 
@@ -254,11 +256,21 @@ public class LeadersController {
     @GetMapping("/project/{codProiect}/setPondere")
     public String setPondere(@PathVariable("codProiect") String codProiect,
                              @RequestParam("skillId") Integer skillId,
-                             @RequestParam("value") Integer pondere)
-    {
+                             @RequestParam("value") Integer pondere) {
 
         proiectService.setPondere(codProiect, skillId, pondere);
 
         return "redirect:/webCM/leaders/project/"+codProiect;
+    }
+
+    @GetMapping("/selectMatrix")
+    public String matrice(){
+        return null;
+    }
+
+    @PostMapping("/project/{codProiect}/matrix")
+    public String matrice(@PathVariable("codProiect") String codProiect
+                          ){
+        return null;
     }
 }
