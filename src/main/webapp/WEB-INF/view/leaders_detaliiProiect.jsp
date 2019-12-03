@@ -78,6 +78,7 @@
             <th>Competenta</th>
             <th>Categorie</th>
             <th>Pondere</th>
+            <th>Target</th>
             <th></th>
          </tr>
          </thead>
@@ -92,24 +93,38 @@
                <tr>
                  <td>${skill.skill.numeSkill}</td>
                  <td>${skill.skill.categorie}</td>
-                 <td>
-                                 <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/project/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
-                                         <c:set var="pondere" value="${skill.pondere}"/>
-                                         <c:forEach items="${intervalPondere}" var="temp">
-                                             <c:choose>
-                                                 <c:when test="${temp eq pondere}">
-                                                     <option value="${temp}" selected="true">${temp}</option>
-                                                 </c:when>
-                                                 <c:otherwise>
-                                                     <option value="${temp}">${temp}</option>
-                                                 </c:otherwise>
-                                             </c:choose>
-                                         </c:forEach>
+                    <td>
+                        <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/project/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
+                            <c:set var="pondere" value="${skill.pondere}"/>
+                                <c:forEach items="${intervalPondere}" var="temp">
+                                    <c:choose>
+                                    <c:when test="${temp eq pondere}">
+                                    <option value="${temp}" selected="true">${temp}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <option value="${temp}">${temp}</option>
+                                    </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
 
-                                 </form:select>
+                        </form:select>
+                    </td>
+                    <td>
+                        <form:select path="intervalTarget" onChange="window.location.href='/webCM/leaders/project/${varPath}/setTarget?value='+this.value+'&skillId=${skill.skill.idSkill}'">
+                            <c:set var="target" value="${skill.target}"/>
+                                <c:forEach items="${intervalTarget}" var="temp">
+                                    <c:choose>
+                                    <c:when test="${temp eq target}">
+                                    <option value="${temp}" selected="true">${temp}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <option value="${temp}">${temp}</option>
+                                    </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
 
-                 </td>
-
+                        </form:select>
+                        </td>
                  <td>
                     <form:form action="${removeSkill}" method="POST">
                         <input type="submit" class="btn btn-danger" value="Elimina competenta"

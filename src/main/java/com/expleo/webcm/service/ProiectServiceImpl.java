@@ -120,6 +120,12 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
+    public void setTarget(String codProiect, Integer skillId, Integer target) {
+        proiectDao.setTarget(codProiect, skillId, target);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
     public boolean foundCodProiectExpleo(String value) {
         return proiectDao.foundCodProiectExpleo(value);
     }

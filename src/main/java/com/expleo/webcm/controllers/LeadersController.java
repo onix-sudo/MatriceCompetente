@@ -7,13 +7,11 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.CreatePdf;
 import com.expleo.webcm.helper.Principal;
-import com.expleo.webcm.service.ProiectService;
-import com.expleo.webcm.service.SearchService;
-import com.expleo.webcm.service.UserService;
-import com.expleo.webcm.service.UserSkillService;
+import com.expleo.webcm.service.*;
 
 import java.io.*;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,6 +35,8 @@ import java.util.stream.Collectors;
 public class LeadersController {
 
     private static final int[] INTERVAL_PONDERE = {1,2,3,4,5,6,7,8,9,10};
+
+    private static final int[] INTERVAL_TARGET = {1,2,3,4};
 
     @Autowired
     private UserService userService;
@@ -142,6 +142,7 @@ public class LeadersController {
         model.addAttribute("project", proiect);
         model.addAttribute("varPath", codProiect);
         model.addAttribute("intervalPondere", INTERVAL_PONDERE);
+        model.addAttribute("intervalTarget", INTERVAL_TARGET);
         mav.addAllObjects(model);
 
 //        mav.setViewName("leaders_detaliiProiect");
@@ -263,14 +264,41 @@ public class LeadersController {
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
+    @GetMapping("/project/{codProiect}/setTarget")
+    public String setTarget(@PathVariable("codProiect") String codProiect,
+                             @RequestParam("skillId") Integer skillId,
+                             @RequestParam("value") Integer target) {
+
+        proiectService.setTarget(codProiect, skillId, target);
+
+        return "redirect:/webCM/leaders/project/"+codProiect;
+    }
+
     @GetMapping("/selectMatrix")
-    public String matrice(){
-        return null;
+    public String matrice(ModelMap modelMap){
+
+        List<Proiect> proiecte = proiectService.findManagerProjects(Principal.getPrincipal());
+
+//        model.addAttribute("proiecte", proiecte);
+
+        return matrice(proiecte.get(0).getCodProiect(), modelMap);
     }
 
     @PostMapping("/project/{codProiect}/matrix")
-    public String matrice(@PathVariable("codProiect") String codProiect
-                          ){
-        return null;
+    public String matrice(@PathVariable("codProiect") String codProiect, ModelMap model){
+
+        List<Proiect> proiecte = proiectService.findManagerProjects(Principal.getPrincipal());
+
+        model.addAttribute("proiecte", proiecte);
+
+        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
+
+        List<UserExpleo> userExpleos = proiect.getUsers();
+
+        model.addAttribute("users", userExpleos);
+
+        System.out.println("codProiect = " + codProiect);
+
+        return "dropdownMatrix";
     }
 }
