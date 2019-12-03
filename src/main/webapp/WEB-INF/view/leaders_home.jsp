@@ -9,11 +9,8 @@
 
 <button type="button" class="btn btn-success" onclick="return createProject()">Creeaza un proiect</button>
 
-
- <button type="button" class="btn btn-success"
- onclick="window.location.href='/webCM/leaders/freeProjects'">Alege un proiect fara manager</button>
-
-  <button type="button" class="btn btn-warning" onclick="window.location.href='/webCM'">webCM</button>
+<button type="button" class="btn btn-success"
+ onclick="return proiectFaraManageri()">Alege un proiect fara manager</button>
 
 <hr>
     <table>
@@ -52,6 +49,12 @@
         $("#div3").load("/webCM/leaders/addNewProject");
 
         return false;
+    }
+
+    function proiectFaraManageri() {
+            $("#div3").load("/webCM/leaders/freeProjects");
+
+            return false;
     }
 </script>
 
