@@ -42,7 +42,7 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
+    public List<Proiect> findManagerProjects(String userExpleo) {
         return proiectDao.findManagerProjects(userExpleo);
     }
 
@@ -60,8 +60,8 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
-        proiectDao.getProjectListsUsersSkills(codProiect, users, skills);
+    public Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
+       return proiectDao.getProjectListsUsersSkills(codProiect, users, skills);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void addFreeProject(String codProiect, UserExpleo principal) {
+    public void addFreeProject(String codProiect, String principal) {
         proiectDao.addFreeProject(codProiect, principal);
     }
 

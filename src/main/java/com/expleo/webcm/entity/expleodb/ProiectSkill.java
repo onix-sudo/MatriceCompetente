@@ -5,8 +5,6 @@ import java.util.Objects;
 
 @Entity(name="ProiectSkill")
 @Table(name = "proiect_skill")
-//@Entity
-//@Table(name = "expleodb", schema = "proiect_skill")
 public class ProiectSkill {
 
     @EmbeddedId
@@ -25,6 +23,9 @@ public class ProiectSkill {
 
     @Column(name="Pondere")
     private int pondere;
+
+    @Column(name="Target")
+    private int target;
 
     public ProiectSkill() {
 

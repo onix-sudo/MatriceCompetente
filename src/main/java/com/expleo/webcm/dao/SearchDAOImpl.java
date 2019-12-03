@@ -192,7 +192,7 @@ public class SearchDAOImpl implements SearchDAO {
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
-        org.hibernate.query.Query userSkillQuery = session.createQuery("from UserSkill where evaluation >= :eval");
+        org.hibernate.query.Query userSkillQuery = session.createQuery("from UserSkill where evaluation >= :eval order by evaluation desc");
         userSkillQuery.setParameter("eval", eval);
 
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
@@ -208,8 +208,6 @@ public class SearchDAOImpl implements SearchDAO {
         for(UserSkill userSkill:userSkills){
             Hibernate.initialize(userSkill.getUser());
         }
-
-        Collections.sort(userSkills);
 
         tx.commit();
         session.close();

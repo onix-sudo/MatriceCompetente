@@ -30,8 +30,8 @@ public class Proiect {
     @Column(name="Cod")
     private String codProiect;
 
-    @Column(name = "Manager_nrMatricol")
-    private Integer manager;
+    @Column(name = "Manager_email")
+    private String manager;
 
     @OneToMany(mappedBy = "proiect")
     private List<ProiectSkill> skills;
@@ -74,11 +74,11 @@ public class Proiect {
         this.codProiect = codProiect;
     }
 
-    public Integer getManager() {
+    public String getManager() {
         return manager;
     }
 
-    public void setManager(Integer manager) {
+    public void setManager(String manager) {
         this.manager = manager;
     }
 
@@ -120,6 +120,7 @@ public class Proiect {
                 "proiectId=" + proiectId +
                 ", numeProiect='" + numeProiect + '\'' +
                 ", codProiect='" + codProiect + '\'' +
+                ", manager='" + manager + '\'' +
                 '}';
     }
 }

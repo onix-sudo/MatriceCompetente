@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.helper.Principal;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserServiceImpl;
@@ -63,13 +64,13 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public List<Proiect> findManagerProjects(UserExpleo userExpleo) {
+    public List<Proiect> findManagerProjects(String principal) {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from Proiect where manager = :nrMat");
-        query.setParameter("nrMat", userExpleo.getNumarMatricol());
+        Query query = session.createQuery("from Proiect where manager = :emailManager");
+        query.setParameter("emailManager", principal);
 
         List<Proiect> result = new LinkedList<Proiect>(query.list());
 
@@ -97,23 +98,28 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
+    public Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
-        Proiect loadProiect = (Proiect) query.getSingleResult();
+        Proiect proiect = (Proiect) query.getSingleResult();
 
-        users.addAll(loadProiect.getUsers());
+        users.addAll(proiect.getUsers());
 
-        for(ProiectSkill temp: loadProiect.getSkills()){
+        Query queryProjectSkill = session.createQuery(
+                "Select ps from ProiectSkill ps JOIN FETCH ps.skill where ps.proiect.proiectId = :nrProiect");
+        queryProjectSkill.setParameter("nrProiect", proiect.getProiectId());
+
+        for(ProiectSkill temp: (List<ProiectSkill>)queryProjectSkill.list()){
             skills.add(temp);
-            Hibernate.initialize(temp.getSkill());
+//            Hibernate.initialize(temp.getSkill());
         }
 
         tx.commit();
         session.close();
+        return proiect;
     }
 
     @Override
@@ -212,12 +218,12 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
-    public void addFreeProject(String codProiect, UserExpleo principal) {
+    public void addFreeProject(String codProiect, String principal) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Proiect proiect = findProjectByCodProiect(codProiect);
-        proiect.setManager(principal.getNumarMatricol());
+        proiect.setManager(principal);
 
         session.update(proiect);
 
@@ -317,13 +323,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from Proiect where codProiect = :codProiect and manager = :numarMatricol ");
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect and manager = :emailManager ");
         query.setParameter("codProiect", codProiect);
-        try {
-            query.setParameter("numarMatricol", userService.getUserExpleoPrincipal().getNumarMatricol());
-        }catch (NoResultException e){
-            return false;
-        }
+        query.setParameter("emailManager", Principal.getPrincipal());
+
         try {
             query.getSingleResult();
             return true;

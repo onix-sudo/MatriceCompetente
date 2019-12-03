@@ -17,13 +17,13 @@ public interface ProiectService {
 
     List<ProiectSkill> showSkillsforProject(int idProject);
 
-    List<Proiect> findManagerProjects(UserExpleo userExpleoPrincipal);
+    List<Proiect> findManagerProjects(String userExpleoPrincipal);
 
     List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo);
 
     Proiect findProjectByCodProiect(String codProiect);
 
-    void getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills);
+    Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills);
 
     void addUserToProject(String codProiect, Integer userId);
 
@@ -33,14 +33,13 @@ public interface ProiectService {
 
     List<Proiect> getFreeProjects();
 
-    void addFreeProject(String codProiect, UserExpleo principal);
+    void addFreeProject(String codProiect, String principal);
 
     void addSkillToProject(String codProiect, Integer skillId);
 
     void removeSkillFromProject(String codProiect, Integer skillId);
 
     List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect);
-
 
     void setPondere(String codProiect, Integer skillId, Integer pondere);
 
