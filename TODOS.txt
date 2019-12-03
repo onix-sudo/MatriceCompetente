@@ -14,7 +14,14 @@
 3. Personal Skills
     3.1. Schimba parola - sa apara pe acelasi tab
 
-4. Search People
-    4.1 Too many requests -> Reduce
-    4.2 Clean code
-    4.3
+4. Matrix for Team
+    4.1. Matrix
+    4.2. Target pentru fiecare competenta a proiectului - necesita afisare vizuala
+
+5. Pagina de acces denied
+
+6. 404, 405 - Error
+
+7. Schimbatul parolei styling
+
+
