@@ -8,6 +8,10 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+
 <br>
 
  <button type="button" class="btn btn-info"
@@ -17,12 +21,12 @@
  onclick="window.location.href='/webCM/leaders/project/${varPath}/addSkills'">Adauga competente</button>
 
   <button type="button" class="btn btn-warning"
-  onclick="window.location.href='/webCM/leaders/'">Proiecte</button>
+  onclick="leaders()">Inapoi</button>
 
 <br>
 <br>
 
-<form:form action = "/webCM/leaders/project/${project.codProiect}/renuntaLaProiect" method = "POST">
+<form:form id = "renuntaForm">
   <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
 </form:form>
 
@@ -127,4 +131,40 @@
 
         return false;
     }
+
+
+
+    $("#renuntaForm").submit(function(e) {
+        e.preventDefault();
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+
+        console.log("Token" + token);
+        console.log("Header" + header);
+
+        $.ajax({
+            type: "POST",
+            url: "/webCM/leaders/project/" + '${codProiect}' + "/renuntaLaProiect",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function()
+                {
+                    $("#tab3").click();
+
+                },
+            error: function()
+                {
+                    console.log("ERROR");
+                    console.log(header + ": " + token);
+                    console.log("/webCM/leaders/project/" + '${codProiect}' + "/renuntaLaProiect");
+                    $("#tab3").click();
+                }
+        });
+    });
+
+
 </script>

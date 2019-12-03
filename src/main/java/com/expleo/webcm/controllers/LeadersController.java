@@ -15,6 +15,7 @@ import java.io.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -185,15 +186,20 @@ public class LeadersController {
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @PostMapping("/project/{codProiect}/renuntaLaProiect")
-    public String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
+    @PostMapping(value = "/project/{codProiect}/renuntaLaProiect")
+    public void renuntaLaProiect(HttpSecurity httpSecurity, @PathVariable("codProiect") String codProiect)
     {
-
+        try {
+            httpSecurity.csrf().disable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         proiectService.dropTheProject(codProiect);
 
+        System.out.println("///////////////////////////////////\ncodProiect = " + codProiect);
 
-        return "redirect:/webCM/leaders/";
+        //return "redirect:/webCM/leaders/";
     }
 
     @GetMapping("/freeProjects")
