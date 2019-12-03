@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity(name="UserSkill")
 @Table(name = "user_skill")
-public class UserSkill implements Comparable<UserSkill>{
+public class UserSkill{
     @EmbeddedId
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UserSkillId id;
@@ -79,11 +79,6 @@ public class UserSkill implements Comparable<UserSkill>{
     @Override
     public int hashCode() {
         return Objects.hash(user, skill);
-    }
-
-    @Override
-    public int compareTo(UserSkill o) {
-        return this.getUser().getNume().compareTo(o.getUser().getNume());
     }
 
     @Override
