@@ -7,10 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
-<meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <security:csrfMetaTags />
 
 <br>
 
@@ -134,37 +131,24 @@
 
 
 
-    $("#renuntaForm").submit(function(e) {
+    $("#renuntaForm").click(function(e) {
         e.preventDefault();
-
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-
-
-        console.log("Token" + token);
-        console.log("Header" + header);
 
         $.ajax({
             type: "POST",
-            url: "/webCM/leaders/project/" + '${codProiect}' + "/renuntaLaProiect",
-            cache: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(header, token);
-            },
-            success: function()
-                {
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            url: "${pageContext.request.contextPath}/webCM/leaders/project/${codProiect}/renuntaLaProiect",
+            contentType : "application/json",
+            success: function(res){
+                if(res == "ceva")
                     $("#tab3").click();
-
                 },
-            error: function()
-                {
+            error: function(res){
                     console.log("ERROR");
-                    console.log(header + ": " + token);
-                    console.log("/webCM/leaders/project/" + '${codProiect}' + "/renuntaLaProiect");
-                    $("#tab3").click();
+                    console.log(res)
                 }
         });
-    });
+    })
 
 
 </script>

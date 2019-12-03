@@ -7,6 +7,7 @@ import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.CreatePdf;
 import com.expleo.webcm.helper.Principal;
+import com.expleo.webcm.helper.ValidateResponse;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
@@ -15,6 +16,7 @@ import com.expleo.webcm.service.UserSkillService;
 import java.io.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
@@ -104,15 +106,18 @@ public class LeadersController {
         return "leaders_leadersAddNewProject";
     }
 
-    @PostMapping(value = "/addProject")
+    @PostMapping(value = "/addProject", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public String addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+    public ValidateResponse addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+        ValidateResponse validateResponse = new ValidateResponse();
         if(result.hasErrors()){
-//            Map<String, String> errors = result.getFieldErrors().stream()
-//                    .collect(
-//                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
-//                    );
-            return "leaders_leadersAddNewProject";
+            Map<String, String> errors = result.getFieldErrors().stream()
+                    .collect(
+                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
+                    );
+            validateResponse.setValidated(false);
+            validateResponse.setErrorMessages(errors);
         }else {
             System.out.println("Ajunge aici");
 
@@ -121,16 +126,14 @@ public class LeadersController {
             proiect.setManager(Principal.getPrincipal());
 
             proiectService.saveNewProject(proiect);
+            validateResponse.setValidated(true);
             System.out.println("*****************************************************");
-            return "ceva";
         }
-
+        return validateResponse;
     }
 
     @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
-        ModelAndView mav = new ModelAndView();
-//        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
 
         List<UserExpleo> users = new LinkedList<>();
         List<ProiectSkill> skills = new LinkedList<>();
@@ -143,9 +146,7 @@ public class LeadersController {
         model.addAttribute("project", proiect);
         model.addAttribute("varPath", codProiect);
         model.addAttribute("intervalPondere", INTERVAL_PONDERE);
-        mav.addAllObjects(model);
 
-//        mav.setViewName("leaders_detaliiProiect");
         return "leaders_detaliiProiect";
     }
 
@@ -162,7 +163,6 @@ public class LeadersController {
         List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm.trim());
 
 
-        System.out.println("///////////////////////////////////////////////////////////////");
         model.addAttribute("result", foundUsers);
         model.addAttribute("varPath", codProiect);
 
@@ -189,19 +189,11 @@ public class LeadersController {
     }
 
     @PostMapping(value = "/project/{codProiect}/renuntaLaProiect")
-    public void renuntaLaProiect(HttpSecurity httpSecurity, @PathVariable("codProiect") String codProiect)
+    public @ResponseBody String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
-        try {
-            httpSecurity.csrf().disable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         proiectService.dropTheProject(codProiect);
 
-        System.out.println("///////////////////////////////////\ncodProiect = " + codProiect);
-
-        //return "redirect:/webCM/leaders/";
+        return "ceva";
     }
 
     @GetMapping("/freeProjects")

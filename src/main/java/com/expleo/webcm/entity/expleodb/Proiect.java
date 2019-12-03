@@ -20,13 +20,11 @@ public class Proiect {
     private int proiectId;
 
     @NotEmpty(message = "Campul trebuie completat")
-    @NotNull(message = "Campul trebuie completat")
     @Column(name="Nume_proiect")
     private String numeProiect;
 
     @UniqueCodProiect
-    @NotNull(message = "Campul trebuie completat")
-    @NotEmpty(message = "Campul trebuie completat")
+//    @NotNull(message = "Campul trebuie completat")
     @Column(name="Cod")
     private String codProiect;
 

@@ -7,12 +7,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<security:csrfMetaTags/>
+
 <br>
   <button type="button" class="btn btn-warning"
   onclick="return back()">Inapoi</button>
 <hr>
 
-<form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" accept-charset = "utf-8">
+<form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" id="addProject" accept-charset = "utf-8">
     <table>
         <thead>
         <tr>
@@ -44,36 +46,61 @@
         return false;
     }
 
-function doAjaxPost() {
+<%--function doAjaxPost() {
 
     $.ajax({
         type: "POST",
+        headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
         url: "/webCM/leaders/addProject",
         data: $('form[name=newProject]').serialize(),
-        success: function(response){
-            console.log(response)
-            if(response){
-                $("#errorContainer").html(error);
+            success: function(res){
+                if(res.validated){
+                alert("Registration Successful");
             }else{
-<%--                 errorInfo = "";
-                 for(i =0 ; i < response.errorMessages.size ; i++){
-                     errorInfo += "<br>" + (i + 1) +". " + response.errorMessages[i];
-                 }
-                 $('#error').html("Please correct following errors: " + errorInfo);
-                 $('#info').hide('slow');
-                 $('#error').show('slow');--%>
-                 $("#tab1").click();
+              $.each(res.errorMessages,function(key,value){
+  	            $('input[name='+key+']').after('<span class="error">'+value+'</span>');
+              });
             }
          },
-         error: function(error){
-                console.log(error);
-             alert('Error: ' + error);
-         }
+         error: function(res){
+                console.log(res);
+         };
 
     });
 
-    return false;
-}
+};--%>
+   /*  Submit form using Ajax */
+   $("#addProject").submit(function(e) {
+
+      //Prevent default submission of form
+      e.preventDefault();
+
+      //Remove all errors
+      $('input').next().remove();
+
+      $.post({
+         type : "POST",
+         url : "/webCM/leaders/addProject",
+         headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+         data : $('form[name=newProject]').serialize(),
+         success : function(res) {
+
+            if(res.validated){
+                alert("Registration Successful");
+            }else{
+              //Set error messages
+              $.each(res.errorMessages,function(key,value){
+  	            $('input[name='+key+']').after('<span class="error">'+value+'</span>');
+              });
+            }
+
+         },
+                     error: function(res){
+                             console.log("ERROR");
+                             console.log(res)
+                         }
+      })
+   });
 
 
 
