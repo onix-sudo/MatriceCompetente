@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.expleo.webcm")
 @EnableAspectJAutoProxy
-
 public class WebMVCImplConfig implements WebMvcConfigurer {
 
     //define a bean for viewResolver

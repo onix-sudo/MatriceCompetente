@@ -83,6 +83,10 @@ public class ProiectSkill {
         this.pondere = pondere;
     }
 
+    public int getTarget() { return target; }
+
+    public void setTarget(int target) { this.target = target; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

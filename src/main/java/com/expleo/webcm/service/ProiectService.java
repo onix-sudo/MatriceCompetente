@@ -43,6 +43,8 @@ public interface ProiectService {
 
     void setPondere(String codProiect, Integer skillId, Integer pondere);
 
+    void setTarget(String codProiect, Integer skillId, Integer target);
+
     boolean foundCodProiectExpleo(String value);
 
     boolean hasPrincipalProject(String codProiect);

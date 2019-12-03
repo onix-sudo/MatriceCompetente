@@ -301,6 +301,26 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     @Override
+    public void setTarget(String codProiect, Integer skillId, Integer target) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+        query.setParameter("codProiect", codProiect);
+        Proiect proiect = (Proiect) query.getSingleResult();
+
+        List<ProiectSkill> proiectSkills = proiect.getSkills();
+        for(ProiectSkill temp:proiectSkills){
+            if(temp.getSkill().getIdSkill()==skillId){
+                temp.setTarget(target);
+            }
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
     public boolean foundCodProiectExpleo(String codProiect) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -336,5 +356,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         }finally {
             session.close();
         }
+
+
+
     }
 }
