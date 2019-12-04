@@ -3,11 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-    <security:csrfMetaTags />
+<security:csrfMetaTags />
 
 <br>
 
@@ -15,7 +14,7 @@
          onclick="return addCollaborators('${varPath}')">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/project/${varPath}/addSkills'">Adauga competente</button>
+ onclick="return adaugaCompetente()">Adauga competente</button>
 
   <button type="button" class="btn btn-warning"
   onclick="leaders()">Inapoi</button>
@@ -60,7 +59,7 @@
                  <td>${user.prenume}</td>
                  <td>${user.numarMatricol}</td>
                  <td>
-                    <form:form action="${removeUser}" method="POST">
+                    <form:form id="eliminaEmpForm" action="${removeUser}" method="POST">
                         <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
                     </form:form>
                  </td>
@@ -144,9 +143,13 @@
         return false;
     }
 
+    function adaugaCompetente() {
+        $("#div3").load("/webCM/leaders/project/${varPath}/addSkills");
 
+        return false;
+    }
 
-    $("#renuntaForm").click(function(e) {
+    $("#renuntaForm").submit(function(e) {
         e.preventDefault();
 
         $.ajax({
@@ -163,7 +166,25 @@
                     console.log(res)
                 }
         });
-    })
+    });
 
+    $("#eliminaEmpForm").submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            data: $("#eliminaEmpForm").serialize(),
+            url: "${removeUser}",
+            contentType : "application/json",
+            success: function(){
+                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
+            },
+            error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+            }
+        });
+    });
 
 </script>

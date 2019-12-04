@@ -10,10 +10,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/project/${varPath}/addSkills'">Adauga competente</button>
+ onclick="return adaugaCompetente();">Adauga competente</button>
 
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/webCM/leaders/project/${varPath}'">Inapoi</button>
+ onclick="return modify('${codProiect}')">Inapoi</button>
 
 
  <br><hr>

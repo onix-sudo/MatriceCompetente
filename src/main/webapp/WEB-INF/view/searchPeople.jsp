@@ -24,7 +24,7 @@
 
 <core:if test="${usersSkills != null}">
 
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>Nume User</th>

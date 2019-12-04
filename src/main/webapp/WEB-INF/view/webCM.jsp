@@ -3,7 +3,7 @@
 
 <div class="ownBody">
 
-    <div class="page">
+<div class="page">
         <!-- tabs -->
         <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
             <input type="radio" name="pcss3t" checked  id="tab1"class="tab-content-first" onclick="skillMatrix()">
@@ -58,7 +58,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+</div>
 
     <script>
         function loadWebCM() {

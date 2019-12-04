@@ -363,7 +363,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("Select user from UserExpleo user JOIN FETCH user.proiecte where email=:email");
+        Query query = session.createQuery("Select user from UserExpleo user JOIN FETCH user.proiecte where " +
+                "email=:email");
         query.setParameter("email", Principal.getPrincipal());
 
         UserExpleo foundUser = (UserExpleo) query.getSingleResult();

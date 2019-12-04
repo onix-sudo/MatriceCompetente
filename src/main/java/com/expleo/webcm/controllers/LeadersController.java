@@ -192,12 +192,15 @@ public class LeadersController {
     }
 
     @PostMapping("/project/{codProiect}/removeEmp")
-    public String removeEmpFromProject(@PathVariable("codProiect") String codProiect,
+    @ResponseBody
+    public void removeEmpFromProject(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.removeUserFromProject(codProiect, userId);
 
-        return "redirect:/webCM/leaders/project/"+codProiect;
+        System.out.println("//////////////////////////////////////////////////////////codProiect = " + codProiect);
+
+        //return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
     @PostMapping(value = "/project/{codProiect}/renuntaLaProiect")

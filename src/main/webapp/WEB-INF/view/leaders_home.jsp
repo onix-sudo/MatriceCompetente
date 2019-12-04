@@ -13,7 +13,7 @@
  onclick="return proiectFaraManageri()">Alege un proiect fara manager</button>
 
 <hr>
-    <table>
+    <table class="table">
         <thead>
             <h2>Proiectele tale:</h2>
             <tr>

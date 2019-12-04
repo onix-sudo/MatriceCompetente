@@ -1,15 +1,21 @@
-<%@ include file="leaders_leadersHeader.jspf"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="window.location.href='/webCM/leaders/project/${varPath}/adaugaColaboratori'">Adauga colaboratori</button>
+ onclick="return addCollaborators('${varPath}');">Adauga colaboratori</button>
 
  <button type="button" class="btn btn-warning"
- onclick="window.location.href='/webCM/leaders/project/${varPath}'">Inapoi</button>
+ onclick="return modify('${codProiect}')">Inapoi</button>
 
  <br><hr>
-        <form:form action="addSkills" method="POST">
+        <form:form id="searchSkillsForm" method="POST">
             <table>
                 <tr>
                     <th><label>Search</label>
@@ -48,4 +54,26 @@
          </table>
          </c:if>
 
-<%@ include file="footer.jspf"%>
+
+
+ <script>
+    $("#searchSkillsForm").submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                data: $("#searchSkillsForm").serialize(),
+                url: "/project/" + '${codProiect}' + "/addSkills",
+                contentType : "application/json",
+                success: function(data){
+                    $("#div3").html(data);
+                },
+                error: function(res){
+                        console.log("ERROR");
+                        console.log(res);
+                }
+            });
+        });
+
+ </script>

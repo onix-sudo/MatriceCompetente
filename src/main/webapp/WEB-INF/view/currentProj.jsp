@@ -9,25 +9,23 @@
             <thead>
             <tr>
                 <th>Nr</th>
-                <th>ID Proiect</th>
                 <th>Nume Proiect</th>
                 <th>Cod</th>
+                <th>Competente</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="proiect" items="${proiectList}" varStatus="status">
                 <tr>
                     <td>${status.index + 1}</td>
-                    <td>${proiect.proiectId}</td>
-
-                        <td>
-                            <form method="GET" action="/webCM/cmptMat" onsubmit="return cmptMat(${proiect.proiectId})">
-                                <input type="submit" value="${proiect.numeProiect}" name="proiect">
-                                <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
-                            </form>
-                        </td>
-
+                    <td>${proiect.numeProiect}</td>
                     <td>${proiect.codProiect}</td>
+                    <td>
+                        <form method="GET" action="/webCM/cmptMat" onsubmit="return cmptMat(${proiect.proiectId})">
+                            <input class="btn btn-outline-primary" type="submit" value="Deschide" name="proiect">
+                            <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
