@@ -6,6 +6,7 @@
     2.1 Creeaza un proiect - sa apara pe acelasi tab - DONE
         2.1.2. Sa mearga Save Project si sa apara mesajele de eroare
         2.1.1. Buton de back - DONE
+        2.1.3. Mesaje de eroare;
     2.2 Alege un proiect fara manager - sa apara pe acelasi tab - DONE
         2.2.1. Buton de back - DONE
         2.2.2. Preia - > Sa apara rezultatul pe acelasi tab - DONE
@@ -16,6 +17,7 @@
 
 3. Personal Skills
     3.1. Schimba parola - sa apara pe acelasi tab
+    3.2. Mesaje de eroare;
 
 4. Matrix for Team
     4.1. Matrix
@@ -25,6 +27,10 @@
 
 6. 404, 405 - Error
 
-7. Schimbatul parolei styling
+7. Schimbatul parolei styling cu mesajele afisate;(FORGOT PASSOWORD)
+
+8.Istoricul evaluarilor
+
+9. Utilizatori in adauga utilizatori; la fel si competente
 
 
