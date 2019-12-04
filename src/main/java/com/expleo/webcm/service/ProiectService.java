@@ -48,4 +48,6 @@ public interface ProiectService {
     boolean foundCodProiectExpleo(String value);
 
     boolean hasPrincipalProject(String codProiect);
+
+    List<Proiect> findPrincipalProjects();
 }

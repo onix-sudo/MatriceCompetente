@@ -5,10 +5,12 @@ import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
+import com.expleo.webcm.helper.Principal;
 import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,19 +43,6 @@ public class webCMController {
 
     @GetMapping
     public String webCM(ModelMap model){
-//        List<Proiect> proiectList = proiectService.findProjectByUser(userService.getUserExpleoPrincipal());
-//        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
-//        model.addAttribute("proiectList", proiectList);
-
-//        System.out.println("EXTRAORD");
-//        UserExpleo user = userService.getUserExpleoPrincipal();
-//
-//        List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
-//
-//        model.addAttribute("userSkills", userSkills);
-//
-//        model.addAttribute("user", user);
-
         return "webCM";
     }
 
@@ -73,15 +62,9 @@ public class webCMController {
     public String personalProfile(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-        List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
 
-        model.addAttribute("userSkills", userSkills);
+        model.addAttribute("userSkills", userSkillService.getUserSkillByUser(user));
         model.addAttribute("user", user);
-
-        if(userSkills.size() > 1)
-            System.out.println("userSkills.get(0).getSkill() = " + userSkills.get(1).getSkill());
-
-        System.out.println("AICI////");
 
         return "personalProfile";
     }
@@ -124,20 +107,16 @@ public class webCMController {
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.removeUserSkill(user.getId(), idSkill);
 
-//        return "redirect:/webCM";
     }
 
     @RequestMapping("/modifyP")
     public void modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
-        System.out.println("AICI///////////////");
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), theId, eval);
 
-        //return "redirect:/webCM";
     }
 
     @GetMapping(value = "/cmptMat/modifyT")
-//    @ResponseBody
     public String modifyT(ModelMap model, @RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
                           @RequestParam(value = "proiectId", required = false) int idproiect){
 
@@ -155,7 +134,7 @@ public class webCMController {
 
     @RequestMapping("/currentProj")
     public String currentProjects(ModelMap model) {
-        List<Proiect> proiectList = userService.getUserExpleoPrincipal().getProiecte();
+        List<Proiect> proiectList = proiectService.findPrincipalProjects();
         model.addAttribute("proiectList", proiectList);
 
         return "currentProj";

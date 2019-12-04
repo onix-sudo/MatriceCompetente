@@ -103,7 +103,7 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
 
         UserExpleo user = (UserExpleo) query.getSingleResult();
-        Hibernate.initialize(user.getProiecte());
+//        Hibernate.initialize(user.getProiecte());
 
         session.getTransaction().commit();
         session.close();

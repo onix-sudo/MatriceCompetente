@@ -111,15 +111,22 @@ public class LeadersController {
     }
 
     @PostMapping(value = "/addProject", produces = { MediaType.APPLICATION_JSON_VALUE })
-    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ValidateResponse addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+    public Object addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
         ValidateResponse validateResponse = new ValidateResponse();
+
         if(result.hasErrors()){
-            Map<String, String> errors = result.getFieldErrors().stream()
-                    .collect(
-                            Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)
-                    );
+//            Map<String, String> errors = result.getFieldErrors().stream()
+//                    .collect(
+//                            Collectors.toMap(FieldError::getDefaultMessage, FieldError::getField)
+//                    );
+            Map<String, String> errors = new LinkedHashMap<>();
+            for(FieldError error : result.getFieldErrors()){
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+
+            System.out.println(errors);
+            System.out.println(errors.size());
             validateResponse.setValidated(false);
             validateResponse.setErrorMessages(errors);
         }else {

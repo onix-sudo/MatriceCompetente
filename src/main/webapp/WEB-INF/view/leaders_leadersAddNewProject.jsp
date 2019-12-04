@@ -78,11 +78,11 @@
       //Remove all errors
       $('input').next().remove();
 
-      $.post({
+      $.ajax({
          type : "POST",
          url : "/webCM/leaders/addProject",
          headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-         data : $('form[name=newProject]').serialize(),
+         data : $('form[name=newProject]').attr("content"),
          success : function(res) {
 
             if(res.validated){

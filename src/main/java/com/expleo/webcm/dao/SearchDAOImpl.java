@@ -133,27 +133,23 @@ public class SearchDAOImpl implements SearchDAO {
     public List<Skill> searchSkillsNotInProject(String codProiect, String searchTerm) {
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
-
         Transaction tx = fullTextSession.beginTransaction();
 
         QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
                 .forEntity(Skill.class).get();
-
         org.apache.lucene.search.Query query = qb
                 .keyword()
                 .onFields("numeSkill", "categorie")
                 .matching(searchTerm)
                 .createQuery();
-
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
         Query hibQueryProject = session.createQuery("from Proiect where codProiect = :codProiect");
         hibQueryProject.setParameter("codProiect", codProiect);
-
         Proiect proiect = (Proiect) hibQueryProject.getSingleResult();
-        List<Skill> foundSkills = new LinkedList<Skill>(hibQuery.list());
 
+        List<Skill> foundSkills = new LinkedList<Skill>(hibQuery.list());
         List<ProiectSkill> foundProjectSkill = proiect.getSkills();
         List<Skill> pickedSkill = new LinkedList<>();
 

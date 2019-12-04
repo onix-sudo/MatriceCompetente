@@ -40,8 +40,6 @@
 <script>
     function backToManageTeam() {
         $("#tab3").click();
-
-        return false;
     }
 
     function preiaProiect(codProiect) {

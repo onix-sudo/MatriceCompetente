@@ -131,7 +131,14 @@ public class ProiectServiceImpl implements ProiectService {
     }
 
     @Override
+    @Transactional("transactionExpleoDBManager")
     public boolean hasPrincipalProject(String codProiect) {
         return proiectDao.hasPrincipalProject(codProiect);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Proiect> findPrincipalProjects() {
+        return proiectDao.findPrincipalProjects();
     }
 }

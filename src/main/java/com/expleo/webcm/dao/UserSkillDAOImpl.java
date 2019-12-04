@@ -68,7 +68,8 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from UserSkill where ID_user = :id");
+//        Query query = session.createQuery("from UserSkill where ID_user = :id");
+        Query query = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.id.userId = :id");
 
         query.setParameter("id", userExpleo.getId());
 
@@ -76,7 +77,6 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         for (UserSkill userSkill : result){
             Hibernate.initialize(userSkill.getSkill());
-            Hibernate.initialize(userSkill.getUser());
         }
 
         session.getTransaction().commit();

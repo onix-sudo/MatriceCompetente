@@ -19,12 +19,12 @@ public class Proiect {
     @Column(name="ID_Proiect")
     private int proiectId;
 
-    @NotEmpty(message = "Campul trebuie completat")
+    @NotNull(message = "Numele trebuie completat")
     @Column(name="Nume_proiect")
     private String numeProiect;
 
     @UniqueCodProiect
-//    @NotNull(message = "Campul trebuie completat")
+    @NotNull(message = "Emailul trebuie completat")
     @Column(name="Cod")
     private String codProiect;
 

@@ -356,8 +356,23 @@ public class ProiectDAOImpl implements ProiectDAO {
         }finally {
             session.close();
         }
+    }
 
+    @Override
+    public List<Proiect> findPrincipalProjects() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
+        Query query = session.createQuery("Select user from UserExpleo user JOIN FETCH user.proiecte where email=:email");
+        query.setParameter("email", Principal.getPrincipal());
 
+        UserExpleo foundUser = (UserExpleo) query.getSingleResult();
+
+        try{
+            return foundUser.getProiecte();
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }
