@@ -141,4 +141,10 @@ public class ProiectServiceImpl implements ProiectService {
     public List<Proiect> findPrincipalProjects() {
         return proiectDao.findPrincipalProjects();
     }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills) {
+        proiectDao.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
+    }
 }

@@ -50,4 +50,6 @@ public interface ProiectService {
     boolean hasPrincipalProject(String codProiect);
 
     List<Proiect> findPrincipalProjects();
+
+    void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills);
 }

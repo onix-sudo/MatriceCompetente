@@ -5,9 +5,7 @@ import com.expleo.webcm.entity.expleodb.ProiectSkill;
 import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.*;
-import com.expleo.webcm.helper.CreatePdf;
-import com.expleo.webcm.helper.Principal;
-import com.expleo.webcm.helper.ValidateResponse;
+import com.expleo.webcm.helper.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
@@ -283,7 +281,7 @@ public class LeadersController {
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-    @GetMapping("/selectMatrix")
+/*    @GetMapping("/selectMatrix")
     public String matrice(ModelMap modelMap){
 
         List<Proiect> proiecte = proiectService.findManagerProjects(Principal.getPrincipal());
@@ -291,22 +289,37 @@ public class LeadersController {
 //        model.addAttribute("proiecte", proiecte);
 
         return matrice(proiecte.get(0).getCodProiect(), modelMap);
-    }
+    }*/
 
-    @PostMapping("/project/{codProiect}/matrix")
+    @GetMapping("/project/{codProiect}/matrix")
     public String matrice(@PathVariable("codProiect") String codProiect, ModelMap model){
 
-        List<Proiect> proiecte = proiectService.findManagerProjects(Principal.getPrincipal());
+        List<UserExpleo> foundUsers = new LinkedList<>();
+        List<ProiectSkill> foundSkills = new LinkedList<>();
+        List<UserSkill> foundUserSkills = new LinkedList<>();
 
-        model.addAttribute("proiecte", proiecte);
+        proiectService.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
 
-        Proiect proiect = proiectService.findProjectByCodProiect(codProiect);
+        PrintMatrixTeam testTeam = new PrintMatrixTeam();
+        List<MatrixTeamMember> test = testTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
 
-        List<UserExpleo> userExpleos = proiect.getUsers();
+        model.addAttribute("foundUsers", foundUsers);
+        model.addAttribute("foundSkills", foundSkills);
+        model.addAttribute("foundUserSkills", foundUserSkills);
 
-        model.addAttribute("users", userExpleos);
 
-        System.out.println("codProiect = " + codProiect);
+        System.out.println(foundUserSkills.size());
+        System.out.println(foundUserSkills);
+        System.out.println("=============================================================");
+        System.out.println(test.size());
+        System.out.println(test);
+
+        for(MatrixTeamMember user : test){
+            System.out.println("**************************************************************");
+            System.out.println(user.getUser().getPrenume() +" " + user.getUser().getNume() );
+            System.out.println(user.getSkills());
+            System.out.println(user.getScore());
+        }
 
         return "dropdownMatrix";
     }

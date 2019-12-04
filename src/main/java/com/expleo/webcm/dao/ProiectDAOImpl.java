@@ -238,6 +238,7 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         Query query = session.createQuery("from Proiect where codProiect = :codProiect");
         query.setParameter("codProiect", codProiect);
+
         Proiect proiect = (Proiect) query.getSingleResult();
         Skill skill = session.get(Skill.class, skillId);
 
@@ -370,6 +371,39 @@ public class ProiectDAOImpl implements ProiectDAO {
 
         try{
             return foundUser.getProiecte();
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    @Override
+    public void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        try {
+            Query projectQuery = session.createQuery("from Proiect where codProiect=:codProiect");
+            projectQuery.setParameter("codProiect", codProiect);
+
+            Proiect foundProject = (Proiect) projectQuery.getSingleResult();
+            foundUsers.addAll(foundProject.getUsers());
+
+            Query projectSkillsQuery = session.createQuery("SELECT skills from ProiectSkill skills JOIN FETCH skills.skill where ID_Proiect=:projectID");
+            projectSkillsQuery.setParameter("projectID", foundProject.getProiectId());
+
+            foundSkills.addAll((List<ProiectSkill>) projectSkillsQuery.list());
+
+            for(UserExpleo tempUserExpleo:foundUsers){
+                for(UserSkill tempUserSkill: tempUserExpleo.getUserSkills()){
+                    for(ProiectSkill tempProjectSkill:foundSkills){
+                        if(tempProjectSkill.getSkill().equals(tempUserSkill.getSkill())){
+                            foundUserSkills.add(tempUserSkill);
+                        }
+
+                    }
+                }
+            }
         }finally {
             session.getTransaction().commit();
             session.close();

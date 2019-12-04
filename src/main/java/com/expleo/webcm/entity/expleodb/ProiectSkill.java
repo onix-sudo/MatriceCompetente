@@ -36,16 +36,18 @@ public class ProiectSkill {
         this.skill = skill;
         this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
         this.pondere= 1;
+        this.target= 1;
 
         proiect.getSkills().add(this);
         skill.getProiecte().add(this);
     }
 
-    public ProiectSkill(Proiect proiect, Skill skill, int pondere) {
+    public ProiectSkill(Proiect proiect, Skill skill, int pondere, int target) {
         this.id = new ProiectSkillId(proiect.getProiectId(), skill.getIdSkill());
         this.proiect = proiect;
         this.skill = skill;
         this.pondere = pondere;
+        this.target= target;
 
         proiect.getSkills().add(this);
         skill.getProiecte().add(this);
