@@ -10,22 +10,17 @@ import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.SearchService;
 import com.expleo.webcm.service.UserService;
 import com.expleo.webcm.service.UserSkillService;
-import com.expleo.webcm.service.*;
 
 import java.io.*;
 
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +28,6 @@ import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/webCM/leaders")
@@ -281,16 +275,6 @@ public class LeadersController {
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
-/*    @GetMapping("/selectMatrix")
-    public String matrice(ModelMap modelMap){
-
-        List<Proiect> proiecte = proiectService.findManagerProjects(Principal.getPrincipal());
-
-//        model.addAttribute("proiecte", proiecte);
-
-        return matrice(proiecte.get(0).getCodProiect(), modelMap);
-    }*/
-
     @GetMapping("/project/{codProiect}/matrix")
     public String matrice(@PathVariable("codProiect") String codProiect, ModelMap model){
 
@@ -300,26 +284,12 @@ public class LeadersController {
 
         proiectService.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
 
-        PrintMatrixTeam testTeam = new PrintMatrixTeam();
-        List<MatrixTeamMember> test = testTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
-
-        model.addAttribute("foundUsers", foundUsers);
-        model.addAttribute("foundSkills", foundSkills);
-        model.addAttribute("foundUserSkills", foundUserSkills);
+        CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
+        List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
+        createMatrixTeam.sortMatrixTeamList(matrixTeam);
 
 
-        System.out.println(foundUserSkills.size());
-        System.out.println(foundUserSkills);
-        System.out.println("=============================================================");
-        System.out.println(test.size());
-        System.out.println(test);
-
-        for(MatrixTeamMember user : test){
-            System.out.println("**************************************************************");
-            System.out.println(user.getUser().getPrenume() +" " + user.getUser().getNume() );
-            System.out.println(user.getSkills());
-            System.out.println(user.getScore());
-        }
+        model.addAttribute("matrixTeam", matrixTeam);
 
         return "dropdownMatrix";
     }

@@ -3,50 +3,39 @@
 <security:csrfMetaTags />
 
 <div class="container">
-<%--        <div class="split left">
-             <th>
-                  <form:select path="proiecte" onChange="sendData(this.value)">
 
-                             <c:forEach items="${proiecte}" var="proiect">
-                                   <option value="${proiect.codProiect}"> ${proiect.numeProiect} ${proiect.codProiect}</option>
-                             </c:forEach>
-
-                  </form:select>
-                </th>--%>
                 <table class="table">
                     <tr>
-                        <td></td>
-                        <c:forEach var="projectSkill" items="${foundSkills}">
-                            <th>${projectSkill.skill.numeSkill}</th>
+                        <th></th>
+                        <c:forEach var="skills" items="${matrixTeam[0].proiectSkills}">
+                            <th>${skills.skill.numeSkill}</th>
                         </c:forEach>
-                        <th>Scor</th>
+                        <th>Total</th>
                     </tr>
-
-                    <c:forEach var="projectUser" items="${foundUsers}">
-                        <tr>
-                            <th>${projectUser.nume} ${projectUser.prenume}</th>
-                            <c:forEach var="projectUserSkill" items="${foundUserSkills}">
-                                <c:if test="${projectUser.id eq projectUserSkill.id.userId}">
-                                <th>${projectUserSkill.evaluation}</th>
-                                </c:if>
+                    <tr>
+                        <th><i>Pondere</i></th>
+                            <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                                <td><i>${projectSkill.pondere}</i></td>
                             </c:forEach>
-                            <th></th>
+                            <td></td>
+                    </tr>
+                    <tr>
+                        <th><i>Necesar</i></th>
+                        <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                            <td><i>${projectSkill.target}</i></td>
+                        </c:forEach>
+                        <td></td>
+                    </tr>
+                    <tr></tr>
+                    <c:forEach var="user" items="${matrixTeam}">
+                        <tr>
+                            <th>${user.name}</th>
+                            <c:forEach var="skills" items="${user.skills}">
+                                <th>${skills.evaluation}</th>
+                            </c:forEach>
+                            <th>${user.score}</th>
                         </tr>
                     </c:forEach>
-                    <tr>
-                        <th>Pondere</th>
-                        <c:forEach var="projectSkill" items="${foundSkills}">
-                            <td>${projectSkill.pondere}</td>
-                        </c:forEach>
-
-                    </tr>
-                    <tr>
-                        <th>Necesar</th>
-                        <c:forEach var="projectSkill" items="${foundSkills}">
-                            <td>${projectSkill.target}</td>
-                        </c:forEach>
-
-                    </tr>
                 </table>
             </div>
         </div>
