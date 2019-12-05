@@ -6,6 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<security:csrfMetaTags/>
+
 <br>
 
  <button type="button" class="btn btn-info"
@@ -15,7 +17,7 @@
  onclick="return modify('${codProiect}')">Inapoi</button>
 
  <br><hr>
-        <form:form id="searchSkillsForm" method="POST">
+        <form:form id="searchSkillsForm">
             <table>
                 <tr>
                     <th><label>Search</label>
@@ -25,7 +27,8 @@
             </table>
         </form:form>
  <br>
-         <c:if test="${not empty result}">
+
+<c:if test="${not empty result}">
          <table>
              <tr>
                  <th>Competenta</th>
@@ -43,7 +46,7 @@
 
                  <td>
 
-                              <form:form action="${modifyUser}" method="POST">
+                              <form:form id="addSkillForm" method="POST">
                                 <input type="submit" class="btn btn-success" value="Adauga">
                               </form:form>
 
@@ -52,20 +55,24 @@
              </c:forEach>
 
          </table>
-         </c:if>
+</c:if>
 
 
 
- <script>
+<script>
     $("#searchSkillsForm").submit(function(e) {
             e.preventDefault();
+            console.log("AICI");
+
+
+             var form = $(this);
+             console.log(form.serialize());
 
             $.ajax({
+                url: "/webCM/leaders/project/" + '${codProiect}' + "/addSkills",
                 type: "POST",
                 headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                data: $("#searchSkillsForm").serialize(),
-                url: "/project/" + '${codProiect}' + "/addSkills",
-                contentType : "application/json",
+                data: form.serialize(),
                 success: function(data){
                     $("#div3").html(data);
                 },
@@ -74,6 +81,24 @@
                         console.log(res);
                 }
             });
-        });
+    });
 
- </script>
+    $("#addSkillsForm").submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+
+        $.ajax({
+            url: "${modifyUser}",
+            type: "POST",
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            data: form.serialize(),
+            success: function(data){
+
+            },
+            error: function(res){
+                console.log("ERROR");
+                console.log(res);
+            }
+        });
+    });
+</script>
