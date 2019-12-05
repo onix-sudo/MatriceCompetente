@@ -40,6 +40,13 @@
             </div>
         </div>
 
+                    <div id="chartDiv" style="max-width: 850px;height: 800px;margin: 0px auto">
+
+                        <script>
+                            plotRadarTeam();
+                        </script>
+                    </div>
+
 
 <script>
     function sendData(varPath) {
