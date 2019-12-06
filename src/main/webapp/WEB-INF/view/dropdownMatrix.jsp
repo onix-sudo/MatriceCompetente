@@ -31,8 +31,12 @@
                         <tr>
                             <th>${user.name}</th>
                             <c:forEach var="skills" items="${user.skills}">
+                          <script>
+                                pushSkillTeam("${skills.skill.numeSkill}", ${skills.evaluation});
+                                </script>
                                 <th>${skills.evaluation}</th>
                             </c:forEach>
+                            <script>pushAllUsers("${user.user.nume} " + "${user.user.prenume}");</script>
                             <th>${user.score}</th>
                         </tr>
                     </c:forEach>
@@ -40,7 +44,7 @@
             </div>
         </div>
 
-                    <div id="chartDiv" style="max-width: 850px;height: 800px;margin: 0px auto">
+                    <div id="chart" style="max-width: 850px;height: 800px;margin: 0px auto">
 
                         <script>
                             plotRadarTeam();
