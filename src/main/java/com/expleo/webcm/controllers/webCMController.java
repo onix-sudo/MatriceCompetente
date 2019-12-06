@@ -96,8 +96,7 @@ public class webCMController {
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
     public void addSkilltoUser(@RequestParam(value = "skillId") int skillId){
-        UserExpleo user = userService.getUserExpleoPrincipal();
-        userSkillService.saveUserSkill(user.getId(), skillId);
+        userSkillService.saveUserSkill(userService.getUserExpleoPrincipal().getId(), skillId);
 
     }
 

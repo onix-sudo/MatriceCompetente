@@ -49,16 +49,21 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-        Query userSkillQuery = session.createQuery("select us from UserSkill us where user.id=: idUser and skill.id= :idSkill");
-        userSkillQuery.setParameter("idUser", idUserExpleo);
-        userSkillQuery.setParameter("idSkill", idSkill);
-//        UserSkill userSkill = new UserSkill(session.load(Skill.class, idSkill),session.load(UserExpleo.class, idUserExpleo));
-        UserSkill userSkill = (UserSkill) userSkillQuery.getSingleResult();
-
+        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
         session.save(userSkill);
-        session.getTransaction().commit();
+        session.flush();
 
+        Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
+        usQuery.setParameter("id", idUserExpleo);
+        usQuery.setParameter("skillId", idSkill);
+
+        UserSkill us = (UserSkill) usQuery.getSingleResult();
+        session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
+        session.flush();
+
+        session.getTransaction().commit();
         session.close();
 
     }
@@ -76,31 +81,38 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             UserSkill userSkill = (UserSkill) userSkillQuery.getSingleResult();
+            session.flush();
             userSkill.setEvaluation(eval);
+            boolean update = false;
+
             try {
                 Query historyQuery = session.createQuery("from History where idUserSkill=: idUser");
                 historyQuery.setParameter("idUser", userSkill.getId());
 
                 List<History> history = new LinkedList<History>(historyQuery.list());
-                boolean update = false;
+                session.flush();
 
                 for(History temp:history){
                     if(temp.getDate().equals(userSkill.getDataEvaluare())){
                         temp.setEvaluare(eval);
-                        session.update(eval);
+                        session.update(temp);
+                        session.flush();
                         update = true;
                         break;
                     }
                 }
                 if(!update){
                     session.save(new History(userSkill.getId(), eval, dateFormat.format(Calendar.getInstance().getTime())));
+                    session.flush();
                 }
 
             }catch (NoResultException e){
                 System.out.println("UserSkillDAOImpl.saveUserSkill = no result historyQuery");
             }
+
             userSkill.setDataEvaluare(dateFormat.format(Calendar.getInstance().getTime()));
             session.update(userSkill);
+            session.flush();
 
         }finally {
             session.getTransaction().commit();

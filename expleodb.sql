@@ -123,31 +123,48 @@ COLLATE = utf8_romanian_ci;
 -- Table `expleodb`.`user_skill`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `expleodb`.`user_skill` (
-  `ID_user_skill` INT(11) NOT NULL AUTO_INCREMENT,
-  `ID_user` INT(11) NOT NULL,
-  `ID_skill` INT(11) NOT NULL,
-  `Evaluare` INT(1) UNSIGNED NOT NULL DEFAULT 1,
-  INDEX `FK_user_skill_user` (`ID_user` ASC) VISIBLE,
-  INDEX `FK_user_skill_skill` (`ID_skill` ASC) VISIBLE,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_user` INT(11) NOT NULL,
+  `id_skill` INT(11) NOT NULL,
+  `evaluare` INT(1) UNSIGNED NOT NULL,
+  `data_evaluare` DATE NOT NULL,
+
+  INDEX `FK_user_skill_user` (`id_user` ASC) VISIBLE,
+  INDEX `FK_user_skill_skill` (`id_skill` ASC) VISIBLE,
   CONSTRAINT `FK_user_skill_skill`
-    FOREIGN KEY (`ID_skill`)
+    FOREIGN KEY (`id_skill`)
     REFERENCES `expleodb`.`skill` (`ID_skill`),
   CONSTRAINT `FK_user_skill_user`
-    FOREIGN KEY (`ID_user`)
+    FOREIGN KEY (`id_user`)
     REFERENCES `expleodb`.`user` (`ID_user`),
-    PRIMARY KEY (`ID_user_skill`))
+
+      PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
+-- -----------------------------------------------------
+-- Table `expleodb`.`history`
+-- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
-  `ID_history` INT(11) NOT NULL AUTO_INCREMENT,
-  `ID_user_skill` INT(11) NOT NULL AUTO_INCREMENT,
-  `Evaluare` INT(1) UNSIGNED NOT NULL DEFAULT 1,
-  `Data_evaluare` DATE NOT NULL,
-  PRIMARY KEY (`ID_history`))
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_user_skill` INT(11) NOT NULL,
+  `evaluare` INT(1) UNSIGNED NOT NULL,
+  `data_evaluare` DATE NOT NULL,
+
+  INDEX `FK_id_user_skill` (`id_user_skill` ASC) VISIBLE,
+  INDEX `FK_evaluare` (`evaluare` ASC) VISIBLE,
+  INDEX `FK_data_evaluare` (`data_evaluare` ASC) VISIBLE,
+
+  CONSTRAINT `FK_id_user_skill`
+    FOREIGN KEY (`id_user_skill`)
+    REFERENCES `expleodb`.`user_skill` (`id`),
+  PRIMARY KEY (`id`))
+
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 

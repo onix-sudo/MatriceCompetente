@@ -42,8 +42,8 @@ public class UserSkill{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         this.dataEvaluare = dateFormat.format(Calendar.getInstance().getTime());
 
-        user.getUserSkills().add(this);
-        skill.getUserSkills().add(this);
+//        user.getUserSkills().add(this);
+//        skill.getUserSkills().add(this);
     }
 
     public int getId() {
