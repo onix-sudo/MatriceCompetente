@@ -50,9 +50,9 @@ public class webCMController {
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
 
         List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
-        model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
-
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+
+        model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
         model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
 
         return "cmptMat";
@@ -124,9 +124,9 @@ public class webCMController {
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
         List<ProiectSkill> skills = proiectService.showSkillsforProject(idproiect);
-        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
-
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+
+        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
         model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
 
         return "cmptMat";

@@ -1,27 +1,36 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name="UserSkill")
 @Table(name = "user_skill")
 public class UserSkill{
-    @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UserSkillId id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ID_user")//, insertable = false, updatable = false)
-    @MapsId("userId")
+//    @MapsId("userId")
     private UserExpleo user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_skill")//, insertable = false, updatable = false)
-    @MapsId("skillId")
+//    @MapsId("skillId")
     private Skill skill;
 
-    @Column(name="Evaluare")
+    @Column(name="evaluare")
     private int evaluation;
+
+    @Column(name="data_evaluare")
+    private String dataEvaluare;
 
     public UserSkill() {
     }
@@ -29,17 +38,19 @@ public class UserSkill{
     public UserSkill(Skill skill, UserExpleo user) {
         this.user = user;
         this.skill = skill;
-        this.id = new UserSkillId(user.getId(), skill.getIdSkill());
+        this.evaluation = 1;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        this.dataEvaluare = dateFormat.format(Calendar.getInstance().getTime());
 
         user.getUserSkills().add(this);
         skill.getUserSkills().add(this);
     }
 
-    public UserSkillId getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UserSkillId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -65,6 +76,14 @@ public class UserSkill{
 
     public void setEvaluation(int evaluation) {
         this.evaluation = evaluation;
+    }
+
+    public String getDataEvaluare() {
+        return dataEvaluare;
+    }
+
+    public void setDataEvaluare(String dataEvaluare) {
+        this.dataEvaluare = dataEvaluare;
     }
 
     @Override

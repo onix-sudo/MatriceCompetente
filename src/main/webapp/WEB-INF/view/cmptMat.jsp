@@ -27,7 +27,7 @@
                                 <td>${skill.skill.idSkill}</td>
                                 <td>${skill.skill.numeSkill}</td>
                                 <td>${skill.skill.categorie}</td>
-                                <td>${userSkillList[status.index].evaluation}</td>
+                                <td>${userSkillList[0].evaluation}</td>
                                 <td>
                                     <form id="modifyTForm"
                                           onsubmit="return reloadMat(${skill.skill.idSkill}, evalCmpt.value, ${skill.proiect.proiectId})">
