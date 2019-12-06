@@ -237,11 +237,14 @@ public class LeadersController {
     }
 
     @PostMapping("/project/{codProiect}/addSkills")
-    public String addSkillsView(@RequestParam("searchTerm") String searchTerm,
+    public String addSkillsView(@RequestParam(required = false, name = "searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
-        List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
+        System.out.println("/.///////////////////////codProiect = " + codProiect);
         System.out.println("//////////////////////////////////SEARCHTERM = " + searchTerm);
+        System.out.println("/////////////////////////searchService = " + searchService);
+        List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
+
         //model.addAttribute("search", searchTerm);
         model.addAttribute("result", foundSkills);
         model.addAttribute("varPath", codProiect);
@@ -249,13 +252,14 @@ public class LeadersController {
         return "leaders_addSkillsToProj";
     }
 
-    @PostMapping("/project/{codProiect}/addSkills/add")
-    public String addSkillsAdd(@PathVariable("codProiect") String codProiect,
+    @PostMapping("/project/{codProiect}/add")
+    public void addSkillsAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("skillId") Integer skillId)
     {
         proiectService.addSkillToProject(codProiect, skillId);
+        System.out.println("******************************ADSKILLS/ADD******************** ");
 
-        return "redirect:/webCM/leaders/project/" + codProiect;
+//        return "redirect:/webCM/leaders/project/" + codProiect;
     }
 
     @PostMapping("/project/{codProiect}/removeSkill")
