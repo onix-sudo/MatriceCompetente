@@ -23,7 +23,13 @@
                         <th><i>Necesar</i></th>
                         <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                             <td><i>${projectSkill.target}</i></td>
+                                  <script>
+                                        pushSkillTeam("target", ${projectSkill.target});
+                                  </script>
                         </c:forEach>
+
+                            <script>pushAllUsers("target",);</script>
+
                         <td></td>
                     </tr>
                     <tr></tr>
@@ -33,10 +39,10 @@
                             <c:forEach var="skills" items="${user.skills}">
                           <script>
                                 pushSkillTeam("${skills.skill.numeSkill}", ${skills.evaluation});
-                                </script>
+                          </script>
                                 <th>${skills.evaluation}</th>
                             </c:forEach>
-                            <script>pushAllUsers("${user.user.nume} " + "${user.user.prenume}");</script>
+                            <script>pushAllUsers("${user.user.nume} " + "${user.user.prenume}", "${user.proiectSkills[0].proiect.numeProiect}");</script>
                             <th>${user.score}</th>
                         </tr>
                     </c:forEach>

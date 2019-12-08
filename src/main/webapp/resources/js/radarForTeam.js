@@ -1,6 +1,7 @@
 var jsVarListTeam = [];
 var dataListTeam = [];
 var allData = [];
+var numeProiect;
 
 
 function pushSkillTeam(value, temp) {
@@ -11,11 +12,10 @@ function pushSkillTeam(value, temp) {
     console.log(dataListTeam);
 }
 
-
 function plotRadarTeam() {
 
-    layoutul = {
-    title: 'Sales Growth',
+    layout = {
+    title: numeProiect,
       polar: {
         radialaxis: {
           visible: true,
@@ -25,21 +25,11 @@ function plotRadarTeam() {
       showlegend: true
     };
 
-    Plotly.plot("chart", allData, layoutul);
+    Plotly.plot("chart", allData, layout);
 
 }
 
-//data = [
-//  {
-//  type: 'scatterpolar',
-//  r: [1, 2, 3, 3, 2, 1],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group A'
-//  }
-
-
-function pushAllUsers(nume) {
+function pushAllUsers(nume, numePrj) {
     dataListTeam.push(dataListTeam[0]);
     jsVarListTeam.push(jsVarListTeam[0]);
     console.log(jsVarListTeam);
@@ -47,10 +37,12 @@ function pushAllUsers(nume) {
         type: 'scatterpolar',
         r: dataListTeam,
         theta: jsVarListTeam,
-        fill: ''
     };
 
+    numeProiect = numePrj;
     console.log(nume);
+    console.log(numeProiect);
+    console.log(numePrj);
     newObject.name = nume;
 
     allData.push(newObject);
@@ -59,75 +51,3 @@ function pushAllUsers(nume) {
     dataListTeam = [];
 }
 
-
-//
-//var jsVarList = [];
-//var dataList = [];
-//
-//
-//function pushSkill(val, data) {
-//    console.log(val);
-//    jsVarList.push(val);
-//    console.log(jsVarList);
-//    dataList.push(data);
-//    console.log(dataList);
-//}
-//
-
-//function plotRadarTeam() {
-//
-//
-//data = [
-//  {
-//  type: 'scatterpolar',
-//  r: [1, 2, 3, 3, 2, 1],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group A'
-//  },
-//  {
-//  type: 'scatterpolar',
-//  r: [2, 3, 2, 4, 3, 2],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group B'
-//  },
-//
-//  {
-//  type: 'scatterpolar',
-//  r: [1, 4, 2, 4, 4, 1],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group C'
-//  },
-//
-//  {
-//  type: 'scatterpolar',
-//  r: [2, 2, 2, 2, 1, 2],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group D'
-//  },
-//
-//  {
-//  type: 'scatterpolar',
-//  r: [4, 1, 2, 4, 1, 4],
-//  theta: ['A','B','C', 'D', 'E', 'A'],
-//  fill: 'none',
-//  name: 'Group E'
-//  }
-//
-//]
-//
-//layout = {
-//  polar: {
-//    radialaxis: {
-//      visible: true,
-//      range: [0, 5]
-//    }
-//  }
-//}
-//
-//Plotly.plot("chartDiv", data, layout)
-//
-//}
