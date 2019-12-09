@@ -39,12 +39,12 @@ public class webCMController {
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer projectId) {
 
-        List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(projectId);
 //        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
 //        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
 //        model.addAttribute("skillList", skills);
 //        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
+        List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(projectId);
         model.addAttribute("userSkillList", userSkillsFromProject);
         model.addAttribute("projectId", projectId);
 
@@ -115,16 +115,19 @@ public class webCMController {
 
     @GetMapping(value = "/cmptMat/modifyT")
     public String modifyT(ModelMap model, @RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
-                          @RequestParam(value = "proiectId", required = false) int idproiect){
+                          @RequestParam(value = "proiectId") int idproiect){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
-        List<ProiectSkill> skills = proiectService.showSkillsforProject(idproiect);
-        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
-
-        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
-        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
+//        List<ProiectSkill> skills = proiectService.showSkillsforProject(idproiect);
+//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+//
+//        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
+//        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
+        List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(idproiect);
+        model.addAttribute("userSkillList", userSkillsFromProject);
+        model.addAttribute("projectId", idproiect);
 
         return "cmptMat";
     }

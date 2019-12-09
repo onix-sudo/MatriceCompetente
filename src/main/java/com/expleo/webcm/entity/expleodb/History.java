@@ -17,7 +17,6 @@ public class History {
     @Column(name="evaluare")
     private int evaluare;
 
-
     @Column(name="data_evaluare")
     private String date;
 
