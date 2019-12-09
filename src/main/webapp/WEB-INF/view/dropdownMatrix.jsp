@@ -140,6 +140,12 @@ th
             </div>
         </div>
 
+        <c:forEach var="user" items="${matrixTeam}" varStatus="status">
+                <script>
+                    pushTargetVal(${user.proiectSkills[status.index].target});
+                </script>
+        </c:forEach>
+
 
 
                     <div id="chart" style="max-width: 900px;height: 800px;margin: 0px auto">

@@ -39,7 +39,6 @@ function plotRadarTeam() {
       showlegend: true
     };
 
-
     targetData.push(targetData[0]);
     console.log(targetData);
     Plotly.plot("chart", allData, layout);
