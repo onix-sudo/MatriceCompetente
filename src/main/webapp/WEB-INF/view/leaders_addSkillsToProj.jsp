@@ -17,39 +17,39 @@
  onclick="return modify('${codProiect}')">Inapoi</button>
 
  <br><hr>
-        <form:form id="searchSkillsForm">
-            <table>
+
+            <table class="table">
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 3 caractere." required/>
-                    <input type="submit" value="Search"/></th>
+                    <input type="text" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
+                     3
+                    caractere." required/>
+                    <button onclick="return searchSkills(document.getElementById('searchTermSkill').value)
+                    ">Search</button></th>
                 </tr>
             </table>
-        </form:form>
+
  <br>
 
 <c:if test="${not empty result}">
-         <table>
+         <table class="table" id="skillTable">
 
              <tr>
                  <th>Competenta</th>
                  <th>Categorie</th>
-                 <th></th>
+                 <th>${search}</th>
              </tr>
 
-             <c:forEach var="tempResult" items="${result}">
-
+             <c:forEach var="tempResult" items="${result}" varStatus="status">
 
 
              <tr id = "tableRow">
                  <td>${tempResult.numeSkill}</td>
                  <td>${tempResult.categorie}</td>
                  <td>
-                     <form:form id="addSkillForm">
-                        <input type="submit" id = "adaugaSubmit" class="btn btn-success" value="Adauga">
-                        <input type="hidden" name="skillId" value="${tempResult.idSkill}">
-
-                     </form:form>
+                     <button class="btn btn-lg btn-primary" onclick="return addSkill(${tempResult.idSkill}, ${status.count}, '${search}')">
+                        Adauga
+                     </button>
                  </td>
              </tr>
              </c:forEach>
@@ -62,48 +62,43 @@
 <script>
 
 
-    $("#addSkillForm").submit(function(e) {
-                e.preventDefault();
-                alert("ADDSKILLFORM");
-                var form = $(this);
-
+    function addSkill(skillId, tableRowNr, searchTerm) {
                 $.ajax({
                     url: "/webCM/leaders/project/" + '${varPath}' + "/add",
                     type: "POST",
                     headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                    data: form.serialize(),
+                    data: {skillId: skillId},
                     success: function(){
-                        $('#tableRow').remove();
+                        searchSkills("${search}");
                     },
                     error: function(res){
                         console.log("ERROR");
                         console.log(res);
+                        searchSkills(searchTerm);
+
                     }
                 });
 
-    });
+                return false;
+    }
 
-    $("#searchSkillsForm").submit(function(e) {
-            e.preventDefault();
-            console.log("AICI");
-
-             var form = $(this);
-             console.log(form.serialize());
-
+    function searchSkills(searchTerm) {
             $.ajax({
                 url: "/webCM/leaders/project/" + '${codProiect}' + "/addSkills",
                 type: "POST",
                 headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                data: form.serialize(),
+                data: {searchTerm: searchTerm},
                 success: function(data){
                     $("#div3").html(data);
                 },
                 error: function(res){
-                        console.log("ERROR");
-                        console.log(res);
-                        $("#div3").html(data);
+                    console.log("ERROR");
+                    console.log(res);
+                    $("#div3").html(data);
                 }
             });
-    });
+
+            return false;
+    }
 
 </script>

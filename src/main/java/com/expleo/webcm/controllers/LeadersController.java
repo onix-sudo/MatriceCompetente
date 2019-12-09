@@ -177,6 +177,7 @@ public class LeadersController {
 
         model.addAttribute("result", foundUsers);
         model.addAttribute("varPath", codProiect);
+        model.addAttribute("searchTermUser", searchTerm);
 
         System.out.println("foundUsers = " + foundUsers);
 
@@ -245,7 +246,7 @@ public class LeadersController {
         System.out.println("/////////////////////////searchService = " + searchService);
         List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
 
-        //model.addAttribute("search", searchTerm);
+        model.addAttribute("search", searchTerm);
         model.addAttribute("result", foundSkills);
         model.addAttribute("varPath", codProiect);
 
@@ -254,10 +255,12 @@ public class LeadersController {
 
     @PostMapping("/project/{codProiect}/add")
     public void addSkillsAdd(@PathVariable("codProiect") String codProiect,
-                                        @RequestParam("skillId") Integer skillId)
+                                        @RequestParam("skillId") Integer skillId, ModelMap model)
     {
         proiectService.addSkillToProject(codProiect, skillId);
         System.out.println("******************************ADSKILLS/ADD******************** ");
+
+
 
 //        return "redirect:/webCM/leaders/project/" + codProiect;
     }
