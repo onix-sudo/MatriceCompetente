@@ -2,15 +2,29 @@ var jsVarListTeam = [];
 var dataListTeam = [];
 var allData = [];
 var numeProiect;
+var targetData = [];
 
 
 function pushSkillTeam(value, temp) {
-    console.log(value);
+
     jsVarListTeam.push(value);
-    console.log(jsVarListTeam);
     dataListTeam.push(temp);
-    console.log(dataListTeam);
+
 }
+
+function pushTargetVal(targt){
+    targetData.push(targt);
+}
+
+
+var targetObject = {
+    type: 'scatterpolar',
+    r: targetData,
+    theta: jsVarListTeam,
+    name:'Necesar',
+};
+
+allData.push(targetObject);
 
 function plotRadarTeam() {
 
@@ -25,14 +39,20 @@ function plotRadarTeam() {
       showlegend: true
     };
 
+
+    targetData.push(targetData[0]);
+    console.log(targetData);
     Plotly.plot("chart", allData, layout);
 
 }
+
+
 
 function pushAllUsers(nume, numePrj) {
     dataListTeam.push(dataListTeam[0]);
     jsVarListTeam.push(jsVarListTeam[0]);
     console.log(jsVarListTeam);
+
     var newObject = {
         type: 'scatterpolar',
         r: dataListTeam,
@@ -50,4 +70,7 @@ function pushAllUsers(nume, numePrj) {
     jsVarListTeam = [];
     dataListTeam = [];
 }
+
+
+
 
