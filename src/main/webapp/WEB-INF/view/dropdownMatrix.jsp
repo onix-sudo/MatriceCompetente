@@ -110,7 +110,7 @@ th
                             <td></td>
                     </tr>
                     <tr class="table-primary">
-                        <td><i>Necesar</i></td>
+                        <td>Necesar</td>
                         <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                             <td>${projectSkill.target}</td>
 
@@ -142,19 +142,16 @@ th
 
         <c:forEach var="user" items="${matrixTeam}" varStatus="status">
                 <script>
+                    pushProjectName("${user.proiectSkills[status.index].proiect.numeProiect}");
                     pushTargetVal(${user.proiectSkills[status.index].target});
                 </script>
         </c:forEach>
 
-
-
-                    <div id="chart" style="max-width: 900px;height: 800px;margin: 0px auto">
-
-                        <script>
-                            plotRadarTeam();
-                        </script>
-                    </div>
-
+        <div id="chart" style="width: 900px;height: 800px;margin: 0px auto">
+            <script>
+                plotRadarTeam();
+            </script>
+        </div>
 
 <script>
     function sendData(varPath) {

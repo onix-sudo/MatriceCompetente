@@ -16,7 +16,6 @@ function pushTargetVal(targt){
     targetData.push(targt);
 }
 
-
 var targetObject = {
     type: 'scatterpolar',
     r: targetData,
@@ -45,12 +44,15 @@ function plotRadarTeam() {
 
 }
 
-
+function pushProjectName(numePrj){
+    numeProiect = numePrj;
+    console.log(numePrj);
+}
 
 function pushAllUsers(nume, numePrj) {
+
     dataListTeam.push(dataListTeam[0]);
     jsVarListTeam.push(jsVarListTeam[0]);
-    console.log(jsVarListTeam);
 
     var newObject = {
         type: 'scatterpolar',
@@ -58,10 +60,6 @@ function pushAllUsers(nume, numePrj) {
         theta: jsVarListTeam,
     };
 
-    numeProiect = numePrj;
-    console.log(nume);
-    console.log(numeProiect);
-    console.log(numePrj);
     newObject.name = nume;
 
     allData.push(newObject);
