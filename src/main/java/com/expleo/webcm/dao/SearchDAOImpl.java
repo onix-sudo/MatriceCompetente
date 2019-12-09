@@ -61,7 +61,7 @@ public class SearchDAOImpl implements SearchDAO {
     }
 
     @Override
-    public List<Skill> searchSkill(String text) {
+    public List<Skill> searchPrincipalSkill(String text, int principalId) {
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 
@@ -80,9 +80,20 @@ public class SearchDAOImpl implements SearchDAO {
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
+        session.flush();
 
-        for (Skill skill : result) {
-            Hibernate.initialize(skill.getUsers());
+//        for (Skill skill : result) {
+//            Hibernate.initialize(skill.getUsers());
+//        }
+        Query hasSkill = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
+        hasSkill.setParameter("userId", principalId);
+
+        List<UserSkill> foundSkills = new LinkedList<UserSkill>(hasSkill.list());
+
+        for(UserSkill tempUs:foundSkills){
+            if(result.contains(tempUs.getSkill())){
+                result.remove(tempUs.getSkill());
+            }
         }
 
         tx.commit();

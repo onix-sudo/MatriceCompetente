@@ -100,7 +100,7 @@
                 <td>${tempResult.categorie}</td>
                 <td>
 <!--                    <form id="skillForm">-->
-                        <button onclick="return ps(${tempResult.idSkill})">Add</button>
+                        <button onclick="return ps(${tempResult.idSkill}, ${user.id})">Add</button>
 <!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
 <!--                    </form>-->
                 </td>
@@ -114,10 +114,10 @@
 <button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
 
 <script>
-    function ps(skillID) {
+    function ps(skillID, userID) {
     $.ajax({
             type: "GET",
-            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID,
+            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID+"&userID="+userID,
             success: function(data){
                 $("#tab2").click();
             },

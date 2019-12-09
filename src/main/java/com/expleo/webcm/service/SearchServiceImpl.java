@@ -24,8 +24,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Skill> searchSkill(String text) {
-        return searchDAO.searchSkill(text);
+    public List<Skill> searchPrincipalSkill(String text, int principalId) {
+        return searchDAO.searchPrincipalSkill(text, principalId);
     }
 
     @Override

@@ -20,7 +20,7 @@
                     </thead>
 
                     <tbody>
-                        <c:forEach var="skill" items="${skillList}" varStatus="status">
+                        <c:forEach var="skill" items="${userSkillList}" varStatus="status">
                            <script>pushSkill("${skill.skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
                             <tr>
                                 <td>${status.count}</td>
@@ -30,7 +30,7 @@
                                 <td>${userSkillList[0].evaluation}</td>
                                 <td>
                                     <form id="modifyTForm"
-                                          onsubmit="return reloadMat(${skill.skill.idSkill}, evalCmpt.value, ${skill.proiect.proiectId})">
+                                          onsubmit="return reloadMat(${skill.skill.idSkill}, evalCmpt.value, ${projectId})">
                                         <select name="evaluation" id="evalCmpt">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -39,7 +39,7 @@
                                         </select>
 
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
-                                        <input type="hidden" value="${skill.proiect.proiectId}" name="proiectId"
+                                        <input type="hidden" value="${projectId}" name="proiectId"
                                                style="display: none">
                                         <input class="btn btn-secondary btn-sm" type='submit' value='Submit'/>
                                     </form>

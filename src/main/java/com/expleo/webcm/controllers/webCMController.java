@@ -1,26 +1,16 @@
 package com.expleo.webcm.controllers;
 
-import com.expleo.webcm.entity.expleodb.Proiect;
-import com.expleo.webcm.entity.expleodb.ProiectSkill;
-import com.expleo.webcm.entity.expleodb.Skill;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
-import com.expleo.webcm.entity.expleodb.UserSkill;
-import com.expleo.webcm.helper.Principal;
+import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -47,13 +37,16 @@ public class webCMController {
     }
 
     @GetMapping(value = "/cmptMat")
-    public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer proiectId) {
+    public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer projectId) {
 
-        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
-        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+        List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(projectId);
+//        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
+//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
-        model.addAttribute("skillList", proiectService.showSkillsforProject(proiectId));
-        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
+//        model.addAttribute("skillList", skills);
+//        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
+        model.addAttribute("userSkillList", userSkillsFromProject);
+        model.addAttribute("projectId", projectId);
 
         return "cmptMat";
     }
@@ -62,8 +55,13 @@ public class webCMController {
     public String personalProfile(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
+        List<UserSkill> userAdditionalSkills = new LinkedList<>();
+        List<UserSkill> projectSkills = new LinkedList<>();
 
-        model.addAttribute("userSkills", userSkillService.getUserSkillByUser(user));
+        userSkillService.getAdditionalAndProjectSkill(user.getId(), userAdditionalSkills, projectSkills);
+
+        model.addAttribute("projectSkills", projectSkills);
+        model.addAttribute("userSkills", userAdditionalSkills);
         model.addAttribute("user", user);
 
         return "personalProfile";
@@ -84,9 +82,8 @@ public class webCMController {
     @GetMapping("/personalProfile/showFormForAddSkill/search")
     public String searchSkills(@RequestParam(value = "searchTerm") String text, Model theModel){
 
-        System.out.println("text = " + text);
         UserExpleo user = userService.getUserExpleoPrincipal();
-        List<Skill> searchResult = searchService.searchSkill(text);
+        List<Skill> searchResult = searchService.searchPrincipalSkill(text, user.getId());
 
         theModel.addAttribute("result", searchResult);
         theModel.addAttribute("user", user);
@@ -95,8 +92,9 @@ public class webCMController {
     }
 
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
-    public void addSkilltoUser(@RequestParam(value = "skillId") int skillId){
-        userSkillService.saveUserSkill(userService.getUserExpleoPrincipal().getId(), skillId);
+    public void addSkilltoUser(@RequestParam(value = "skillId") int skillId,
+                               @RequestParam(value = "userID") int userId){
+        userSkillService.saveUserSkill(userId, skillId);
 
     }
 

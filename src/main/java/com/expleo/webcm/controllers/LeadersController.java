@@ -108,29 +108,19 @@ public class LeadersController {
         ValidateResponse validateResponse = new ValidateResponse();
 
         if(result.hasErrors()){
-//            Map<String, String> errors = result.getFieldErrors().stream()
-//                    .collect(
-//                            Collectors.toMap(FieldError::getDefaultMessage, FieldError::getField)
-//                    );
             Map<String, String> errors = new LinkedHashMap<>();
             for(FieldError error : result.getFieldErrors()){
                 errors.put(error.getField(), error.getDefaultMessage());
             }
 
-            System.out.println(errors);
-            System.out.println(errors.size());
             validateResponse.setValidated(false);
             validateResponse.setErrorMessages(errors);
         }else {
-            System.out.println("Ajunge aici");
-
-//            UserExpleo user = userService.getUserExpleoPrincipal();
             proiect.setCodProiect(proiect.getCodProiect().toUpperCase());
             proiect.setManager(Principal.getPrincipal());
 
             proiectService.saveNewProject(proiect);
             validateResponse.setValidated(true);
-            System.out.println("*****************************************************");
         }
         return validateResponse;
     }

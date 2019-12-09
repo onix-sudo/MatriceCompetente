@@ -1,9 +1,7 @@
 package com.expleo.webcm.dao;
 
-import com.expleo.webcm.entity.expleodb.History;
-import com.expleo.webcm.entity.expleodb.Skill;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
-import com.expleo.webcm.entity.expleodb.UserSkill;
+import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.helper.Principal;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,7 +49,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         session.beginTransaction();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
+        UserSkill userSkill = new UserSkill(session.load(Skill.class, idSkill),session.load(UserExpleo.class, idUserExpleo));
         session.save(userSkill);
         session.flush();
 
@@ -126,39 +124,12 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-//        Query query = session.createQuery("from UserSkill where ID_user = :id");
         Query query = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id");
         query.setParameter("id", userExpleo.getId());
 
         List<UserSkill> result = (List<UserSkill>) query.list();
 
-//        for (UserSkill userSkill : result){
-//            Hibernate.initialize(userSkill.getSkill());
-//        }
 
-        session.getTransaction().commit();
-
-        session.close();
-
-        return result;
-    }
-
-    @Override
-    public List<UserSkill> getUserSkillBySkill(Skill skill) {
-
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query = session.createQuery("from UserSkill where ID_skill = :id");
-
-        query.setParameter("id", skill.getIdSkill());
-
-        List<UserSkill> result = (List<UserSkill>) query.list();
-
-        for (UserSkill userSkill : result){
-            Hibernate.initialize(userSkill.getSkill());
-            Hibernate.initialize(userSkill.getUser());
-        }
 
         session.getTransaction().commit();
 
@@ -179,9 +150,6 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         }
         userSkills.removeAll(userSkillsLast);
         userSkillsLast.clear();
-
-//        return userSkillsLast;
-
     }
 
 
@@ -190,16 +158,95 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        UserSkill userSkill = new UserSkill(session.get(Skill.class, idSkill),session.get(UserExpleo.class, idUserExpleo));
+        UserSkill userSkill = new UserSkill(session.load(Skill.class, idSkill),session.load(UserExpleo.class, idUserExpleo));
 
         session.clear();
-
         session.delete(userSkill);
 
         session.getTransaction().commit();
-
         session.close();
 
     }
 
+    @Override
+    public void getAdditionalAndProjectSkill(int userId, List<UserSkill> userAdditionalSkills, List<UserSkill> projectSkills) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query queryAllUserSkills = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id");
+        queryAllUserSkills.setParameter("id", userId);
+
+        List<UserSkill> allUserSkillsList =  new LinkedList<UserSkill>(queryAllUserSkills.list());
+        session.flush();
+
+        Query queryUser =
+                session.createQuery("select user from UserExpleo user JOIN FETCH user.proiecte where user.id = :userId");
+        queryUser.setParameter("userId", userId);
+
+        UserExpleo principalUser = (UserExpleo) queryUser.getSingleResult();
+        List<Proiect> principalProjects = principalUser.getProiecte();
+
+        session.flush();
+
+        List<Skill> skillsFromProjects = new LinkedList<>();
+        for(Proiect tempProject: principalProjects){
+            List<ProiectSkill> proiectSkills = tempProject.getSkills();
+            for(ProiectSkill tempProjectSkill : proiectSkills){
+                skillsFromProjects.add(tempProjectSkill.getSkill());
+            }
+            session.flush();
+        }
+
+        for(UserSkill tempUserSkill:allUserSkillsList){
+            if(skillsFromProjects.contains(tempUserSkill.getSkill())){
+                projectSkills.add(tempUserSkill);
+            }else{
+                userAdditionalSkills.add(tempUserSkill);
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public List<UserSkill> getUserSkillByProjectSkills(Integer projectId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query projectQuery =
+                session.createQuery(
+                        "select pr from Proiect pr JOIN FETCH pr.skills where pr.proiectId=:projectId");
+        projectQuery.setParameter("projectId", projectId);
+        Proiect project = (Proiect) projectQuery.getSingleResult();
+        List<ProiectSkill> projectSkills = project.getSkills();
+        session.flush();
+
+        Query principalQuery = session.createQuery("from UserExpleo where email=:email");
+        principalQuery.setParameter("email", Principal.getPrincipal());
+        UserExpleo principal = (UserExpleo) principalQuery.getSingleResult();
+        session.flush();
+
+        Query principalUserSkills = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
+        principalUserSkills.setParameter("userId", principal.getId());
+        List<UserSkill> principalSkills = new LinkedList<UserSkill>(principalUserSkills.list());
+        session.flush();
+
+        List<UserSkill> userSkillFromProjectSkill = new LinkedList<>();
+        for(UserSkill tempUserSkill:principalSkills){
+            boolean isProjectSkill = false;
+            for(ProiectSkill tempProjectSkill:projectSkills){
+                if(tempProjectSkill.getSkill().equals(tempUserSkill.getSkill())){
+                    isProjectSkill = true;
+                    break;
+                }
+            }
+            if(isProjectSkill){
+                userSkillFromProjectSkill.add(tempUserSkill);
+            }
+        }
+
+        session.getTransaction().commit();
+        session.close();
+        return userSkillFromProjectSkill;
+    }
 }

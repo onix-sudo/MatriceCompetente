@@ -174,13 +174,7 @@ public class ProiectDAOImpl implements ProiectDAO {
                     session.merge(new UserSkill(proiectSkill.getSkill(), user));
                     session.flush();
 
-                    Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-                    usQuery.setParameter("id", user.getId());
-                    usQuery.setParameter("skillId", proiectSkill.getSkill().getIdSkill());
-
-                    UserSkill us = (UserSkill) usQuery.getSingleResult();
-                    session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
-                    session.flush();
+                    saveHistory(user.getId(), proiectSkill.getSkill().getIdSkill(), session, dateFormat);
                 }
             }else{
                 List<Skill> projectSkill = new LinkedList<>();
@@ -200,13 +194,7 @@ public class ProiectDAOImpl implements ProiectDAO {
                         session.merge(new UserSkill(tempSkill, user));
                         session.flush();
 
-                        Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-                        usQuery.setParameter("id", user.getId());
-                        usQuery.setParameter("skillId", tempSkill.getIdSkill());
-
-                        UserSkill us = (UserSkill) usQuery.getSingleResult();
-                        session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
-                        session.flush();
+                        saveHistory(user.getId(),tempSkill.getIdSkill(),session,dateFormat);
                     }
                 }
             }
@@ -215,31 +203,10 @@ public class ProiectDAOImpl implements ProiectDAO {
             System.out.println("addUserToProject" + e.getMessage());
         }
 
-
-/*        for (ProiectSkill ps : listSkills) {
-            if (!user.getUserSkills().contains(ps.getSkill())) {
-                session.merge(new UserSkill(ps.getSkill(), user));
-                session.flush();
-
-                try {
-                    Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-                    usQuery.setParameter("id", user.getId());
-                    usQuery.setParameter("skillId", ps.getSkill().getIdSkill());
-
-                    UserSkill us = (UserSkill) usQuery.getSingleResult();
-
-                    session.merge(new History(
-                            us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
-                    session.flush();
-                }catch (NoResultException e){
-                    System.out.println("ProiectDAOImpl.addUserToProject " + e.getMessage());
-                }
-            }
-        }*/
-
         session.getTransaction().commit();
         session.close();
     }
+
 
     @Override
     public void removeUserFromProject(String codProiect, Integer userId) {
@@ -311,7 +278,7 @@ public class ProiectDAOImpl implements ProiectDAO {
         query.setParameter("codProiect", codProiect);
 
         Proiect proiect = (Proiect) query.getSingleResult();
-        Skill skill = session.get(Skill.class, skillId);
+        Skill skill = session.load(Skill.class, skillId);
 
         List<UserExpleo> projectUsers = proiect.getUsers();
 
@@ -321,30 +288,14 @@ public class ProiectDAOImpl implements ProiectDAO {
                     session.merge(new UserSkill(skill, tempUser));
                     session.flush();
 
-                    Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-                    usQuery.setParameter("id", tempUser.getId());
-                    usQuery.setParameter("skillId", skill.getIdSkill());
-
-                    UserSkill us = (UserSkill) usQuery.getSingleResult();
-
-                    session.merge(new History(
-                            us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
-                    session.flush();
+                    saveHistory(tempUser.getId(),skillId, session,dateFormat);
                 } else {
                     for (UserSkill tempUserSkill : tempUser.getUserSkills()) {
                         if (!tempUserSkill.getSkill().equals(skill)) {
                             session.merge(new UserSkill(skill, tempUser));
                             session.flush();
 
-                            Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-                            usQuery.setParameter("id", tempUser.getId());
-                            usQuery.setParameter("skillId", skill.getIdSkill());
-
-                            UserSkill us = (UserSkill) usQuery.getSingleResult();
-
-                            session.merge(new History(
-                                    us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
-                            session.flush();
+                            saveHistory(tempUser.getId(),skillId,session,dateFormat);
                             break;
                         }
                     }
@@ -505,5 +456,15 @@ public class ProiectDAOImpl implements ProiectDAO {
             session.getTransaction().commit();
             session.close();
         }
+    }
+
+    private void saveHistory(int user, int proiectSkill, Session session, SimpleDateFormat dateFormat) {
+        Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
+        usQuery.setParameter("id", user);
+        usQuery.setParameter("skillId", proiectSkill);
+
+        UserSkill us = (UserSkill) usQuery.getSingleResult();
+        session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
+        session.flush();
     }
 }

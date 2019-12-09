@@ -21,20 +21,39 @@
     <b>Functie:</b> ${user.functie}
     <br>
     <hr>
-    <b>Skilluri personale:</b>
 </p>
 
+<p><b>Competente din proiecte:</b></p>
 <table class="table">
 
-    <thead>
     <tr>
         <th>Competente</th>
         <th>Categorie</th>
-        <th>Auto-Evaluare</th>
+        <th>Evaluare</th>
+    </tr>
+    <tbody>
+        <c:forEach var="projectSkills" items="${projectSkills}">
+            <tr>
+                <td>${projectSkills.skill.numeSkill}</td>
+                <td>${projectSkills.skill.categorie}</td>
+                <td>${projectSkills.evaluation}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+<br>
+
+
+<p><b>Competente aditionale:</b></p>
+<table class="table">
+
+    <tr>
+        <th>Competente</th>
+        <th>Categorie</th>
+        <th>Evaluare</th>
         <th>Valoare noua</th>
         <th>Elimina</th>
     </tr>
-    </thead>
     <tbody>
         <c:forEach var="userSkill" items="${userSkills}">
 

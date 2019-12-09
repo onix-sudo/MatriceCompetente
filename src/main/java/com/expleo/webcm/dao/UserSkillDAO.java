@@ -12,9 +12,6 @@ public interface UserSkillDAO {
 
     List<UserSkill> getUserSkillByUser(UserExpleo userExpleo);
 
-
-    List<UserSkill> getUserSkillBySkill(Skill skill);
-
     void getUserByEvaluation(List<UserSkill> userSkills, int eval);
 
     void removeUserSkill(int idUserExpleo, int idSkill);
@@ -24,5 +21,7 @@ public interface UserSkillDAO {
     void saveUserSkill(int idUser, int idSkill, int eval);
 
 
+    void getAdditionalAndProjectSkill(int userId, List<UserSkill> userAdditionalSkills, List<UserSkill> projectSkills);
 
+    List<UserSkill> getUserSkillByProjectSkills(Integer projectId);
 }
