@@ -103,7 +103,7 @@ th
                         <th>Total</th>
                     </tr>
                     <tr class="table-danger">
-                        <td><b>Pondere</b></td>
+                        <td>Pondere</td>
                             <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                                 <td>${projectSkill.pondere}</td>
                             </c:forEach>
@@ -147,7 +147,7 @@ th
                 </script>
         </c:forEach>
 
-        <div id="chart" style="width: 900px;height: 800px;margin: 0px auto">
+        <div id="chart" style="width: 1000px;height: 800px;margin: 0px auto">
             <script>
                 plotRadarTeam();
             </script>
