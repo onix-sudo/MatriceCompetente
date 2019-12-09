@@ -120,16 +120,7 @@ public class webCMController {
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.saveUserSkill(user.getId(), idskill, eval);
 
-//        List<ProiectSkill> skills = proiectService.showSkillsforProject(idproiect);
-//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
-//
-//        model.addAttribute("skillList", proiectService.showSkillsforProject(idproiect));
-//        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
-        List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(idproiect);
-        model.addAttribute("userSkillList", userSkillsFromProject);
-        model.addAttribute("projectId", idproiect);
-
-        return "cmptMat";
+        return competencyMatrix(model, idproiect);
     }
 
     @RequestMapping("/currentProj")
