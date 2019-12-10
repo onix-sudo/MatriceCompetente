@@ -278,6 +278,7 @@ public class LeadersController {
         List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
         createMatrixTeam.sortMatrixTeamList(matrixTeam);
 
+        model.addAttribute("foundSkills", foundSkills);
 
         model.addAttribute("matrixTeam", matrixTeam);
 

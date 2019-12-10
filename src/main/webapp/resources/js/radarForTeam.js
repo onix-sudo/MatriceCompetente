@@ -14,6 +14,8 @@ function pushSkillTeam(value, temp) {
 
 function pushTargetVal(targt){
     targetData.push(targt);
+    console.log(targt);
+    console.log(targetData);
 }
 
 var targetObject = {
@@ -46,10 +48,9 @@ function plotRadarTeam() {
 
 function pushProjectName(numePrj){
     numeProiect = numePrj;
-    console.log(numePrj);
 }
 
-function pushAllUsers(nume, numePrj) {
+function pushAllUsers(nume) {
 
     dataListTeam.push(dataListTeam[0]);
     jsVarListTeam.push(jsVarListTeam[0]);

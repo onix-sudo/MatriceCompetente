@@ -68,10 +68,12 @@
 
 
 <security:csrfMetaTags />
+<%--
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+--%>
 
 
 <div class="container">
@@ -130,8 +132,7 @@ th
                                 <td>${skills.evaluation}</td>
                             </c:forEach>
                             <script>
-                                pushAllUsers("${user.user.nume} " + "${user.user.prenume}", "${user.proiectSkills[0].proiect.numeProiect}" );
-                                pushTargetVal(${user.proiectSkills[status.index].target});
+                                pushAllUsers("${user.user.nume} " + "${user.user.prenume}");
                             </script>
                             <td>${user.score}</td>
                         </tr>
@@ -140,10 +141,15 @@ th
             </div>
         </div>
 
+        <c:forEach var="foundSkills" items="${foundSkills}" varStatus="status">
+                <script>
+                    pushTargetVal(${foundSkills.target});
+                </script>
+        </c:forEach>
+
         <c:forEach var="user" items="${matrixTeam}" varStatus="status">
                 <script>
                     pushProjectName("${user.proiectSkills[status.index].proiect.numeProiect}");
-                    pushTargetVal(${user.proiectSkills[status.index].target});
                 </script>
         </c:forEach>
 
