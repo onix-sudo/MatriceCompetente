@@ -31,6 +31,9 @@ public class webCMController {
     @Autowired
     private SearchService searchService;
 
+    @Autowired
+    private HistoryService historyService;
+
     @GetMapping
     public String webCM(ModelMap model){
         return "webCM";
@@ -131,5 +134,14 @@ public class webCMController {
         return "currentProj";
     }
 
+    @RequestMapping("/personalProfile/viewHistory")
+    public String viewHistory(ModelMap model){
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        List<Skill> skills = historyService.getHistoryByUserId(user.getId());
+
+        return "personalHistory";
+    }
 
 }
