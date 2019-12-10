@@ -76,7 +76,8 @@ public class SkillDAOImpl implements SkillDAO {
 
         List<UserSkill> userSkills = new ArrayList<>();
         for(ProiectSkill skill : skills) {
-            UserSkill userSkill = new UserSkill(session.get(Skill.class, skill.getSkill().getIdSkill()),
+            UserSkill userSkill =
+                    new UserSkill(session.get(Skill.class, skill.getSkill().getIdSkill()),
                     session.get(UserExpleo.class, userExpleo.getId()));
             userSkills.add(session.get(UserSkill.class, userSkill.getId()));
         }

@@ -1,3 +1,4 @@
+/*
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.Column;
@@ -59,3 +60,4 @@ public class UserSkillId implements Serializable {
                 '}';
     }
 }
+*/
