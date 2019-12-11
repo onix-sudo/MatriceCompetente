@@ -7,28 +7,66 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<security:csrfMetaTags/>
+
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="return adaugaCompetente();">Adauga competente</button>
+ onclick="return adaugaCompetente();">Modifica competente</button>
 
  <button type="button" class="btn btn-warning"
  onclick="return modify('${codProiect}')">Inapoi</button>
 
+<br>
+<hr>
+
+
+<table class="table">
+         <thead>
+              <font size="4">Colaboratori</font>
+             <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Numar Matricol</th>
+                <th><th>
+             </tr>
+         </thead>
+
+         <tbody>
+            <c:forEach var="user" items="${users}">
+                <spring:url var="removeUser" value="/webCM/leaders/project/${varPath}/removeEmp">
+                    <spring:param name="userId" value="${user.id}"/>
+                </spring:url>
+               <tr>
+                 <td>${user.nume}</td>
+                 <td>${user.prenume}</td>
+                 <td>${user.numarMatricol}</td>
+                 <td>
+                    <%--<form:form id="eliminaEmpForm">
+                        <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
+                    </form:form>--%>
+                    <button class="btn btn-danger" onclick="return removeEmpFromProject(${user.id})">Elimina-l din
+                    proiect</button>
+                 </td>
+               </tr>
+            </c:forEach>
+         </tbody>
+</table>
 
  <br><hr>
-        <form:form id="collabForm">
-            <table>
+        <form:form onsubmit="return searchUser(document.getElementById('searchTermUser').value)">
+            <table class="table">
                 <tr>
                     <th><label>Search</label>
-                    <input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 3 caractere." required/>
-                    <input type="submit" value="Search"/></th>
+                    <input type="text" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
+                    putin 3 caractere." required/>
+                    <input type="submit" value="Search"></th>
                 </tr>
             </table>
         </form:form>
  <br>
          <c:if test="${not empty result}">
-             <table>
+             <table class="table">
                  <tr>
                      <th>Nume</th>
                      <th>Prenume</th>
@@ -49,11 +87,8 @@
                      <td>${tempResult.functie}</td>
 
                      <td>
-
-                                  <form:form action="${modifyUser}" method="POST">
-                                    <input type="submit" class="btn btn-success" value="Adauga-l">
-                                  </form:form>
-
+                        <button class="btn btn-lg btn-primary"
+                        onclick="return addUser(${tempResult.id}, '${searchTermUser}')">Adauga</button>
                      </td>
                  </tr>
                  </c:forEach>
@@ -63,35 +98,51 @@
 
 
 <script>
-        $("#collabForm").submit(function(e) {
 
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+        function addUser(userId, searchTerm) {
+            $.ajax({
+                url: "/webCM/leaders/project/${varPath}/adaugaColaboratori/add",
+                type: "POST",
+                headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                data: {userId: userId},
+                success: function(){
+                    searchUser(searchTerm);
+                },
+                error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    searchUser(searchTerm);
+                }
+            });
 
-            var form = $(this);
+            return false;
+        }
+
+        function searchUser(searchTerm) {
             var url = "webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori";
+            console.log(searchTerm);
 
             $.ajax({
                    type: "POST",
                    url: url,
-                   data: form.serialize(), // serializes the form's elements.
-                   success: function(data, result)
+                   data: {searchTerm : searchTerm}, // serializes the form's elements.
+                   headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                   success: function(data)
                    {
-                       console.log("Result: " + '${nume}');
-                       console.log("varPath: " + '${varPath}');
-                       console.log("nimic: " + '${nimic}');
                        console.log("SUCCESS");
-                       //console.log(data);
+                       console.log(data);
                        $("#div3").html(data);
                    },
-                   error: function(data)
+                   error: function(data, res)
                    {
+                       console.log(res);
                        console.log("ERROR");
                        $("#div3").html(data);
                    }
-                 });
+            });
 
-
-        });
+            return false;
+        }
 
 
 

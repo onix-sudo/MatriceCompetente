@@ -58,9 +58,6 @@
                                 </form:form>
 </core:if>
 
-<br>
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/leaders'">Back</button>
-
 <script>
     $("#searchForm").submit(function(e){
         e.preventDefault();
@@ -81,5 +78,6 @@
                 }
             });
     })
+
 </script>
 

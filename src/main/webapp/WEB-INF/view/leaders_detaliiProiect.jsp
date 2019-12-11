@@ -11,10 +11,10 @@
 <br>
 
  <button type="button" class="btn btn-info"
-         onclick="return addCollaborators('${varPath}')">Adauga colaboratori</button>
+         onclick="return addCollaborators('${varPath}')">Modifica colaboratori</button>
 
  <button type="button" class="btn btn-info"
- onclick="return adaugaCompetente()">Adauga competente</button>
+ onclick="return adaugaCompetente()">Modifica competente</button>
 
   <button type="button" class="btn btn-warning"
   onclick="leaders()">Inapoi</button>
@@ -35,105 +35,12 @@
  <font size="5"> Cod: ${project.codProiect}</font>
  <br><hr>
 
-     <table>
-         <tbody>
-          <font size="4">Colaboratori</font>
-         <tr>
-            <th>Nume</th>
-            <th>Prenume</th>
-            <th>Numar Matricol</th>
-            <th><th>
-         </tr>
-         </thead>
 
-         <tbody>
-            <c:forEach var="user" items="${users}">
-                <spring:url var="removeUser" value="/webCM/leaders/project/${varPath}/removeEmp">
-                    <spring:param name="userId" value="${user.id}"/>
-                </spring:url>
-
-
-
-               <tr>
-                 <td>${user.nume}</td>
-                 <td>${user.prenume}</td>
-                 <td>${user.numarMatricol}</td>
-                 <td>
-                    <form:form id="eliminaEmpForm" action="${removeUser}" method="POST">
-                        <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
-                    </form:form>
-                 </td>
-               </tr>
-            </c:forEach>
-         </tbody>
-      </table>
 
        <br>
        <hr>
 
-     <table>
-         <tbody>
-         <font size="4">Competente</font>
-         <tr>
-            <th>Competenta</th>
-            <th>Categorie</th>
-            <th>Pondere</th>
-            <th>Target</th>
-            <th></th>
-         </tr>
-         </thead>
 
-         <tbody>
-            <c:forEach var="skill" items="${skills}">
-
-               <spring:url var="removeSkill" value="/webCM/leaders/project/${varPath}/removeSkill">
-                   <spring:param name="skillId" value="${skill.skill.idSkill}"/>
-               </spring:url>
-
-               <tr>
-                 <td>${skill.skill.numeSkill}</td>
-                 <td>${skill.skill.categorie}</td>
-                    <td>
-                        <form:select path="intervalPondere" onChange="window.location.href='/webCM/leaders/project/${varPath}/setPondere?value='+this.value+'&skillId=${skill.skill.idSkill}'">
-                            <c:set var="pondere" value="${skill.pondere}"/>
-                                <c:forEach items="${intervalPondere}" var="temp">
-                                    <c:choose>
-                                    <c:when test="${temp eq pondere}">
-                                    <option value="${temp}" selected="true">${temp}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <option value="${temp}">${temp}</option>
-                                    </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-
-                        </form:select>
-                    </td>
-                    <td>
-                        <form:select path="intervalTarget" onChange="window.location.href='/webCM/leaders/project/${varPath}/setTarget?value='+this.value+'&skillId=${skill.skill.idSkill}'">
-                            <c:set var="target" value="${skill.target}"/>
-                                <c:forEach items="${intervalTarget}" var="temp">
-                                    <c:choose>
-                                    <c:when test="${temp eq target}">
-                                    <option value="${temp}" selected="true">${temp}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <option value="${temp}">${temp}</option>
-                                    </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-
-                        </form:select>
-                        </td>
-                 <td>
-                    <form:form action="${removeSkill}" method="POST">
-                        <input type="submit" class="btn btn-danger" value="Elimina competenta"
-                    </form:form>
-                 </td>
-               </tr>
-            </c:forEach>
-         </tbody>
-      </table>
 
 
 <script>
@@ -168,15 +75,12 @@
         });
     });
 
-    $("#eliminaEmpForm").submit(function(e) {
-        e.preventDefault();
-
+    function removeEmpFromProject(userId) {
         $.ajax({
             type: "POST",
             headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-            data: $("#eliminaEmpForm").serialize(),
-            url: "${removeUser}",
-            contentType : "application/json",
+            data: {userId: userId},
+            url: "/webCM/leaders/project/${varPath}/removeEmp",
             success: function(){
                 $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
             },
@@ -185,6 +89,63 @@
                     console.log(res);
             }
         });
-    });
 
+        return false;
+    }
+
+    function removeSkillForProject(skillId) {
+        $.ajax({
+            type: "POST",
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            data: {skillId: skillId},
+            url: "/webCM/leaders/project/${varPath}/removeSkill",
+            success: function(){
+                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
+            },
+            error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+            }
+        });
+
+        return false;
+    }
+
+    function changePondere(valuePondere, skillId) {
+        var url = "/webCM/leaders/project/${varPath}/setPondere?value=" + valuePondere + "&skillId=" + skillId;
+        $.ajax({
+            type: "GET",
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            data: {value: valuePondere, skillId: skillId},
+            url: url,
+            success: function(){
+                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
+            },
+            error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+            }
+        });
+
+        return false;
+    }
+
+    function changeTarget(valueTarget, skillId) {
+        var url = "/webCM/leaders/project/${varPath}/setTarget?value=" + valueTarget + "&skillId=" + skillId;
+        $.ajax({
+            type: "GET",
+            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+            data: {value: valueTarget, skillId: skillId},
+            url: url,
+            success: function(){
+                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
+            },
+            error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+            }
+        });
+
+        return false;
+    }
 </script>
