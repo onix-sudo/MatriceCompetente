@@ -81,6 +81,8 @@ function reloadMat(idSkill, evaluation, idProiect) {
                    data: {idskill: idSkill, evaluation: evaluation, proiectId: idProiect},
                    success: function(data)
                    {
+                        jsVarList = [];
+                        dataList = [];
                         $("#div1").html(data);
 
                    },
