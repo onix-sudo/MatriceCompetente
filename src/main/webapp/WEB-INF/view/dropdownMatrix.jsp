@@ -2,76 +2,40 @@
 
 <security:csrfMetaTags />
 
-<%--<div class="container">
-        <div class="split left">
-            <div class="">
-                <th>
-                  <form:select path="proiecte" onChange="sendData(this.value)">
-
-                             <c:forEach items="${proiecte}" var="proiect">
-                                   <option value="${proiect.codProiect}"> ${proiect.numeProiect} ${proiect.codProiect}</option>
-                             </c:forEach>
-
-                  </form:select>
-                </th>
-            </div>
-        </div>
-
-</div>--%>
-
-
 <div class="container">
-        <div class="split left">
-            <div class="">
-             <th>
-                  <form:select path="proiecte" onChange="sendData(this.value)">
 
-                             <c:forEach items="${proiecte}" var="proiect">
-                                   <option value="${proiect.codProiect}"> ${proiect.numeProiect} ${proiect.codProiect}</option>
-                             </c:forEach>
-
-                  </form:select>
-                </th>
                 <table class="table">
-                    <thead>
                     <tr>
-                        <th>Nume</th>
-                        <th>Skill1</th>
-                        <th>Skill2</th>
-                        <th>Skill1</th>
-                        <th>Skill4</th>
-                        <th>Skill5</th>
-                    </tr>
-                    </thead>
-
-                  <%--  <tbody>
-                        <c:forEach var="skill" items="${skillList}" varStatus="status">
-                           <script>pushSkill("${skill.skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
-                            <tr>
-                                <td>${status.count}</td>
-                                <td>${skill.skill.idSkill}</td>
-                                <td>${skill.skill.numeSkill}</td>
-                                <td>${skill.skill.categorie}</td>
-                                <td>${userSkillList[status.index].evaluation}</td>
-                                <td>
-                                    <form id="modifyTForm"
-                                          onsubmit="return reloadMat(${skill.skill.idSkill}, evalCmpt.value, ${skill.proiect.proiectId})">
-                                        <select name="evaluation" id="evalCmpt">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-
-                                        <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
-                                        <input type="hidden" value="${skill.proiect.proiectId}" name="proiectId"
-                                               style="display: none">
-                                        <input class="btn btn-secondary btn-sm" type='submit' value='Submit'/>
-                                    </form>
-                                </td>
-                            </tr>
+                        <th></th>
+                        <c:forEach var="skills" items="${matrixTeam[0].proiectSkills}">
+                            <th>${skills.skill.numeSkill}</th>
                         </c:forEach>
-                    </tbody>--%>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <th><i>Pondere</i></th>
+                            <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                                <td><i>${projectSkill.pondere}</i></td>
+                            </c:forEach>
+                            <td></td>
+                    </tr>
+                    <tr>
+                        <th><i>Necesar</i></th>
+                        <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                            <td><i>${projectSkill.target}</i></td>
+                        </c:forEach>
+                        <td></td>
+                    </tr>
+                    <tr></tr>
+                    <c:forEach var="user" items="${matrixTeam}">
+                        <tr>
+                            <th>${user.name}</th>
+                            <c:forEach var="skills" items="${user.skills}">
+                                <th>${skills.evaluation}</th>
+                            </c:forEach>
+                            <th>${user.score}</th>
+                        </tr>
+                    </c:forEach>
                 </table>
             </div>
         </div>

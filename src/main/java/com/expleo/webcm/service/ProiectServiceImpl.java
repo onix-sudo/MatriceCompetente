@@ -4,7 +4,6 @@ import com.expleo.webcm.dao.ProiectDAO;
 import com.expleo.webcm.dao.SkillDAO;
 import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.ProiectSkill;
-import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +23,14 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<Proiect> findProjectByUser(UserExpleo user) {
-        return proiectDao.findProjectByUser(user);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
     public void saveNewProject(Proiect proiect) {
         proiectDao.saveNewProject(proiect);
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<ProiectSkill> showSkillsforProject(int idProject) {
-        return skillDAO.showSkillsforProject(idProject);
+    public List<Proiect> getFreeProjects() {
+        return proiectDao.getFreeProjects();
     }
 
     @Override
@@ -48,20 +41,20 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<UserSkill> showEvalForUserSkills(List<ProiectSkill> skills, UserExpleo userExpleo) {
-        return skillDAO.showEvalForUserSkills(skills, userExpleo);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public Proiect findProjectByCodProiect(String codProiect) {
-        return proiectDao.findProjectByCodProiect(codProiect);
+    public List<Proiect> findPrincipalProjects() {
+        return proiectDao.findPrincipalProjects();
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
     public Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
        return proiectDao.getProjectListsUsersSkills(codProiect, users, skills);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills) {
+        proiectDao.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
     }
 
     @Override
@@ -78,20 +71,14 @@ public class ProiectServiceImpl implements ProiectService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void dropTheProject(String codProiect) {
-        proiectDao.dropTheProject(codProiect);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public List<Proiect> getFreeProjects() {
-        return proiectDao.getFreeProjects();
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
     public void addFreeProject(String codProiect, String principal) {
         proiectDao.addFreeProject(codProiect, principal);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void dropTheProject(String codProiect) {
+        proiectDao.dropTheProject(codProiect);
     }
 
     @Override
@@ -104,12 +91,6 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public void removeSkillFromProject(String codProiect, Integer skillId) {
         proiectDao.removeSkillFromProject(codProiect, skillId);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public List<ProiectSkill> findProjectSkillsByCodProiect(String codProiect) {
-        return proiectDao.findProjectSkillsByCodProiect(codProiect);
     }
 
     @Override
@@ -134,11 +115,5 @@ public class ProiectServiceImpl implements ProiectService {
     @Transactional("transactionExpleoDBManager")
     public boolean hasPrincipalProject(String codProiect) {
         return proiectDao.hasPrincipalProject(codProiect);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public List<Proiect> findPrincipalProjects() {
-        return proiectDao.findPrincipalProjects();
     }
 }
