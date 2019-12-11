@@ -1,5 +1,6 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.History;
 import com.expleo.webcm.entity.expleodb.Skill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,22 +20,18 @@ public class HistoryDAOImpl implements HistoryDAO {
 
 
     @Override
-    public List<Skill> getHistoryByUserId(int principalId) {
+    public History getHistoryByUserId(int id) {
 
         Session session = sessionFactory.openSession();
 
-        session.beginTransaction();
+        Query query = session.createQuery("FROM History WHERE idUserSkill= :id");
 
-        Query<Skill> theQuery = session.createQuery("from user_skill where id_user=:skill", Skill.class);
+        query.setParameter("id", id);
 
-        theQuery.setParameter("skillId", principalId);
-
-        List<Skill> skills = theQuery.getResultList();
-
-        session.getTransaction().commit();
+        History result = session.get(History.class, id);
 
         session.close();
 
-        return skills;
+        return result;
     }
 }

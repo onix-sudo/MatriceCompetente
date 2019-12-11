@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/webCM")
@@ -139,7 +138,15 @@ public class webCMController {
 
         UserExpleo user = userService.getUserExpleoPrincipal();
 
-        List<Skill> skills = historyService.getHistoryByUserId(user.getId());
+        List<UserSkill> userSkills = userSkillService.getUserSkillByUser(user);
+
+        List<History> histories = new ArrayList<>();
+
+        for(UserSkill userSkill: userSkills){
+            histories.add((History) historyService.getHistoryByUserId(userSkill.getId()));
+        }
+
+        System.out.println("histories = " + histories);
 
         return "personalHistory";
     }

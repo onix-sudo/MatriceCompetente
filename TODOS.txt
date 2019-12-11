@@ -33,4 +33,8 @@
 
 9. Utilizatori in adauga utilizatori; la fel si competente
 
+10. Errori
+
+- atunci cand lista de personal skill e goala, javax.persistence.NoResultException
+
 

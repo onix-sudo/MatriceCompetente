@@ -13,6 +13,9 @@ public class History {
 
     @Column(name="id_user_skill")
     private Integer idUserSkill;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="id")
+//    private UserSkill userSkill;
 
     @Column(name="evaluare")
     private int evaluare;
@@ -23,18 +26,24 @@ public class History {
     public History() {
     }
 
+//    public History(UserSkill userSkill, int evaluare, String date) {
+//        this.userSkill = userSkill;
+//        this.evaluare = evaluare;
+//        this.date = date;
+//    }
+//
+//    public UserSkill getUserSkill() {
+//        return userSkill;
+//    }
+//
+//    public void setUserSkill(UserSkill userSkill) {
+//        this.userSkill = userSkill;
+//    }
+
     public History(Integer idUserSkill, int evaluare, String date) {
         this.idUserSkill = idUserSkill;
         this.evaluare = evaluare;
         this.date = date;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getIdUserSkill() {
@@ -43,6 +52,14 @@ public class History {
 
     public void setIdUserSkill(Integer idUserSkill) {
         this.idUserSkill = idUserSkill;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getEvaluare() {
@@ -60,4 +77,16 @@ public class History {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "id=" + id +
+                ", idUserSkill=" + idUserSkill +
+                ", evaluare=" + evaluare +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
+
 }

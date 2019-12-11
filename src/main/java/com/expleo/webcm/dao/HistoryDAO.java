@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface HistoryDAO {
 
-    List<Skill> getHistoryByUserId(int principalId);
+    History getHistoryByUserId(int id);
 }
