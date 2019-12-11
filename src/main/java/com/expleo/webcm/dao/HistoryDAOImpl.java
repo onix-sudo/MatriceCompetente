@@ -20,15 +20,15 @@ public class HistoryDAOImpl implements HistoryDAO {
 
 
     @Override
-    public History getHistoryByUserId(int id) {
+    public List<History> getHistoryByUserId(int id) {
 
         Session session = sessionFactory.openSession();
 
-        Query query = session.createQuery("FROM History WHERE idUserSkill= :id");
+        Query<History> query = session.createQuery("FROM History where idUser= :id order by idSkill", History.class);
 
         query.setParameter("id", id);
 
-        History result = session.get(History.class, id);
+        List<History> result = query.list();
 
         session.close();
 

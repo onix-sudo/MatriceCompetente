@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface HistoryService {
 
-    History getHistoryByUserId(int principalId);
+    List<History> getHistoryByUserId(int principalId);
 
 }

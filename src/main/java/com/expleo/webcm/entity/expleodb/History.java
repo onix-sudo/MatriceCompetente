@@ -72,4 +72,15 @@ public class History {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", idSkill=" + idSkill +
+                ", evaluare=" + evaluare +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

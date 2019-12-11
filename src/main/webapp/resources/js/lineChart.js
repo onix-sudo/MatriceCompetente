@@ -1,30 +1,65 @@
+var evalList = [];
+var dataList = [];
 
-var trace1 = {
-  x: [1, 2, 3, 4],
-  y: [10, 15, 13, 17],
-  mode: 'markers'
-};
+var tempEval = [];
+var tempData = [];
 
-var trace2 = {
-  x: [2, 3, 4, 5],
-  y: [16, 5, 11, 9],
-  mode: 'lines'
-};
+var finalData= [];
+var names = [];
 
-var trace3 = {
-  x: [1, 2, 3, 4],
-  y: [12, 9, 15, 12],
-  mode: 'lines+markers'
-};
+function pushValues(eval, data, nm){
+
+    evalList.push(eval);
+    tempEval.push(eval);
+
+    dataList.push(data);
+    tempData.push(data);
+
+    names.push(nm);
+
+    console.log(names);
+}
+
+function push() {
+
+    var newObject = {
+      x: evalList, // data
+      y: dataList,  // evaluari
+      mode: 'lines+markers',
+    };
+
+for(var i =0; i<names.length; i++){
+
+      if((names[i] === names[i+1])){
+
+       var obj = {
+             x:[tempEval[i], tempEval[i+1]], // tempEval[i] + tempEval[i+1], // data
+             y: [tempData[i],tempData[i+1]], //tempData[i]+ tempData[i+1],  // evaluari
+             mode: 'lines+markers',
+             name: names[i]
+           };
+
+        console.log(tempEval[i] + tempEval[i+1]);
+        finalData.push(obj);
+
+      }
+      newObject.name = names[i];
+      }
+
+    finalData.push(newObject);
+
+    evalList = [];
+    dataList = [];
+
+
+}
+
 
 function plot(){
-console.log("BABAAA");
-var data = [ trace1, trace2, trace3 ];
 
 var layout = {
   title:'Line and Scatter Plot'
 };
 
-Plotly.newPlot('myDiv', data, layout);
+Plotly.newPlot('myDiv', finalData, layout);
 }
-

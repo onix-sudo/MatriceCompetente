@@ -15,7 +15,7 @@ public class HistoryServicesImpl implements HistoryService {
     private HistoryDAO historyDAO;
 
     @Override
-    public History getHistoryByUserId(int principalId) {
+    public List<History> getHistoryByUserId(int principalId) {
         return historyDAO.getHistoryByUserId(principalId);
     }
 }
