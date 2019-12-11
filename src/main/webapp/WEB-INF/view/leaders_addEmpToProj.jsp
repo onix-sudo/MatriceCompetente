@@ -12,21 +12,58 @@
 <br>
 
  <button type="button" class="btn btn-info"
- onclick="return adaugaCompetente();">Adauga competente</button>
+ onclick="return adaugaCompetente();">Modifica competente</button>
 
  <button type="button" class="btn btn-warning"
  onclick="return modify('${codProiect}')">Inapoi</button>
 
+<br>
+<hr>
+
+
+<table class="table">
+         <thead>
+              <font size="4">Colaboratori</font>
+             <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Numar Matricol</th>
+                <th><th>
+             </tr>
+         </thead>
+
+         <tbody>
+            <c:forEach var="user" items="${users}">
+                <spring:url var="removeUser" value="/webCM/leaders/project/${varPath}/removeEmp">
+                    <spring:param name="userId" value="${user.id}"/>
+                </spring:url>
+               <tr>
+                 <td>${user.nume}</td>
+                 <td>${user.prenume}</td>
+                 <td>${user.numarMatricol}</td>
+                 <td>
+                    <%--<form:form id="eliminaEmpForm">
+                        <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
+                    </form:form>--%>
+                    <button class="btn btn-danger" onclick="return removeEmpFromProject(${user.id})">Elimina-l din
+                    proiect</button>
+                 </td>
+               </tr>
+            </c:forEach>
+         </tbody>
+</table>
 
  <br><hr>
+        <form:form onsubmit="return searchUser(document.getElementById('searchTermUser').value)">
             <table class="table">
                 <tr>
                     <th><label>Search</label>
                     <input type="text" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
                     putin 3 caractere." required/>
-                    <button onclick="return searchUser(document.getElementById('searchTermUser').value)">Search</button></th>
+                    <input type="submit" value="Search"></th>
                 </tr>
             </table>
+        </form:form>
  <br>
          <c:if test="${not empty result}">
              <table class="table">
@@ -89,9 +126,11 @@
                    type: "POST",
                    url: url,
                    data: {searchTerm : searchTerm}, // serializes the form's elements.
+                   headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
                    success: function(data)
                    {
                        console.log("SUCCESS");
+                       console.log(data);
                        $("#div3").html(data);
                    },
                    error: function(data, res)

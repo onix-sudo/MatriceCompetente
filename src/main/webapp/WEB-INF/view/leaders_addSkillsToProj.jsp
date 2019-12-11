@@ -16,18 +16,85 @@
  <button type="button" class="btn btn-warning"
  onclick="return modify('${codProiect}')">Inapoi</button>
 
- <br><hr>
+  <br>
+ <hr>
 
+
+ <table class="table">
+          <tbody>
+          <font size="4">Competente</font>
+          <tr>
+             <th>Competenta</th>
+             <th>Categorie</th>
+             <th>Pondere</th>
+             <th>Target</th>
+             <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+             <c:forEach var="skill" items="${skills}">
+
+                <spring:url var="removeSkill" value="/webCM/leaders/project/${varPath}/removeSkill">
+                    <spring:param name="skillId" value="${skill.skill.idSkill}"/>
+                </spring:url>
+
+                <tr>
+                  <td>${skill.skill.numeSkill}</td>
+                  <td>${skill.skill.categorie}</td>
+                     <td>
+                         <form:select path="intervalPondere" onChange="return changePondere(this.value, ${skill.skill.idSkill})">
+                             <c:set var="pondere" value="${skill.pondere}"/>
+                                 <c:forEach items="${intervalPondere}" var="temp">
+                                     <c:choose>
+                                     <c:when test="${temp eq pondere}">
+                                     <option value="${temp}" selected="true">${temp}</option>
+                                     </c:when>
+                                     <c:otherwise>
+                                     <option value="${temp}">${temp}</option>
+                                     </c:otherwise>
+                                     </c:choose>
+                                 </c:forEach>
+                         </form:select>
+                     </td>
+                     <td>
+                         <form:select path="intervalTarget" onChange="return changeTarget(this.value, ${skill.skill.idSkill})">
+                             <c:set var="target" value="${skill.target}"/>
+                                 <c:forEach items="${intervalTarget}" var="temp">
+                                     <c:choose>
+                                     <c:when test="${temp eq target}">
+                                     <option value="${temp}" selected="true">${temp}</option>
+                                     </c:when>
+                                     <c:otherwise>
+                                     <option value="${temp}">${temp}</option>
+                                     </c:otherwise>
+                                     </c:choose>
+                                 </c:forEach>
+
+                         </form:select>
+                         </td>
+                  <td>
+                     <button class="btn btn-danger" onclick="return removeSkillForProject(${skill.skill.idSkill})">
+                         Elimina competenta
+                     </button>
+                  </td>
+                </tr>
+             </c:forEach>
+          </tbody>
+       </table>
+
+ <br><hr>
+        <form:form onsubmit="return searchSkills(document.getElementById('searchTermSkill').value)">
             <table class="table">
                 <tr>
                     <th><label>Search</label>
                     <input type="text" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
                      3
                     caractere." required/>
-                    <button onclick="return searchSkills(document.getElementById('searchTermSkill').value)
-                    ">Search</button></th>
+                    <input type="submit" class="btn btn-primary" value="Search"></th>
                 </tr>
             </table>
+        </form:form>
 
  <br>
 
