@@ -82,9 +82,6 @@ public class SearchDAOImpl implements SearchDAO {
         List<Skill> result = new LinkedList<Skill>(hibQuery.list());
         session.flush();
 
-//        for (Skill skill : result) {
-//            Hibernate.initialize(skill.getUsers());
-//        }
         Query hasSkill = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
         hasSkill.setParameter("userId", principalId);
 
@@ -121,7 +118,7 @@ public class SearchDAOImpl implements SearchDAO {
                 fullTextSession.createFullTextQuery(query, UserExpleo.class);
 
         List<UserExpleo> pickedUsers = new LinkedList<>();
-        List<UserExpleo> foundUsers = new LinkedList<UserExpleo>(hibQuery.list()) ;
+        List<UserExpleo> foundUsers = hibQuery.list() ;
 
         if (!foundUsers.isEmpty()) {
             for (UserExpleo user : foundUsers) {
@@ -156,11 +153,11 @@ public class SearchDAOImpl implements SearchDAO {
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
-        Query hibQueryProject = session.createQuery("from Proiect where codProiect = :codProiect");
+        Query<Proiect> hibQueryProject = session.createQuery("from Proiect where codProiect = :codProiect", Proiect.class);
         hibQueryProject.setParameter("codProiect", codProiect);
-        Proiect proiect = (Proiect) hibQueryProject.getSingleResult();
+        Proiect proiect = hibQueryProject.getSingleResult();
 
-        List<Skill> foundSkills = new LinkedList<Skill>(hibQuery.list());
+        List<Skill> foundSkills = hibQuery.list();
         List<ProiectSkill> foundProjectSkill = proiect.getSkills();
         List<Skill> pickedSkill = new LinkedList<>();
 
@@ -199,11 +196,13 @@ public class SearchDAOImpl implements SearchDAO {
         org.hibernate.query.Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
-        org.hibernate.query.Query userSkillQuery = session.createQuery("from UserSkill where evaluation >= :eval order by evaluation desc");
+        org.hibernate.query.Query<UserSkill> userSkillQuery = session.createQuery(
+                "select us from UserSkill us JOIN FETCH " +
+                        "us.user where us.evaluation >= :eval order by us.evaluation desc", UserSkill.class);
         userSkillQuery.setParameter("eval", eval);
 
-        List<Skill> result = new LinkedList<Skill>(hibQuery.list());
-        List<UserSkill> userSkillsResult = new LinkedList<UserSkill>(userSkillQuery.list());
+        List result = hibQuery.list();
+        List<UserSkill> userSkillsResult = userSkillQuery.list();
         List<UserSkill> userSkills = new LinkedList<>();
 
         for(UserSkill us: userSkillsResult){
@@ -212,13 +211,9 @@ public class SearchDAOImpl implements SearchDAO {
             }
         }
 
-        for(UserSkill userSkill:userSkills){
-            Hibernate.initialize(userSkill.getUser());
-        }
-
         tx.commit();
         session.close();
 
-        return userSkillsResult;
+        return userSkills;
     }
 }
