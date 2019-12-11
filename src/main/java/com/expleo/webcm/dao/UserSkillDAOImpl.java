@@ -76,6 +76,11 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                     }
                 }
                 if(!update){
+                    List<History> histories = getHistoryList(userSkill.getUser().getId(), userSkill.getSkill().getIdSkill(), session);
+                    if(histories.size() >=5){
+                        session.remove(histories.get(0));
+                        session.flush();
+                    }
                     session.save(new History(userSkill.getUser().getId(), userSkill.getSkill().getIdSkill(), eval, dateFormat.format(Calendar.getInstance().getTime())));
                     session.flush();
                 }
@@ -195,6 +200,14 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     private List<UserSkill> getUserSkillsList(int userId, Session session) {
         Query<UserSkill> queryAllUserSkills = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id", UserSkill.class);
         queryAllUserSkills.setParameter("id", userId);
+        return queryAllUserSkills.list();
+    }
+
+    private List<History> getHistoryList(int userId, int skillId, Session session) {
+        Query<History> queryAllUserSkills = session.createQuery(
+                "from History where idUser=:id and idSkill=:skillId order by date asc", History.class);
+        queryAllUserSkills.setParameter("id", userId);
+        queryAllUserSkills.setParameter("skillId", skillId);
         return queryAllUserSkills.list();
     }
 }

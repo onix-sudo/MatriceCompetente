@@ -87,47 +87,47 @@ public class ProiectDAOImpl implements ProiectDAO {
             user.addProiecte(proiect);
 
             Query<ProiectSkill> projectSkillQuery = session.createQuery("Select ps from ProiectSkill ps " +
-                    "JOIN FETCH ps.skill where ps.proiect.proiectId=:id",ProiectSkill.class);
+                    "JOIN FETCH ps.skill where ps.proiect.proiectId=:id", ProiectSkill.class);
             projectSkillQuery.setParameter("id", proiect.getProiectId());
-            List<ProiectSkill>projectSkillsQueryList = projectSkillQuery.list();
+            List<ProiectSkill> projectSkillsQueryList = projectSkillQuery.list();
             session.flush();
 
             Query<UserSkill> userSkillQuery = session.createQuery("select us from UserSkill us " +
-                    "JOIN FETCH us.skill where us.user.id=:id",UserSkill.class);
+                    "JOIN FETCH us.skill where us.user.id=:id", UserSkill.class);
             userSkillQuery.setParameter("id", userId);
-            List<UserSkill>userSkills = userSkillQuery.list();
+            List<UserSkill> userSkills = userSkillQuery.list();
             session.flush();
 
-            if(userSkills.isEmpty()){
-                for(ProiectSkill proiectSkill : projectSkillsQueryList) {
+            if (userSkills.isEmpty()) {
+                for (ProiectSkill proiectSkill : projectSkillsQueryList) {
                     session.merge(new UserSkill(proiectSkill.getSkill(), user));
                     session.flush();
 
                     saveHistory(user.getId(), proiectSkill.getSkill().getIdSkill(), session, dateFormat);
                 }
-            }else{
+            } else {
                 List<Skill> projectSkill = new LinkedList<>();
                 List<Skill> userSkill = new LinkedList<>();
 
-                for(ProiectSkill proiectSkill : projectSkillsQueryList) {
+                for (ProiectSkill proiectSkill : projectSkillsQueryList) {
                     projectSkill.add(proiectSkill.getSkill());
                 }
-                for(UserSkill tempUserSkill:userSkills){
+                for (UserSkill tempUserSkill : userSkills) {
                     userSkill.add(tempUserSkill.getSkill());
                 }
 
                 projectSkill.removeAll(userSkill);
-                if(!projectSkill.isEmpty()) {
+                if (!projectSkill.isEmpty()) {
                     for (Skill tempSkill : projectSkill) {
                         session.merge(new UserSkill(tempSkill, user));
                         session.flush();
 
-                        saveHistory(user.getId(),tempSkill.getIdSkill(),session,dateFormat);
+                        saveHistory(user.getId(), tempSkill.getIdSkill(), session, dateFormat);
                     }
                 }
             }
 
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             logger.info("addUserToProject" + e.getMessage());
         }
 
@@ -179,27 +179,25 @@ public class ProiectDAOImpl implements ProiectDAO {
         Skill skill = session.load(Skill.class, skillId);
 
         List<UserExpleo> projectUsers = proiect.getUsers();
-
-            for (UserExpleo tempUser : projectUsers) {
-                if (tempUser.getUserSkills().isEmpty()) {
+        for (UserExpleo tempUser : projectUsers) {
+            if (tempUser.getUserSkills().isEmpty()) {
+                session.merge(new UserSkill(skill, tempUser));
+                session.flush();
+                saveHistory(tempUser.getId(), skillId, session, dateFormat);
+            } else {
+                List<Skill> tempUserSkills = new LinkedList<>();
+                for (UserSkill tempUserSkill : tempUser.getUserSkills()) {
+                    tempUserSkills.add(tempUserSkill.getSkill());
+                }
+                if (!tempUserSkills.contains(skill)) {
                     session.merge(new UserSkill(skill, tempUser));
                     session.flush();
-                    saveHistory(tempUser.getId(),skillId, session,dateFormat);
-                } else {
-                    for (UserSkill tempUserSkill : tempUser.getUserSkills()) {
-                        if (!tempUserSkill.getSkill().equals(skill)) {
-                            session.merge(new UserSkill(skill, tempUser));
-                            session.flush();
-
-                            saveHistory(tempUser.getId(),skillId,session,dateFormat);
-                            break;
-                        }
-                    }
+                    saveHistory(tempUser.getId(), skillId, session, dateFormat);
+                    session.flush();
                 }
             }
-
+        }
         ProiectSkill ps = new ProiectSkill(proiect, skill);
-
         session.merge(ps);
         closeSession(session);
     }
@@ -224,8 +222,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Proiect proiect = getProiect(codProiect, session);
 
         List<ProiectSkill> proiectSkills = proiect.getSkills();
-        for(ProiectSkill temp:proiectSkills){
-            if(temp.getSkill().getIdSkill()==skillId){
+        for (ProiectSkill temp : proiectSkills) {
+            if (temp.getSkill().getIdSkill() == skillId) {
                 temp.setPondere(pondere);
             }
         }
@@ -240,8 +238,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         Proiect proiect = getProiect(codProiect, session);
 
         List<ProiectSkill> proiectSkills = proiect.getSkills();
-        for(ProiectSkill temp:proiectSkills){
-            if(temp.getSkill().getIdSkill()==skillId){
+        for (ProiectSkill temp : proiectSkills) {
+            if (temp.getSkill().getIdSkill() == skillId) {
                 temp.setTarget(target);
             }
         }
@@ -258,23 +256,23 @@ public class ProiectDAOImpl implements ProiectDAO {
         try {
             query.getSingleResult();
             return true;
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             logger.info(e.getMessage());
             return false;
-        }finally {
+        } finally {
             session.close();
         }
     }
 
     @Override
     public boolean hasPrincipalProject(String codProiect) {
-        try(Session session = openSession()) {
+        try (Session session = openSession()) {
             Query query = session.createQuery("from Proiect where codProiect = :codProiect and manager = :emailManager ");
             query.setParameter(COD_PROIECT, codProiect);
             query.setParameter("emailManager", Principal.getPrincipal());
             query.getSingleResult();
             return true;
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             logger.info("ProiectDAOImpl.hasPrincipalProject - no result");
             logger.info(e.getMessage());
             return false;
@@ -283,13 +281,13 @@ public class ProiectDAOImpl implements ProiectDAO {
 
     @Override
     public List<Proiect> findPrincipalProjects() {
-        try(Session session = openSession()) {
+        try (Session session = openSession()) {
             Query<UserExpleo> query = session.createQuery("Select user from UserExpleo user " +
-                    "JOIN FETCH user.proiecte where email=:email",UserExpleo.class);
+                    "JOIN FETCH user.proiecte where email=:email", UserExpleo.class);
             query.setParameter("email", Principal.getPrincipal());
             UserExpleo foundUser = query.getSingleResult();
             return foundUser.getProiecte();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             logger.info("ProiectDAOImpl.findPrincipalProjects - no result");
             logger.info(e.getMessage());
             return new LinkedList<>();
@@ -298,20 +296,20 @@ public class ProiectDAOImpl implements ProiectDAO {
 
     @Override
     public void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills) {
-        try(Session session = openSession()) {
+        try (Session session = openSession()) {
             Proiect foundProject = getProiect(codProiect, session);
             foundUsers.addAll(foundProject.getUsers());
 
             Query<ProiectSkill> projectSkillsQuery = session.createQuery("SELECT skills from ProiectSkill " +
-                    "skills JOIN FETCH skills.skill where ID_Proiect=:projectID",ProiectSkill.class);
+                    "skills JOIN FETCH skills.skill where ID_Proiect=:projectID", ProiectSkill.class);
             projectSkillsQuery.setParameter("projectID", foundProject.getProiectId());
 
             foundSkills.addAll(projectSkillsQuery.list());
 
-            for(UserExpleo tempUserExpleo:foundUsers){
-                for(UserSkill tempUserSkill: tempUserExpleo.getUserSkills()){
-                    for(ProiectSkill tempProjectSkill:foundSkills){
-                        if(tempProjectSkill.getSkill().equals(tempUserSkill.getSkill())){
+            for (UserExpleo tempUserExpleo : foundUsers) {
+                for (UserSkill tempUserSkill : tempUserExpleo.getUserSkills()) {
+                    for (ProiectSkill tempProjectSkill : foundSkills) {
+                        if (tempProjectSkill.getSkill().equals(tempUserSkill.getSkill())) {
                             foundUserSkills.add(tempUserSkill);
                         }
                     }
@@ -337,7 +335,7 @@ public class ProiectDAOImpl implements ProiectDAO {
     }
 
     private Proiect getProiect(String codProiect, Session session) {
-        Query query = session.createQuery("from Proiect where codProiect = :"+COD_PROIECT);
+        Query query = session.createQuery("from Proiect where codProiect = :" + COD_PROIECT);
         query.setParameter(COD_PROIECT, codProiect);
         return (Proiect) query.getSingleResult();
     }
