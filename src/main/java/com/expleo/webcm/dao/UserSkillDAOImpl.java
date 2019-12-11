@@ -2,7 +2,6 @@ package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.Principal;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,32 +12,17 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.NoResultException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Repository
 public class UserSkillDAOImpl implements UserSkillDAO {
 
+    private Logger logger = Logger.getLogger(getClass().getName());
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
     @Qualifier("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Override
-    public List<UserSkill> getUserSkill() {
-
-        Session currentSession = sessionFactory.openSession();
-
-        currentSession.beginTransaction();
-
-        Query<UserSkill> theQuery = currentSession.createQuery("from UserSkill", UserSkill.class);
-
-        List<UserSkill> userSkills = theQuery.getResultList();
-
-
-        currentSession.getTransaction().commit();
-
-        currentSession.close();
-
-        return userSkills;
-    }
 
 
 
@@ -47,18 +31,13 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-        UserSkill userSkill = new UserSkill(session.load(Skill.class, idSkill),session.load(UserExpleo.class, idUserExpleo));
-        session.save(userSkill);
+        UserSkill saveUS = new UserSkill(session.load(Skill.class, idSkill),
+                session.load(UserExpleo.class, idUserExpleo));
+        session.save(saveUS);
         session.flush();
 
-        Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-        usQuery.setParameter("id", idUserExpleo);
-        usQuery.setParameter("skillId", idSkill);
-
-        UserSkill us = (UserSkill) usQuery.getSingleResult();
-        session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
+        session.merge(new History(idUserExpleo, idSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
 
         session.getTransaction().commit();
@@ -67,27 +46,24 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
 
-    public void saveUserSkill(int idUser, int idSkill, int eval) {
+    public void updateUserSkill(int idUserExpleo, int idSkill, int eval) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query userSkillQuery = session.createQuery("select us from UserSkill us where user.id=: idUser and skill.id= :idSkill");
-        userSkillQuery.setParameter("idUser", idUser);
-        userSkillQuery.setParameter("idSkill", idSkill);
-
-
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            UserSkill userSkill = (UserSkill) userSkillQuery.getSingleResult();
-            session.flush();
+            UserSkill userSkill = getUserSkill(idUserExpleo, idSkill, session);
             userSkill.setEvaluation(eval);
+            session.merge(userSkill);
+            session.flush();
             boolean update = false;
 
             try {
-                Query historyQuery = session.createQuery("from History where idUserSkill=: idUser");
-                historyQuery.setParameter("idUser", userSkill.getId());
+                Query<History> historyQuery = session.createQuery(
+                        "from History where idUser=:idUser and idSkill=:idSkill", History.class);
+                historyQuery.setParameter("idUser", userSkill.getUser().getId());
+                historyQuery.setParameter("idSkill", userSkill.getSkill().getIdSkill());
 
-                List<History> history = new LinkedList<History>(historyQuery.list());
+                List<History> history = historyQuery.list();
                 session.flush();
 
                 for(History temp:history){
@@ -100,12 +76,12 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                     }
                 }
                 if(!update){
-                    session.save(new History(userSkill.getId(), eval, dateFormat.format(Calendar.getInstance().getTime())));
+                    session.save(new History(userSkill.getUser().getId(), userSkill.getSkill().getIdSkill(), eval, dateFormat.format(Calendar.getInstance().getTime())));
                     session.flush();
                 }
 
             }catch (NoResultException e){
-                System.out.println("UserSkillDAOImpl.saveUserSkill = no result historyQuery");
+                logger.info("UserSkillDAOImpl.saveUserSkill = no result historyQuery");
             }
 
             userSkill.setDataEvaluare(dateFormat.format(Calendar.getInstance().getTime()));
@@ -116,40 +92,6 @@ public class UserSkillDAOImpl implements UserSkillDAO {
             session.getTransaction().commit();
             session.close();
         }
-    }
-
-    @Override
-    public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
-
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Query query = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id");
-        query.setParameter("id", userExpleo.getId());
-
-        List<UserSkill> result = (List<UserSkill>) query.list();
-
-
-
-        session.getTransaction().commit();
-
-        session.close();
-
-        return result;
-    }
-
-    @Override
-    public void getUserByEvaluation(List<UserSkill> userSkills, int eval){
-
-        List<UserSkill> userSkillsLast = new LinkedList<>();
-
-        for(UserSkill temp: userSkills) {
-            if (temp.getEvaluation() < eval) {
-                userSkillsLast.add(temp);
-            }
-        }
-        userSkills.removeAll(userSkillsLast);
-        userSkillsLast.clear();
     }
 
 
@@ -173,19 +115,15 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query queryAllUserSkills = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id");
-        queryAllUserSkills.setParameter("id", userId);
-
-        List<UserSkill> allUserSkillsList =  new LinkedList<UserSkill>(queryAllUserSkills.list());
+        List<UserSkill> allUserSkillsList = getUserSkillsList(userId, session);
         session.flush();
 
-        Query queryUser =
-                session.createQuery("select user from UserExpleo user JOIN FETCH user.proiecte where user.id = :userId");
+        Query<UserExpleo> queryUser =
+                session.createQuery("select user from UserExpleo user " +
+                        "where user.id = :userId", UserExpleo.class);
         queryUser.setParameter("userId", userId);
-
-        UserExpleo principalUser = (UserExpleo) queryUser.getSingleResult();
+        UserExpleo principalUser = queryUser.getSingleResult();
         List<Proiect> principalProjects = principalUser.getProiecte();
-
         session.flush();
 
         List<Skill> skillsFromProjects = new LinkedList<>();
@@ -226,9 +164,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         UserExpleo principal = (UserExpleo) principalQuery.getSingleResult();
         session.flush();
 
-        Query principalUserSkills = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
-        principalUserSkills.setParameter("userId", principal.getId());
-        List<UserSkill> principalSkills = new LinkedList<UserSkill>(principalUserSkills.list());
+        List<UserSkill> principalSkills = getUserSkillsList(principal.getId(), session);
         session.flush();
 
         List<UserSkill> userSkillFromProjectSkill = new LinkedList<>();
@@ -244,9 +180,21 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                 userSkillFromProjectSkill.add(tempUserSkill);
             }
         }
-
         session.getTransaction().commit();
         session.close();
         return userSkillFromProjectSkill;
+    }
+
+    private UserSkill getUserSkill(int idUserExpleo, int idSkill, Session session) {
+        Query<UserSkill> usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId", UserSkill.class);
+        usQuery.setParameter("id", idUserExpleo);
+        usQuery.setParameter("skillId", idSkill);
+        return usQuery.getSingleResult();
+    }
+
+    private List<UserSkill> getUserSkillsList(int userId, Session session) {
+        Query<UserSkill> queryAllUserSkills = session.createQuery("SELECT us FROM UserSkill us JOIN FETCH us.skill JOIN FETCH us.user where us.user.id = :id", UserSkill.class);
+        queryAllUserSkills.setParameter("id", userId);
+        return queryAllUserSkills.list();
     }
 }

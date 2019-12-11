@@ -150,18 +150,24 @@ COLLATE = utf8_romanian_ci;
 
 CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_user_skill` INT(11) NOT NULL,
+  `id_user` INT(11) NOT NULL,
+  `id_skill` INT(11) NOT NULL,
   `evaluare` INT(1) UNSIGNED NOT NULL,
   `data_evaluare` DATE NOT NULL,
 
-  INDEX `FK_id_user_skill` (`id_user_skill` ASC) VISIBLE,
-  INDEX `FK_evaluare` (`evaluare` ASC) VISIBLE,
-  INDEX `FK_data_evaluare` (`data_evaluare` ASC) VISIBLE,
+  INDEX `FK_id_user` (`id_user` ASC) VISIBLE,
+  INDEX `FK_id_skill` (`id_skill` ASC) VISIBLE,
 
-  CONSTRAINT `FK_id_user_skill`
-    FOREIGN KEY (`id_user_skill`)
-    REFERENCES `expleodb`.`user_skill` (`id`),
-  PRIMARY KEY (`id`))
+  CONSTRAINT `FK_id_user`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `expleodb`.`user_skill` (`id_user`),
+  CONSTRAINT `FK_id_skill`
+    FOREIGN KEY (`id_skill`)
+    REFERENCES `expleodb`.`user_skill` (`id_skill`),
+
+  PRIMARY KEY (`id`),
+  KEY (`id_user`),
+  KEY (`id_skill`))
 
 ENGINE = InnoDB
 AUTO_INCREMENT = 6

@@ -14,7 +14,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/webCM")
-public class webCMController {
+public class WebCMController {
     @Autowired
     private UserService userService;
 
@@ -41,11 +41,6 @@ public class webCMController {
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer projectId) {
 
-//        List<ProiectSkill> skills = proiectService.showSkillsforProject(proiectId);
-//        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
-
-//        model.addAttribute("skillList", skills);
-//        model.addAttribute("userSkillList", proiectService.showEvalForUserSkills(skills, userExpleo));
         List<UserSkill> userSkillsFromProject = userSkillService.getUserSkillByProjectSkills(projectId);
         model.addAttribute("userSkillList", userSkillsFromProject);
         model.addAttribute("projectId", projectId);
@@ -69,7 +64,7 @@ public class webCMController {
         return "personalProfile";
     }
 
-    @RequestMapping("/personalProfile/showFormForAddSkill")
+    @GetMapping(value = "/personalProfile/showFormForAddSkill")
     public String showFormForAddSkill(ModelMap model){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
@@ -108,10 +103,10 @@ public class webCMController {
 
     }
 
-    @RequestMapping("/modifyP")
+    @GetMapping("/modifyP")
     public void modify(@RequestParam("evaluation") int eval, @RequestParam("idskill") int theId){
         UserExpleo user = userService.getUserExpleoPrincipal();
-        userSkillService.saveUserSkill(user.getId(), theId, eval);
+        userSkillService.updateUserSkill(user.getId(), theId, eval);
 
     }
 
@@ -120,12 +115,12 @@ public class webCMController {
                           @RequestParam(value = "proiectId") int idproiect){
 
         UserExpleo user = userService.getUserExpleoPrincipal();
-        userSkillService.saveUserSkill(user.getId(), idskill, eval);
+        userSkillService.updateUserSkill(user.getId(), idskill, eval);
 
         return competencyMatrix(model, idproiect);
     }
 
-    @RequestMapping("/currentProj")
+    @GetMapping("/currentProj")
     public String currentProjects(ModelMap model) {
         List<Proiect> proiectList = proiectService.findPrincipalProjects();
         model.addAttribute("proiectList", proiectList);
