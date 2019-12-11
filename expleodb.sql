@@ -166,8 +166,8 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
     REFERENCES `expleodb`.`user_skill` (`id_skill`),
 
   PRIMARY KEY (`id`),
-  KEY (`id`),
-  KEY (`id`))
+  KEY (`id_user`),
+  KEY (`id_skill`))
 
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
