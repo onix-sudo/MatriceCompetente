@@ -32,13 +32,12 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        UserSkill userSkillToSave = new UserSkill(session.load(Skill.class, idSkill),
+        UserSkill saveUS = new UserSkill(session.load(Skill.class, idSkill),
                 session.load(UserExpleo.class, idUserExpleo));
-        session.save(userSkillToSave);
+        session.save(saveUS);
         session.flush();
 
-        UserSkill userSkill = getUserSkill(idUserExpleo, idSkill, session);
-        session.merge(new History(userSkill.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
+        session.merge(new History(idUserExpleo, idSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
 
         session.getTransaction().commit();
@@ -53,13 +52,16 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         try {
             UserSkill userSkill = getUserSkill(idUserExpleo, idSkill, session);
-            session.flush();
             userSkill.setEvaluation(eval);
+            session.merge(userSkill);
+            session.flush();
             boolean update = false;
 
             try {
-                Query<History> historyQuery = session.createQuery("from History where idUserSkill=: idUser", History.class);
-                historyQuery.setParameter("idUser", userSkill.getId());
+                Query<History> historyQuery = session.createQuery(
+                        "from History where idUser=:idUser and idSkill=:idSkill", History.class);
+                historyQuery.setParameter("idUser", userSkill.getUser().getId());
+                historyQuery.setParameter("idSkill", userSkill.getSkill().getIdSkill());
 
                 List<History> history = historyQuery.list();
                 session.flush();
@@ -74,7 +76,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                     }
                 }
                 if(!update){
-                    session.save(new History(userSkill.getId(), eval, dateFormat.format(Calendar.getInstance().getTime())));
+                    session.save(new History(userSkill.getUser().getId(), userSkill.getSkill().getIdSkill(), eval, dateFormat.format(Calendar.getInstance().getTime())));
                     session.flush();
                 }
 

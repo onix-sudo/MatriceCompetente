@@ -3,9 +3,7 @@ package com.expleo.webcm.entity.expleodb;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity(name="UserSkill")
 @Table(name = "user_skill")
@@ -41,9 +39,6 @@ public class UserSkill{
         this.evaluation = 1;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         this.dataEvaluare = dateFormat.format(Calendar.getInstance().getTime());
-
-//        user.getUserSkills().add(this);
-//        skill.getUserSkills().add(this);
     }
 
     public int getId() {

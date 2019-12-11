@@ -320,13 +320,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
-    private void saveHistory(int user, int proiectSkill, Session session, SimpleDateFormat dateFormat) {
-        Query usQuery = session.createQuery("from UserSkill where user.id= :id and skill.id=:skillId");
-        usQuery.setParameter("id", user);
-        usQuery.setParameter("skillId", proiectSkill);
-
-        UserSkill us = (UserSkill) usQuery.getSingleResult();
-        session.merge(new History(us.getId(), 1, dateFormat.format(Calendar.getInstance().getTime())));
+    private void saveHistory(int idUser, int idSkill, Session session, SimpleDateFormat dateFormat) {
+        session.merge(new History(idUser, idSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
     }
 

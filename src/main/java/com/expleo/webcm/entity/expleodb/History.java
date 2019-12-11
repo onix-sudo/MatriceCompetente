@@ -11,8 +11,11 @@ public class History {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="id_user_skill")
-    private Integer idUserSkill;
+    @Column(name="id_user")
+    private Integer idUser;
+
+    @Column(name="id_skill")
+    private Integer idSkill;
 
     @Column(name="evaluare")
     private int evaluare;
@@ -23,8 +26,9 @@ public class History {
     public History() {
     }
 
-    public History(Integer idUserSkill, int evaluare, String date) {
-        this.idUserSkill = idUserSkill;
+    public History(Integer idUser, Integer idSkill, int evaluare, String date) {
+        this.idUser = idUser;
+        this.idSkill = idSkill;
         this.evaluare = evaluare;
         this.date = date;
     }
@@ -37,12 +41,20 @@ public class History {
         this.id = id;
     }
 
-    public Integer getIdUserSkill() {
-        return idUserSkill;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setIdUserSkill(Integer idUserSkill) {
-        this.idUserSkill = idUserSkill;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
+    public Integer getIdSkill() {
+        return idSkill;
+    }
+
+    public void setIdSkill(Integer idSkill) {
+        this.idSkill = idSkill;
     }
 
     public int getEvaluare() {
