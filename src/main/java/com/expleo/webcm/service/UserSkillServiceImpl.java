@@ -1,7 +1,6 @@
 package com.expleo.webcm.service;
 
 import com.expleo.webcm.dao.UserSkillDAO;
-import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.expleodb.UserSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,37 +16,20 @@ public class UserSkillServiceImpl implements UserSkillService {
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public List<UserSkill> getUserSkill() {
-        return userSkillDAO.getUserSkill();
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public List<UserSkill> getUserSkillByUser(UserExpleo userExpleo) {
-        return userSkillDAO.getUserSkillByUser(userExpleo);
-    }
-
-    @Override
-    public void getUserByEvaluation(List<UserSkill> userSkills, int eval) {
-        userSkillDAO.getUserByEvaluation(userSkills,eval);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
-    public void removeUserSkill(int idUserExpleo, int idSkill) {
-        userSkillDAO.removeUserSkill(idUserExpleo,idSkill);
-    }
-
-    @Override
-    @Transactional("transactionExpleoDBManager")
     public void saveUserSkill(int idUser, int idSkill) {
         userSkillDAO.saveUserSkill(idUser,idSkill);
     }
 
     @Override
     @Transactional("transactionExpleoDBManager")
-    public void saveUserSkill(int idUser, int idSkill, int eval) {
-        userSkillDAO.saveUserSkill(idUser, idSkill, eval);
+    public void updateUserSkill(int idUser, int idSkill, int eval) {
+        userSkillDAO.updateUserSkill(idUser, idSkill, eval);
+    }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public void removeUserSkill(int idUserExpleo, int idSkill) {
+        userSkillDAO.removeUserSkill(idUserExpleo,idSkill);
     }
 
     @Override
