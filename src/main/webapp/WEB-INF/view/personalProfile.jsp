@@ -90,7 +90,7 @@
 <div>
 
 <!--<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>-->
-<button type="button" class="btn btn-warning" onclick="window.location.href='/changePassword'">Schimba parola</button>
+<button type="button" class="btn btn-warning" onclick="schimbaParola()">Schimba parola</button>
 <button type="button" class="btn btn-info" onclick="addSkill()">Adauga Skill</button>
 <button type="button" class="btn btn-info" onclick="viewHistory()">Istoric</button>
 
@@ -115,9 +115,6 @@
             }
         });
 
-        console.log("/webCM/modifyP?evaluation=" + evaluation + "&idskill=" + idSkill);
-
-
         return false;
     }
 
@@ -141,8 +138,12 @@
     }
 
     function viewHistory() {
-            $("#div2").load("webCM/personalProfile/viewHistory");
-        }
+        $("#div2").load("webCM/personalProfile/viewHistory");
+    }
+
+    function schimbaParola() {
+        $("#div2").load("/changePassword");
+    }
 </script>
 
 

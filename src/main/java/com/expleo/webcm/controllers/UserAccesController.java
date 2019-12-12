@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -47,7 +44,8 @@ public class UserAccesController {
     }
 
     @PostMapping("/changePassword/save")
-    public String saveChangePassword(@ModelAttribute("password") Password password, ModelMap model) {
+
+    public String saveChangePassword(@Valid @ModelAttribute("password") Password password, ModelMap model) {
         List<String> errorMessages = new PasswordValidator().isValid(password.getNewPassword());
 
 

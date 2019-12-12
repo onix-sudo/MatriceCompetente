@@ -3,15 +3,14 @@ var dataList = [];
 
 
 function pushSkill(val, data) {
-    console.log(val);
     jsVarList.push(val);
-    console.log(jsVarList);
     dataList.push(data);
-    console.log(dataList);
 }
 
 
 function plotRadar() {
+    dataList.push(dataList[0]);
+    jsVarList.push(jsVarList[0]);
 
     data = [{
       type: 'scatterpolar',

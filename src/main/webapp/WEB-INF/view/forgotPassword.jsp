@@ -4,7 +4,7 @@
     <h2> Emailul ${email} nu exista in baza de date. </h2>
     </c:if>
                 <form:form action="${pageContext.request.contextPath}/forgotPassword/reset"
-                           method="POST" class="form-horizontal">
+                           method="POST" class="form-group">
 
 
                                 <c:if test="${param.error != null}">

@@ -14,6 +14,8 @@
 
 8. Profil Personal -> Competente aditionale -> Valoare noua -> Submit nu merge
 
+9. Adauga angajat in proiect -> De rezolvat
+
 10. Errori
 
 - atunci cand lista de personal skill e goala, javax.persistence.NoResultException
