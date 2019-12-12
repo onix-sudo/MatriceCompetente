@@ -75,41 +75,9 @@
         });
     });
 
-    function removeEmpFromProject(userId) {
-        $.ajax({
-            type: "POST",
-            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-            data: {userId: userId},
-            url: "/webCM/leaders/project/${varPath}/removeEmp",
-            success: function(){
-                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
-            },
-            error: function(res){
-                    console.log("ERROR");
-                    console.log(res);
-            }
-        });
 
-        return false;
-    }
 
-    function removeSkillForProject(skillId) {
-        $.ajax({
-            type: "POST",
-            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-            data: {skillId: skillId},
-            url: "/webCM/leaders/project/${varPath}/removeSkill",
-            success: function(){
-                $("#div3").load("/webCM/leaders/project/" + '${codProiect}');
-            },
-            error: function(res){
-                    console.log("ERROR");
-                    console.log(res);
-            }
-        });
 
-        return false;
-    }
 
     function changePondere(valuePondere, skillId) {
         var url = "/webCM/leaders/project/${varPath}/setPondere?value=" + valuePondere + "&skillId=" + skillId;

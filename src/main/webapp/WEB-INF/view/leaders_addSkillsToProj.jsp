@@ -127,8 +127,6 @@
 
 
 <script>
-
-
     function addSkill(skillId, tableRowNr, searchTerm) {
                 $.ajax({
                     url: "/webCM/leaders/project/" + '${varPath}' + "/add",
@@ -167,5 +165,25 @@
 
             return false;
     }
+
+    function removeSkillForProject(skillId) {
+            $.ajax({
+                type: "POST",
+                headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                data: {skillId: skillId},
+                url: "/webCM/leaders/project/${varPath}/removeSkill",
+                success: function(){
+                    $("#div3").load("/webCM/leaders/project/${varPath}/addSkills");
+                },
+                error: function(res){
+                        console.log("ERROR");
+                        console.log(res);
+                }
+            });
+
+            return false;
+    }
+
+
 
 </script>

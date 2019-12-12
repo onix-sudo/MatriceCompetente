@@ -144,6 +144,22 @@
             return false;
         }
 
+        function removeEmpFromProject(userId) {
+                    $.ajax({
+                        type: "POST",
+                        headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                        data: {userId: userId},
+                        url: "/webCM/leaders/project/${varPath}/removeEmp",
+                        success: function(){
+                            $("#div3").load("/webCM/leaders/project/" + varPath + "/adaugaColaboratori");
+                        },
+                        error: function(res){
+                                console.log("ERROR");
+                                console.log(res);
+                        }
+                    });
 
+                    return false;
+             }
 
 </script>
