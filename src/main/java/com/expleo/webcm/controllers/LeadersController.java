@@ -127,12 +127,10 @@ public class LeadersController {
 
     @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
-
         List<UserExpleo> users = new LinkedList<>();
         List<ProiectSkill> skills = new LinkedList<>();
 
         Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -182,9 +180,6 @@ public class LeadersController {
 
         model.addAttribute("result", foundUsers);
         model.addAttribute("searchTermUser", searchTerm);
-
-        System.out.println("foundUsers = " + foundUsers);
-
         return "leaders_addEmpToProj";
     }
 
@@ -202,17 +197,12 @@ public class LeadersController {
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.removeUserFromProject(codProiect, userId);
-
-        System.out.println("//////////////////////////////////////////////////////////codProiect = " + codProiect);
-
-        //return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
     @PostMapping(value = "/project/{codProiect}/renuntaLaProiect")
     public @ResponseBody String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
         proiectService.dropTheProject(codProiect);
-
         return "ceva";
     }
 
@@ -227,14 +217,7 @@ public class LeadersController {
     @GetMapping("/freeProjects/add")
     public void addFreeProject(@RequestParam("codProiect") String codProiect, ModelMap model)
     {
-
         proiectService.addFreeProject(codProiect, Principal.getPrincipal());
-
-
-
-        System.out.println("codProiect = " + codProiect);
-
-//        return "redirect:/webCM/leaders/freeProjects";
     }
 
     @GetMapping("/project/{codProiect}/addSkills")
@@ -243,7 +226,6 @@ public class LeadersController {
         List<ProiectSkill> skills = new LinkedList<>();
 
         Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -257,16 +239,10 @@ public class LeadersController {
     @PostMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam(required = false, name = "searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-
-        System.out.println("/.///////////////////////codProiect = " + codProiect);
-        System.out.println("//////////////////////////////////SEARCHTERM = " + searchTerm);
-        System.out.println("/////////////////////////searchService = " + searchService);
-
         List<UserExpleo> users = new LinkedList<>();
         List<ProiectSkill> skills = new LinkedList<>();
 
         Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -287,11 +263,6 @@ public class LeadersController {
                                         @RequestParam("skillId") Integer skillId, ModelMap model)
     {
         proiectService.addSkillToProject(codProiect, skillId);
-        System.out.println("******************************ADSKILLS/ADD******************** ");
-
-
-
-//        return "redirect:/webCM/leaders/project/" + codProiect;
     }
 
     @PostMapping("/project/{codProiect}/removeSkill")
@@ -299,7 +270,6 @@ public class LeadersController {
                                        @RequestParam("skillId") Integer skillId)
     {
         proiectService.removeSkillFromProject(codProiect, skillId);
-
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
@@ -309,9 +279,6 @@ public class LeadersController {
                              @RequestParam("value") Integer pondere) {
 
         proiectService.setPondere(codProiect, skillId, pondere);
-
-        System.out.println("//////////////////////////////SETPONDERE/////////");
-        //return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
     @GetMapping("/project/{codProiect}/setTarget")
@@ -320,8 +287,6 @@ public class LeadersController {
                              @RequestParam("value") Integer target) {
 
         proiectService.setTarget(codProiect, skillId, target);
-
-        //return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
     @GetMapping("/project/{codProiect}/matrix")
@@ -336,7 +301,6 @@ public class LeadersController {
         CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
         List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
         createMatrixTeam.sortMatrixTeamList(matrixTeam);
-
 
         model.addAttribute("matrixTeam", matrixTeam);
 
