@@ -20,4 +20,5 @@
 
 - atunci cand lista de personal skill e goala, javax.persistence.NoResultException
 
-
+- org.hibernate.search.exception.EmptyQueryException: HSEARCH000146: The query string '' applied on field 'nume' has no meaningful tokens to be matched. Validate the query input against the Analyzer applied on this field.
+(unele searchuri la adauga colaboratori)
