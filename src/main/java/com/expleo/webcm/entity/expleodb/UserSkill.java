@@ -30,6 +30,17 @@ public class UserSkill{
     @Column(name="data_evaluare")
     private String dataEvaluare;
 
+//    @OneToMany(mappedBy = "userSkill")
+//    private Set<History> histories;
+//
+//    public Set<History> getHistories() {
+//        return histories;
+//    }
+//
+//    public void setHistories(Set<History> histories) {
+//        this.histories = histories;
+//    }
+
     public UserSkill() {
     }
 

@@ -160,10 +160,10 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
 
   CONSTRAINT `FK_id_user`
     FOREIGN KEY (`id_user`)
-    REFERENCES `expleodb`.`user_skill` (`id_user`),
+    REFERENCES `expleodb`.`user` (`ID_user`),
   CONSTRAINT `FK_id_skill`
     FOREIGN KEY (`id_skill`)
-    REFERENCES `expleodb`.`user_skill` (`id_skill`),
+    REFERENCES `expleodb`.`skill` (`ID_skill`),
 
   PRIMARY KEY (`id`),
   KEY (`id_user`),

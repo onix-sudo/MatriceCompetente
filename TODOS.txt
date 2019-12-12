@@ -14,4 +14,8 @@
 
 8. Profil Personal -> Competente aditionale -> Valoare noua -> Submit nu merge
 
+10. Errori
+
+- atunci cand lista de personal skill e goala, javax.persistence.NoResultException
+
 

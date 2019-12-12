@@ -101,6 +101,19 @@ public class ProiectSkill {
     }
 
     @Override
+    public String toString() {
+        return "ProiectSkill{" +
+                "id=" + id +
+                ", proiect=" + proiect +
+                ", skill=" + skill +
+                ", pondere=" + pondere +
+                ", target=" + target +
+                '}';
+    }
+
+
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, proiect, skill, pondere);
     }

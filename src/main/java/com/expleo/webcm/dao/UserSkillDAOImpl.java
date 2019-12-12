@@ -31,13 +31,14 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        Skill loadSkill = session.load(Skill.class, idSkill);
+        UserExpleo loadUser = session.load(UserExpleo.class, idUserExpleo);
 
-        UserSkill saveUS = new UserSkill(session.load(Skill.class, idSkill),
-                session.load(UserExpleo.class, idUserExpleo));
+        UserSkill saveUS = new UserSkill(loadSkill, loadUser);
         session.save(saveUS);
         session.flush();
 
-        session.merge(new History(idUserExpleo, idSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
+        session.merge(new History(loadUser, loadSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
 
         session.getTransaction().commit();
@@ -81,7 +82,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                         session.remove(histories.get(0));
                         session.flush();
                     }
-                    session.save(new History(userSkill.getUser().getId(), userSkill.getSkill().getIdSkill(), eval, dateFormat.format(Calendar.getInstance().getTime())));
+                    session.save(new History(userSkill.getUser(), userSkill.getSkill(), eval, dateFormat.format(Calendar.getInstance().getTime())));
                     session.flush();
                 }
 

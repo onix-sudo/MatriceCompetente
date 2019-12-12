@@ -1,6 +1,9 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.*;
+import com.expleo.webcm.helper.HistoryCluster;
+import com.expleo.webcm.helper.HistoryForWeb;
+import com.expleo.webcm.helper.HistoryForWebUtil;
 import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
@@ -10,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/webCM")
@@ -30,6 +32,9 @@ public class WebCMController {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @GetMapping
     public String webCM(ModelMap model){
@@ -126,5 +131,30 @@ public class WebCMController {
         return "currentProj";
     }
 
+    @RequestMapping("/personalProfile/viewHistory")
+    public String viewHistory(ModelMap model){
+
+        UserExpleo user = userService.getUserExpleoPrincipal();
+
+        List<History> histories = historyService.getHistoryByUserId(user.getId());
+        List<HistoryForWeb> resultList = new HistoryForWebUtil().makeList(histories);
+
+//        System.out.println("histories = " + histories);
+
+        model.addAttribute("histories", resultList);
+
+//        List<HistoryCluster> historyClusters = new LinkedList<>();
+
+//        for(History history: histories){
+//         historyClusters.add(new HistoryCluster(history.getDate(),skillService.getSkill(history.getIdSkill()),history.getEvaluare()));
+//        }
+//
+        model.addAttribute("histories", resultList);
+
+//        System.out.println("historyClusters = " + historyClusters);
+
+
+        return "personalHistory";
+    }
 
 }

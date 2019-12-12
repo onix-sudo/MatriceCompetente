@@ -11,11 +11,13 @@ public class History {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="id_user")
-    private Integer idUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ID_user")
+    private UserExpleo user;
 
-    @Column(name="id_skill")
-    private Integer idSkill;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_skill")
+    private Skill skill;
 
     @Column(name="evaluare")
     private int evaluare;
@@ -26,9 +28,9 @@ public class History {
     public History() {
     }
 
-    public History(Integer idUser, Integer idSkill, int evaluare, String date) {
-        this.idUser = idUser;
-        this.idSkill = idSkill;
+    public History(UserExpleo user, Skill skill, int evaluare, String date) {
+        this.user = user;
+        this.skill = skill;
         this.evaluare = evaluare;
         this.date = date;
     }
@@ -41,20 +43,20 @@ public class History {
         this.id = id;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public UserExpleo getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(UserExpleo user) {
+        this.user = user;
     }
 
-    public Integer getIdSkill() {
-        return idSkill;
+    public Skill getSkill() {
+        return skill;
     }
 
-    public void setIdSkill(Integer idSkill) {
-        this.idSkill = idSkill;
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public int getEvaluare() {

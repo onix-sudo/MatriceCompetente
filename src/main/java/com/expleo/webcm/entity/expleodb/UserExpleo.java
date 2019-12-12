@@ -103,6 +103,9 @@ public class UserExpleo {
     @OneToMany(mappedBy = "user")
     private Set<UserSkill> userSkills;
 
+    @OneToMany(mappedBy = "user")
+    private List<History> histories;
+
     public Set<Skill> getSkillsRequired() {
         return skillsRequired;
     }
@@ -200,6 +203,14 @@ public class UserExpleo {
             userSkills = new HashSet<>();
         }
         userSkills.add(skill);
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
 
     public void removeProiecte(Proiect proiect) {
