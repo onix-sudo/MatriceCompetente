@@ -55,7 +55,7 @@ public class CreatePdf {
         // Write the total number of pages to the placeholder
         footerHandler.writeTotal(pdf);
 
-        document.setMargins(120,30,10,30);
+        document.setMargins(100,30,10,30);
 
         Table table = new Table(new float[6]).useAllAvailableWidth();
         table.setMarginTop(0);
@@ -89,7 +89,7 @@ public class CreatePdf {
 
         try {
 
-            document.add(table.setMargins(0,20,60,20));
+            document.add(table.setMargins(0,20,40,20));
             pdf.close();
             document.close();
 
