@@ -139,7 +139,7 @@ th
         e.preventDefault();
 
         $.ajax({
-            type: "POST",á
+            type: "POST",
             headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
             url: "${pageContext.request.contextPath}/webCM/leaders/project/${codProiect}/renuntaLaProiect",
             contentType : "application/json",
