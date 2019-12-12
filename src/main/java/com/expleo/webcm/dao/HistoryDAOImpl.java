@@ -23,7 +23,7 @@ public class HistoryDAOImpl implements HistoryDAO {
 
         Session session = sessionFactory.openSession();
         Query<History> query = session.createQuery(
-                "select h FROM History h join fetch h.skill where h.user.id= :id order by h.skill.id, h.date", History.class);
+                "select h FROM History h join fetch h.skill where h.user.id= :id order by h.skill.id, h.date asc", History.class);
 
         query.setParameter("id", id);
         List<History> result = query.list();

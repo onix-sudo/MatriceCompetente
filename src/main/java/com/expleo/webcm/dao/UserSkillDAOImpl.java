@@ -60,7 +60,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
             try {
                 Query<History> historyQuery = session.createQuery(
-                        "from History where idUser=:idUser and idSkill=:idSkill", History.class);
+                        "from History where user.id=:idUser and skill.id=:idSkill", History.class);
                 historyQuery.setParameter("idUser", userSkill.getUser().getId());
                 historyQuery.setParameter("idSkill", userSkill.getSkill().getIdSkill());
 
@@ -206,7 +206,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
     private List<History> getHistoryList(int userId, int skillId, Session session) {
         Query<History> queryAllUserSkills = session.createQuery(
-                "from History where idUser=:id and idSkill=:skillId order by date asc", History.class);
+                "from History where user.id=:id and skill.id=:skillId order by date asc", History.class);
         queryAllUserSkills.setParameter("id", userId);
         queryAllUserSkills.setParameter("skillId", skillId);
         return queryAllUserSkills.list();

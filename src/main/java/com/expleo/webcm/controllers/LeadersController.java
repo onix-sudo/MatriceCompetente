@@ -139,6 +139,20 @@ public class LeadersController {
         model.addAttribute("intervalPondere", INTERVAL_PONDERE);
         model.addAttribute("intervalTarget", INTERVAL_TARGET);
 
+        List<UserExpleo> foundUsers = new LinkedList<>();
+        List<ProiectSkill> foundSkills = new LinkedList<>();
+        List<UserSkill> foundUserSkills = new LinkedList<>();
+
+        proiectService.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
+
+        CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
+        List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
+        createMatrixTeam.sortMatrixTeamList(matrixTeam);
+
+        model.addAttribute("foundSkills", foundSkills);
+
+        model.addAttribute("matrixTeam", matrixTeam);
+
         return "leaders_detaliiProiect";
     }
 
@@ -210,7 +224,7 @@ public class LeadersController {
     public String freeProjects(Model model){
         List<Proiect> result = proiectService.getFreeProjects();
         model.addAttribute("result", result);
-        
+
         return "leaders_freeProjects";
     }
 
@@ -287,25 +301,5 @@ public class LeadersController {
                              @RequestParam("value") Integer target) {
 
         proiectService.setTarget(codProiect, skillId, target);
-    }
-
-    @GetMapping("/project/{codProiect}/matrix")
-    public String matrice(@PathVariable("codProiect") String codProiect, ModelMap model){
-
-        List<UserExpleo> foundUsers = new LinkedList<>();
-        List<ProiectSkill> foundSkills = new LinkedList<>();
-        List<UserSkill> foundUserSkills = new LinkedList<>();
-
-        proiectService.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
-
-        CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
-        List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
-        createMatrixTeam.sortMatrixTeamList(matrixTeam);
-
-        model.addAttribute("foundSkills", foundSkills);
-
-        model.addAttribute("matrixTeam", matrixTeam);
-
-        return "dropdownMatrix";
     }
 }
