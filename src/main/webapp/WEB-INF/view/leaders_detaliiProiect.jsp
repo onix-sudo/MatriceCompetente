@@ -72,7 +72,9 @@ th
                         <td><b>Necesar</b></td>
                         <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                             <td><b>${projectSkill.target}</b></td>
-
+                                <script>
+                                    pushTargetVal(${projectSkill.target});
+                                </script>
                         </c:forEach>
 
                         <td></td>
@@ -97,12 +99,6 @@ th
                 </table>
             </div>
         </div>
-
-        <c:forEach var="foundSkills" items="${foundSkills}" varStatus="status">
-                <script>
-                    pushTargetVal(${foundSkills.target});
-                </script>
-        </c:forEach>
 
         <c:forEach var="user" items="${matrixTeam}" varStatus="status">
                 <script>
