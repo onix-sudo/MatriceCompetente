@@ -10,7 +10,6 @@ import org.hibernate.search.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -54,6 +53,9 @@ public class Skill {
 
     @OneToMany(mappedBy = "skill")
     private Set<UserSkill> userSkills;
+
+    @OneToMany(mappedBy = "skill")
+    private List<History> histories;
 
     public Skill() {
 
@@ -105,6 +107,14 @@ public class Skill {
 
     public void setUserSkills(Set<UserSkill> userSkills) {
         this.userSkills = userSkills;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
 
     public void addProiect(ProiectSkill proiectSkill){

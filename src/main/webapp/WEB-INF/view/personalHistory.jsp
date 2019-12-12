@@ -14,14 +14,26 @@
 
 <html>
 
-        <c:forEach var="history" items="${historyClusters}" varStatus="status">
+        <c:forEach var="history" items="${histories}" varStatus="status">
+            <c:forEach var="eval" items="${history.evaluations}">
             <script>
+                pushEval("${eval}");
+            </script>
+            </c:forEach>
+            <c:forEach var="date" items="${history.date}">
+            <script>
+                pushData("${date}");
+            </script>
+            </c:forEach>
+            <script>
+                push("${history.skill.numeSkill}");
+                <%--push();--%>
+            </script>
+        </c:forEach>
+<%--            <script>
                       pushValues("${history.date}",${history.evaluare},"${history.skill.numeSkill}");
                       push();
-            </script>
-
-
-        </c:forEach>
+            </script>--%>
 
 <div id="myDiv">
     <script>

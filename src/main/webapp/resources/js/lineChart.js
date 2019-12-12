@@ -1,64 +1,38 @@
 var evalList = [];
 var dataList = [];
-
-var tempEval = [];
-var tempData = [];
-
 var finalData= [];
-var names = [];
+//var names = [];
 
-function pushValues(eval, data, nm){
-
+function pushEval(eval){
     evalList.push(eval);
-    tempEval.push(eval);
-
+}
+function pushData(data){
     dataList.push(data);
-    tempData.push(data);
-
+}
+function pushName(nm){
     names.push(nm);
-
-    console.log(names);
 }
 
-function push() {
+function push(nm) {
 
     var newObject = {
-      x: evalList, // data
-      y: dataList,  // evaluari
+      x: dataList,  // evaluari
+      y: evalList, // data
       mode: 'lines+markers',
     };
 
-for(var i =0; i<names.length; i++){
-
-      if((names[i] === names[i+1])){
-
-       var obj = {
-             x:[tempEval[i], tempEval[i+1]], // tempEval[i] + tempEval[i+1], // data
-             y: [tempData[i],tempData[i+1]], //tempData[i]+ tempData[i+1],  // evaluari
-             mode: 'lines+markers',
-             name: names[i]
-           };
-
-        console.log(tempEval[i] + tempEval[i+1]);
-        finalData.push(obj);
-
-      }
-      newObject.name = names[i];
-      }
-
+    newObject.name = nm;
     finalData.push(newObject);
 
     evalList = [];
     dataList = [];
-
-
 }
 
 
 function plot(){
 
 var layout = {
-  title:'Line and Scatter Plot'
+  title:'Istorie evaluari'
 };
 
 Plotly.newPlot('myDiv', finalData, layout);

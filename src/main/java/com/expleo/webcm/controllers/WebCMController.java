@@ -2,6 +2,8 @@ package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.HistoryCluster;
+import com.expleo.webcm.helper.HistoryForWeb;
+import com.expleo.webcm.helper.HistoryForWebUtil;
 import com.expleo.webcm.service.*;
 import com.expleo.webcm.service.ProiectService;
 import com.expleo.webcm.service.UserService;
@@ -135,20 +137,21 @@ public class WebCMController {
         UserExpleo user = userService.getUserExpleoPrincipal();
 
         List<History> histories = historyService.getHistoryByUserId(user.getId());
+        List<HistoryForWeb> resultList = new HistoryForWebUtil().makeList(histories);
 
-        System.out.println("histories = " + histories);
+//        System.out.println("histories = " + histories);
 
-        model.addAttribute("histories", histories);
+        model.addAttribute("histories", resultList);
 
-        List<HistoryCluster> historyClusters = new LinkedList<>();
+//        List<HistoryCluster> historyClusters = new LinkedList<>();
 
-        for(History history: histories){
-         historyClusters.add(new HistoryCluster(history.getDate(),skillService.getSkill(history.getIdSkill()),history.getEvaluare()));
-        }
+//        for(History history: histories){
+//         historyClusters.add(new HistoryCluster(history.getDate(),skillService.getSkill(history.getIdSkill()),history.getEvaluare()));
+//        }
+//
+        model.addAttribute("histories", resultList);
 
-        model.addAttribute("historyClusters", historyClusters);
-
-        System.out.println("historyClusters = " + historyClusters);
+//        System.out.println("historyClusters = " + historyClusters);
 
 
         return "personalHistory";

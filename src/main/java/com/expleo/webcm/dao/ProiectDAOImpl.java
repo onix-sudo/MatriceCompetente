@@ -103,7 +103,7 @@ public class ProiectDAOImpl implements ProiectDAO {
                     session.merge(new UserSkill(proiectSkill.getSkill(), user));
                     session.flush();
 
-                    saveHistory(user.getId(), proiectSkill.getSkill().getIdSkill(), session, dateFormat);
+                    saveHistory(user, proiectSkill.getSkill(), session, dateFormat);
                 }
             } else {
                 List<Skill> projectSkill = new LinkedList<>();
@@ -122,7 +122,7 @@ public class ProiectDAOImpl implements ProiectDAO {
                         session.merge(new UserSkill(tempSkill, user));
                         session.flush();
 
-                        saveHistory(user.getId(), tempSkill.getIdSkill(), session, dateFormat);
+                        saveHistory(user, tempSkill, session, dateFormat);
                     }
                 }
             }
@@ -183,7 +183,7 @@ public class ProiectDAOImpl implements ProiectDAO {
             if (tempUser.getUserSkills().isEmpty()) {
                 session.merge(new UserSkill(skill, tempUser));
                 session.flush();
-                saveHistory(tempUser.getId(), skillId, session, dateFormat);
+                saveHistory(tempUser, skill, session, dateFormat);
             } else {
                 List<Skill> tempUserSkills = new LinkedList<>();
                 for (UserSkill tempUserSkill : tempUser.getUserSkills()) {
@@ -192,7 +192,7 @@ public class ProiectDAOImpl implements ProiectDAO {
                 if (!tempUserSkills.contains(skill)) {
                     session.merge(new UserSkill(skill, tempUser));
                     session.flush();
-                    saveHistory(tempUser.getId(), skillId, session, dateFormat);
+                    saveHistory(tempUser, skill, session, dateFormat);
                     session.flush();
                 }
             }
@@ -318,8 +318,8 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
-    private void saveHistory(int idUser, int idSkill, Session session, SimpleDateFormat dateFormat) {
-        session.merge(new History(idUser, idSkill, 1, dateFormat.format(Calendar.getInstance().getTime())));
+    private void saveHistory(UserExpleo user, Skill skill, Session session, SimpleDateFormat dateFormat) {
+        session.merge(new History(user, skill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
     }
 
