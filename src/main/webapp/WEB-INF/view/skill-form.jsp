@@ -111,7 +111,7 @@
 
 
 
-<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile'">Back</button>
+<button type="button" onclick="showSkills()" class="btn btn-info">Back</button>
 
 <script>
     function ps(skillID, userID) {
@@ -131,11 +131,13 @@
         return false;
     }
 
-        function search() {
+    function search() {
         $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
 
         return false;
     }
+
+
 
 </script>
 

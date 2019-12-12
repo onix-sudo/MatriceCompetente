@@ -135,7 +135,11 @@ public class UserAccesController {
         List<String> errorMessages = new PasswordValidator().isValid(password.getNewPassword());
         model.addAttribute("token", token);
 
-         if(!password.getNewPassword().equals(password.getConfirmPassword())){
+        if(password.getNewPassword().isEmpty() || password.getConfirmPassword().isEmpty()) {
+            errorMessages.add("Nu ati introdus nimic.");
+            model.addAttribute("errors", errorMessages);
+            return newPassword(token, model);
+        } else if(!password.getNewPassword().equals(password.getConfirmPassword())){
             errorMessages.add("Confirmarea parolei nu coincide cu noua parola.");
             model.addAttribute("errors", errorMessages);
             return newPassword(token, model);

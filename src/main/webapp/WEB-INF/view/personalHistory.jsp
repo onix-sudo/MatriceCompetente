@@ -13,6 +13,7 @@
 
 
 <html>
+        <button type="button" onclick="showSkills()" class="btn btn-info">Back</button>
 
         <c:forEach var="history" items="${histories}" varStatus="status">
             <c:forEach var="eval" items="${history.evaluations}">
