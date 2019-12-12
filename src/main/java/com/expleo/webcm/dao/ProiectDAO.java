@@ -24,4 +24,5 @@ public interface ProiectDAO {
     boolean foundCodProiectExpleo(String value);
     boolean hasPrincipalProject(String codProiect);
     Proiect findProjectByCodProiect(String codProiect);
+    Proiect getProjectByCodProiect(String codProiect);
 }

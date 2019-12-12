@@ -25,4 +25,5 @@ public interface ProiectService {
     void setTarget(String codProiect, Integer skillId, Integer target);
     boolean foundCodProiectExpleo(String value);
     boolean hasPrincipalProject(String codProiect);
+    Proiect getProjectByCodProiect(String codProiect);
 }

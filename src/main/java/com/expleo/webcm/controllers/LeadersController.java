@@ -34,7 +34,6 @@ import java.util.*;
 public class LeadersController {
 
     private static final int[] INTERVAL_PONDERE = {1,2,3,4,5,6,7,8,9,10};
-
     private static final int[] INTERVAL_TARGET = {1,2,3,4};
 
     @Autowired
@@ -57,7 +56,6 @@ public class LeadersController {
 
         return "leaders_home";
     }
-
 
     @GetMapping("/searchPeople")
     public String showSearchPeople(){
@@ -104,7 +102,7 @@ public class LeadersController {
 
     @PostMapping(value = "/addProject", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public Object addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
+    public ValidateResponse addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){
         ValidateResponse validateResponse = new ValidateResponse();
 
         if(result.hasErrors()){
@@ -127,33 +125,21 @@ public class LeadersController {
 
     @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
-        List<UserExpleo> users = new LinkedList<>();
-        List<ProiectSkill> skills = new LinkedList<>();
-
-        Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
-        model.addAttribute("users", users);
-        model.addAttribute("skills", skills);
-        model.addAttribute("project", proiect);
-        model.addAttribute("varPath", codProiect);
-        model.addAttribute("intervalPondere", INTERVAL_PONDERE);
-        model.addAttribute("intervalTarget", INTERVAL_TARGET);
-
         List<UserExpleo> foundUsers = new LinkedList<>();
         List<ProiectSkill> foundSkills = new LinkedList<>();
         List<UserSkill> foundUserSkills = new LinkedList<>();
+        CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
 
         proiectService.findProjectUsersAndSkills(codProiect, foundUsers, foundSkills, foundUserSkills);
-
-        CreateMatrixTeam createMatrixTeam = new CreateMatrixTeam();
         List<MatrixTeamMember> matrixTeam = createMatrixTeam.makeMatrixTeamList(foundUsers,foundSkills,foundUserSkills);
         createMatrixTeam.sortMatrixTeamList(matrixTeam);
 
+        model.addAttribute("project", proiectService.getProjectByCodProiect(codProiect));
         model.addAttribute("foundSkills", foundSkills);
-
         model.addAttribute("matrixTeam", matrixTeam);
 
         return "leaders_detaliiProiect";
+
     }
 
     @GetMapping("/project/{codProiect}/adaugaColaboratori")

@@ -3,6 +3,7 @@ package com.expleo.webcm.dao;
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.Principal;
 import com.expleo.webcm.service.UserService;
+import org.hibernate.QueryException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -315,6 +316,13 @@ public class ProiectDAOImpl implements ProiectDAO {
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public Proiect getProjectByCodProiect(String codProiect) {
+        try(Session session = openSession()){
+            return getProiect(codProiect,session);
         }
     }
 
