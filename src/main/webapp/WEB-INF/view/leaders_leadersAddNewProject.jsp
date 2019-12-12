@@ -75,30 +75,30 @@
       //Prevent default submission of form
       e.preventDefault();
 
-      //Remove all errors
-      $('input').next().remove();
+      var form = $(this);
 
       $.ajax({
          type : "POST",
          url : "/webCM/leaders/addProject",
          headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-         data : $('form[name=newProject]').attr("content"),
-         success : function(res) {
-
+         data : form.serialize(),
+         success : function(res, data) {
             if(res.validated){
-                alert("Registration Successful");
+                //alert("Registration Successful");
+                $("#tab3").click();
             }else{
               //Set error messages
+                $('input[name=numeProiect]').next().remove();
+                $('input[name=codProiect]').next().remove();
               $.each(res.errorMessages,function(key,value){
   	            $('input[name='+key+']').after('<span class="error">'+value+'</span>');
               });
             }
-
          },
-                     error: function(res){
-                             console.log("ERROR");
-                             console.log(res)
-                         }
+         error: function(res){
+            console.log("ERROR");
+            console.log(res);
+         }
       })
    });
 
