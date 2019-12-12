@@ -178,23 +178,8 @@ public class LeadersController {
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
 
         List<UserExpleo> foundUsers = searchService.searchUsersNotInProject(codProiect, searchTerm.trim());
-
-        List<UserExpleo> users = new LinkedList<>();
-        List<ProiectSkill> skills = new LinkedList<>();
-
-        Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
-
-        model.addAttribute("users", users);
-        model.addAttribute("skills", skills);
-        model.addAttribute("project", proiect);
-        model.addAttribute("varPath", codProiect);
-        model.addAttribute("intervalPondere", INTERVAL_PONDERE);
-        model.addAttribute("intervalTarget", INTERVAL_TARGET);
-
         model.addAttribute("result", foundUsers);
-        model.addAttribute("searchTermUser", searchTerm);
-        return "leaders_addEmpToProj";
+        return adaugaColaboratoriView(codProiect, model);
     }
 
     @PostMapping("/project/{codProiect}/adaugaColaboratori/add")
@@ -253,23 +238,11 @@ public class LeadersController {
     @PostMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam(required = false, name = "searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
-        List<UserExpleo> users = new LinkedList<>();
-        List<ProiectSkill> skills = new LinkedList<>();
-
-        Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
-        model.addAttribute("users", users);
-        model.addAttribute("skills", skills);
-        model.addAttribute("project", proiect);
-        model.addAttribute("varPath", codProiect);
-        model.addAttribute("intervalPondere", INTERVAL_PONDERE);
-        model.addAttribute("intervalTarget", INTERVAL_TARGET);
         List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
-
         model.addAttribute("search", searchTerm);
         model.addAttribute("result", foundSkills);
 
-        return "leaders_addSkillsToProj";
+        return addSkillsView(codProiect, model);
     }
 
     @PostMapping("/project/{codProiect}/add")

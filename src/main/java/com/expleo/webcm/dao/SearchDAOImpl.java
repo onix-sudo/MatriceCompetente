@@ -118,7 +118,7 @@ public class SearchDAOImpl implements SearchDAO {
                 fullTextSession.createFullTextQuery(query, UserExpleo.class);
 
         List<UserExpleo> pickedUsers = new LinkedList<>();
-        List<UserExpleo> foundUsers = hibQuery.list() ;
+        List<UserExpleo> foundUsers = new LinkedList<UserExpleo>(hibQuery.getResultList()) ;
 
         if (!foundUsers.isEmpty()) {
             for (UserExpleo user : foundUsers) {
