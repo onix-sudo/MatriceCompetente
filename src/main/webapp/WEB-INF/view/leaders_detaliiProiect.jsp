@@ -6,6 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script type="text/javascript" src="/resources/js/radarForTeam.js"></script>
+
 <security:csrfMetaTags />
 
 <br>
@@ -29,19 +31,10 @@
 
  <hr>
 
-
  <font size="5">Numele proiectului: ${project.numeProiect}</font>
  <br>
  <font size="5"> Cod: ${project.codProiect}</font>
  <br><hr>
-
-
-    <script>
-    function loadWebCM() {
-        $("#tab1").click();
-        return false;
-    }
-    </script>
 
 
 <div class="container">
@@ -71,17 +64,19 @@ th
                         <td>Total</td>
                     </tr>
                     <tr class="table-danger">
-                        <td>Pondere</td>
+                        <td><b>Pondere</b></td>
                             <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
-                                <td>${projectSkill.pondere}</td>
+                                <td><b>${projectSkill.pondere}</b></td>
                             </c:forEach>
                             <td></td>
                     </tr>
                     <tr class="table-primary">
-                        <td>Necesar</td>
+                        <td><b>Necesar</b></td>
                         <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
-                            <td>${projectSkill.target}</td>
-
+                            <td><b>${projectSkill.target}</b></td>
+                                <script>
+                                    pushTargetVal(${projectSkill.target});
+                                </script>
                         </c:forEach>
 
                         <td></td>
@@ -107,12 +102,6 @@ th
             </div>
         </div>
 
-        <c:forEach var="foundSkills" items="${foundSkills}" varStatus="status">
-                <script>
-                    pushTargetVal(${foundSkills.target});
-                </script>
-        </c:forEach>
-
         <c:forEach var="user" items="${matrixTeam}" varStatus="status">
                 <script>
                     pushProjectName("${user.proiectSkills[status.index].proiect.numeProiect}");
@@ -125,18 +114,17 @@ th
             </script>
         </div>
 
-
-
-       <br>
-       <hr>
-
-
-<%--AAAAAAAAAAAAAAAAAAAAAAAAAA--%>
-
-
+<br><br><br><br><br><br><br><br><br><br>
+<hr>
 
 
 <script>
+
+    function loadWebCM() {
+        $("#tab1").click();
+        return false;
+    }
+
     function addCollaborators(varPath) {
         $("#div3").load("/webCM/leaders/project/" + varPath + "/adaugaColaboratori");
 
