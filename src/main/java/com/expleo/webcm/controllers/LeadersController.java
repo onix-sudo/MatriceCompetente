@@ -135,7 +135,6 @@ public class LeadersController {
         createMatrixTeam.sortMatrixTeamList(matrixTeam);
 
         model.addAttribute("project", proiectService.getProjectByCodProiect(codProiect));
-        model.addAttribute("foundSkills", foundSkills);
         model.addAttribute("matrixTeam", matrixTeam);
 
         return "leaders_detaliiProiect";
