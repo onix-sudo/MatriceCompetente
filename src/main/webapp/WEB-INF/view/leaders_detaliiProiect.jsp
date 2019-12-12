@@ -6,6 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script type="text/javascript" src="/resources/js/radarForTeam.js"></script>
+
 <security:csrfMetaTags />
 
 <br>
