@@ -36,9 +36,102 @@
  <br><hr>
 
 
+    <script>
+    function loadWebCM() {
+        $("#tab1").click();
+        return false;
+    }
+    </script>
+
+
+<div class="container">
+
+
+<style>
+td
+{
+    text-align: center;
+    vertical-align: middle;
+
+}
+th
+{
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+</style>
+
+                <table class="table table-bordered table-striped table-hover">
+                    <tr class="table-Class">
+                        <td></td>
+                        <c:forEach var="skills" items="${matrixTeam[0].proiectSkills}">
+                            <td>${skills.skill.numeSkill}</td>
+                        </c:forEach>
+                        <td>Total</td>
+                    </tr>
+                    <tr class="table-danger">
+                        <td>Pondere</td>
+                            <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                                <td>${projectSkill.pondere}</td>
+                            </c:forEach>
+                            <td></td>
+                    </tr>
+                    <tr class="table-primary">
+                        <td>Necesar</td>
+                        <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
+                            <td>${projectSkill.target}</td>
+
+                        </c:forEach>
+
+                        <td></td>
+                    </tr>
+                    <tr></tr>
+                    <c:forEach var="user" items="${matrixTeam}" varStatus="status">
+
+                        <tr>
+                            <td>${user.name}</td>
+                            <c:forEach var="skills" items="${user.skills}">
+                          <script>
+                                pushSkillTeam("${skills.skill.numeSkill}", ${skills.evaluation});
+                          </script>
+                                <td>${skills.evaluation}</td>
+                            </c:forEach>
+                            <script>
+                                pushAllUsers("${user.user.nume} " + "${user.user.prenume}");
+                            </script>
+                            <td>${user.score}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+
+        <c:forEach var="foundSkills" items="${foundSkills}" varStatus="status">
+                <script>
+                    pushTargetVal(${foundSkills.target});
+                </script>
+        </c:forEach>
+
+        <c:forEach var="user" items="${matrixTeam}" varStatus="status">
+                <script>
+                    pushProjectName("${user.proiectSkills[status.index].proiect.numeProiect}");
+                </script>
+        </c:forEach>
+
+        <div id="chart" style="width: 1000px;height: 800px;margin: 0px auto">
+            <script>
+                plotRadarTeam();
+            </script>
+        </div>
+
+
 
        <br>
        <hr>
+
+
+<%--AAAAAAAAAAAAAAAAAAAAAAAAAA--%>
 
 
 
