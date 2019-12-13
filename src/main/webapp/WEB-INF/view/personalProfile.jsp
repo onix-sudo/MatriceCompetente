@@ -18,12 +18,23 @@
     <br>
     <b>Data angajare:</b> ${user.dataAngajare}
     <br>
-    <b>Functie:</b> ${user.functie}
+    <b>Rol:</b> ${user.functie}
     <br>
     <hr>
 </p>
 
-<p><b>Competente din proiecte:</b></p>
+<c:choose>
+<c:when test="${empty projectSkills && empty userSkills}">
+<h4>Nu ai nicio competenta adauata.</h4>
+</c:when>
+<c:otherwise>
+
+<c:choose>
+<c:when test="${empty projectSkills}">
+<h4>Nu ai fost adaugat in niciun proiect.</h4>
+</c:when>
+<c:otherwise>
+<h4><p><b>Competente din proiecte:</b></p></h4>
 <table class="table">
 
     <tr>
@@ -42,9 +53,15 @@
     </tbody>
 </table>
 <br>
+</c:otherwise>
+</c:choose>
 
-
-<p><b>Competente aditionale:</b></p>
+<c:choose>
+<c:when test="${empty userSkills}">
+<h4>Nu ai adaugat nicio competenta aditionala.</h4>
+</c:when>
+<c:otherwise>
+<h4><p><b>Competente aditionale:</b></p></h4>
 <table class="table">
 
     <tr>
@@ -72,12 +89,11 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-<!--                        <input id="usID" type="hidden" name="idskill" value="${userSkill.skill.idSkill}"/>-->
                         <input type="submit" value="Submit">
                     </form>
                 </td>
                 <td>
-                    <a onclick="if((confirm('Are you sure you want to delete this skill?'))) return elimina()">
+                    <a onclick="if((confirm('Esti sigur ca vrei sa elimini competenta?'))) return elimina(${userSkill.skill.idSkill})">
                         <button type="button" class="add-button">X</button>
                     </a>
                 </td>
@@ -86,13 +102,17 @@
     </tbody>
 </table>
 <br>
+</c:otherwise>
+</c:choose>
+
+</c:otherwise>
+</c:choose>
 
 <div>
 
-<!--<button type="button" class="btn btn-info" onclick="window.location.href='/webCM/personalProfile/showFormForAddSkill'">Adauga Skill</button>-->
 <button type="button" class="btn btn-warning" onclick="schimbaParola()">Schimba parola</button>
-<button type="button" class="btn btn-info" onclick="addSkill()">Adauga Skill</button>
-<button type="button" class="btn btn-info" onclick="viewHistory()">Istoric</button>
+<button type="button" class="btn btn-primary" onclick="addSkill()">Adauga Skill</button>
+<button type="button" class="btn btn-primary" onclick="viewHistory()">Istoric</button>
 
 </div>
 
@@ -118,15 +138,19 @@
         return false;
     }
 
-    function elimina() {
+    function elimina(skillId) {
         console.log("AICI");
+        console.log(skillId);
         $.ajax({
-            url: "${deleteLink}",
-            success: function(data){
+            url: "/webCM/deleteSkill",
+            data:{skillId:skillId},
+            success: function(res){
+                console.log("success");
                 $("#tab2").click();
             },
-            error: function(xhr, status) {
-                $("#tab2").click();
+            error: function(res) {
+                console.log(res);
+                console.log("Error");
             }
         });
 

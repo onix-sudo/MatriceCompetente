@@ -99,8 +99,8 @@ public class WebCMController {
     }
 
     @GetMapping("/deleteSkill")
+    @ResponseBody
     public void deleteSkill(@RequestParam("skillId") int idSkill){
-
         UserExpleo user = userService.getUserExpleoPrincipal();
         userSkillService.removeUserSkill(user.getId(), idSkill);
 

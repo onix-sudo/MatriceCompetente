@@ -169,11 +169,12 @@ public class LeadersController {
     }
 
     @PostMapping("/project/{codProiect}/adaugaColaboratori/add")
-    public String adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect,
+    @ResponseBody
+    public void adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.addUserToProject(codProiect, userId);
-        return "redirect:/webCM/leaders/project/"+codProiect;
+//        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
     @PostMapping("/project/{codProiect}/removeEmp")

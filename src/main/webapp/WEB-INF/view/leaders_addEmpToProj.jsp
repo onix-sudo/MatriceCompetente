@@ -11,8 +11,8 @@
 
 <br>
 
- <button type="button" class="btn btn-info"
- onclick="return adaugaCompetente();">Modifica competente</button>
+ <button type="button" class="btn btn-primary"
+ onclick="return adaugaCompetente();">Competente</button>
 
  <button type="button" class="btn btn-warning"
  onclick="return modify('${codProiect}')">Inapoi</button>
@@ -20,7 +20,11 @@
 <br>
 <hr>
 
-
+<c:choose>
+<c:when test="${empty users}">
+<h4>Niciun colaborator adaugat proiectului.</h4>
+</c:when>
+<c:otherwise>
 <table class="table">
          <thead>
               <font size="4">Colaboratori</font>
@@ -28,7 +32,7 @@
                 <th>Nume</th>
                 <th>Prenume</th>
                 <th>Numar Matricol</th>
-                <th><th>
+                <th></th>
              </tr>
          </thead>
 
@@ -45,22 +49,24 @@
                     <%--<form:form id="eliminaEmpForm">
                         <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
                     </form:form>--%>
-                    <button class="btn btn-danger" onclick="return removeEmpFromProject(${user.id})">Elimina-l din
+                    <button class="btn btn-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina-l din
                     proiect</button>
                  </td>
                </tr>
             </c:forEach>
          </tbody>
 </table>
+</c:otherwise>
+</c:choose>
 
  <br><hr>
         <form:form onsubmit="return searchUser(document.getElementById('searchTermUser').value)">
             <table class="table">
                 <tr>
-                    <th><label>Search</label>
-                    <input type="text" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
+                    <th>
+                    <input type="text" placeholder="Numele colaboratorului" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
                     putin 3 caractere." required/>
-                    <input type="submit" value="Search"></th>
+                    <input type="submit" class="btn btn-primary" value="Cauta"></th>
                 </tr>
             </table>
         </form:form>
@@ -88,7 +94,7 @@
 
                      <td>
                         <button class="btn btn-lg btn-primary"
-                        onclick="return addUser(${tempResult.id}, '${searchTermUser}')">Adauga</button>
+                        onclick="addUser(${tempResult.id}, '${param.searchTerm}')">Adauga</button>
                      </td>
                  </tr>
                  </c:forEach>
@@ -98,29 +104,28 @@
 
 
 <script>
-
         function addUser(userId, searchTerm) {
+            var url="/webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori/add?userId="+userId;
             $.ajax({
-                url: "/webCM/leaders/project/${varPath}/adaugaColaboratori/add",
                 type: "POST",
+                url: url,
                 headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                data: {userId: userId},
-                success: function(){
+                success: function(res){
                     searchUser(searchTerm);
                 },
                 error: function(res){
-                    console.log("ERROR");
                     console.log(res);
+                    console.log(searchTerm);
+                    console.log("ERROR - addUser");
+                    console.log(url);
+                    console.log(userId);
                     searchUser(searchTerm);
                 }
             });
-
-            return false;
         }
 
         function searchUser(searchTerm) {
-            var url = "webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori";
-            console.log(searchTerm);
+            var url = "/webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori";
 
             $.ajax({
                    type: "POST",
@@ -129,15 +134,12 @@
                    headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
                    success: function(data)
                    {
-                       console.log("SUCCESS");
-                       console.log(data);
                        $("#div3").html(data);
                    },
                    error: function(data, res)
                    {
                        console.log(res);
-                       console.log("ERROR");
-                       $("#div3").html(data);
+                       console.log("ERROR - searchUser");
                    }
             });
 
@@ -148,17 +150,16 @@
                     $.ajax({
                         type: "POST",
                         headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                        data: {userId: userId},
-                        url: "/webCM/leaders/project/${varPath}/removeEmp",
+                        data: {userId:userId},
+                        url: "webCM/leaders/project/" + '${codProiect}' + "/removeEmp",
                         success: function(){
-                            $("#div3").load("/webCM/leaders/project/" + varPath + "/adaugaColaboratori");
+                            $("#div3").load("/webCM/leaders/project/" + '${codProiect}' + "/adaugaColaboratori");
                         },
                         error: function(res){
                                 console.log("ERROR");
                                 console.log(res);
                         }
                     });
-
                     return false;
              }
 

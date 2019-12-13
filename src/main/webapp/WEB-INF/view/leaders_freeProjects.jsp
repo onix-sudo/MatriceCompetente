@@ -7,12 +7,16 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <button onclick="return backToManageTeam()" class="btn btn-primary">
-    Back
+    Inapoi
 </button>
 
-<h2>Proiecte disponibile:</h2>
 
-
+<c:choose>
+<c:when test="${empty result}">
+<h4>Niciun proiect disponibil.</h4>
+</c:when>
+<c:otherwise>
+<h4>Proiecte disponibile:</h4>
 <table>
     <tr>
         <th>Nume proiect</th>
@@ -36,6 +40,8 @@
     </tr>
     </c:forEach>
 </table>
+</c:otherwise>
+</c:choose>
 
 <script>
     function backToManageTeam() {

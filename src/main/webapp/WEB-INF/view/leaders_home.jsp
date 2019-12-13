@@ -7,12 +7,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button type="button" class="btn btn-success" onclick="return createProject()">Creeaza un proiect</button>
+<button type="button" class="btn btn-primary" onclick="return createProject()">Creeaza un proiect</button>
 
-<button type="button" class="btn btn-success"
+<button type="button" class="btn btn-primary"
  onclick="return proiectFaraManageri()">Alege un proiect fara manager</button>
 
 <hr>
+<c:choose>
+<c:when test="${empty projects}">
+<h4>Nu gestionezi niciun proiect.</h4>
+</c:when>
+<c:otherwise>
     <table class="table">
         <thead>
             <h2>Proiectele tale:</h2>
@@ -29,13 +34,15 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <button onclick="return modify('${proiecte.codProiect}')">Modifica</button>
+                        <button class="btn btn-primary" onclick="return modify('${proiecte.codProiect}')">Modifica</button>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
 
     </table>
+    </c:otherwise>
+    </c:choose>
 <hr>
 
 <script>

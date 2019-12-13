@@ -4,7 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
+        <c:choose>
+            <c:when test="${empty proiectList}">
+            <h4><p>Nu ai fost adaugat in niciun proiect.</p><h4>
+            </c:when>
+            <c:otherwise>
         <table class="table">
             <thead>
             <tr>
@@ -30,6 +34,8 @@
             </c:forEach>
             </tbody>
         </table>
+        </c:otherwise>
+        </c:choose>
 
         <script type="text/javascript">
             function cmptMat(proiectId) {

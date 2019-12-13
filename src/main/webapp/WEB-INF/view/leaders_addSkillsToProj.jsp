@@ -10,8 +10,8 @@
 
 <br>
 
- <button type="button" class="btn btn-info"
- onclick="return addCollaborators('${varPath}');">Adauga colaboratori</button>
+ <button type="button" class="btn btn-primary"
+ onclick="return addCollaborators('${varPath}');">Colaboratori</button>
 
  <button type="button" class="btn btn-warning"
  onclick="return modify('${codProiect}')">Inapoi</button>
@@ -19,7 +19,11 @@
   <br>
  <hr>
 
-
+<c:choose>
+<c:when test="${empty skills}">
+<h4>Nicio competenta adaugata proiectului.</h4>
+</c:when>
+<c:otherwise>
  <table class="table">
           <tbody>
           <font size="4">Competente</font>
@@ -82,16 +86,18 @@
              </c:forEach>
           </tbody>
        </table>
+</c:otherwise>
+</c:choose>
 
  <br><hr>
         <form:form onsubmit="return searchSkills(document.getElementById('searchTermSkill').value)">
             <table class="table">
                 <tr>
-                    <th><label>Search</label>
-                    <input type="text" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
+                    <th>
+                    <input type="text" placeholder="Numele competentei" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
                      3
                     caractere." required/>
-                    <input type="submit" class="btn btn-primary" value="Search"></th>
+                    <input type="submit" class="btn btn-primary" value="Cauta"></th>
                 </tr>
             </table>
         </form:form>

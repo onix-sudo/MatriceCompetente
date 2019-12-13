@@ -12,11 +12,11 @@
 
 <br>
 
- <button type="button" class="btn btn-info"
-         onclick="return addCollaborators('${varPath}')">Modifica colaboratori</button>
+ <button type="button" class="btn btn-primary"
+         onclick="return addCollaborators('${varPath}')">Colaboratori</button>
 
- <button type="button" class="btn btn-info"
- onclick="return adaugaCompetente()">Modifica competente</button>
+ <button type="button" class="btn btn-primary"
+ onclick="return adaugaCompetente()">Competente</button>
 
   <button type="button" class="btn btn-warning"
   onclick="leaders()">Inapoi</button>
@@ -155,10 +155,6 @@ th
                 }
         });
     });
-
-
-
-
 
     function changePondere(valuePondere, skillId) {
         var url = "/webCM/leaders/project/${varPath}/setPondere?value=" + valuePondere + "&skillId=" + skillId;

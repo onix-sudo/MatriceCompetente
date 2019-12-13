@@ -10,7 +10,7 @@
 <security:csrfMetaTags/>
 
 <br>
-  <button type="button" class="btn btn-warning"
+  <button type="button" class="btn btn-primary"
   onclick="return back()">Inapoi</button>
 <hr>
 
@@ -31,7 +31,7 @@
 
         <tr>
             <td><label></label></td>
-            <td><input type="submit" value="Save" class="save"/></td>
+            <td><input type="submit" value="Creeaza" class="btn btn-success"/></td>
         </tr>
         </thead>
     </table>

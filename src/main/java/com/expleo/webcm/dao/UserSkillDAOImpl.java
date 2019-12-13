@@ -106,14 +106,15 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        UserSkill userSkill = new UserSkill(session.load(Skill.class, idSkill),session.load(UserExpleo.class, idUserExpleo));
+        Query<UserSkill> getUserSkill = session.createQuery(
+                "from UserSkill where user.id=:userId and skill.idSkill=:skillId", UserSkill.class);
+        getUserSkill.setParameter("userId", idUserExpleo);
+        getUserSkill.setParameter("skillId", idSkill);
 
-        session.clear();
-        session.delete(userSkill);
+        session.delete(getUserSkill.getSingleResult());
 
         session.getTransaction().commit();
         session.close();
-
     }
 
     @Override

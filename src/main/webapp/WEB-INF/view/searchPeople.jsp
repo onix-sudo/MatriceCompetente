@@ -8,9 +8,9 @@
 
     <form id="searchForm">
         <h4>Introduceti numele competentei si evaluarea minima</h4>
+        <hr>
         <br>
-        <label>Search</label>
-        <input type="text" pattern=".{4,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+        <input type="text" pattern=".{4,}" placeholder="Numele competentei" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
         <td>
             <select name="evaluation">
                 <option value="1">1</option>
@@ -18,7 +18,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <input type='submit' value='Submit' />
+            <input type='submit' value='Cauta' class="btn btn-primary" />
         </td>
     </form>
 
