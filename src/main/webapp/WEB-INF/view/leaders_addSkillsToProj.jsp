@@ -79,7 +79,7 @@
                          </td>
                   <td>
                      <button class="btn btn-danger" onclick="return removeSkillForProject(${skill.skill.idSkill})">
-                         Elimina competenta
+                         Elimina
                      </button>
                   </td>
                 </tr>
@@ -110,7 +110,7 @@
              <tr>
                  <th>Competenta</th>
                  <th>Categorie</th>
-                 <th>${search}</th>
+                 <th></th>
              </tr>
 
              <c:forEach var="tempResult" items="${result}" varStatus="status">

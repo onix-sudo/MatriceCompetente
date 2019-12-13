@@ -69,7 +69,7 @@
         <th>Categorie</th>
         <th>Evaluare</th>
         <th>Valoare noua</th>
-        <th>Elimina</th>
+        <th></th>
     </tr>
     <tbody>
         <c:forEach var="userSkill" items="${userSkills}">
@@ -89,12 +89,12 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <input type="submit" value="Submit">
+                        <input type="submit" class="btn btn-primary" value="Schimba">
                     </form>
                 </td>
                 <td>
                     <a onclick="if((confirm('Esti sigur ca vrei sa elimini competenta?'))) return elimina(${userSkill.skill.idSkill})">
-                        <button type="button" class="add-button">X</button>
+                        <button type="button" class="btn btn-danger">Elimina</button>
                     </a>
                 </td>
             </tr>
@@ -111,7 +111,7 @@
 <div>
 
 <button type="button" class="btn btn-warning" onclick="schimbaParola()">Schimba parola</button>
-<button type="button" class="btn btn-primary" onclick="addSkill()">Adauga Skill</button>
+<button type="button" class="btn btn-primary" onclick="addSkill()">Adauga competenta</button>
 <button type="button" class="btn btn-primary" onclick="viewHistory()">Istoric</button>
 
 </div>

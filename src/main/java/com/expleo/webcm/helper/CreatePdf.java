@@ -166,7 +166,7 @@ public class CreatePdf {
             PdfCanvas pdfCanvas = new PdfCanvas(page);
             Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);
 
-                    Paragraph p = new Paragraph().add("© expleo Romania | Internal");
+                    Paragraph p = new Paragraph().add("© expleo Romania | Restricted");
                     p.add(new Tab());
                     p.addTabStops(new TabStop(500, TabAlignment.RIGHT));
                     p.add(pageNumber +"/"+ pdf.getNumberOfPages());

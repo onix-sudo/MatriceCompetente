@@ -10,9 +10,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Nr</th>
-                        <th>ID Skill</th>
-                        <th>Nume Skill</th>
+                        <th>Nume competenta</th>
                         <th>Categorie</th>
                         <th>Evaluare</th>
                         <th>Schimba evaluare</th>
@@ -23,8 +21,6 @@
                         <c:forEach var="skill" items="${userSkillList}" varStatus="status">
                            <script>pushSkill("${skill.skill.numeSkill}", ${userSkillList[status.index].evaluation});</script>
                             <tr>
-                                <td>${status.count}</td>
-                                <td>${skill.skill.idSkill}</td>
                                 <td>${skill.skill.numeSkill}</td>
                                 <td>${skill.skill.categorie}</td>
                                 <td>${userSkillList[status.index].evaluation}</td>
@@ -41,7 +37,7 @@
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${projectId}" name="proiectId"
                                                style="display: none">
-                                        <input class="btn btn-secondary btn-sm" type='submit' value='Submit'/>
+                                        <input class="btn btn-secondary btn-sm" type='submit' value='Schimba'/>
                                     </form>
                                 </td>
                             </tr>

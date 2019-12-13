@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -6,44 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!--<html>-->
-<!--<head>-->
-<!--    <title>Expleo webCM</title>-->
-
-<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-
-<!--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
-
-<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-
-<!--    <link rel="stylesheet" href="/resources/css/style.css">-->
-
-<!--    <link rel="stylesheet" href="/resources/css/header&footer.css">-->
-
-<!--    <link rel="stylesheet" href="/resources/css/main.css">-->
-
-<!--    <link rel="stylesheet" href="/resources/css/util.css">-->
-
-<!--    <link rel="stylesheet" href="/resources/css/navbar.css">-->
-
-<!--    <link rel="stylesheet" href="/resources/css/split-screen.css">-->
-
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>-->
-
-<!--    <script type="text/javascript" src="/resources/js/radar.js">-->
-<!--    </script>-->
-
-<!--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
-
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-
-<!--</head>-->
-<!--<body>-->
-
-
-
-
-<br>
 <h2>Add Skill</h2>
 
 <p>
@@ -60,7 +21,6 @@
 <b>Functie:</b> ${user.functie}
 <br>
 <hr>
-<b>Skilluri personale:</b>
 </p>
 
 
@@ -71,13 +31,12 @@
 </spring:url>
 
 <form:form id="searchForm" onsubmit="return search()">
-
-    <label>Search</label>
-    <input type="text" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
+<label><b>Cautare competente:</b></label>
+    <input type="text" placeholder="Numele competentei" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
     caractere."
            required/>
 
-    <input type="submit" value="Search"/>
+    <input type="submit" value="Cauta" class="btn btn-primary" />
 
 </form:form>
 

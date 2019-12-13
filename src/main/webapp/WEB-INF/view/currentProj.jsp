@@ -12,7 +12,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Nr</th>
+                <th>Nr.</th>
                 <th>Nume Proiect</th>
                 <th>Cod</th>
                 <th>Competente</th>

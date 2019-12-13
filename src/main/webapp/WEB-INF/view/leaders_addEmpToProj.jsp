@@ -46,11 +46,7 @@
                  <td>${user.prenume}</td>
                  <td>${user.numarMatricol}</td>
                  <td>
-                    <%--<form:form id="eliminaEmpForm">
-                        <input type="submit" class="btn btn-danger" value="Elimina-l din proiect">
-                    </form:form>--%>
-                    <button class="btn btn-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina-l din
-                    proiect</button>
+                    <button class="btn btn-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina</button>
                  </td>
                </tr>
             </c:forEach>
@@ -79,7 +75,7 @@
                      <th>Numar Matricol</th>
                      <th>Email</th>
                      <th>Rol</th>
-                     <th>Adaugare</th>
+                     <th></th>
                  </tr>
                  <c:forEach var="tempResult" items="${result}">
                      <spring:url var="modifyUser" value="/webCM/leaders/project/${varPath}/adaugaColaboratori/add">
