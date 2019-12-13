@@ -84,8 +84,7 @@ public class UserExpleo {
     private String functie;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "user_proiect",
             joinColumns = { @JoinColumn(name = "ID_user")},
@@ -93,14 +92,16 @@ public class UserExpleo {
     )
     private List<Proiect> proiecte;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "user_skill",
             joinColumns = @JoinColumn(name = "ID_user"),
             inverseJoinColumns = @JoinColumn(name = "ID_skill"))
     private Set<Skill> skillsRequired;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<UserSkill> userSkills;
 
     @OneToMany(mappedBy = "user")

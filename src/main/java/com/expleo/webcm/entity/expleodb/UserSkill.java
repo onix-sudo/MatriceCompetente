@@ -14,12 +14,13 @@ public class UserSkill{
     @Column(name="id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="ID_user")//, insertable = false, updatable = false)
 //    @MapsId("userId")
     private UserExpleo user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "ID_skill")//, insertable = false, updatable = false)
 //    @MapsId("skillId")
     private Skill skill;
@@ -30,16 +31,6 @@ public class UserSkill{
     @Column(name="data_evaluare")
     private String dataEvaluare;
 
-//    @OneToMany(mappedBy = "userSkill")
-//    private Set<History> histories;
-//
-//    public Set<History> getHistories() {
-//        return histories;
-//    }
-//
-//    public void setHistories(Set<History> histories) {
-//        this.histories = histories;
-//    }
 
     public UserSkill() {
     }

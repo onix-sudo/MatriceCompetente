@@ -37,8 +37,7 @@ public class Proiect {
     private List<ProiectSkill> skills;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "user_proiect",
             joinColumns = { @JoinColumn(name = "ID_proiect")},
