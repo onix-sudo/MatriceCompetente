@@ -6,23 +6,27 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button onclick="return backToManageTeam()" class="btn btn-primary">
-    Inapoi
-</button>
-
 
 <c:choose>
 <c:when test="${empty result}">
-<h4>Niciun proiect disponibil.</h4>
+<h3>Niciun proiect disponibil.</h3>
+<hr>
 </c:when>
 <c:otherwise>
-<h4>Proiecte disponibile:</h4>
-<table>
+<br>
+<h3>Proiecte disponibile:</h3>
+
+<hr>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
         <th>Nume proiect</th>
         <th>Cod</th>
         <th>Preia</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <c:forEach var="tempResult" items="${result}">
 
@@ -32,12 +36,13 @@
             <td>${tempResult.numeProiect}</td>
             <td>${tempResult.codProiect}</td>
             <td>
-                <button onclick="return preiaProiect('${tempResult.codProiect}')" class="btn btn-success">
+                <button onclick="return preiaProiect('${tempResult.codProiect}')" class="btn btn-outline-primary">
                     Preia
                 </button>
             </td>
 
     </tr>
+    </tbody>
     </c:forEach>
 </table>
 </c:otherwise>

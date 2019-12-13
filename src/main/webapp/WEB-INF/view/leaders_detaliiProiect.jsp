@@ -12,21 +12,18 @@
 
 <br>
 
- <button type="button" class="btn btn-primary"
+ <button type="button" class="btn btn-outline-primary"
          onclick="return addCollaborators('${varPath}')">Colaboratori</button>
 
- <button type="button" class="btn btn-primary"
+ <button type="button" class="btn btn-outline-primary"
  onclick="return adaugaCompetente()">Competente</button>
 
-  <button type="button" class="btn btn-warning"
-  onclick="leaders()">Inapoi</button>
-
+  <button type="button" class="btn btn-danger" onclick="renunta()" style="float: right;">Renunta la proiect</button>
 <br>
 <br>
 
-<form:form id = "renuntaForm">
-  <input type="submit" class="btn btn-danger" value = "Renunta la proiect">
-</form:form>
+
+
 
 
  <hr>
@@ -137,14 +134,11 @@ th
         return false;
     }
 
-    $("#renuntaForm").submit(function(e) {
-        e.preventDefault();
-
+    function renunta() {
         $.ajax({
             type: "POST",
             headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-            url: "${pageContext.request.contextPath}/webCM/leaders/project/${codProiect}/renuntaLaProiect",
-            contentType : "application/json",
+            url: "/webCM/leaders/project/${codProiect}/renuntaLaProiect",
             success: function(res){
                 if(res == "ceva")
                     $("#tab3").click();
@@ -154,7 +148,7 @@ th
                     console.log(res)
                 }
         });
-    });
+    }
 
     function changePondere(valuePondere, skillId) {
         var url = "/webCM/leaders/project/${varPath}/setPondere?value=" + valuePondere + "&skillId=" + skillId;

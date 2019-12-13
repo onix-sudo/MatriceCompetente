@@ -35,13 +35,14 @@
 </c:when>
 <c:otherwise>
 <h4><p><b>Competente din proiecte:</b></p></h4>
-<table class="table">
-
-    <tr>
+<table class="table table-striped">
+ <thead class="thead-dark">
+ <tr>
         <th>Competente</th>
         <th>Categorie</th>
         <th>Evaluare</th>
-    </tr>
+ </tr>
+ </thead>
     <tbody>
         <c:forEach var="projectSkills" items="${projectSkills}">
             <tr>
@@ -62,8 +63,8 @@
 </c:when>
 <c:otherwise>
 <h4><p><b>Competente aditionale:</b></p></h4>
-<table class="table">
-
+<table class="table table-striped">
+ <thead class="thead-dark">
     <tr>
         <th>Competente</th>
         <th>Categorie</th>
@@ -71,6 +72,7 @@
         <th>Valoare noua</th>
         <th></th>
     </tr>
+ </thead>
     <tbody>
         <c:forEach var="userSkill" items="${userSkills}">
 
@@ -89,12 +91,12 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <input type="submit" class="btn btn-primary" value="Schimba">
+                        <input type="submit" class="btn btn-outline-primary" value="Schimba">
                     </form>
                 </td>
                 <td>
                     <a onclick="if((confirm('Esti sigur ca vrei sa elimini competenta?'))) return elimina(${userSkill.skill.idSkill})">
-                        <button type="button" class="btn btn-danger">Elimina</button>
+                        <button type="button" class="btn btn-outline-danger">Elimina</button>
                     </a>
                 </td>
             </tr>
@@ -110,9 +112,9 @@
 
 <div>
 
-<button type="button" class="btn btn-warning" onclick="schimbaParola()">Schimba parola</button>
-<button type="button" class="btn btn-primary" onclick="addSkill()">Adauga competenta</button>
-<button type="button" class="btn btn-primary" onclick="viewHistory()">Istoric</button>
+<button type="button" class="btn btn-outline-danger" onclick="schimbaParola()">Schimba parola</button>
+<button type="button" class="btn btn-outline-primary" onclick="addSkill()">Adauga competenta</button>
+<button type="button" class="btn btn-outline-primary" onclick="viewHistory()">Istoric</button>
 
 </div>
 

@@ -10,10 +10,10 @@
 
 <br>
 
- <button type="button" class="btn btn-primary"
+ <button type="button" class="btn btn-outline-primary"
  onclick="return addCollaborators('${varPath}');">Colaboratori</button>
 
- <button type="button" class="btn btn-warning"
+ <button type="button" class="btn btn-outline-primary"
  onclick="return modify('${codProiect}')">Inapoi</button>
 
   <br>
@@ -24,9 +24,9 @@
 <h4>Nicio competenta adaugata proiectului.</h4>
 </c:when>
 <c:otherwise>
- <table class="table">
-          <tbody>
-          <font size="4">Competente</font>
+  <h3>Competente</h3>
+<table class="table table-striped">
+           <thead class="thead-dark">
           <tr>
              <th>Competenta</th>
              <th>Categorie</th>
@@ -78,7 +78,7 @@
                          </form:select>
                          </td>
                   <td>
-                     <button class="btn btn-danger" onclick="return removeSkillForProject(${skill.skill.idSkill})">
+                     <button class="btn btn-outline-danger" onclick="return removeSkillForProject(${skill.skill.idSkill})">
                          Elimina
                      </button>
                   </td>
@@ -91,28 +91,31 @@
 
  <br><hr>
         <form:form onsubmit="return searchSkills(document.getElementById('searchTermSkill').value)">
-            <table class="table">
+            <table class="table table-striped">
+                       <thead class="thead-dark">
                 <tr>
+                    <th></th>
                     <th>
+                    <label>Cautare competente: </label>
                     <input type="text" placeholder="Numele competentei" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
                      3
                     caractere." required/>
-                    <input type="submit" class="btn btn-primary" value="Cauta"></th>
+                    <input type="submit" class="btn btn-outline-primary" value="Cauta"></th>
+                    <th></th>
                 </tr>
+                </thead>
             </table>
         </form:form>
 
- <br>
-
 <c:if test="${not empty result}">
-         <table class="table" id="skillTable">
-
+     <table class="table table-striped">
+            <thead class="thead-dark">
              <tr>
                  <th>Competenta</th>
                  <th>Categorie</th>
                  <th></th>
              </tr>
-
+            </thead>
              <c:forEach var="tempResult" items="${result}" varStatus="status">
 
 
@@ -120,16 +123,16 @@
                  <td>${tempResult.numeSkill}</td>
                  <td>${tempResult.categorie}</td>
                  <td>
-                     <button class="btn btn-lg btn-primary" onclick="return addSkill(${tempResult.idSkill}, ${status.count}, '${search}')">
+                     <button class="btn btn-outline-primary" onclick="return addSkill(${tempResult.idSkill}, ${status.count}, '${search}')">
                         Adauga
                      </button>
                  </td>
              </tr>
              </c:forEach>
-
-
-         </table>
+     </table>
 </c:if>
+ <br>
+
 
 
 <script>

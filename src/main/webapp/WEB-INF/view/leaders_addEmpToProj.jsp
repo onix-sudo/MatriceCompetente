@@ -11,13 +11,12 @@
 
 <br>
 
- <button type="button" class="btn btn-primary"
+ <button type="button" class="btn btn-outline-primary"
  onclick="return adaugaCompetente();">Competente</button>
 
- <button type="button" class="btn btn-warning"
+ <button type="button" class="btn btn-outline-primary"
  onclick="return modify('${codProiect}')">Inapoi</button>
 
-<br>
 <hr>
 
 <c:choose>
@@ -25,9 +24,9 @@
 <h4>Niciun colaborator adaugat proiectului.</h4>
 </c:when>
 <c:otherwise>
-<table class="table">
-         <thead>
-              <font size="4">Colaboratori</font>
+<table class="table table-striped">
+           <thead class="thead-dark">
+             <h3>Colaboratori</h3>
              <tr>
                 <th>Nume</th>
                 <th>Prenume</th>
@@ -46,7 +45,7 @@
                  <td>${user.prenume}</td>
                  <td>${user.numarMatricol}</td>
                  <td>
-                    <button class="btn btn-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina</button>
+                    <button class="btn btn-outline-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina</button>
                  </td>
                </tr>
             </c:forEach>
@@ -57,18 +56,21 @@
 
  <br><hr>
         <form:form onsubmit="return searchUser(document.getElementById('searchTermUser').value)">
-            <table class="table">
+            <table class="table table-striped">
+                   <thead class="thead-dark">
                 <tr>
                     <th>
+                    <label>Cautare colaboratori: </label>
                     <input type="text" placeholder="Numele colaboratorului" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
                     putin 3 caractere." required/>
-                    <input type="submit" class="btn btn-primary" value="Cauta"></th>
+                    <input type="submit" class="btn btn-outline-primary" value="Cauta"></th>
                 </tr>
+                </thead>
             </table>
         </form:form>
- <br>
          <c:if test="${not empty result}">
-             <table class="table">
+             <table class="table table-striped">
+                        <thead class="thead-dark">
                  <tr>
                      <th>Nume</th>
                      <th>Prenume</th>
@@ -77,6 +79,8 @@
                      <th>Rol</th>
                      <th></th>
                  </tr>
+                 </thead>
+                 <tbody>
                  <c:forEach var="tempResult" items="${result}">
                      <spring:url var="modifyUser" value="/webCM/leaders/project/${varPath}/adaugaColaboratori/add">
                          <spring:param name="userId" value="${tempResult.id}"/>
@@ -89,11 +93,12 @@
                      <td>${tempResult.functie}</td>
 
                      <td>
-                        <button class="btn btn-lg btn-primary"
+                        <button class="btn btn-outline-primary"
                         onclick="addUser(${tempResult.id}, '${param.searchTerm}')">Adauga</button>
                      </td>
                  </tr>
                  </c:forEach>
+                 </tbody>
 
              </table>
          </c:if>

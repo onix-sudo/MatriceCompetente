@@ -1,21 +1,16 @@
 var jsVarListTeam = [];
 var dataListTeam = [];
 var allData = [];
-var numeProiect;
 var targetData = [];
 
 
 function pushSkillTeam(value, temp) {
-
     jsVarListTeam.push(value);
     dataListTeam.push(temp);
-
 }
 
 function pushTargetVal(targt){
     targetData.push(targt);
-    console.log(targt);
-    console.log(targetData);
 }
 
 var targetObject = {
@@ -24,8 +19,6 @@ var targetObject = {
     theta: jsVarListTeam,
     name:'Necesar',
 };
-
-
 
 allData.push(targetObject);
 
@@ -43,7 +36,6 @@ function plotRadarTeam() {
     };
 
     targetData.push(targetData[0]);
-    console.log(targetData);
     Plotly.plot("chart", allData, layout);
 
 }

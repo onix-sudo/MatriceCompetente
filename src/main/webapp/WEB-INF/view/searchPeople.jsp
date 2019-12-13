@@ -7,10 +7,16 @@
     </spring:url>
 
     <form id="searchForm">
-        <h4>Introduceti numele competentei si evaluarea minima</h4>
+        <h3>Cauta colaboratori in functie de competenta</h3>
         <hr>
         <br>
+        <label>
+        Cautare competenta:
+        </label>
         <input type="text" pattern=".{4,}" placeholder="Numele competentei" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+        <label>
+                 Evaluare minima:
+        </label>
         <td>
             <select name="evaluation">
                 <option value="1">1</option>
@@ -18,7 +24,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <input type='submit' value='Cauta' class="btn btn-primary" />
+            <input type='submit' value='Cauta' class="btn btn-outline-primary" />
         </td>
     </form>
 
@@ -33,14 +39,15 @@
                                     <input type="submit" class="btn btn-warning" value="Descarca lista">
                                 </form:form>
 
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
         <th>Nume User</th>
         <th>Functie</th>
         <th>Competenta</th>
         <th>Categorie</th>
         <th>Evaluare</th>
+        <th></th>
     </tr>
     </thead>
 

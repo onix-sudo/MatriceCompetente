@@ -9,31 +9,32 @@
 
 <security:csrfMetaTags/>
 
-<br>
-  <button type="button" class="btn btn-primary"
-  onclick="return back()">Inapoi</button>
+<h3> Creeaza un nou proiect</h3>
 <hr>
 
 <form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" id="addProject" accept-charset = "utf-8">
-    <table>
-        <thead>
+    <table class="table table-striped">
+        <thead class="thead-light">
+
         <tr>
-            <td><label>Nume proiect:</label></td>
-            <td><form:input path="numeProiect"/></td>
-            <td><form:errors path="numeProiect" cssClass="error"/></td>
+            <th><label>Nume proiect:</label></th>
+            <th><form:input path="numeProiect"/></th>
+            <th><form:errors path="numeProiect" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <td><label>Cod proiect:</label></td>
-            <td><form:input path="codProiect"/></td>
-            <td><form:errors path="codProiect" cssClass="error"/></td>
+            <th><label>Cod proiect:</label></th>
+            <th><form:input path="codProiect"/></th>
+            <th><form:errors path="codProiect" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <td><label></label></td>
-            <td><input type="submit" value="Creeaza" class="btn btn-success"/></td>
+            <th></th>
+            <th><input type="submit" value="Creeaza" class="btn btn-outline-primary"/></th>
+            <th></th>
         </tr>
         </thead>
+        <tbody></tbody>
     </table>
 
 </form:form>

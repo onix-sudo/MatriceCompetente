@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>Add Skill</h2>
+<h2>Adauga competenta aditionala</h2>
 
 <p>
 <hr>
@@ -24,9 +24,6 @@
 </p>
 
 
-<br>
-
-
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
@@ -36,14 +33,15 @@
     caractere."
            required/>
 
-    <input type="submit" value="Cauta" class="btn btn-primary" />
+    <input type="submit" value="Cauta" class="btn btn-outline-primary" />
 
 </form:form>
 
 
+
 <core:if test="${result != null}">
-    <table>
-        <thead>
+     <table class="table table-striped">
+         <thead class="thead-dark">
             <tr>
                 <th>Nume Skill</th>
                 <th>Categorie</th>
@@ -58,10 +56,7 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-<!--                    <form id="skillForm">-->
-                        <button onclick="return ps(${tempResult.idSkill}, ${user.id})">Add</button>
-<!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
-<!--                    </form>-->
+                        <button class="btn btn-outline-primary" onclick="return ps(${tempResult.idSkill}, ${user.id})">Adauga</button>
                 </td>
             </tr>
         </core:forEach>
@@ -69,8 +64,6 @@
 </core:if>
 
 
-
-<button type="button" onclick="showSkills()" class="btn btn-info">Back</button>
 
 <script>
     function ps(skillID, userID) {
