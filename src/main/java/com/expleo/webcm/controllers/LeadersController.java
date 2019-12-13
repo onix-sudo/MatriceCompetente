@@ -226,7 +226,7 @@ public class LeadersController {
     public String addSkillsView(@RequestParam(required = false, name = "searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
         List<Skill> foundSkills = searchService.searchSkillsNotInProject(codProiect, searchTerm.trim());
-        model.addAttribute("search", searchTerm);
+        model.addAttribute("search", searchTerm.trim());
         model.addAttribute("result", foundSkills);
 
         return addSkillsView(codProiect, model);

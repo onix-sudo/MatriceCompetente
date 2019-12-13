@@ -157,7 +157,7 @@ public class SearchDAOImpl implements SearchDAO {
         hibQueryProject.setParameter("codProiect", codProiect);
         Proiect proiect = hibQueryProject.getSingleResult();
 
-        List<Skill> foundSkills = hibQuery.list();
+        List<Skill> foundSkills = new LinkedList<Skill>(hibQuery.list());
         List<ProiectSkill> foundProjectSkill = proiect.getSkills();
         List<Skill> pickedSkill = new LinkedList<>();
 
