@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`proiect_skill` (
   `ID_proiect` INT(11) NOT NULL,
   `Pondere` INT(2) UNSIGNED NOT NULL DEFAULT 1,
   `Target` INT(1) UNSIGNED NOT NULL DEFAULT 1,
-  INDEX `FK_proiect_skill_skill` (`ID_skill` ASC) VISIBLE,
-  INDEX `FK_proiect_skill_proiect` (`ID_proiect` ASC) VISIBLE,
+  INDEX `FK_proiect_skill_skill` (`ID_skill` ASC),
+  INDEX `FK_proiect_skill_proiect` (`ID_proiect` ASC),
   CONSTRAINT `FK_proiect_skill_proiect`
     FOREIGN KEY (`ID_proiect`)
     REFERENCES `expleodb`.`proiect` (`ID_Proiect`),
@@ -93,7 +93,7 @@ AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
-INSERT INTO `user` VALUES 
+INSERT INTO `user` VALUES
 	(1,'Milea','Ovidiu','3465','ovidiu-marian.milea@expleogroup.com','2017-11-20','Angajat'),
 	(2,'Rusu','Tiberiu','5421','tiberiu.rusu@expleogroup.com','2019-07-20','Angajat'),
 	(3,'Baldovin','Virgil-Florentin','5428','virgil-florentin.baldovin@expleogroup.com','2019-07-26','Angajat'),
@@ -106,8 +106,8 @@ INSERT INTO `user` VALUES
 CREATE TABLE IF NOT EXISTS `expleodb`.`user_proiect` (
   `ID_user` INT(11) NOT NULL,
   `ID_proiect` INT(11) NOT NULL,
-  INDEX `FK_user_proiect_proiect` (`ID_proiect` ASC) VISIBLE,
-  INDEX `FK_user_proiect_user` (`ID_user` ASC) VISIBLE,
+  INDEX `FK_user_proiect_proiect` (`ID_proiect` ASC),
+  INDEX `FK_user_proiect_user` (`ID_user` ASC),
   CONSTRAINT `FK_user_proiect_proiect`
     FOREIGN KEY (`ID_proiect`)
     REFERENCES `expleodb`.`proiect` (`ID_Proiect`),
@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`user_skill` (
   `evaluare` INT(1) UNSIGNED NOT NULL,
   `data_evaluare` DATE NOT NULL,
 
-  INDEX `FK_user_skill_user` (`id_user` ASC) VISIBLE,
-  INDEX `FK_user_skill_skill` (`id_skill` ASC) VISIBLE,
+  INDEX `FK_user_skill_user` (`id_user` ASC),
+  INDEX `FK_user_skill_skill` (`id_skill` ASC),
   CONSTRAINT `FK_user_skill_skill`
     FOREIGN KEY (`id_skill`)
     REFERENCES `expleodb`.`skill` (`ID_skill`),
@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
   `evaluare` INT(1) UNSIGNED NOT NULL,
   `data_evaluare` DATE NOT NULL,
 
-  INDEX `FK_id_user` (`id_user` ASC) VISIBLE,
-  INDEX `FK_id_skill` (`id_skill` ASC) VISIBLE,
+  INDEX `FK_id_user` (`id_user` ASC),
+  INDEX `FK_id_skill` (`id_skill` ASC),
 
   CONSTRAINT `FK_id_user`
     FOREIGN KEY (`id_user`)
