@@ -37,7 +37,7 @@
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${projectId}" name="proiectId"
                                                style="display: none">
-                                        <input class="btn btn-outline-secondary btn-sm" type='submit' value='Schimba'/>
+                                        <input class="btn btn-outline-primary btn-sm" type='submit' value='Schimba'/>
                                     </form>
                                 </td>
                             </tr>

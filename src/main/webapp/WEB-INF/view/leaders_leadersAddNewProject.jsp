@@ -9,22 +9,13 @@
 
 <security:csrfMetaTags/>
 
-<br>
-  <button type="button" class="btn btn-outline-primary"
-  onclick="return back()">Inapoi</button>
-<hr>
 <h3> Creeaza un nou proiect</h3>
-<br>
-<br>
+<hr>
 
 <form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" id="addProject" accept-charset = "utf-8">
     <table class="table table-striped">
         <thead class="thead-light">
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+
         <tr>
             <th><label>Nume proiect:</label></th>
             <th><form:input path="numeProiect"/></th>

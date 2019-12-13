@@ -6,17 +6,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button onclick="return backToManageTeam()" class="btn btn-outline-primary">
-    Inapoi
-</button>
-
 
 <c:choose>
 <c:when test="${empty result}">
-<h4>Niciun proiect disponibil.</h4>
+<h3>Niciun proiect disponibil.</h3>
+<hr>
 </c:when>
 <c:otherwise>
+<br>
 <h3>Proiecte disponibile:</h3>
+
+<hr>
+
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>

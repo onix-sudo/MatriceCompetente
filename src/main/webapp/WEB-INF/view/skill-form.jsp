@@ -24,9 +24,6 @@
 </p>
 
 
-<br>
-
-
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
@@ -41,9 +38,10 @@
 </form:form>
 
 
+
 <core:if test="${result != null}">
-    <table>
-        <thead>
+     <table class="table table-striped">
+         <thead class="thead-dark">
             <tr>
                 <th>Nume Skill</th>
                 <th>Categorie</th>
@@ -58,7 +56,7 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                        <button onclick="return ps(${tempResult.idSkill}, ${user.id})">Adauga</button>
+                        <button class="btn btn-outline-primary" onclick="return ps(${tempResult.idSkill}, ${user.id})">Adauga</button>
                 </td>
             </tr>
         </core:forEach>
@@ -66,8 +64,6 @@
 </core:if>
 
 
-
-<button type="button" onclick="showSkills()" class="btn btn-outline-primary">Inapoi</button>
 
 <script>
     function ps(skillID, userID) {

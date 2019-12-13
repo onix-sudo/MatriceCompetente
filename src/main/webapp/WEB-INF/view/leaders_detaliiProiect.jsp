@@ -18,9 +18,6 @@
  <button type="button" class="btn btn-outline-primary"
  onclick="return adaugaCompetente()">Competente</button>
 
-  <button type="button" class="btn btn-outline-primary"
-  onclick="leaders()">Inapoi</button>
-
   <button type="button" class="btn btn-danger" onclick="renunta()" style="float: right;">Renunta la proiect</button>
 <br>
 <br>

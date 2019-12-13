@@ -6,9 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button type="button" onclick="showSkills()" class="btn btn-outline-primary">Inapoi</button>
-<hr>
 <h3>Schimba parola</h3>
+<hr>
 <br>
 <div>
     <form:form id="changePasswordForm" modelAttribute = "password">
