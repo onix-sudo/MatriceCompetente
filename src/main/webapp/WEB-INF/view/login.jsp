@@ -40,7 +40,7 @@ body {
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                <div class="panel-title">Sign In</div>
+                <div class="panel-title">Autentificare</div>
             </div>
 
             <div style="padding-top: 30px" class="panel-body">
@@ -75,7 +75,7 @@ body {
                                 <c:if test="${param.logout != null}">
 
                                     <div class="alert alert-success col-xs-offset-1 col-xs-10">
-                                        You have been logged out.
+                                        Ati fost deconectat cu succes.
                                     </div>
 
                                 </c:if>
@@ -89,7 +89,7 @@ body {
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                        <input type="text" name="username" placeholder="username" class="form-control">
+                        <input type="text" name="username" placeholder="Adresa de email" class="form-control">
                     </div>
 
 <%--
@@ -98,7 +98,7 @@ body {
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 
-                        <input type="password" name="password" placeholder="password" class="form-control">
+                        <input type="password" name="password" placeholder="Parola" class="form-control">
                     </div>
 
 <%--
@@ -106,14 +106,14 @@ body {
 --%>
                     <div style="float: left; padding-left: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">Autentificare</button>
                         </div>
                     </div>
                 </form:form>
 
                     <div style="float: right; padding-right: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Forgot Password</button>
+                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Am uitat parola..</button>
                         </div>
                     </div>
 

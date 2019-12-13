@@ -18,13 +18,13 @@
         <c:choose>
             <c:when test="${managerCheck}">
                <form:form action="${toRedirectForRemove}" method="post">
-                    <button class="btn btn-danger" >Remove manager role</button>
+                    <button class="btn btn-danger" >Sterge rolul de manager</button>
                </form:form>
              </c:when>
 
              <c:otherwise>
                <form:form action="${toRedirectForAdd}" method="post">
-                    <button class="btn btn-outline-success" >Add manager role</button>
+                    <button class="btn btn-outline-success" >Adauga rol de manager</button>
                </form:form>
              </c:otherwise>
         </c:choose>
