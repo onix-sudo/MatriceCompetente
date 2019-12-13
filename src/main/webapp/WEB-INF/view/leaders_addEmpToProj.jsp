@@ -111,11 +111,8 @@
                 },
                 error: function(res){
                     console.log(res);
-                    console.log(searchTerm);
                     console.log("ERROR - addUser");
-                    console.log(url);
-                    console.log(userId);
-                    searchUser(searchTerm);
+
                 }
             });
         }
