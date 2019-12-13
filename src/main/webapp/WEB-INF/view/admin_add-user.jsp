@@ -1,52 +1,56 @@
 <%@ include file="admin_header.jspf" %>
-
+<br>
+<h3>Adauga un angajat in baza de date</h3>
+<hr>
     <form:form action = "saveUser" modelAttribute = "newEmployee" method="POST" accept-charset="utf-8">
-    <table>
+ <table class="table table-striped">
+            <thead class="thead-light">
         <tr>
-            <td><label> Nume: </label></td>
-            <td><form:input path="nume" /></td>
-            <td><form:errors path="nume" cssClass="error"/></td>
+            <th><label> Nume: </label></th>
+            <th><form:input path="nume" /></th>
+            <th><form:errors path="nume" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <td><label> Prenume: </label></td>
-            <td><form:input path="prenume"  /></td>
-            <td><form:errors path="prenume" cssClass="error"/></td>
+            <th><label> Prenume: </label></th>
+            <th><form:input path="prenume"  /></th>
+            <th><form:errors path="prenume" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <td><label> Numar matricol: </label></td>
-            <td><form:input path="numarMatricol" /></td>
-            <td><form:errors path="numarMatricol" cssClass="error"/></td>
-
-        </tr>
-
-        <tr>
-            <td><label> Email: </label></td>
-            <td><form:input path="email" /></td>
-            <td><form:errors path="email" cssClass="error"/></td>
+            <th><label> Numar matricol: </label></th>
+            <th><form:input path="numarMatricol" /></th>
+            <th><form:errors path="numarMatricol" cssClass="error"/></th>
 
         </tr>
 
         <tr>
-            <td><label> Data angajare: </label></td>
-            <td><form:input path="dataAngajare" placeholder="aaaa-ll-zz" /></td>
-            <td><form:errors path="dataAngajare" cssClass="error"/></td>
-        </tr>
-
-        <tr>
-            <td><label> Functie: </label></td>
-            <td><form:input path="functie" /></td>
-            <td></td>
+            <th><label> Email: </label></th>
+            <th><form:input path="email" /></th>
+            <th><form:errors path="email" cssClass="error"/></th>
 
         </tr>
 
         <tr>
-            <td><input type="submit" value="Adauga" class="btn btn-success"/></td>
-            <td></td>
-            <td></td>
+            <th><label> Data angajare: </label></th>
+            <th><form:input path="dataAngajare" placeholder="aaaa-ll-zz" /></th>
+            <th><form:errors path="dataAngajare" cssClass="error"/></th>
+        </tr>
+
+        <tr>
+            <th><label> Functie: </label></th>
+            <th><form:input path="functie" /></th>
+            <th></td>
 
         </tr>
+
+        <tr>
+            <th></th>
+            <th><input type="submit" value="Adauga" class="btn btn-outline-primary"/></th>
+            <th></th>
+
+        </tr>
+        </thead>
     </table>
 
     </form:form>

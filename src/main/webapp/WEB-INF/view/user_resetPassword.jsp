@@ -1,12 +1,16 @@
 <%@ include file="header.jspf"%>
-
-
+<br>
+<h3>Resetare parola</h3>
+<hr>
+<br>
 <c:choose>
 <c:when test="${loginUser.isExpired()}">
-<h2>Salut, ${userExpleo.prenume}!</h2>
+<h3>Salut, ${userExpleo.prenume}!</h3>
+
 <div>
     <form:form action="${pageContext.request.contextPath}/forgotPassword/newPassword" method="POST" modelAttribute = "password">
-    <table>
+     <table class="table table-striped">
+        <thead class="thead-light">
         <tr>
             <th><label> Parola noua: </label>
             <form:input type="password" path="newPassword"/></th>
@@ -16,10 +20,12 @@
             <form:input type="password" path="confirmPassword" /></th>
         </tr>
         <input type="hidden" name="userId" value="${loginUser.id}">
+        </thead>
     </table>
 <input type="hidden" name = "token" value="${token}">
-   <button type="submit" class = "btn btn-success">Change Password</button>
+   <button type="submit" class = "btn btn-outline-success" style="position: absolute; right: 10;">Change Password</button>
    <br>
+
             <c:forEach var="message"  items = "${errors}">
            <span class="error">${message}</span>
            <br>

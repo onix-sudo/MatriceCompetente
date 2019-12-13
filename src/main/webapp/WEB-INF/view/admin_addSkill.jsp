@@ -1,21 +1,27 @@
 <%@ include file="admin_header.jspf" %>
-
+<br>
+<h3>Adauga competenta in baza de date</hr>
+<hr>
     <form:form action = "addSkill/save" modelAttribute = "newSkill" method="POST" accept-charset="utf-8">
-    <table>
+     <table class="table table-striped">
+        <thead class="thead-light">
         <tr>
-            <td><label> Competenta: </label><td>
-            <td><form:input path="numeSkill" /></td>
+            <th><label> Competenta: </label><th>
+            <th><form:input path="numeSkill" /></th>
         </tr>
 
         <tr>
-            <td><label> Categorie: </label><td>
-            <td><form:input path="categorie"  /></td>
+            <th><label> Categorie: </label><th>
+            <th><form:input path="categorie"  /></th>
         </tr>
 
         <tr>
-            <td><input type="submit" value="Adauga" class="btn btn-success"/></td>
-            <td><label></label></td>
+            <th></th>
+            <th></th>
+            <th><input type="submit" value="Adauga" class="btn btn-outline-primary"/></th>
         </tr>
+        </thead>
+
     </table>
 
     </form:form>
