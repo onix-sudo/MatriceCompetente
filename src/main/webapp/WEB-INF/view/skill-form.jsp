@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>Add Skill</h2>
+<h2>Adauga competenta aditionala</h2>
 
 <p>
 <hr>
@@ -36,7 +36,7 @@
     caractere."
            required/>
 
-    <input type="submit" value="Cauta" class="btn btn-primary" />
+    <input type="submit" value="Cauta" class="btn btn-outline-primary" />
 
 </form:form>
 
@@ -58,10 +58,7 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-<!--                    <form id="skillForm">-->
-                        <button onclick="return ps(${tempResult.idSkill}, ${user.id})">Add</button>
-<!--                        <input type="hidden" value="${tempResult.idSkill}" name="skillId"/>-->
-<!--                    </form>-->
+                        <button onclick="return ps(${tempResult.idSkill}, ${user.id})">Adauga</button>
                 </td>
             </tr>
         </core:forEach>
@@ -70,7 +67,7 @@
 
 
 
-<button type="button" onclick="showSkills()" class="btn btn-info">Back</button>
+<button type="button" onclick="showSkills()" class="btn btn-outline-primary">Inapoi</button>
 
 <script>
     function ps(skillID, userID) {

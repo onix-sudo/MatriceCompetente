@@ -9,8 +9,8 @@
             <h4><p>Nu ai fost adaugat in niciun proiect.</p><h4>
             </c:when>
             <c:otherwise>
-        <table class="table">
-            <thead>
+        <table class="table table-striped">
+            <thead class="thead-dark">
             <tr>
                 <th>Nr.</th>
                 <th>Nume Proiect</th>

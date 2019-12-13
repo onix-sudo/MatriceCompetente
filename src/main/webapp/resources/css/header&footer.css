@@ -6,6 +6,7 @@ body{
         width: 80%;
         color: #fff;
         margin: 0 auto; /* Center the DIV horizontally */
+        position: relative;
     }
     .fixed-header, .fixed-footer{
         width: 100%;
@@ -18,7 +19,6 @@ body{
         top: 0;
     }
     .fixed-footer{
-
         bottom: 0;
         width: 100%;
     }

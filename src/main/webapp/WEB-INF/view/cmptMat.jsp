@@ -7,8 +7,8 @@
 <div class="container">
         <div class="split left">
             <div class="">
-                <table class="table">
-                    <thead>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
                     <tr>
                         <th>Nume competenta</th>
                         <th>Categorie</th>
@@ -37,7 +37,7 @@
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${projectId}" name="proiectId"
                                                style="display: none">
-                                        <input class="btn btn-secondary btn-sm" type='submit' value='Schimba'/>
+                                        <input class="btn btn-outline-secondary btn-sm" type='submit' value='Schimba'/>
                                     </form>
                                 </td>
                             </tr>

@@ -18,7 +18,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <input type='submit' value='Cauta' class="btn btn-primary" />
+            <input type='submit' value='Cauta' class="btn btn-outline-primary" />
         </td>
     </form>
 
@@ -33,14 +33,15 @@
                                     <input type="submit" class="btn btn-warning" value="Descarca lista">
                                 </form:form>
 
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
         <th>Nume User</th>
         <th>Functie</th>
         <th>Competenta</th>
         <th>Categorie</th>
         <th>Evaluare</th>
+        <th></th>
     </tr>
     </thead>
 

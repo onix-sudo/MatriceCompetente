@@ -6,12 +6,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<button type="button" onclick="showSkills()" class="btn btn-info">Back</button>
-
+<button type="button" onclick="showSkills()" class="btn btn-outline-primary">Inapoi</button>
+<hr>
+<h3>Schimba parola</h3>
+<br>
 <div>
     <form:form id="changePasswordForm" modelAttribute = "password">
-    <table class="table">
-        <tr>
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
                     <th><label> Parola actuala: </label></th>
                     <th><form:input type="password" path="oldPassword" /></th>
                     <%--<th><form:errors path="oldPassword" cssClass="error"/></th>--%>
@@ -26,15 +29,19 @@
                 <tr>
                     <th><label> Confirma parola noua: </label></th>
                     <th><form:input type="password" path="confirmPassword" /></th>
-                    <%--<th><form:errors path="newPassword" cssClass="error"/></th>--%>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>
+                          <button type="submit" class = "btn btn-outline-success">Schimba</button>
+                    </th>
                 </tr>
 
         </tr>
-
+        </thead>
     </table>
-   <hr>
 
-   <button type="submit" class = "btn btn-success">Change Password</button>
 <br>
          <c:forEach var="message"  items = "${errors}">
         <span class="error">${message}</span>
