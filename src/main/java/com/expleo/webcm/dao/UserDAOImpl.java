@@ -1,6 +1,5 @@
 package com.expleo.webcm.dao;
 
-import com.expleo.webcm.entity.expleodb.Proiect;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
@@ -12,12 +11,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -33,6 +31,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Autowired
     private BcryptPasswordHelper bcryptPasswordHelper;
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
     public void saveNewUser(UserExpleo newUser) {
@@ -78,7 +78,12 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.update(userExpleo);
+        UserExpleo userSession = session.get(UserExpleo.class, userExpleo.getId());
+        userSession.setNume(userExpleo.getNume());
+        userSession.setPrenume(userExpleo.getPrenume());
+        userSession.setFunctie(userExpleo.getFunctie());
+
+        session.persist(userSession);
 
         session.getTransaction().commit();
         session.close();
@@ -103,7 +108,6 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
 
         UserExpleo user = (UserExpleo) query.getSingleResult();
-//        Hibernate.initialize(user.getProiecte());
 
         session.getTransaction().commit();
         session.close();
@@ -230,7 +234,7 @@ public class UserDAOImpl implements UserDAO {
             session.getTransaction().commit();
             return loginUser;
         }catch (NoResultException e){
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
         }finally {
             session.close();
         }
@@ -249,7 +253,7 @@ public class UserDAOImpl implements UserDAO {
             query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }finally {
             session.close();
@@ -268,7 +272,7 @@ public class UserDAOImpl implements UserDAO {
             query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }finally {
             session.close();
@@ -287,7 +291,7 @@ public class UserDAOImpl implements UserDAO {
             query.getSingleResult();
             return true;
         }catch (NoResultException e){
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }finally {
             session.close();

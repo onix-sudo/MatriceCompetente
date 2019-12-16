@@ -14,7 +14,7 @@ public class UserSkill{
     @Column(name="id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @JoinColumn(name="ID_user")//, insertable = false, updatable = false)
 //    @MapsId("userId")
     private UserExpleo user;

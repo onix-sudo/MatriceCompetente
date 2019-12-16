@@ -3,17 +3,13 @@ package com.expleo.webcm.entity.expleodb;
 import com.expleo.webcm.helper.UniqueEmail;
 import com.expleo.webcm.helper.UniqueNumarMatricol;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
-import org.apache.lucene.analysis.core.StopFilterFactory;
 import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
 import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.analysis.ngram.*;
-import org.apache.lucene.analysis.standard.StandardFilterFactory;
-import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.bridge.builtin.IntegerBridge;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -84,7 +80,7 @@ public class UserExpleo {
     private String functie;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+            cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "user_proiect",
             joinColumns = { @JoinColumn(name = "ID_user")},
@@ -101,7 +97,7 @@ public class UserExpleo {
             inverseJoinColumns = @JoinColumn(name = "ID_skill"))
     private Set<Skill> skillsRequired;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     private Set<UserSkill> userSkills;
 
     @OneToMany(mappedBy = "user")
@@ -121,9 +117,6 @@ public class UserExpleo {
 
     public void setUserSkills(Set<UserSkill> userSkills) {
         this.userSkills = userSkills;
-    }
-
-    public UserExpleo() {
     }
 
     public int getId() {

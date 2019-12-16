@@ -43,7 +43,7 @@
      <table class="table table-striped">
          <thead class="thead-dark">
             <tr>
-                <th>Nume Skill</th>
+                <th>Nume Competenta</th>
                 <th>Categorie</th>
                 <th></th>
             </tr>

@@ -31,7 +31,7 @@
              <th>Competenta</th>
              <th>Categorie</th>
              <th>Pondere</th>
-             <th>Target</th>
+             <th>Necesar</th>
              <th></th>
           </tr>
           </thead>

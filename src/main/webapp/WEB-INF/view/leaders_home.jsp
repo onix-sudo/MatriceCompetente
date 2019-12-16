@@ -34,7 +34,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <button class="btn btn-outline-primary" onclick="return modify('${proiecte.codProiect}')">Modifica</button>
+                        <button class="btn btn-outline-primary" onclick="return modify('${proiecte.codProiect}')">Deschide</button>
                     </td>
                 </tr>
             </c:forEach>

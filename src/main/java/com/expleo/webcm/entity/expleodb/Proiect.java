@@ -1,13 +1,11 @@
 package com.expleo.webcm.entity.expleodb;
 
 import com.expleo.webcm.helper.UniqueCodProiect;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -37,7 +35,7 @@ public class Proiect {
     private List<ProiectSkill> skills;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+            cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "user_proiect",
             joinColumns = { @JoinColumn(name = "ID_proiect")},
@@ -45,9 +43,6 @@ public class Proiect {
     )
     private List<UserExpleo> users;
 
-    public Proiect() {
-
-    }
 
     public int getProiectId() {
         return proiectId;
