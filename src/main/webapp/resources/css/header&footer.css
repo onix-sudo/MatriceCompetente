@@ -21,6 +21,7 @@ body{
     .fixed-footer{
         bottom: 0;
         width: 100%;
+        z-index: 10;
     }
     /* Some more styles to beutify this example */
     #hdr a{
