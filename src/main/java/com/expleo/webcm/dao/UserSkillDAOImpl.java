@@ -54,6 +54,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         try {
             UserSkill userSkill = getUserSkill(idUserExpleo, idSkill, session);
             userSkill.setEvaluation(eval);
+            userSkill.setDataEvaluare(dateFormat.format(Calendar.getInstance().getTime()));
             session.merge(userSkill);
             session.flush();
             boolean update = false;
