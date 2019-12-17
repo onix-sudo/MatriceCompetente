@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * This class is implementing HistoryDAO interface which contains all methods that information from
+ * history column is manipulated.
+ * */
 @Repository
 public class HistoryDAOImpl implements HistoryDAO {
 
@@ -17,6 +20,13 @@ public class HistoryDAOImpl implements HistoryDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+/**
+ * Returns a list of History objects. These objects are filled with information from database obtained by searching
+ * an user evaluation history by his id.
+ *
+ *  @param id the search is done by this id.
+ *  @return a list with all evaluation history of an user.
+ * */
 
     @Override
     public List<History> getHistoryByUserId(int id) {

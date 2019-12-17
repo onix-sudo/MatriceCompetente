@@ -3,7 +3,6 @@ package com.expleo.webcm.dao;
 import com.expleo.webcm.entity.expleodb.*;
 import com.expleo.webcm.helper.Principal;
 import com.expleo.webcm.service.UserService;
-import org.hibernate.QueryException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -16,10 +15,16 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * This class is implementing ProiectDAO interface which contains all methods that information from
+ * proiect column is manipulated.
+ * */
+
 @Repository
 public class ProiectDAOImpl implements ProiectDAO {
 
     private static final String COD_PROIECT = "codProiect";
+
     @Qualifier("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
@@ -34,6 +39,11 @@ public class ProiectDAOImpl implements ProiectDAO {
     private Logger logger = Logger.getLogger(getClass().getName());
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
+    /**
+     * This method will save a detached Proiect object to the database.
+     *
+     *  @param proiect is a detached Proiect object.
+     * */
     @Override
     public void saveNewProject(Proiect proiect) {
         Session session = openSession();
@@ -41,6 +51,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * Returns a list which contains all Proiect objects of an user, objects found by searching in database by an email address.
+     *
+     *  @param principal is a string which contains the email address of the an user. Is called principal because was
+     *                   meant to be for the principal user.
+     *  @return a list with all projects of user whom email address belongs.
+     * */
     @Override
     public List<Proiect> findManagerProjects(String principal) {
         Session session = openSession();
@@ -53,6 +70,12 @@ public class ProiectDAOImpl implements ProiectDAO {
         return result;
     }
 
+    /**
+     * Returns a Proiect object, objects found by searching in database by its project code.
+     *
+     *  @param codProiect is a string which contains the project code.
+     *  @return a Proiect object which has found.
+     * */
     @Override
     public Proiect findProjectByCodProiect(String codProiect) {
         Session session = openSession();
@@ -61,6 +84,16 @@ public class ProiectDAOImpl implements ProiectDAO {
         return result;
     }
 
+    /**
+     * This method has as an input a string and two empty lists.
+     * Returns a Proiect object which is found by searching of project code. Before return this method will fill
+     * the users list with all users who are in the projects and skills list with all skills required for the project.
+     *
+     *  @param codProiect is a string which contains the project code of the an project.
+     *  @param users is an empty list to populate it with users from project;
+     *  @param skills is an empty list to populate it with skills from project;
+     *  @return a list with all projects of user whom email address belongs.
+     * */
     @Override
     public Proiect getProjectListsUsersSkills(String codProiect, List<UserExpleo> users, List<ProiectSkill> skills) {
         Session session = openSession();
@@ -77,6 +110,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         return proiect;
     }
 
+    /**
+     * The method will add an user to a project. Also it will check if the  wanted user in the project has required skills
+     * and, if not, will add the missing skills to our user.
+     *
+     *  @param codProiect is a project code.
+     *  @param userId is the id of the wanted user into the project.
+     * */
     @Override
     public void addUserToProject(String codProiect, Integer userId) {
         Session session = openSession();
@@ -135,7 +175,12 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
-
+    /**
+     * Remove an user from an project, both of them selected by params.
+     *
+     *  @param codProiect is a project code.
+     *  @param userId is the id of the wanted user out from project.
+     * */
     @Override
     public void removeUserFromProject(String codProiect, Integer userId) {
         Session session = openSession();
@@ -145,6 +190,11 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * Allows to an user(manager) to give up on a project.
+     *
+     *  @param codProiect is a project code.
+     * */
     @Override
     public void dropTheProject(String codProiect) {
         Session session = openSession();
@@ -154,6 +204,11 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * Returns a list which contains Proiect objects, projects which does not have a manager attached.
+     *
+     *  @return a list with all projects without a manager attached.
+     * */
     @Override
     public List<Proiect> getFreeProjects() {
         Session session = openSession();
@@ -163,6 +218,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         return result;
     }
 
+    /**
+     * Get a project without a manager attached and will attach the given manager.
+     *
+     *  @param codProiect is a project code.
+     *  @param principal is a string which contains the email address of the an user. Is called principal because was
+     *                   meant to be for the principal user.
+     * */
     @Override
     public void addFreeProject(String codProiect, String principal) {
         Session session = openSession();
@@ -172,6 +234,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * The method will add a skill to a project. Also it will check every user from the project if has required skill
+     * and, if not, will add the missing skill to the users.
+     *
+     *  @param codProiect is a project code.
+     *  @param skillId is the id of the wanted skill into the project.
+     * */
     @Override
     public void addSkillToProject(String codProiect, Integer skillId) {
         Session session = openSession();
@@ -203,6 +272,12 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * This method will remove a skill from a project, both of them selected by params;
+     *
+     *  @param codProiect is a project code.
+     *  @param skillId is the id of the wanted skill to be out from project.
+     * */
     @Override
     public void removeSkillFromProject(String codProiect, Integer skillId) {
         Session session = openSession();
@@ -216,6 +291,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * This is setting the importance of a wanted skill on a wanted project
+     *
+     *  @param codProiect is a code project.
+     *  @param skillId is an id of a skill.
+     *  @param pondere is the level of importance of the skill.
+     * */
     @Override
     public void setPondere(String codProiect, Integer skillId, Integer pondere) {
         Session session = openSession();
@@ -232,6 +314,13 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * This is setting the wanted level of a skill on a wanted project
+     *
+     *  @param codProiect is a code project.
+     *  @param skillId is an id of a skill.
+     *  @param target is the wanted level of the skill.
+     * */
     @Override
     public void setTarget(String codProiect, Integer skillId, Integer target) {
         Session session = openSession();
@@ -248,23 +337,31 @@ public class ProiectDAOImpl implements ProiectDAO {
         closeSession(session);
     }
 
+    /**
+     * Check a project is is existing in the database.
+     *
+     *  @param codProiect is a project code.
+     *  @return is exists or not.
+     * */
     @Override
     public boolean foundCodProiectExpleo(String codProiect) {
-        Session session = openSession();
-
-        Query query = session.createQuery("from Proiect where codProiect = :codProiect");
-        query.setParameter(COD_PROIECT, codProiect);
-        try {
+        try(Session session = openSession()) {
+            Query query = session.createQuery("from Proiect where codProiect = :codProiect");
+            query.setParameter(COD_PROIECT, codProiect);
             query.getSingleResult();
             return true;
         } catch (NoResultException e) {
             logger.info(e.getMessage());
             return false;
-        } finally {
-            session.close();
         }
     }
 
+    /**
+     * Checks if the logged user has the project from param.
+     *
+     *  @param codProiect is a project code;
+     *  @return if the logged user has the project or not.
+     * */
     @Override
     public boolean hasPrincipalProject(String codProiect) {
         try (Session session = openSession()) {
@@ -280,6 +377,10 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
+    /**
+     * Returns all projects of the logged user.
+     *  @return a list with all projects of the logged user.
+     * */
     @Override
     public List<Proiect> findPrincipalProjects() {
         try (Session session = openSession()) {
@@ -295,6 +396,15 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
+    /**
+     * Is a helper method which fill empty lists with users, skills and userSkills objects.
+     * This will populate the lists with objects based on a project.
+     *
+     *  @param codProiect is a project code.
+     *  @param foundUsers is an empty list of users.
+     *  @param foundSkills is an empty list of skills.
+     *  @param foundUserSkills is an empty list of userSkills.
+     * */
     @Override
     public void findProjectUsersAndSkills(String codProiect, List<UserExpleo> foundUsers, List<ProiectSkill> foundSkills, List<UserSkill> foundUserSkills) {
         try (Session session = openSession()) {
@@ -319,6 +429,12 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
+    /**
+     * Returns a Proiect object.
+     *
+     *  @param codProiect is a project code.
+     *  @return a project.
+     * */
     @Override
     public Proiect getProjectByCodProiect(String codProiect) {
         try(Session session = openSession()){
@@ -326,22 +442,44 @@ public class ProiectDAOImpl implements ProiectDAO {
         }
     }
 
+    /**
+     * A helper method to not repeat code. It will save a new user history;
+     * @param user UserExpleo object.
+     * @param skill Skill object.
+     * @param session is an opened session.
+     * @param dateFormat is an object to modify the current date with a pattern.
+     * */
     private void saveHistory(UserExpleo user, Skill skill, Session session, SimpleDateFormat dateFormat) {
         session.merge(new History(user, skill, 1, dateFormat.format(Calendar.getInstance().getTime())));
         session.flush();
     }
 
+    /**
+     * A helper method to not repeat code. It will close the session;
+     * @param session is an opened session.
+     * */
     private void closeSession(Session session) {
         session.getTransaction().commit();
         session.close();
     }
 
+    /**
+     * A helper method to not repeat code.
+     *  @return an open session.
+     * */
     private Session openSession() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         return session;
     }
 
+    /**
+     * Returns a Proiect object.
+     *
+     *  @param codProiect is a project code.
+     *  @param session is a opened session.
+     *  @return a project.
+     * */
     private Proiect getProiect(String codProiect, Session session) {
         Query query = session.createQuery("from Proiect where codProiect = :" + COD_PROIECT);
         query.setParameter(COD_PROIECT, codProiect);
