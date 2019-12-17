@@ -20,6 +20,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+/**
+ * The class used for retrieving fields from the database by search terms
+ */
+
 @Repository
 public class SearchDAOImpl implements SearchDAO {
 
@@ -29,7 +33,11 @@ public class SearchDAOImpl implements SearchDAO {
 
     @Autowired
     private UserSkillService userSkillService;
-
+    /**
+     * The method used for searching the users by surname/first name .
+     * This method uses Hibernate - Query Language to the returned list .
+     * @param text the search term applied to the UserExpleo objects
+     */
     @Override
     public List<UserExpleo> searchUser(String text) {
         Session session = sessionFactory.openSession();
@@ -59,7 +67,12 @@ public class SearchDAOImpl implements SearchDAO {
         session.close();
         return result;
     }
-
+    /**
+     * The method used for searching the skills from user_skill by skill name and user ID .
+     * This method uses Hibernate - Query Language to the returned list .
+     * @param text the search term applied to Skill objects
+     * @param principalId filter the list by UserExpleo id
+     */
     @Override
     public List<Skill> searchPrincipalSkill(String text, int principalId) {
         Session session = sessionFactory.openSession();
@@ -97,7 +110,12 @@ public class SearchDAOImpl implements SearchDAO {
         session.close();
         return result;
     }
-
+    /**
+     * The method used for searching the users that are not in the current project by surname/first name .
+     * This method uses Hibernate - Query Language to the returned list .
+     * @param codProiect filter the list in order to retrieve the corresponding users
+     * @param searchTerm the search term applied to UserExpleo objects
+     */
     @Override
     public List<UserExpleo> searchUsersNotInProject(String codProiect, String searchTerm) {
 
@@ -136,7 +154,12 @@ public class SearchDAOImpl implements SearchDAO {
 
         return foundUsers;
     }
-
+    /**
+     * The method used for searching the skills that are not in the current project by skill name .
+     * This method uses Hibernate - Query Language to the returned list .
+     * @param codProiect filter the list in order to retrieve the corresponding users
+     * @param searchTerm the search term applied to Skill objects
+     */
     @Override
     public List<Skill> searchSkillsNotInProject(String codProiect, String searchTerm) {
         Session session = sessionFactory.openSession();
@@ -176,7 +199,12 @@ public class SearchDAOImpl implements SearchDAO {
         session.close();
         return foundSkills;
     }
-
+    /**
+     * The method used for searching the userSkills with minimum evaluation value by skill name .
+     * This method uses Hibernate - Query Language to the returned list .
+     * @param eval filter the list in order to retrieve the corresponding users
+     * @param text the search term applied to Skill objects
+     */
     @Override
     public List<UserSkill> searchSkillWithEvaluation(String text, int eval) {
 

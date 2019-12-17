@@ -30,12 +30,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The class used for the Search People PDF create and formatting
+ * The iText library was used to create and manipulate the PDF file
+ */
+
 public class CreatePdf {
-
+    /**
+     * Creates a {@code ByteArrayInputStream}
+     * @throws IOException  If an input or output exception occurred
+     * @param   userSkills  the table cells content.
+     * @param text the search term
+     * @param evaluation the minimum evaluation filter
+     */
     public ByteArrayInputStream getPdfAsByteArrayInputStream(List<UserSkill> userSkills, String text, String evaluation) throws IOException {
-
-        ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
-        Image image = new Image(data).scale((float)2.5, (float) 2.5);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         PdfWriter writer = new PdfWriter(os);
@@ -101,11 +109,18 @@ public class CreatePdf {
         return new ByteArrayInputStream(os.toByteArray());
     }
 
+    /**
+     * Creates customized cells for table styling purpose
+     */
     private Cell makeCell(String cellName, TextAlignment textAlignment) {
         Cell cell = new Cell().add(new Paragraph(cellName));
         cell.setTextAlignment(textAlignment);
         return cell;
     }
+
+    /**
+     * The class responsible for the header of the pages
+     */
 
     static protected class Header implements IEventHandler {
         private Paragraph header;
@@ -127,7 +142,6 @@ public class CreatePdf {
             ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
             Image image = new Image(data).scale((float)2.8, (float) 2.8);
 
-            // Write text at positionz
             canvas.showTextAligned(header,
                     pageSize.getWidth() / 2 + 250,
                     pageSize.getTop() - 80, TextAlignment.RIGHT).add(image);
@@ -135,6 +149,9 @@ public class CreatePdf {
         }
     }
 
+    /**
+     * The class responsible for the footer of the pages
+     */
     static protected class Footer implements IEventHandler {
          PdfFormXObject placeholder;
          float side = 20;
