@@ -137,7 +137,7 @@ public class CreatePdf {
             PdfPage page = docEvent.getPage();
             Rectangle pageSize = page.getPageSize();
 
-            Canvas canvas = new Canvas(new PdfCanvas(page),pdf,pageSize);//new PdfCanvas(page), pdf, pageSize
+            Canvas canvas = new Canvas(new PdfCanvas(page),pdf,pageSize);
 
             ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
             Image image = new Image(data).scale((float)2.8, (float) 2.8);
