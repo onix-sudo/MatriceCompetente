@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Contains the configuration of dataSources transactions.
+ * */
+
 @Configuration
 @EnableTransactionManagement
 public class TransactionManagerController {
@@ -15,18 +19,19 @@ public class TransactionManagerController {
     @Autowired
     public HibernateTransactionManager transactionExpleoDBManager(SessionFactory sessionFactory){
 
-        //setup transaction manager based on session factory
-        HibernateTransactionManager txManager = new HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory);
-
-        return txManager;
+        //setup transaction manager for expleodb
+        return getTransactionManager(sessionFactory);
     }
 
     @Bean(name = "transactionSecurityManager")
     @Autowired
     public HibernateTransactionManager transactionSecurityManager(SessionFactory sessionFactory){
 
-        //setup transaction manager based on session factory
+        //setup transaction manager for webcm_security
+        return getTransactionManager(sessionFactory);
+    }
+
+    private HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory);
 

@@ -2,7 +2,9 @@ package com.expleo.webcm.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-
+/**
+ * Contains the standard configuration of Servlet initialization.
+ * */
 
 public class WebDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

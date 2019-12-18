@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Contains the configuration which starts Hibernate Search indexing .
+ * */
 
 @Component
 @Transactional("transactionExpleoDBManager")
@@ -20,14 +23,10 @@ public class HibernateSearchIndexConfig  {
     SessionFactory sessionFactory;
 
     @Bean("searchIndexer")
-    public void searchIndexer(){
+    public void searchIndexer() throws InterruptedException {
         Session session = sessionFactory.getCurrentSession();
 
         FullTextSession fullTextSession = Search.getFullTextSession(session);
-        try {
-            fullTextSession.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        fullTextSession.createIndexer().startAndWait();
     }
 }

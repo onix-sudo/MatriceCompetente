@@ -13,6 +13,9 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+/**
+ * Contains the configuration of connection to expleodb schema.
+ * */
 @Configuration
 @PropertySource("classpath:persistance-mysql.properties")
 public class DataSourceConfig {
@@ -20,7 +23,6 @@ public class DataSourceConfig {
     //set up variable to hold the properties
     @Autowired
     private Environment env;
-
 
     //set up a logger for diag
     private Logger myLogger = Logger.getLogger(getClass().getName());
@@ -84,9 +86,6 @@ public class DataSourceConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
         sessionFactory.setHibernateProperties(getHibernateProperties());
-
-//        sessionFactory.setAnnotatedClasses(UserExpleo.class);
-
 
         return sessionFactory;
     }
