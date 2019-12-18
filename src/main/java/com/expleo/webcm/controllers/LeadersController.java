@@ -29,6 +29,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.*;
 
+/**
+ * The Spring Controller for leaders
+ */
+
 @Controller
 @RequestMapping("/webCM/leaders")
 public class LeadersController {
@@ -48,6 +52,11 @@ public class LeadersController {
     @Autowired
     private UserSkillService userSkillService;
 
+    /**
+     * Get method that handles the request mapping below
+     * @param model pass to the jsp file the list of projects available to the user
+     * @return the jsp file from view directory
+     */
     @GetMapping
     public String showLeaders(Model model){
 
@@ -56,12 +65,23 @@ public class LeadersController {
 
         return "leaders_home";
     }
-
+    /**
+     * Get method that handles the mapping of the request below to search a user form
+     * @return the jsp file from view directory
+     */
     @GetMapping("/searchPeople")
     public String showSearchPeople(){
         return "searchPeople";
     }
 
+    /**
+     * Get method that handles the mapping of the request below to search a user
+     * @param text the search term typed by the user
+     * @param eval the minimum value of evaluation for the users shown
+     *             The parameters above are used by the search service in order to retrieve the suitable list .
+     * @param theModel pass to the jsp the search result
+     * @return the jsp file from view directory
+     */
     @GetMapping("/searchPeople/search")
     public String searchPeopleByEvaluation(@RequestParam(value = "searchTerm") String text,@RequestParam("evaluation") int eval, Model theModel){
 
@@ -71,6 +91,13 @@ public class LeadersController {
         return "searchPeople";
     }
 
+    /**
+     * Post method that handles the mapping of the request below to download the PDF created by the showSearchPeople method
+     * @param text the search term typed by the user, this approach helps us to introduce the value in the PDF file
+     * @param evaluation the minimum value for evaluation, this approach helps us to introduce the value in the PDF file
+     * @param response produce the download form
+     * @return the jsp file from view directory
+     */
     @PostMapping("/pdfDownload")
     public void pdfDownload(@RequestParam("downloadSearchTerm") String text,
                               @RequestParam("downloadEvaluationTerm") String evaluation, HttpServletResponse response) throws IOException {
@@ -90,7 +117,12 @@ public class LeadersController {
         }
     }
 
-
+    /**
+     * Get method that handles the mapping of the request below to add a new project form
+     * @param model pass to the jsp file a Proiect object in order to provide the fields required to register
+     *                 a new project
+     * @return the jsp file from view directory
+     */
     @GetMapping("/addNewProject")
     public String addNewProject(Model model){
 
@@ -100,6 +132,12 @@ public class LeadersController {
         return "leaders_leadersAddNewProject";
     }
 
+    /**
+     * Post method that handles the mapping of the request below to save a new project
+     * @param proiect the object to be added into the database
+     * @param result check if the fields are correct and if so, the object will be added in the database
+     * @return the jsp file from view directory
+     */
     @PostMapping(value = "/addProject", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
     public ValidateResponse addProjectToDb(@Valid @ModelAttribute("newProject") Proiect proiect, BindingResult result){

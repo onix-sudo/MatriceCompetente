@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * The Spring Controller for admin .
+ * The Spring Controller for admin
  */
 
 @Controller
@@ -36,7 +36,7 @@ public class AdminController {
     private SkillService skillService;
 
     /**
-     * Get method which handles the request mapping below.
+     * Get method that handles the request mapping below
      * @return the jsp file from view directory
      */
     @GetMapping()
@@ -45,7 +45,7 @@ public class AdminController {
     }
 
     /**
-     * Get method which handles the request mapping below .
+     * Get method that handles the request mapping below
      * @return redirect to the jsp file from view directory
      */
     @GetMapping("/tomcatManager")
@@ -54,7 +54,7 @@ public class AdminController {
     }
 
     /**
-     * Get method that handles the mapping of the request below to add a user form .
+     * Get method that handles the mapping of the request below to add a user form
      * @param theModel pass to the jsp file a UserExpleo object in order to provide the fields required to register
      *                 a new user .
      * @return the jsp file from view directory
@@ -69,9 +69,9 @@ public class AdminController {
     }
 
     /**
-     * Post method that handles the mapping of the request below to save a new user .
-     * @param employee the object to be added into the database .
-     * @param result check if the fields are correct and if so, the object will be added in the database .
+     * Post method that handles the mapping of the request below to save a new user
+     * @param employee the object to be added into the database
+     * @param result check if the fields are correct and if so, the object will be added in the database
      * @return the jsp file from view directory
      */
     @PostMapping("/saveUser")
@@ -88,7 +88,7 @@ public class AdminController {
     }
 
     /**
-     * Get method that handles the mapping of the request below to update a user .
+     * Get method that handles the mapping of the request below to update a user
      * @return redirect to the jsp file from view directory
      */
     @GetMapping("/updateUser")
@@ -97,8 +97,8 @@ public class AdminController {
     }
 
     /**
-     * Get method that handles the mapping of the request below to search a user .
-     * @param text the search term that will be used in order to retrieve the user you are looking for .
+     * Get method that handles the mapping of the request below to search a user
+     * @param text the search term that will be used in order to retrieve the user you are looking for
      * @param theModel pass to the jsp the search result
      * @return the jsp file from view directory
      */
@@ -112,9 +112,9 @@ public class AdminController {
     }
 
     /**
-     * Get method that handles the mapping of the request below to modify a user .
-     * @param theId the Id related to the user that will be modified .
-     * @param userModel pass values to render the view .
+     * Get method that handles the mapping of the request below to modify a user
+     * @param theId the Id related to the user that will be modified
+     * @param userModel pass values to render the view
      * @return the jsp file from view directory
      */
     @GetMapping("/updateUser/modify")
@@ -142,8 +142,8 @@ public class AdminController {
     }
 
     /**
-     * Post method that handles the mapping of the request below to remove a manager role .
-     * @param theId the Id related to the user that will not longer be a manager .
+     * Post method that handles the mapping of the request below to remove a manager role
+     * @param theId the Id related to the user that will not longer be a manager
      * @return redirect to the jsp file from view directory
      */
     @PostMapping("/updateUser/removeManagerRole")
@@ -155,8 +155,8 @@ public class AdminController {
     }
 
     /**
-     * Post method that handles the mapping of the request below to add a manager role .
-     * @param theId the Id related to the user that be a manager .
+     * Post method that handles the mapping of the request below to add a manager role
+     * @param theId the Id related to the user that be a manager
      * @return redirect to the jsp file from view directory
      */
     @PostMapping("/updateUser/addManagerRole")
@@ -168,8 +168,8 @@ public class AdminController {
     }
 
     /**
-     * Post method that handles the mapping of the request below to update a user .
-     * @param updateUser the object that will be updated .
+     * Post method that handles the mapping of the request below to update a user
+     * @param updateUser the object that will be updated
      * @return redirect to the jsp file from view directory
      */
     @PostMapping("/updateUser/update")
@@ -181,9 +181,9 @@ public class AdminController {
     }
 
     /**
-     * Get method that handles the mapping of the request below to add a skill .
+     * Get method that handles the mapping of the request below to add a skill
      * @param model pass to the jsp file a Skill object in order to provide the fields required to register
-     *                 a new skill .
+     *                 a new skill
      * @return the jsp file from view directory
      */
     @GetMapping("/addSkill")
@@ -195,8 +195,8 @@ public class AdminController {
     }
 
     /**
-     * Post method that handles the mapping of the request below to save a new skill .
-     * @param skill the object to be added into the database .
+     * Post method that handles the mapping of the request below to save a new skill
+     * @param skill the object to be added into the database
      * @return redirect to the jsp file from view directory
      */
     @PostMapping("/addSkill/save")
