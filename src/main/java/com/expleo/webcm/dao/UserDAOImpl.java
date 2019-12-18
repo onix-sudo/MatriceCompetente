@@ -197,6 +197,12 @@ public class UserDAOImpl implements UserDAO {
         session.close();
     }
 
+
+    /**
+     * Creeaza un token random pentru identificarea utilizatorului care isi reseteaza parola
+     * @param id
+     * @return
+     */
     @Override
     public String createResetPasswordDetails(int id) {
         Session session = sessionSecurityFactory.openSession();
@@ -259,6 +265,7 @@ public class UserDAOImpl implements UserDAO {
             session.close();
         }
     }
+
 
     @Override
     public boolean foundNumarMatricolExpleo(Integer numarMatricol) {

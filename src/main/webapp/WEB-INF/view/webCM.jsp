@@ -3,6 +3,10 @@
 
 <div class="ownBody">
 
+<%--webCM reprezinta pagina principala si este impartita in 4 taburi
+    Fiecare tab este tip radioButton, iar atunci cand este apasat se va apela o functie ce va incarca
+    pentru tab-ul respectiv jsp-ul returnat din controller--%>
+
 <div class="page">
         <!-- tabs -->
         <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
@@ -60,10 +64,10 @@
         </div>
 </div>
 
+<%--functie pentru incarcarea primului tab care este implicit selectat--%>
     <script>
         function loadWebCM() {
         $("#div1").load("/webCM/currentProj");
-            <%--$("#tab1").click();--%>
 
             return false;
         }

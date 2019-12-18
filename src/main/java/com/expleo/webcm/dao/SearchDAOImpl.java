@@ -110,6 +110,7 @@ public class SearchDAOImpl implements SearchDAO {
         session.close();
         return result;
     }
+
     /**
      * The method used for searching the users that are not in the current project by surname/first name .
      * This method uses Hibernate - Query Language to the returned list .

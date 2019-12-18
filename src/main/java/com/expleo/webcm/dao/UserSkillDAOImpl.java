@@ -25,7 +25,11 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     private SessionFactory sessionFactory;
 
 
-
+    /**
+        *Metoda salveaza un UserSkill
+        *Foloseste session.flush() pentru a curata memoria si ca sa nu apara probleme la accesul datelor din baza
+        *De asemenea, salveaza si in tabela History userSkill-ul adaugat
+     */
     @Override
     public void saveUserSkill(int idUserExpleo, int idSkill) {
 
@@ -46,7 +50,13 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
     }
 
-
+    /**
+     * Updateaza un UserSkill cu un anumit idUser si idSkill
+     * De asemenea daca nu a trecut o zi de la ultimul update,
+     * update-ul actual nu va fi salvat in tabela History
+     * Pot exista doar 5 inregistrari in istoricul evaluarilor,
+     * astfel se va sterge cea mai veche evaluare din tabela History la al 6-lea update
+     */
     public void updateUserSkill(int idUserExpleo, int idSkill, int eval) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -102,6 +112,9 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
 
+    /**
+     * Sterge inregistrarea UserSkill cu idUserExpleo si idSkill
+     */
     @Override
     public void removeUserSkill(int idUserExpleo, int idSkill) {
         Session session = sessionFactory.openSession();
@@ -118,6 +131,14 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         session.close();
     }
 
+
+    /**
+     * Separa skill-urile din proiectele in care se afla utilizatorul
+     * de skill-urile sale aditionale si le salveaza in parametrii trimisi
+     * @param userId
+     * @param userAdditionalSkills
+     * @param projectSkills
+     */
     @Override
     public void getAdditionalAndProjectSkill(int userId, List<UserSkill> userAdditionalSkills, List<UserSkill> projectSkills) {
         Session session = sessionFactory.openSession();
@@ -154,6 +175,12 @@ public class UserSkillDAOImpl implements UserSkillDAO {
         session.close();
     }
 
+    /**
+     * Returneaza UserSkill-urile pentru care id-ul skill-urilor se regasesc
+     * in proiectul trimis prin parametrul projectId
+     * @param projectId
+     * @return
+     */
     @Override
     public List<UserSkill> getUserSkillByProjectSkills(Integer projectId) {
         Session session = sessionFactory.openSession();
