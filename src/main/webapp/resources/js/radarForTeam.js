@@ -1,8 +1,12 @@
+//fisierul javascript este folosit pentru afisarea radar chart-ului
+//pentru toate skill-urile si toti angajatii de pe un anumit proiect
+
+
+
 var jsVarListTeam = [];
 var dataListTeam = [];
 var allData = [];
 var targetData = [];
-
 
 function pushSkillTeam(value, temp) {
     jsVarListTeam.push(value);

@@ -29,7 +29,7 @@ public class MailService {
             javaMailSender.send(message);
 
         }catch (MessagingException e){
-            System.out.println("Error sendig mail: " + e.getMessage());
+            System.out.println("Error sending mail: " + e.getMessage());
         }
     }
 }

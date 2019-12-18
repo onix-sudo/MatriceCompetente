@@ -41,6 +41,12 @@ public class WebCMController {
         return "webCM";
     }
 
+    /**
+     * Creeaza modelul pentru matricea de competente pentru proiectul selectat
+     * @param model
+     * @param projectId
+     * @return
+     */
     @GetMapping(value = "/cmptMat")
     public String competencyMatrix(ModelMap model, @RequestParam(name = "proiectId") Integer projectId) {
 
@@ -51,6 +57,11 @@ public class WebCMController {
         return "cmptMat";
     }
 
+    /**
+     * Creeaza modelul pentru profilul personal al utilizatorului si returneaza view-ul pentru acesta
+     * @param model
+     * @return
+     */
     @GetMapping("/personalProfile")
     public String personalProfile(ModelMap model){
 
@@ -67,6 +78,11 @@ public class WebCMController {
         return "personalProfile";
     }
 
+    /**
+     * Creeaza modelul pentru pagina de adaugare a unui skill si returneaza view-ul pentru aceasta
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/personalProfile/showFormForAddSkill")
     public String showFormForAddSkill(ModelMap model){
 
@@ -79,6 +95,12 @@ public class WebCMController {
         return "skill-form";
     }
 
+    /**
+     * Cauta skill-urile care se potrivesc searchTerm-ului, adauga in model rezultatul si returneaza view-ul
+     * @param text
+     * @param theModel
+     * @return
+     */
     @GetMapping("/personalProfile/showFormForAddSkill/search")
     public String searchSkills(@RequestParam(value = "searchTerm") String text, Model theModel){
 
@@ -113,6 +135,14 @@ public class WebCMController {
 
     }
 
+    /**
+     * Modifica evaluarile pentru skill-urile proiectului ales si reincarca matricea de competente
+     * @param model
+     * @param eval
+     * @param idskill
+     * @param idproiect
+     * @return
+     */
     @GetMapping(value = "/cmptMat/modifyT")
     public String modifyT(ModelMap model, @RequestParam("evaluation") int eval, @RequestParam("idskill") int idskill,
                           @RequestParam(value = "proiectId") int idproiect){
@@ -123,6 +153,11 @@ public class WebCMController {
         return competencyMatrix(model, idproiect);
     }
 
+    /**
+     * Afiseaza proiectele la care utilizatorul logat este asignat
+     * @param model
+     * @return
+     */
     @GetMapping("/currentProj")
     public String currentProjects(ModelMap model) {
         List<Proiect> proiectList = proiectService.findPrincipalProjects();
@@ -131,6 +166,11 @@ public class WebCMController {
         return "currentProj";
     }
 
+    /**
+     * Extrage istoricul evaluarilor pentru toate skill-urile user-ului logat
+     * @param model
+     * @return
+     */
     @RequestMapping("/personalProfile/viewHistory")
     public String viewHistory(ModelMap model){
 
@@ -139,20 +179,9 @@ public class WebCMController {
         List<History> histories = historyService.getHistoryByUserId(user.getId());
         List<HistoryForWeb> resultList = new HistoryForWebUtil().makeList(histories);
 
-//        System.out.println("histories = " + histories);
-
         model.addAttribute("histories", resultList);
 
-//        List<HistoryCluster> historyClusters = new LinkedList<>();
-
-//        for(History history: histories){
-//         historyClusters.add(new HistoryCluster(history.getDate(),skillService.getSkill(history.getIdSkill()),history.getEvaluare()));
-//        }
-//
         model.addAttribute("histories", resultList);
-
-//        System.out.println("historyClusters = " + historyClusters);
-
 
         return "personalHistory";
     }
