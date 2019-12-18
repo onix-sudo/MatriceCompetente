@@ -7,11 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HistoryForWebUtil {
-//    private List<History> histories;
-//
-//    public HistoryForWebUtil(List<History> histories) {
-//        this.histories = histories;
-//    }
 
     public List<HistoryForWeb> makeList(List<History> histories) {
         List<HistoryForWeb> historyForWebs = new LinkedList<>();

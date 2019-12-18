@@ -1,7 +1,6 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.*;
-import com.expleo.webcm.helper.HistoryCluster;
 import com.expleo.webcm.helper.HistoryForWeb;
 import com.expleo.webcm.helper.HistoryForWebUtil;
 import com.expleo.webcm.service.*;
