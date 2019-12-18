@@ -96,7 +96,6 @@ public class LeadersController {
      * @param text the search term typed by the user, this approach helps us to introduce the value in the PDF file
      * @param evaluation the minimum value for evaluation, this approach helps us to introduce the value in the PDF file
      * @param response produce the download form
-     * @return the jsp file from view directory
      */
     @PostMapping("/pdfDownload")
     public void pdfDownload(@RequestParam("downloadSearchTerm") String text,
@@ -161,6 +160,12 @@ public class LeadersController {
         return validateResponse;
     }
 
+    /**
+     * Get method that handles the mapping of the request below to show the project details
+     * @param codProiect the project code related to the current request
+     * @param model pass to the jsp file the elements for the matrix and project details
+     * @return the jsp file from view directory
+     */
     @GetMapping("/project/{codProiect}")
     public String detaliiProiect(@PathVariable String codProiect, ModelMap model){
         List<UserExpleo> foundUsers = new LinkedList<>();
@@ -180,13 +185,18 @@ public class LeadersController {
 
     }
 
+    /**
+     * Get method that handles the mapping of the request below to show the user form, for the current project
+     * @param codProiect the project code related to the current request
+     * @param model pass to the jsp file the elements for adding a new user in the project
+     * @return the jsp file from view directory
+     */
     @GetMapping("/project/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@PathVariable ("codProiect") String codProiect, ModelMap model){
         List<UserExpleo> users = new LinkedList<>();
         List<ProiectSkill> skills = new LinkedList<>();
 
         Proiect proiect = proiectService.getProjectListsUsersSkills(codProiect, users, skills);
-
 
         model.addAttribute("users", users);
         model.addAttribute("skills", skills);
@@ -197,6 +207,13 @@ public class LeadersController {
         return "leaders_addEmpToProj";
     }
 
+    /**
+     * Post method that handles the mapping of the request below to show the user form, for the current project by a defined search term
+     * @param searchTerm the search term used to show the users you want
+     * @param codProiect the project code related to the current request
+     * @param model pass to the jsp file the list of search results
+     * @return the jsp file from view directory
+     */
     @PostMapping(value = "/project/{codProiect}/adaugaColaboratori")
     public String adaugaColaboratoriView(@RequestParam("searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
@@ -206,15 +223,24 @@ public class LeadersController {
         return adaugaColaboratoriView(codProiect, model);
     }
 
+    /**
+     * Post method that handles the mapping of the request below to add the user in the current project
+     * @param codProiect the project code related to the current request
+     * @param userId the id related to the user that will be added in the project
+     */
     @PostMapping("/project/{codProiect}/adaugaColaboratori/add")
     @ResponseBody
     public void adaugaColaboratoriAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("userId") Integer userId)
     {
         proiectService.addUserToProject(codProiect, userId);
-//        return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
+    /**
+     * Post method that handles the mapping of the request below to remove the user from the current project
+     * @param codProiect the project code related to the current request
+     * @param userId the id related to the user that will be removed from the current project
+     */
     @PostMapping("/project/{codProiect}/removeEmp")
     @ResponseBody
     public void removeEmpFromProject(@PathVariable("codProiect") String codProiect,
@@ -223,6 +249,11 @@ public class LeadersController {
         proiectService.removeUserFromProject(codProiect, userId);
     }
 
+    /**
+     * Post method that handles the mapping of the request below to give up the project
+     * @param codProiect the project code related to the current request
+     * @return the jsp file from view directory
+     */
     @PostMapping(value = "/project/{codProiect}/renuntaLaProiect")
     public @ResponseBody String renuntaLaProiect(@PathVariable("codProiect") String codProiect)
     {
@@ -230,6 +261,11 @@ public class LeadersController {
         return "ceva";
     }
 
+    /**
+     * Get method that handles the mapping of the request below to show the available projects
+     * @param model pass to the jsp file the list of available projects
+     * @return the jsp file from view directory
+     */
     @GetMapping("/freeProjects")
     public String freeProjects(Model model){
         List<Proiect> result = proiectService.getFreeProjects();
@@ -238,12 +274,22 @@ public class LeadersController {
         return "leaders_freeProjects";
     }
 
+    /**
+     * Get method that handles the mapping of the request below to add a new available project
+     * @return the jsp file from view directory
+     */
     @GetMapping("/freeProjects/add")
-    public void addFreeProject(@RequestParam("codProiect") String codProiect, ModelMap model)
+    public void addFreeProject(@RequestParam("codProiect") String codProiect)
     {
         proiectService.addFreeProject(codProiect, Principal.getPrincipal());
     }
 
+    /**
+     * Get method that handles the mapping of the request below to show the skill form
+     * @param codProiect the project code related to the current request
+     * @param model pass to the jsp file the elements for adding a new skill in the current project
+     * @return the jsp file from view directory
+     */
     @GetMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@PathVariable ("codProiect") String codProiect, ModelMap model){
         List<UserExpleo> users = new LinkedList<>();
@@ -260,6 +306,13 @@ public class LeadersController {
         return "leaders_addSkillsToProj";
     }
 
+    /**
+     * Get method that handles the mapping of the request below to show the skill form
+     * @param searchTerm the search term used to show the skills
+     * @param codProiect the project code related to the current request
+     * @param model pass to the jsp file the elements for adding a new skill in the current project
+     * @return the jsp file from view directory
+     */
     @PostMapping("/project/{codProiect}/addSkills")
     public String addSkillsView(@RequestParam(required = false, name = "searchTerm") String searchTerm,
                                          @PathVariable ("codProiect") String codProiect, ModelMap model){
@@ -270,6 +323,12 @@ public class LeadersController {
         return addSkillsView(codProiect, model);
     }
 
+    /**
+     * Post method that handles the mapping of the request below to add a new skills to the current project
+     * @param codProiect the project code related to the current request
+     * @param skillId the id related to the skill that will be added in the project
+     * @param model pass to the jsp file the elements for adding a new skill in the current project
+     */
     @PostMapping("/project/{codProiect}/add")
     public void addSkillsAdd(@PathVariable("codProiect") String codProiect,
                                         @RequestParam("skillId") Integer skillId, ModelMap model)
@@ -277,6 +336,12 @@ public class LeadersController {
         proiectService.addSkillToProject(codProiect, skillId);
     }
 
+    /**
+     * Post method that handles the mapping of the request below to remove a skill from the current project
+     * @param codProiect the project code related to the current request
+     * @param skillId the id related to the skill that will be removed from the project
+     * @return redirect to the jsp file from view directory
+     */
     @PostMapping("/project/{codProiect}/removeSkill")
     public String removeSkillFromProject(@PathVariable("codProiect") String codProiect,
                                        @RequestParam("skillId") Integer skillId)
@@ -285,6 +350,13 @@ public class LeadersController {
         return "redirect:/webCM/leaders/project/"+codProiect;
     }
 
+    /**
+     * Get method that handles the mapping of the request below to change the current project weights
+     * @param codProiect the project code related to the current request
+     * @param pondere the value of the set weight
+     * @param skillId the id related to the skill that will be changed regarding weight
+     * @return redirect to the jsp file from view directory
+     */
     @GetMapping("/project/{codProiect}/setPondere")
     public void setPondere(@PathVariable("codProiect") String codProiect,
                              @RequestParam("skillId") Integer skillId,
@@ -293,6 +365,13 @@ public class LeadersController {
         proiectService.setPondere(codProiect, skillId, pondere);
     }
 
+    /**
+     * Get method that handles the mapping of the request below to change the current project targets
+     * @param codProiect the project code related to the current request
+     * @param target the value of the set target
+     * @param skillId the id related to the skill that will be changed regarding target
+     * @return redirect to the jsp file from view directory
+     */
     @GetMapping("/project/{codProiect}/setTarget")
     public void setTarget(@PathVariable("codProiect") String codProiect,
                              @RequestParam("skillId") Integer skillId,
