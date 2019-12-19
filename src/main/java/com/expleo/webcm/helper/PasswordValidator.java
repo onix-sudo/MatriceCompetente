@@ -5,6 +5,10 @@ import org.passay.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A helper class which is using Passay to validate a password.
+ * */
+
 public class PasswordValidator {
 
     public List<String> isValid(String password){
@@ -39,8 +43,7 @@ public class PasswordValidator {
             return null;
         }
 
-        List<String> messages = validator.getMessages(result);
-        return messages;
+        return validator.getMessages(result);
 
     }
 }

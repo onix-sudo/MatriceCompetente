@@ -1,6 +1,8 @@
 package com.expleo.webcm.helper;
 
-
+/**
+ * A helper class which is allows to verify and validate the password.
+ * */
 public class Password {
 
     private String oldPassword;

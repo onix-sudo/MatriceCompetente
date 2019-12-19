@@ -15,10 +15,3 @@
 8. Profil Personal -> Competente aditionale -> Valoare noua -> Submit nu merge
 
 9. Adauga angajat in proiect -> De rezolvat
-
-10. Errori
-
-- atunci cand lista de personal skill e goala, javax.persistence.NoResultException -- ?? -> esti sigur? La mine e ok.
-
-DONE. org.hibernate.search.exception.EmptyQueryException: HSEARCH000146: The query string '' applied on field 'nume' has no meaningful tokens to be matched. Validate the query input against the Analyzer applied on this field.
-(unele searchuri la adauga colaboratori)

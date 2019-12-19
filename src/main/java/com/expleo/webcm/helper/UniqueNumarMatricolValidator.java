@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * This class is returning if the registration number checked by annotation UniqueNumarMatricol is unique;
+ * */
+
 @Component
 public class UniqueNumarMatricolValidator implements ConstraintValidator<UniqueNumarMatricol, Integer> {
 

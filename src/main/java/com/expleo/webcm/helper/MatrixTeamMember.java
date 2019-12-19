@@ -7,15 +7,16 @@ import com.expleo.webcm.entity.expleodb.UserSkill;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A helper class which is allows to make a proper list for MatrixTeam
+ * */
+
 public class MatrixTeamMember {
     private String name;
     private UserExpleo user;
     private List<UserSkill> skills = new LinkedList<>();
     private List<ProiectSkill> proiectSkills = new LinkedList<>();
     private int score;
-
-    public MatrixTeamMember() {
-    }
 
     public UserExpleo getUser() {
         return user;
@@ -57,6 +58,7 @@ public class MatrixTeamMember {
         this.name = name;
     }
 
+    //calculating the score
     public void makeScore(){
         int sum = 0;
 

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * This class is returning if the email address checked by annotation UniqueEmail is unique;
+ * */
+
 @Component
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
