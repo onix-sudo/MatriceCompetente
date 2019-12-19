@@ -1,24 +1,22 @@
-//jsVarList stocheaza numele skill-urilor care vor aparea pe radar chart
-//dataList stocheaza evaluarile pentru fiecare skill in parte
+//jsVarList saves the name of the skills
+//dataList saves the evaluations for each skill
 
 var jsVarList = [];
 var dataList = [];
 
-//adauga cate un skill si o evaluare la fiecare iteratie care are loc in fisierul jsp
+
 function pushSkill(val, data) {
     jsVarList.push(val);
     dataList.push(data);
 }
 
-//functie pentru plotarea radar chart-ului din libraria plotly
 function plotRadar() {
-    //se adauga primele valori la sfarsit pentru
-    //a se crea intre punctele de pe grafic o forma geometrica inchisa
+    //the first values of the array are added at the end
+    //so the points on the chart will form a closed geometric shape
     dataList.push(dataList[0]);
     jsVarList.push(jsVarList[0]);
 
-    //obiectul care contine toate skill-urile si evaluarile respective care va fi utilizat in
-    //afisarea graficului
+    //the object that contains all the skills and evaluations passed into the chart plot function
     data = [{
       type: 'scatterpolar',
       r: dataList,
@@ -27,7 +25,7 @@ function plotRadar() {
       }
     ]
 
-    //setari pentru afisarea graficului
+    //settings for radar chart display
     layout = {
       polar: {
         radialaxis: {

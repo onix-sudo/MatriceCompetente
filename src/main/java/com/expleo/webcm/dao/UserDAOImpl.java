@@ -199,7 +199,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     /**
-     * Creeaza un token random pentru identificarea utilizatorului care isi reseteaza parola
+     * The method creates a random token that is later used for identifying the user resetting his password
      * @param id
      * @return
      */
