@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class UserSkillDAOImpl implements UserSkillDAO {
 
     private Logger logger = Logger.getLogger(getClass().getName());
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Qualifier("sessionFactory")
     @Autowired
@@ -72,8 +72,8 @@ public class UserSkillDAOImpl implements UserSkillDAO {
             try {
                 Query<History> historyQuery = session.createQuery(
                         "from History where user.id=:idUser and skill.id=:idSkill", History.class);
-                historyQuery.setParameter("idUser", userSkill.getUser().getId());
-                historyQuery.setParameter("idSkill", userSkill.getSkill().getIdSkill());
+                historyQuery.setParameter("idUser", idUserExpleo);
+                historyQuery.setParameter("idSkill", idSkill);
 
                 List<History> history = historyQuery.list();
                 session.flush();
