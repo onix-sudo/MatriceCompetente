@@ -26,9 +26,10 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
 
     /**
-        *Metoda salveaza un UserSkill
-        *Foloseste session.flush() pentru a curata memoria si ca sa nu apara probleme la accesul datelor din baza
-        *De asemenea, salveaza si in tabela History userSkill-ul adaugat
+     *The method saves an UserSkill
+     *It uses session.flush() to clean the memory so there won't be no problems
+     * when data is accessed from the database
+     * It also saves the UserSkill in the History table
      */
     @Override
     public void saveUserSkill(int idUserExpleo, int idSkill) {
@@ -51,11 +52,10 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
     /**
-     * Updateaza un UserSkill cu un anumit idUser si idSkill
-     * De asemenea daca nu a trecut o zi de la ultimul update,
-     * update-ul actual nu va fi salvat in tabela History
-     * Pot exista doar 5 inregistrari in istoricul evaluarilor,
-     * astfel se va sterge cea mai veche evaluare din tabela History la al 6-lea update
+     * The method updates an already saved UserSkill
+     * If one day hadn't passed since the last update on a specific UserSkill
+     * the actual update won't be saved in the History table
+     * There can only be 5 records in the evaluation history table for each UserSkill
      */
     public void updateUserSkill(int idUserExpleo, int idSkill, int eval) {
         Session session = sessionFactory.openSession();
@@ -112,9 +112,6 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
 
-    /**
-     * Sterge inregistrarea UserSkill cu idUserExpleo si idSkill
-     */
     @Override
     public void removeUserSkill(int idUserExpleo, int idSkill) {
         Session session = sessionFactory.openSession();
@@ -133,6 +130,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 
 
     /**
+     * The method separates the skills from the projects
      * Separa skill-urile din proiectele in care se afla utilizatorul
      * de skill-urile sale aditionale si le salveaza in parametrii trimisi
      * @param userId
@@ -176,8 +174,8 @@ public class UserSkillDAOImpl implements UserSkillDAO {
     }
 
     /**
-     * Returneaza UserSkill-urile pentru care id-ul skill-urilor se regasesc
-     * in proiectul trimis prin parametrul projectId
+     * The method returns the UserSkill for which the skill ids
+     * are found in the project identified by the projectId parameter
      * @param projectId
      * @return
      */

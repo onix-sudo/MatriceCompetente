@@ -3,9 +3,8 @@
 
 <div class="ownBody">
 
-<%--webCM reprezinta pagina principala si este impartita in 4 taburi
-    Fiecare tab este tip radioButton, iar atunci cand este apasat se va apela o functie ce va incarca
-    pentru tab-ul respectiv jsp-ul returnat din controller--%>
+<%--webCM represents the main page and is split in 4 tabs
+    Each tab is a radioButton that loads a jsp returned by the controller when pressed--%>
 
 <div class="page">
         <!-- tabs -->
@@ -64,7 +63,7 @@
         </div>
 </div>
 
-<%--functie pentru incarcarea primului tab care este implicit selectat--%>
+<%--method for loading the first tab when the main page is loaded--%>
     <script>
         function loadWebCM() {
         $("#div1").load("/webCM/currentProj");
