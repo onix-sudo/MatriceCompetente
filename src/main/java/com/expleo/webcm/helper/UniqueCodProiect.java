@@ -8,6 +8,10 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * An annotation to validate if a project code is unique
+ * */
+
 @Constraint(validatedBy = UniqueCodProiectValidator.class)
 @Target({FIELD})
 @Retention(RUNTIME)

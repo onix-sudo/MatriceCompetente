@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 /**
  * This class is implementing HistoryDAO interface which contains all methods that information from
- * history column is manipulated.
+ * history column is manipulated
  * */
 @Repository
 public class HistoryDAOImpl implements HistoryDAO {
@@ -22,10 +22,9 @@ public class HistoryDAOImpl implements HistoryDAO {
 
 /**
  * Returns a list of History objects. These objects are filled with information from database obtained by searching
- * an user evaluation history by his id.
- *
- *  @param id the search is done by this id.
- *  @return a list with all evaluation history of an user.
+ * an user evaluation history by his id
+ *  @param id the search is done by this id
+ *  @return a list with all evaluation history of an user
  * */
 
     @Override

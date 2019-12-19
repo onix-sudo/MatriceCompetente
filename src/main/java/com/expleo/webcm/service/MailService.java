@@ -8,12 +8,23 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Contains default message to reset a password sent by mail.
+ * */
+
 @Service
 public class MailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
 
+    /**
+     * Compose the mail and send it to the recipient.
+     *
+     *  @param token is got from database and drive the application to the right user.
+     *  @param mail is the email address of the recipient.
+     *  @param name is the name of the person who will get this mail.
+     * */
     public void sendMail(String token, String mail, String name){
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;

@@ -14,6 +14,9 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+/**
+ * Contains the configuration of connection to webcm_security schema.
+ * */
 @Configuration
 @PropertySource("classpath:loginsecurity-mysql.properties")
 public class SecurityDataSourceConfig {

@@ -6,20 +6,22 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 
+/**
+ * Contains the standard configuration of WebMVC initialization.
+ * */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.expleo.webcm")
 @EnableAspectJAutoProxy
 public class WebMVCImplConfig implements WebMvcConfigurer {
 
-    //define a bean for viewResolver
+    //define a bean for viewResolver which will get a jsp from the resources only by name
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -29,6 +31,7 @@ public class WebMVCImplConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
+    //define a bean for to set where the custom messages are set
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
@@ -36,6 +39,7 @@ public class WebMVCImplConfig implements WebMvcConfigurer {
         return source;
     }
 
+    //define where to get the custom messages when you validate something
     @Override
     public Validator getValidator() {
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
@@ -43,6 +47,7 @@ public class WebMVCImplConfig implements WebMvcConfigurer {
         return validator;
     }
 
+    //will drive the application to resources folder when you need something from that folder
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
@@ -50,14 +55,13 @@ public class WebMVCImplConfig implements WebMvcConfigurer {
                 .addResourceLocations("/resources/");
     }
 
+    //pretty useless now. Is to load a jsp when you don't have controllers.
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
-//        registry.addViewController("/admin").setViewName("ADMIN");
-//        registry.addViewController("/retex/employee").setViewName("EMPLOYEE");
-//        registry.addViewController("/retex/employee/leaders").setViewName("MANAGER");
     }
 
+    //to start servlet handling
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

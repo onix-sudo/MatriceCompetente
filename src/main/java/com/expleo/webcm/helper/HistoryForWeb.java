@@ -5,6 +5,10 @@ import com.expleo.webcm.entity.expleodb.Skill;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A helper class which is allows to make a proper list for History tracking
+ * */
+
 public class HistoryForWeb {
     private Skill skill;
     private List<Integer> evaluations = new LinkedList<>();

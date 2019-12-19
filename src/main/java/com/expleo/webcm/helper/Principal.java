@@ -5,12 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * A helper class which is manipulating principal user data.
+ * */
 
 public class Principal {
 
     @Autowired
     UserService userService;
 
+    //returns the username of logged user
     public static String getPrincipal (){
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

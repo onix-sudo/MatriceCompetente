@@ -37,7 +37,7 @@ public class ProiectDAOImpl implements ProiectDAO {
     UserService userService;
 
     private Logger logger = Logger.getLogger(getClass().getName());
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * This method will save a detached Proiect object to the database.

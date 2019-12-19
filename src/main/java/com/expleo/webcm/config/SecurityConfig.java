@@ -2,7 +2,6 @@ package com.expleo.webcm.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +17,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
 
+/**
+ * Contains the configuration of security accesses.
+ * */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("securityDataSource")
     private DataSource dataSource;
 
+    //a reference to customAuthenticationSuccessHandler
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
@@ -37,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // use jdbc auth
+        // seaching in database to check username and roles of his
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
@@ -52,11 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        //filter to accept UTF-8 encoding
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
 
+        //setup of authorization and accesses by roles
         http.authorizeRequests()
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
@@ -88,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsManager userDetailsManager(){
-
+        //setup the usage of dataSource for userDetailsManager
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
         jdbcUserDetailsManager.setDataSource(dataSource);
 

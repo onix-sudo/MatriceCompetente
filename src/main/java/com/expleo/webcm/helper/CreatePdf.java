@@ -50,7 +50,7 @@ public class CreatePdf {
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf);
 
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
+        DateFormat df = new SimpleDateFormat("dd-MM-yy HH:mm");
         Date dateobj = new Date();
         Paragraph paragraph = new Paragraph(df.format(dateobj) + "\nTermenul cautarii: " + text + "\nEvaluare minimum: " + evaluation + " \n\n");
 

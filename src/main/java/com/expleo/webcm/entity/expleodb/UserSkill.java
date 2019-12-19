@@ -39,7 +39,7 @@ public class UserSkill{
         this.user = user;
         this.skill = skill;
         this.evaluation = 1;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.dataEvaluare = dateFormat.format(Calendar.getInstance().getTime());
     }
 
