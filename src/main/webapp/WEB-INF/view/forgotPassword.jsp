@@ -1,4 +1,11 @@
 <%@ include file = "header.jspf" %>
+
+<%-- This page renders the forgot-password form
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field
+     The JSTL core tag provides variable support and flow control
+     --%>
+
 <br>
 <h3>Introduceti adresa de email:</h3>
 <hr>

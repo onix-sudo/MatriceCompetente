@@ -1,5 +1,11 @@
 <%@ include file="admin_header.jspf" %>
 
+<%-- This page renders the update-user form for admin
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field
+     The JSTL core tag provides variable support and flow control
+     --%>
+
 <div id="container">
     <div id="content">
         <p>

@@ -6,6 +6,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%-- This page represents the header
+     It comprises paths to javascript libraries and also to css --%>
+
 <html>
     <head>
         <title>Expleo webCM</title>

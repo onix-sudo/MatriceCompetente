@@ -1,4 +1,9 @@
 <%@ include file="admin_header.jspf" %>
+
+<%-- This page renders the add-user form for admin
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field --%>
+
 <br>
 <h3>Adauga un angajat in baza de date</h3>
 <hr>

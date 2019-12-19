@@ -1,4 +1,11 @@
 <%@ include file="admin_header.jspf" %>
+
+<%-- This page renders the search-user form for admin
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field
+     The JSTL core tag provides variable support and flow control
+     --%>
+
 <br>
 <h3>Modifica angajat</h3>
 <hr>
@@ -49,9 +56,7 @@
 
                 <td>
                  <button type="button" class="btn btn btn-outline-primary" onclick="window.location.href='${modifyUser}'">Modifica</button>
-<%--
-                <a href="${modifyUser}">Modify</a>
---%>
+
                 </td>
             </tr>
             </c:forEach>
