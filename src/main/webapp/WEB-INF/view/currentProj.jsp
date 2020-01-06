@@ -4,6 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<%-- This page renders the projects in which the user is added.
+     The methods are taken from the controller class through the Spring's form tag library
+     The JSTL core tag provides variable support and flow control
+     --%>
+
         <c:choose>
             <c:when test="${empty proiectList}">
             <h4><p>Nu ai fost adaugat in niciun proiect.</p><h4>
@@ -36,6 +41,8 @@
         </table>
         </c:otherwise>
         </c:choose>
+
+<%-- function for loading the first tab which is selected by default --%>
 
         <script type="text/javascript">
             function cmptMat(proiectId) {

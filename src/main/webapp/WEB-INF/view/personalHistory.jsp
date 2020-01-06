@@ -5,6 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<%-- This file renders the personal history page
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field
+     The JSTL core tag provides variable support and flow control
+     --%>
 
 <script type="text/javascript" src="/resources/js/radar.js"></script>
 <script type="text/javascript" src="/resources/js/radarForTeam.js"></script>
@@ -27,13 +32,9 @@
             </c:forEach>
             <script>
                 push("${history.skill.numeSkill}");
-                <%--push();--%>
             </script>
         </c:forEach>
-<%--            <script>
-                      pushValues("${history.date}",${history.evaluare},"${history.skill.numeSkill}");
-                      push();
-            </script>--%>
+
 
 <div id="myDiv">
     <script>

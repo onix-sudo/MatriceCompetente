@@ -1,4 +1,8 @@
 <%@ include file="admin_header.jspf" %>
+
+<%-- This page renders the add-skill form for admin
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field --%>
 <br>
 <h3>Adauga competenta in baza de date</hr>
 <hr>

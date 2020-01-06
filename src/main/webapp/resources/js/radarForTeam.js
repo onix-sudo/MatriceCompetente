@@ -1,7 +1,5 @@
-//fisierul javascript este folosit pentru afisarea radar chart-ului
-//pentru toate skill-urile si toti angajatii de pe un anumit proiect
-
-
+//this javascript file is used to display all of the skills and all of the
+//employees that are assigned to a specific project
 
 var jsVarListTeam = [];
 var dataListTeam = [];

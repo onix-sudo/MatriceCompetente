@@ -6,6 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%-- This file renders the change-password page --%>
+
     <font size="5"> Parola a fost schimbata. Vei fi redirectionat in 5 secunde. </font>
 
 <script>

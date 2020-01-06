@@ -41,7 +41,7 @@ public class WebCMController {
     }
 
     /**
-     * Creeaza modelul pentru matricea de competente pentru proiectul selectat
+     * The method creates the model for the radar chart for the selected project
      * @param model
      * @param projectId
      * @return
@@ -57,7 +57,7 @@ public class WebCMController {
     }
 
     /**
-     * Creeaza modelul pentru profilul personal al utilizatorului si returneaza view-ul pentru acesta
+     * The method creates the model for the personal profile of the user and returns the view for it
      * @param model
      * @return
      */
@@ -78,7 +78,7 @@ public class WebCMController {
     }
 
     /**
-     * Creeaza modelul pentru pagina de adaugare a unui skill si returneaza view-ul pentru aceasta
+     * The method creates the model for the add skill page and returns the view for it
      * @param model
      * @return
      */
@@ -95,7 +95,8 @@ public class WebCMController {
     }
 
     /**
-     * Cauta skill-urile care se potrivesc searchTerm-ului, adauga in model rezultatul si returneaza view-ul
+     * The method searches for the skills based on the searchTerm,
+     * adding the result in the model and returning the view
      * @param text
      * @param theModel
      * @return
@@ -135,7 +136,7 @@ public class WebCMController {
     }
 
     /**
-     * Modifica evaluarile pentru skill-urile proiectului ales si reincarca matricea de competente
+     * The method modifies the evaluations for the choosen project's skills and reloads the radar chart
      * @param model
      * @param eval
      * @param idskill
@@ -153,7 +154,7 @@ public class WebCMController {
     }
 
     /**
-     * Afiseaza proiectele la care utilizatorul logat este asignat
+     * The method displays all of the projects that the logged-in user is assigned to
      * @param model
      * @return
      */
@@ -166,7 +167,7 @@ public class WebCMController {
     }
 
     /**
-     * Extrage istoricul evaluarilor pentru toate skill-urile user-ului logat
+     * The method extracts the evaluation history for all of the logged-in user's skills
      * @param model
      * @return
      */

@@ -3,6 +3,11 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%-- This page renders the personal skill chart. The chart is created with the Plotly JavaScript library
+     The methods are taken from the controller class through the Spring's form tag library
+     The objects are defined within the modelAttribute field
+     The JSTL core tag provides variable support and flow control
+     --%>
 
 <div class="container">
         <div class="split left">
@@ -61,6 +66,8 @@
     </div>
 
 </div>
+
+<%-- The JavaScript function below renders the Radar Chart and takes the personal skills as parameters --%>
 
 <script>
 function reloadMat(idSkill, evaluation, idProiect) {

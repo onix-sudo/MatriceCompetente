@@ -1,4 +1,6 @@
 <%@ include file="admin_header.jspf" %>
+<%-- This page renders the application management for admin
+     It comprises buttons with links to the paths defined below within onclick field --%>
 <br>
 <h2>Administrare WebCM</h2>
 <hr>

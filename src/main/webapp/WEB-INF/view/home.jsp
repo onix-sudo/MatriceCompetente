@@ -1,5 +1,6 @@
 <%@ include file="header.jspf"%>
 
+<%-- This page renders the home page --%>
 
     <hr>
 <h3>
