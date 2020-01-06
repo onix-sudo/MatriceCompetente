@@ -129,7 +129,6 @@
             url: "/webCM/modifyP?evaluation=" + evaluation + "&idskill=" + idSkill,
             success: function(data){
                 $("#tab2").click();
-                console.log("succes");
             },
             error: function(xhr, status) {
                 $("#tab2").click();
@@ -141,13 +140,10 @@
     }
 
     function elimina(skillId) {
-        console.log("AICI");
-        console.log(skillId);
         $.ajax({
             url: "/webCM/deleteSkill",
             data:{skillId:skillId},
             success: function(res){
-                console.log("success");
                 $("#tab2").click();
             },
             error: function(res) {

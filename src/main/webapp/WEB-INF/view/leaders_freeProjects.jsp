@@ -54,14 +54,12 @@
     }
 
     function preiaProiect(codProiect) {
-        console.log("AICI");
 
         $.ajax({
             type: "GET",
             url: "/webCM/leaders/freeProjects/add?codProiect=" + codProiect,
             success: function(response)
             {
-                console.log("SUCCES");
                 $("#div3").load("/webCM/leaders/freeProjects");
             },
             error: function(response){

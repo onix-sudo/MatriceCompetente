@@ -65,12 +65,10 @@
 <script>
 function reloadMat(idSkill, evaluation, idProiect) {
 
-    console.log("HERE");
      //var form = $(this);
         var csrfParameter = '${_csrf.parameterName}';
         var csrfToken = '${_csrf.token}';
         var url = "/webCM/cmptMat/modifyT";
-        //console.log(form.serialize());
 
         $.get({
                    url: url,

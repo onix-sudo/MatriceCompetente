@@ -77,9 +77,6 @@
                 $("#tab2").click();
             }
         });
-
-        console.log(skillID);
-
         return false;
     }
 
