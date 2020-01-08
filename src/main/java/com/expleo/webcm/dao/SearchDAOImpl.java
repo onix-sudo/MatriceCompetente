@@ -11,11 +11,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.hibernate.search.event.impl.FullTextIndexEventListener;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -75,9 +78,18 @@ public class SearchDAOImpl implements SearchDAO {
      */
     @Override
     public List<Skill> searchPrincipalSkill(String text, int principalId) {
+        List<Skill> result = searchPrincipalSkillsHelper(text, principalId, "numeNoGram", "categorieNoGram");
+        if(result.isEmpty() && text.length() >= 4){
+            return searchPrincipalSkillsHelper(text, principalId, "numeSkill", "categorie");
+        }
+        else {
+            return result;
+        }
+    }
+
+    private List<Skill> searchPrincipalSkillsHelper(String text, int principalId, String firstField, String secondField) {
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
-
         Transaction tx = fullTextSession.beginTransaction();
 
         QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder()
@@ -85,25 +97,27 @@ public class SearchDAOImpl implements SearchDAO {
 
         org.apache.lucene.search.Query query = qb
                 .keyword()
-                .onFields("numeSkill", "categorie")
+                .onFields(firstField, secondField)
                 .matching(text)
                 .createQuery();
 
-        org.hibernate.query.Query hibQuery =
+        Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
-
-        List<Skill> result = new LinkedList<Skill>(hibQuery.list());
-        session.flush();
 
         Query hasSkill = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
         hasSkill.setParameter("userId", principalId);
 
-        List<UserSkill> foundSkills = new LinkedList<UserSkill>(hasSkill.list());
+        System.out.println("===================="+text);
+
+        List<Skill> result = hibQuery.list();
+        List<UserSkill> foundSkills = hasSkill.list();
+
+        for(Skill temp:result){
+            System.out.println("--------------" + temp.getNumeSkill());
+        }
 
         for(UserSkill tempUs:foundSkills){
-            if(result.contains(tempUs.getSkill())){
-                result.remove(tempUs.getSkill());
-            }
+            result.remove(tempUs.getSkill());
         }
 
         tx.commit();
@@ -208,7 +222,16 @@ public class SearchDAOImpl implements SearchDAO {
      */
     @Override
     public List<UserSkill> searchSkillWithEvaluation(String text, int eval) {
+        List<UserSkill> result = searchSkillWithEvaluationHelper(text, eval, "numeNoGram", "categorieNoGram");
+        if(result.isEmpty() && text.length() >= 4){
+            return searchSkillWithEvaluationHelper(text, eval, "numeSkill", "categorie");
+        }
+        else {
+            return result;
+        }
+    }
 
+    private List<UserSkill> searchSkillWithEvaluationHelper(String text, int eval, String firstField, String secondField) {
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         Transaction tx = fullTextSession.beginTransaction();
@@ -218,14 +241,14 @@ public class SearchDAOImpl implements SearchDAO {
 
         org.apache.lucene.search.Query query = qb
                 .keyword()
-                .onFields("numeSkill", "categorie")
+                .onFields(firstField, secondField)
                 .matching(text)
                 .createQuery();
 
-        org.hibernate.query.Query hibQuery =
+        Query hibQuery =
                 fullTextSession.createFullTextQuery(query, Skill.class);
 
-        org.hibernate.query.Query<UserSkill> userSkillQuery = session.createQuery(
+        Query<UserSkill> userSkillQuery = session.createQuery(
                 "select us from UserSkill us JOIN FETCH " +
                         "us.user where us.evaluation >= :eval order by us.evaluation desc", UserSkill.class);
         userSkillQuery.setParameter("eval", eval);

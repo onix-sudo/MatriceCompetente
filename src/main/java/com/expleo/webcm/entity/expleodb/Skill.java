@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
+@AnalyzerDefs({
 @AnalyzerDef(name = "ngramForSkill",
         tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
         filters = {
@@ -23,10 +23,18 @@ import java.util.Set;
 //                @TokenFilterDef(factory = StopFilterFactory.class),
                 @TokenFilterDef(factory = EdgeNGramFilterFactory.class,
                         params = {
-                                @Parameter(name = "minGramSize", value = "3"),
-                                @Parameter(name = "maxGramSize", value = "10") } )
+                                @Parameter(name = "minGramSize", value = "4"),
+                                @Parameter(name = "maxGramSize", value = "6") } )
+        }
+),
+@AnalyzerDef(name = "noGram",
+        tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+        filters = {
+            @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
         }
 )
+})
 @Entity
 @Table(name = "skill", schema = "expleodb")
 @Indexed
@@ -37,12 +45,14 @@ public class Skill {
     @Column(name="ID_skill")
     private int idSkill;
 
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngramForSkill"))
+
+    @Field(name="numeSkill", index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngramForSkill"))
+    @Field(name="numeNoGram", index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "noGram"))
     @Column(name="Nume_skill")
     private String numeSkill;
 
-    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES, analyzer = @Analyzer(definition = "ngramForSkill"))
-    @Column(name="Categorie")
+    @Field(name="categorie", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "ngramForSkill"))
+    @Field(name="categorieNoGram", index = Index.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "noGram"))    @Column(name="Categorie")
     private String categorie;
 
     @OneToMany(mappedBy = "skill")

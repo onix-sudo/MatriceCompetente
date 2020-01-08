@@ -19,7 +19,7 @@
         <label>
         Cautare competenta:
         </label>
-        <input type="text" pattern=".{4,}" placeholder="Numele competentei" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+        <input type="text" pattern=".{1,}" placeholder="Numele competentei" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
         <label>
                  Evaluare minima:
         </label>

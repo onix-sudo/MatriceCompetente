@@ -33,15 +33,15 @@
 <spring:url var="go" value="/webCM/personalProfile/showFormForAddSkill/search" >
 </spring:url>
 
-<form:form id="searchForm" onsubmit="return search()">
+<form id="searchForm">
 <label><b>Cautare competente:</b></label>
-    <input type="text" placeholder="Numele competentei" pattern=".{3,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 4
-    caractere."
+    <input type="text" placeholder="Numele competentei" pattern=".{1,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 1
+    caracter."
            required/>
 
     <input type="submit" value="Cauta" class="btn btn-outline-primary" />
 
-</form:form>
+</form>
 
 
 
@@ -86,13 +86,25 @@
         return false;
     }
 
-    function search() {
-        $("#div2").load("/webCM/personalProfile/showFormForAddSkill/search?searchTerm=" + $("#searchTerm").val());
+        $("#searchForm").submit(function(e){
+            e.preventDefault();
 
-        return false;
-    }
+            var form = $(this);
+            var url = "/webCM/personalProfile/showFormForAddSkill/search";
 
+            $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(data){
+                        $("#div2").html(data);
 
+                    },
+                    error: function(data) {
+                        $("#div2").html(data);
+                    }
+                });
+        })
 
 </script>
 
