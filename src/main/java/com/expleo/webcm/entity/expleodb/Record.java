@@ -9,7 +9,7 @@ public class Record {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "ID_record")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)

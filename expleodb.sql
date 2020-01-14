@@ -179,8 +179,8 @@ COLLATE = utf8_romanian_ci;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Id_autor`INT(11) NOT NULL,
+  `ID_record` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_autor`INT(11) NOT NULL,
   `Categorie` VARCHAR(20) NOT NULL,
   `Titlu` VARCHAR(20) NOT NULL,
   `Descriere` VARCHAR(1000) NOT NULL,
@@ -188,12 +188,12 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
 
   INDEX `FK_Id_autor` (`Id_autor` ASC),
 
-  CONSTRAINT `FK_Id_autor`
-  FOREIGN KEY (`Id_autor`)
+  CONSTRAINT `FK_id_autor`
+  FOREIGN KEY (`id_autor`)
   REFERENCES `expleodb`.`user` (`ID_user`),
 
-  PRIMARY KEY (`id`),
-  KEY (`Id_autor`))
+  PRIMARY KEY (`ID_record`),
+  KEY (`id_autor`))
 
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
@@ -206,20 +206,20 @@ COLLATE = utf8_romanian_ci;
 
 
   CREATE TABLE IF NOT EXISTS `expleodb`.`solution` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Id_record` INT(11) NOT NULL,
+  `ID_solution` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_record` INT(11) NOT NULL,
   `Solutie` VARCHAR(15000) NOT NULL,
   `Autor` VARCHAR(20) NOT NULL,
   `Data` DATE NOT NULL,
 
-  INDEX `FK_id_record` (`Id_record` ASC),
+  INDEX `FK_id_record` (`id_record` ASC),
 
   CONSTRAINT `FK_id_record`
-  FOREIGN KEY (`Id_record`)
-  REFERENCES `expleodb`.`record` (`id`),
+  FOREIGN KEY (`id_record`)
+  REFERENCES `expleodb`.`record` (`ID_record`),
 
-  PRIMARY KEY (`id`),
-  KEY (`Id_record`))
+  PRIMARY KEY (`ID_solution`),
+  KEY (`id_record`))
 
 ENGINE = InnoDB
 AUTO_INCREMENT = 6

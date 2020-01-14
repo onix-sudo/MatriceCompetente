@@ -8,11 +8,11 @@ public class Solution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
+    @Column(name="ID_solution")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="Id")
+    @JoinColumn(name="ID_record")
     private Record record;
 
     @Column(name="Solutie")
