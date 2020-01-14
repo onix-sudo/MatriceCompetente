@@ -201,11 +201,11 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 -- -----------------------------------------------------
--- Table `expleodb`.`solutie`
+-- Table `expleodb`.`solution`
 -- -----------------------------------------------------
 
 
-  CREATE TABLE IF NOT EXISTS `expleodb`.`solutie` (
+  CREATE TABLE IF NOT EXISTS `expleodb`.`solution` (
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
   `Id_record` INT(11) NOT NULL,
   `Solutie` VARCHAR(15000) NOT NULL,

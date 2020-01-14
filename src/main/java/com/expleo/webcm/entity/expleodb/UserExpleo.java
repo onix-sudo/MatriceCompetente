@@ -103,6 +103,9 @@ public class UserExpleo {
     @OneToMany(mappedBy = "user")
     private List<History> histories;
 
+    @OneToMany(mappedBy = "userExpleo")
+    private List<Record> records;
+
     public Set<Skill> getSkillsRequired() {
         return skillsRequired;
     }
@@ -205,6 +208,14 @@ public class UserExpleo {
 
     public void setHistories(List<History> histories) {
         this.histories = histories;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
     public void removeProiecte(Proiect proiect) {
