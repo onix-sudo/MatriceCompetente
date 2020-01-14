@@ -174,6 +174,58 @@ AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
+-- -----------------------------------------------------
+-- Table `expleodb`.`record`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id_autor`INT(11) NOT NULL,
+  `Categorie` VARCHAR(20) NOT NULL,
+  `Titlu` VARCHAR(20) NOT NULL,
+  `Descriere` VARCHAR(1000) NOT NULL,
+  `Data` DATE NOT NULL,
+
+  INDEX `FK_Id_autor` (`Id_autor` ASC),
+
+  CONSTRAINT `FK_Id_autor`
+  FOREIGN KEY (`Id_autor`)
+  REFERENCES `expleodb`.`user` (`ID_user`),
+
+  PRIMARY KEY (`id`),
+  KEY (`Id_autor`))
+
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_romanian_ci;
+
+-- -----------------------------------------------------
+-- Table `expleodb`.`solutie`
+-- -----------------------------------------------------
+
+
+  CREATE TABLE IF NOT EXISTS `expleodb`.`solutie` (
+  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id_record` INT(11) NOT NULL,
+  `Solutie` VARCHAR(15000) NOT NULL,
+  `Autor` VARCHAR(20) NOT NULL,
+  `Data` DATE NOT NULL,
+
+  INDEX `FK_id_record` (`Id_record` ASC),
+
+  CONSTRAINT `FK_id_record`
+  FOREIGN KEY (`Id_record`)
+  REFERENCES `expleodb`.`record` (`id`),
+
+  PRIMARY KEY (`id`),
+  KEY (`Id_record`))
+
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_romanian_ci;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
