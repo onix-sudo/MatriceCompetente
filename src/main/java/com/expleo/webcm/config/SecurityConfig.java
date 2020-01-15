@@ -67,10 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
                 .antMatchers("/webCM/leaders/project/{codProiect}/**").access("@guard.checkCodProiect(#codProiect)") //to check if manager has project?????
                 .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
+                .antMatchers("/retex/**").hasRole("EMPLOYEE")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/manager/**").hasRole("ADMIN")
-                    .antMatchers("/forgotPassword/**").permitAll()
-                    .antMatchers("/**").hasAnyRole("EMPLOYEE", "ADMIN", "MANAGER")
+                    .antMatchers("/**").permitAll()
+//                    .antMatchers("/forgotPassword/**").permitAll()
                 .and()
                 .formLogin()
                     .loginPage("/login")
