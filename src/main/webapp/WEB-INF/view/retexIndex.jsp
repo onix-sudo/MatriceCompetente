@@ -1,6 +1,8 @@
 <%@ include file="header.jspf"%>
-<h2>Hello</h2>
+
+<br>
 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/retex/addNewRetex'">Add new RETEX</button>
+<hr>
 
     <div class="s003">
       <form>
