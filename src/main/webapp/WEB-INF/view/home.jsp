@@ -21,11 +21,7 @@
     <security:authorize access="hasAnyRole('MANAGER', 'EMPLOYEE')">
     <div class="centerDiv">
         <a href="/webCM"><img class="app1 btn btn-warning" src="/resources/competency.jpg"></a>
-        <%--<div class="btn btn-info app2"></div>--%>
-        <a href=""><img class="app3 btn btn-info" src="/resources/retex.png"></a>
-
-        <%--<button type="button" class="btn btn-info app4"
-                                    onclick="window.location.href='/webCM'">App3</button>--%>
+        <a href="/retex"><img class="app3 btn btn-info" src="/resources/retex.png"></a>
     </div>
     </security:authorize>
 <%@ include file="footer.jspf"%>
