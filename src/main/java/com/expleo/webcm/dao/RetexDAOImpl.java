@@ -19,12 +19,28 @@ import java.util.List;
 @Repository
 public class RetexDAOImpl implements RetexDAO {
 
+    private static final String TITLU = "titlu";
+    private static final String DESCRIERE = "descriere";
+    private static final String CATEGORIE = "categorie";
+
     @Autowired
     @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
     @Override
     public List<Record> searchRecords(String searchTerms, String searchCategory) {
+        if(searchTerms.trim().contains(" ")){
+            List<Record> foundRecords = getRecords(searchTerms,searchCategory, "phrase");
+            if(foundRecords.isEmpty()){
+                foundRecords.addAll(getRecords(searchTerms,searchCategory, "keyword"));
+            }
+            return foundRecords;
+        }else {
+            return getRecords(searchTerms, searchCategory, "keyword");
+        }
+    }
+
+    private List<Record> getRecords(String searchTerms, String searchCategory, String searchCase) {
         Session session = sessionFactory.openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         Transaction tx = fullTextSession.beginTransaction();
@@ -32,39 +48,83 @@ public class RetexDAOImpl implements RetexDAO {
         QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder()
                 .forEntity(Record.class).get();
 
-        org.apache.lucene.search.Query luceneQuery = switchQuery(searchTerms, searchCategory, queryBuilder);
-        Query query = fullTextSession.createFullTextQuery(luceneQuery, Record.class);
+        if(searchCase.equals("phrase")) {
+            org.apache.lucene.search.Query luceneQuery = phraseQuery(searchTerms, searchCategory, queryBuilder);
+            Query query = fullTextSession.createFullTextQuery(luceneQuery, Record.class);
+            List<Record> recordsFound = recordsIterator(query);
 
+            tx.commit();
+            session.close();
+            return recordsFound;
+
+        } else {
+            org.apache.lucene.search.Query luceneQuery = keywordQuery(searchTerms, searchCategory, queryBuilder);
+            Query query = fullTextSession.createFullTextQuery(luceneQuery, Record.class);
+            List<Record> recordsFound = recordsIterator(query);
+
+            tx.commit();
+            session.close();
+            return recordsFound;
+        }
+    }
+
+    private List<Record> recordsIterator(Query query) {
         Iterator iterator = query.iterate();
         List<Record> recordsFound = new LinkedList<>();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             recordsFound.add((Record) iterator.next());
         }
-
-        tx.commit();
-        session.close();
         return recordsFound;
     }
 
-    private org.apache.lucene.search.Query switchQuery(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
-        switch (searchCategory){
-            case "categorie":
-            case "titlu":
-            case "descriere":
-                return getLuceneQuery(searchTerms, searchCategory, queryBuilder);
-            default: return getLuceneQuery(searchTerms, queryBuilder);
+    private org.apache.lucene.search.Query keywordQuery(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
+        switch (searchCategory) {
+            case CATEGORIE:
+            case TITLU:
+            case DESCRIERE:
+                return getLuceneQueryFromSelected(searchTerms, searchCategory, queryBuilder);
+            default:
+                return getLuceneQueryFromAll(searchTerms, queryBuilder);
         }
     }
 
-    private org.apache.lucene.search.Query getLuceneQuery(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
+    private org.apache.lucene.search.Query phraseQuery(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
+        switch (searchCategory) {
+            case CATEGORIE:
+            case TITLU:
+            case DESCRIERE:
+                return getLuceneQueryPhraseSelected(searchTerms, searchCategory, queryBuilder);
+            default:
+                return getLuceneQueryPhraseAll(searchTerms, queryBuilder);
+        }
+    }
+
+    private org.apache.lucene.search.Query getLuceneQueryFromSelected(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
         return queryBuilder.keyword()
-                .onFields(searchCategory)
+                .onFields(searchCategory + "Kw")
                 .matching(searchTerms).createQuery();
     }
 
-    private org.apache.lucene.search.Query getLuceneQuery(String searchTerms, QueryBuilder queryBuilder) {
+    private org.apache.lucene.search.Query getLuceneQueryFromAll(String searchTerms, QueryBuilder queryBuilder) {
         return queryBuilder.keyword()
-                .onFields("","")
+                .onFields(TITLU + "Kw", DESCRIERE + "Kw", CATEGORIE + "Kw")
                 .matching(searchTerms).createQuery();
     }
+
+    private org.apache.lucene.search.Query getLuceneQueryPhraseSelected(String searchTerms, String searchCategory, QueryBuilder queryBuilder) {
+        return queryBuilder.phrase()
+                .onField(searchCategory)
+                .sentence(searchTerms)
+                .createQuery();
+    }
+
+    private org.apache.lucene.search.Query getLuceneQueryPhraseAll(String searchTerms, QueryBuilder queryBuilder) {
+        return queryBuilder.phrase()
+                .onField(DESCRIERE)
+                .andField(TITLU)
+                .andField(CATEGORIE)
+                .sentence(searchTerms)
+                .createQuery();
+    }
+
 }

@@ -11,14 +11,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
-import org.hibernate.search.event.impl.FullTextIndexEventListener;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -107,14 +104,10 @@ public class SearchDAOImpl implements SearchDAO {
         Query hasSkill = session.createQuery("select us from UserSkill us JOIN FETCH us.skill where us.user.id=:userId");
         hasSkill.setParameter("userId", principalId);
 
-        System.out.println("===================="+text);
 
         List<Skill> result = hibQuery.list();
         List<UserSkill> foundSkills = hasSkill.list();
 
-        for(Skill temp:result){
-            System.out.println("--------------" + temp.getNumeSkill());
-        }
 
         for(UserSkill tempUs:foundSkills){
             result.remove(tempUs.getSkill());

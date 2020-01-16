@@ -1,7 +1,21 @@
 package com.expleo.webcm.entity.expleodb;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.*;
 import java.util.List;
+
+@AnalyzerDefs({
+        @AnalyzerDef(name="keywordTokenizer",
+        tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+        filters = {
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+        })
+})
 
 @Entity(name="Record")
 @Table(name = "record")
@@ -16,12 +30,18 @@ public class Record {
     @JoinColumn(name = "ID_user")
     private UserExpleo userExpleo;
 
+    @Field(name = "categorie")
+    @Field(name = "categorieKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
     @Column(name = "Categorie")
     private String categorie;
 
+    @Field(name = "titlu")
+    @Field(name = "titluKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
     @Column(name = "Titlu")
     private String titlu;
 
+    @Field(name = "descriere")
+    @Field(name = "descriereKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
     @Column(name="Descriere")
     private String descriere;
 
