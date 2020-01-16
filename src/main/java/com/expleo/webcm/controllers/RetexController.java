@@ -1,14 +1,14 @@
 package com.expleo.webcm.controllers;
 
 import com.expleo.webcm.entity.expleodb.Record;
+import com.expleo.webcm.entity.expleodb.Solution;
 import com.expleo.webcm.service.RetexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,12 +25,22 @@ public class RetexController {
     }
 
     @GetMapping("/addNewRetex")
-    public String addNewRetex(){
+    public String addNewRetex(Model model){
+
+        Record record = new Record();
+        Solution solution = new Solution();
+
+        model.addAttribute("record", record);
+        model.addAttribute("solution", solution);
+
         return "retexAddNewRetex";
     }
 
     @PostMapping(value = "/saveNewRetex")
-    public String saveNewRetex(){
+    public String saveNewRetex(@ModelAttribute("record") Record record, BindingResult result){
+
+        retexService.saveOrUpdateRecord(record);
+
         return "redirect:/retex";
     }
 
