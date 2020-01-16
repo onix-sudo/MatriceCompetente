@@ -19,7 +19,7 @@ public class RetexServiceImpl implements RetexService{
     @Override
     @Transactional("transactionExpleoDBManager")
     public List<Record> searchRecords(String searchTerms, String searchCategory) {
-        return retexDAO.searchRecords(searchTerms, searchCategory);
+        return retexDAO.searchRecords(searchTerms, searchCategory.toLowerCase());
     }
 
     @Override

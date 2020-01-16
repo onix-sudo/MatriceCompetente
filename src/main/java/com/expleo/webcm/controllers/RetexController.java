@@ -47,6 +47,7 @@ public class RetexController {
     @GetMapping("/search")
     public String searchResult(@RequestParam("terms") String searchTerms, @RequestParam("category") String searchCategory,
                                ModelMap model){
+
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
 

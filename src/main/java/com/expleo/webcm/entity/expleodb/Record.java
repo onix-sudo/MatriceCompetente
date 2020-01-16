@@ -4,21 +4,22 @@ import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
 import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 import java.util.List;
 
-@AnalyzerDefs({
-        @AnalyzerDef(name="keywordTokenizer",
+
+@AnalyzerDef(name = "keywordTokenizer",
         tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
         filters = {
                 @TokenFilterDef(factory = LowerCaseFilterFactory.class),
                 @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
         })
-})
 
-@Entity(name="Record")
-@Table(name = "record")
+@Entity
+@Table(name = "record", schema = "expleodb")
+@Indexed
 public class Record {
 
     @Id
@@ -26,23 +27,22 @@ public class Record {
     @Column(name = "ID_record")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_user")
-    private UserExpleo userExpleo;
+    @Column(name = "id_autor")
+    private Long id_autor;
 
-    @Field(name = "categorie")
-    @Field(name = "categorieKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
+    @Field(name = "categorie", index = Index.YES)
+    @Field(name = "categorieKw", index = Index.YES,analyze = Analyze.YES,store = Store.NO,analyzer = @Analyzer(definition = "keywordTokenizer"))
     @Column(name = "Categorie")
     private String categorie;
 
-    @Field(name = "titlu")
-    @Field(name = "titluKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
+    @Field(name = "titlu", index = Index.YES)
+    @Field(name = "titluKw", index = Index.YES,analyze = Analyze.YES,store = Store.NO,analyzer = @Analyzer(definition = "keywordTokenizer"))
     @Column(name = "Titlu")
     private String titlu;
 
-    @Field(name = "descriere")
-    @Field(name = "descriereKw", analyzer = @Analyzer(definition = "keywordTokenizer"))
-    @Column(name="Descriere")
+    @Field(name = "descriere", index = Index.YES)
+    @Field(name = "descriereKw", index = Index.YES,analyze = Analyze.YES,store = Store.NO,analyzer = @Analyzer(definition = "keywordTokenizer"))
+    @Column(name = "Descriere")
     private String descriere;
 
     @Column(name = "Data")
@@ -54,8 +54,8 @@ public class Record {
     public Record() {
     }
 
-    public Record(UserExpleo userExpleo, String categorie, String titlu, String descriere, String date) {
-        this.userExpleo = userExpleo;
+    public Record(Long id_autor, String categorie, String titlu, String descriere, String date) {
+        this.id_autor = id_autor;
         this.categorie = categorie;
         this.titlu = titlu;
         this.descriere = descriere;
@@ -70,12 +70,12 @@ public class Record {
         this.id = id;
     }
 
-    public UserExpleo getUserExpleo() {
-        return userExpleo;
+    public Long getId_autor() {
+        return id_autor;
     }
 
-    public void setUserExpleo(UserExpleo userExpleo) {
-        this.userExpleo = userExpleo;
+    public void setId_autor(Long id_autor) {
+        this.id_autor = id_autor;
     }
 
     public String getCategorie() {
@@ -122,7 +122,7 @@ public class Record {
     public String toString() {
         return "Record{" +
                 "id=" + id +
-                ", userExpleo=" + userExpleo +
+                ", id_autor=" + id_autor +
                 ", categorie='" + categorie + '\'' +
                 ", titlu='" + titlu + '\'' +
                 ", descriere='" + descriere + '\'' +

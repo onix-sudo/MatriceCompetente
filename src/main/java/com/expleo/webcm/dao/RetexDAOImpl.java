@@ -74,10 +74,13 @@ public class RetexDAOImpl implements RetexDAO {
     }
 
     private List<Record> recordsIterator(Query query) {
-        Iterator iterator = query.iterate();
+//        Iterator iterator = query.iterate();
         List<Record> recordsFound = new LinkedList<>();
-        while (iterator.hasNext()) {
-            recordsFound.add((Record) iterator.next());
+//        while (iterator.hasNext()) {
+//            recordsFound.add((Record) iterator.next());
+//        }
+        for(final Object o : query.list()){
+            recordsFound.add((Record) o);
         }
         return recordsFound;
     }
