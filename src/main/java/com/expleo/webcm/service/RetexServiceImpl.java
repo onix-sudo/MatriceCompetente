@@ -45,4 +45,10 @@ public class RetexServiceImpl implements RetexService{
     public void saveOrUpdateSolution(Solution solution) {
         retexDAO.saveOrUpdateSolution(solution);
     }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Record> getLastTenRecords() {
+        return retexDAO.getLastTenRecords();
+    }
 }

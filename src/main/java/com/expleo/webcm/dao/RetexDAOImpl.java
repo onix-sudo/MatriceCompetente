@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -174,5 +175,21 @@ public class RetexDAOImpl implements RetexDAO {
             session.saveOrUpdate(solution);
             session.getTransaction().commit();
         }
+    }
+
+    @Override
+    public List<Record> getLastTenRecords() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query query = session.createQuery("from Record order by ID_record DESC");
+            query.setMaxResults(10);
+            session.getTransaction().commit();
+            return query.list();
+        }catch (NoResultException exp) {
+            logger.info("getLastTenRecords - " + exp.getMessage());
+            return new ArrayList<>();
+        }
+
+
     }
 }

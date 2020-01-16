@@ -25,7 +25,6 @@
             <link rel="stylesheet" href="/resources/css/tabs.css"/>
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
                   id="bootstrap-css">
-            <link rel="stylesheet" href="/resources/css/style.css">
             <link rel="stylesheet" href="/resources/css/header&footer.css">
             <link rel="stylesheet" href="/resources/css/navbar.css">
             <link rel="stylesheet" href="/resources/css/split-screen.css">
@@ -33,7 +32,8 @@
                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="shortcut icon" type="image/png" href="/resources/favicon.png"/>
             <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-                <link href="resources/css/searchBar.css" rel="stylesheet" />
+            <link href="/resources/css/searchBar.css" rel="stylesheet" />
+
     </head>
 
     <%@ include file="navigation.jspf"%>

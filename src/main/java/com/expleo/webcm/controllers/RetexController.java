@@ -20,7 +20,9 @@ public class RetexController {
     private RetexService retexService;
 
     @GetMapping
-    public String indexPage(){
+    public String indexPage(ModelMap model){
+        List<Record> recordList = retexService.getLastTenRecords();
+        model.addAttribute("recordList", recordList);
         return "retexIndex";
     }
 

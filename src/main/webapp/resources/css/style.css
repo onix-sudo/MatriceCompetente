@@ -4,13 +4,13 @@ html, body{
     zoom:90%;
 }
 
-table {   
+table {
 	border-collapse:collapse;
 	border-bottom:1px solid gray;
 	font-family: Tahoma,Verdana,Segoe,sans-serif;
 	width:72%;
 }
- 
+
 th {
 	border-bottom:1px solid gray;
 	background:none repeat scroll 0 0 #6f42c1;
@@ -20,7 +20,7 @@ th {
 
 tr {
 	border-top:1px solid gray;
-	text-align:center;	
+	text-align:center;
 }
 
 tr:nth-child(even) {background: #FFFFFF}
