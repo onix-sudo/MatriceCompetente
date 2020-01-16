@@ -1,6 +1,7 @@
 package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Record;
+import com.expleo.webcm.entity.expleodb.Solution;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
 public class RetexDAOImpl implements RetexDAO {
@@ -26,6 +29,8 @@ public class RetexDAOImpl implements RetexDAO {
     @Autowired
     @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
     public List<Record> searchRecords(String searchTerms, String searchCategory) {
@@ -127,4 +132,44 @@ public class RetexDAOImpl implements RetexDAO {
                 .createQuery();
     }
 
+    @Override
+    public Record getRecord(Integer recordId) {
+        try(Session session = sessionFactory.openSession()){
+            return session.get(Record.class, recordId);
+        }catch (NoResultException exp)
+        {
+            logger.info("getRecord - " + exp.getMessage());
+            return new Record();
+        }
+    }
+
+    @Override
+    public void saveOrUpdateRecord(Record record) {
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.saveOrUpdate(record);
+            session.getTransaction().commit();
+        }
+    }
+
+
+    @Override
+    public Solution getSolution(Integer solutionId) {
+        try(Session session = sessionFactory.openSession()){
+            return session.get(Solution.class, solutionId);
+        }catch (NoResultException exp)
+        {
+            logger.info("getSolution - " + exp.getMessage());
+            return new Solution();
+        }
+    }
+
+    @Override
+    public void saveOrUpdateSolution(Solution solution) {
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.saveOrUpdate(solution);
+            session.getTransaction().commit();
+        }
+    }
 }
