@@ -7,6 +7,8 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -59,8 +61,11 @@ public class Record {
         this.categorie = categorie;
         this.titlu = titlu;
         this.descriere = descriere;
-        this.date = date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        this.date = dateFormat.format(Calendar.getInstance().getTime());
     }
+
+
 
     public Integer getId() {
         return id;

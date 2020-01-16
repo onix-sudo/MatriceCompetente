@@ -34,7 +34,7 @@
                 <label class="label1">Descriere:</label>
               </div>
               <div class="col-75">
-                <textarea id="descriere" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                <textarea id="descriere" name="descriere" placeholder="Write something.." style="height:200px"></textarea>
               </div>
         </div>
 </div>

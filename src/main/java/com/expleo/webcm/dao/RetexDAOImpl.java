@@ -149,6 +149,7 @@ public class RetexDAOImpl implements RetexDAO {
     @Override
     public void saveOrUpdateRecord(Record record) {
         try(Session session = sessionFactory.openSession()){
+
             session.beginTransaction();
             session.saveOrUpdate(record);
             session.getTransaction().commit();
