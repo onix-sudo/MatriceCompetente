@@ -65,11 +65,8 @@ $(document).ready(function() {
     if(len > maxchar){
         return false;
     }
-    else if (len > 0) {
-        $( "#remainingC" ).html(( maxchar - len ) +"/10000 " );
-    }
     else {
-        $( "#remainingC" ).html( "Remaining characters: " +( maxchar ) );
+        $( "#remainingC" ).html(( maxchar - len ) +"/10000 " );
     }
   })
 });
@@ -83,11 +80,8 @@ $(document).ready(function() {
     if(len > maxchar){
         return false;
     }
-    else if (len > 0) {
-        $( "#remainingD" ).html( ( maxchar - len ) +"/20000 " );
-    }
     else {
-        $( "#remainingD" ).html( "Remaining characters: " +( maxchar ) );
+        $( "#remainingD" ).html( ( maxchar - len ) +"/20000 " );
     }
   })
 });
