@@ -185,12 +185,26 @@ public class RetexDAOImpl implements RetexDAO {
             Query query = session.createQuery("from Record order by ID_record DESC");
             query.setMaxResults(10);
             session.getTransaction().commit();
+
             return query.list();
         }catch (NoResultException exp) {
             logger.info("getLastTenRecords - " + exp.getMessage());
             return new ArrayList<>();
         }
+    }
 
+    @Override
+    public List<Solution> getSolutions(Integer recordId) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query query = session.createQuery("from Solution where ID_record = :recordId");
+            query.setParameter("recordId", recordId);
+            session.getTransaction().commit();
 
+            return query.list();
+        } catch(NoResultException exp) {
+            logger.info("getSolutions - " + exp.getMessage());
+            return new ArrayList<>();
+        }
     }
 }

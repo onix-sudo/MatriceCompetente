@@ -81,4 +81,17 @@ public class RetexController {
 
         return "retexSearchResult";
     }
+
+    @GetMapping("/solution")
+    public String showSolution(@RequestParam("recordId") Integer recordId, ModelMap model) {
+        List<Solution> solutionList = retexService.getSolutions(recordId);
+
+        model.addAttribute("solutionList", solutionList);
+
+        Record record = retexService.getRecord(recordId);
+
+        model.addAttribute("record", record);
+
+        return "retexSolutions";
+    }
 }

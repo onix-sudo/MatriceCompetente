@@ -74,14 +74,4 @@ public class Solution {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Solution{" +
-                "id=" + id +
-                ", record=" + record +
-                ", solutie='" + solutie + '\'' +
-                ", autor='" + autor + '\'' +
-                ", date='" + date + '\'' +
-                '}';
-    }
 }

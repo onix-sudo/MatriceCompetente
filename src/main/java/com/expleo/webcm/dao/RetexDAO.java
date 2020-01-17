@@ -12,4 +12,5 @@ public interface RetexDAO {
     Solution getSolution(Integer solutionId);
     void saveOrUpdateSolution(Solution solution);
     List<Record> getLastTenRecords();
+    List<Solution> getSolutions(Integer recordId);
 }

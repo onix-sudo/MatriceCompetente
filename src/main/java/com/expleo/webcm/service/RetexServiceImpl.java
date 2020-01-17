@@ -51,4 +51,10 @@ public class RetexServiceImpl implements RetexService{
     public List<Record> getLastTenRecords() {
         return retexDAO.getLastTenRecords();
     }
+
+    @Override
+    @Transactional("transactionExpleoDBManager")
+    public List<Solution> getSolutions(Integer recordId) {
+        return retexDAO.getSolutions(recordId);
+    }
 }

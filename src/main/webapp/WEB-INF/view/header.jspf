@@ -20,6 +20,7 @@
             <script type="text/javascript" src="/resources/js/radar.js"></script>
             <script type="text/javascript" src="/resources/js/radarForTeam.js"></script>
             <script type="text/javascript" src="/resources/js/plotly-latest.min.js"></script>
+            <script type="text/javascript" src="/resources/js/extention/choices.js"></script>
             <link rel="stylesheet"
                   href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" />
             <link rel="stylesheet" href="/resources/css/tabs.css"/>
@@ -34,6 +35,7 @@
                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="shortcut icon" type="image/png" href="/resources/favicon.png"/>
             <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+
 
     </head>
 
