@@ -3,9 +3,10 @@
 <security:csrfMetaTags/>
 
 
-<h3>Adauga o noua inregistrare</h3>
+<h1 style="color:black;text-align:left;"> Adauga o noua inregistrare</h1>
 <hr>
 
+<body>
 <form:form action="saveNewRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
 <div class="separatecontainer">
 
@@ -32,7 +33,7 @@
                 <label class="label1">Descriere:</label>
               </div>
               <div class="col-75">
-                <textarea id="descriere" name="record.descriere" placeholder="Write something.." style="height:200px"></textarea>
+                <textarea id="my-input" maxlength="10000" name="record.descriere" placeholder="Write something.." style="height:200px"></textarea><span id='remainingC'></span>
               </div>
         </div>
         <div class="row">
@@ -40,7 +41,7 @@
                 <label class="label1">Solutie:</label>
               </div>
               <div class="col-75">
-                <textarea id="descriere" name="solution.solutie" placeholder="Write something.." style="height:200px"></textarea>
+                <textarea  id="my-input1" maxlength="20000" name="solution.solutie" placeholder="Write something.." style="height:200px"></textarea><span id='remainingD'></span>
               </div>
         </div>
 </div>
@@ -48,11 +49,47 @@
        <input type="submit" value="Adauga" class="btn btn-outline-primary"/>
 </form:form>
 
-<%--<form:form action="saveNewRetex" method="POST">
-    <input type="submit" class="btn btn-outline-primary">
+</body>
 
-    <button class="btn btn-outline-primary">Upvote</button>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form:form>--%>
+
 <%@ include file="footer.jspf"%>
 
+<script>
+
+$(document).ready(function() {
+  var len = 0;
+  var maxchar = 10000;
+
+  $( '#my-input' ).keyup(function(){
+    len = this.value.length
+    if(len > maxchar){
+        return false;
+    }
+    else if (len > 0) {
+        $( "#remainingC" ).html(( maxchar - len ) +"/10000 " );
+    }
+    else {
+        $( "#remainingC" ).html( "Remaining characters: " +( maxchar ) );
+    }
+  })
+});
+
+$(document).ready(function() {
+  var len = 0;
+  var maxchar = 20000;
+
+  $( '#my-input1' ).keyup(function(){
+    len = this.value.length
+    if(len > maxchar){
+        return false;
+    }
+    else if (len > 0) {
+        $( "#remainingD" ).html( ( maxchar - len ) +"/20000 " );
+    }
+    else {
+        $( "#remainingD" ).html( "Remaining characters: " +( maxchar ) );
+    }
+  })
+});
+
+</script>
