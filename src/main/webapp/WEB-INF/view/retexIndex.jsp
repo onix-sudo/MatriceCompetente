@@ -64,12 +64,7 @@
             });
 
             function searchRecord() {
-                console.log("AICIIAI");
-                console.log(url);
-                console.log($("#search").val());
-                var url = "/retex/search?terms=" + $("#search").val() + "&category=" + $("#selectCategory").text();
-
-
+                location.href="/retex/search?terms=" + $("#search").val() + "&category=" + $("#selectCategory").val();
 
 
 

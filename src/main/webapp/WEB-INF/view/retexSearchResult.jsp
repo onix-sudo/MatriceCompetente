@@ -52,24 +52,20 @@
     </table>
 
     <script src="resources/js/extention/choices.js"></script>
-    <script>
-        const choices = new Choices('[data-trigger]', {
-            searchEnabled: false,
-            itemSelectText: '',
-        });
 
-        function searchRecord() {
+            <script>
+                const choices = new Choices('[data-trigger]', {
+                    searchEnabled: false,
+                    itemSelectText: '',
+                });
 
-            var url = "/retex/search?terms=" + $("#search").val() + "&category=" + $("#selectCategory").find
-            (":selected")
-                .text();
+                function searchRecord() {
+                    location.href="/retex/search?terms=" + $("#search").val() + "&category=" + $("#selectCategory").val();
 
-            console.log($("#search").val());
 
-            location.href = url;
 
-            return false;
-        }
-    </script>
+                    return false;
+                }
+            </script>
 
     <%@ include file="footer.jspf"%>

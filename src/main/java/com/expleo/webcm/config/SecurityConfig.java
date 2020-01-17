@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/retex/**").hasRole("EMPLOYEE")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/manager/**").hasRole("ADMIN")
-                    .antMatchers("/**").hasAnyRole("EMPLOYEE", "MANAGER")
+                    .antMatchers("/**").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
                 .and()
                 .formLogin()
                     .loginPage("/login")
