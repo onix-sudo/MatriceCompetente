@@ -1,7 +1,6 @@
 <%@ include file="header.jspf"%>
 <body onload="return loadWebCM()">
 
-<div class="ownBody">
 
 <%--webCM represents the main page and is split in 4 tabs
     Each tab is a radioButton that loads a jsp returned by the controller when pressed--%>

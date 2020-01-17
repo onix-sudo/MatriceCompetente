@@ -23,6 +23,12 @@ body{
         width: 100%;
         z-index: 10;
     }
+    .footer-container{
+        width: 90%;
+        color: #fff;
+        margin: 0 auto; /* Center the DIV horizontally */
+        position: relative;
+    }
     /* Some more styles to beutify this example */
     #hdr a{
         color: #fff;

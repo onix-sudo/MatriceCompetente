@@ -2,10 +2,10 @@
 <%-- The footer file--%>
        </div>
 
-    </div>
+
     <div class="fixed-footer">
-            <div class="container">Copyright &copy; 2020 Expleo</div>
-</div>
+      <div class="footer-container">Copyright &copy; 2020 Expleo</div>
+    </div>
 
 </body>
 </html>
