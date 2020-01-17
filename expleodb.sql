@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
   `id_autor`INT(11) NOT NULL,
   `Categorie` VARCHAR(20) NOT NULL,
   `Titlu` VARCHAR(200) NOT NULL,
-  `Descriere` VARCHAR(10000) NOT NULL,
+  `Descriere` VARCHAR(2500) NOT NULL,
   `Autor`VARCHAR(40) NOT NULL,
 
   INDEX `FK_Id_autor` (`Id_autor` ASC),
