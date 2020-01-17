@@ -47,8 +47,8 @@ public class Record {
     @Column(name = "Descriere")
     private String descriere;
 
-    @Column(name = "Data")
-    private String date;
+    @Column(name = "Autor")
+    private String autor;
 
     @OneToMany(mappedBy = "record")
     private List<Solution> solutions;
@@ -56,16 +56,13 @@ public class Record {
     public Record() {
     }
 
-    public Record(Long id_autor, String categorie, String titlu, String descriere, String date) {
+    public Record(Long id_autor, String categorie, String titlu, String descriere, String autor) {
         this.id_autor = id_autor;
         this.categorie = categorie;
         this.titlu = titlu;
         this.descriere = descriere;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        this.date = dateFormat.format(Calendar.getInstance().getTime());
+        this.autor = autor;
     }
-
-
 
     public Integer getId() {
         return id;
@@ -107,12 +104,12 @@ public class Record {
         this.descriere = descriere;
     }
 
-    public String getDate() {
-        return date;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public List<Solution> getSolutions() {
@@ -131,7 +128,7 @@ public class Record {
                 ", categorie='" + categorie + '\'' +
                 ", titlu='" + titlu + '\'' +
                 ", descriere='" + descriere + '\'' +
-                ", date='" + date + '\'' +
+                ", autor='" + autor + '\'' +
                 '}';
     }
 }

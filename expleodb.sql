@@ -182,9 +182,9 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
   `ID_record` INT(11) NOT NULL AUTO_INCREMENT,
   `id_autor`INT(11) NOT NULL,
   `Categorie` VARCHAR(20) NOT NULL,
-  `Titlu` VARCHAR(20) NOT NULL,
-  `Descriere` VARCHAR(1000) NOT NULL,
-  `Data` DATE NOT NULL,
+  `Titlu` VARCHAR(200) NOT NULL,
+  `Descriere` VARCHAR(10000) NOT NULL,
+  `Autor`VARCHAR(40) NOT NULL,
 
   INDEX `FK_Id_autor` (`Id_autor` ASC),
 
@@ -208,9 +208,9 @@ COLLATE = utf8_romanian_ci;
   CREATE TABLE IF NOT EXISTS `expleodb`.`solution` (
   `ID_solution` INT(11) NOT NULL AUTO_INCREMENT,
   `id_record` INT(11) NOT NULL,
-  `Solutie` VARCHAR(15000) NOT NULL,
-  `Autor` VARCHAR(20) NOT NULL,
-  `Data` DATE NOT NULL,
+  `Solutie` VARCHAR(21000) NOT NULL,
+  `Autor` VARCHAR(40) NOT NULL,
+  `Data` VARCHAR(30) NOT NULL,
 
   INDEX `FK_id_record` (`id_record` ASC),
 

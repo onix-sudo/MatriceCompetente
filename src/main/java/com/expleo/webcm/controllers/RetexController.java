@@ -3,6 +3,7 @@ package com.expleo.webcm.controllers;
 import com.expleo.webcm.entity.expleodb.Record;
 import com.expleo.webcm.entity.expleodb.Solution;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
+import com.expleo.webcm.helper.RecordSolution;
 import com.expleo.webcm.service.RetexService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class RetexController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping
     public String indexPage(ModelMap model){
         List<Record> recordList = retexService.getLastTenRecords();
@@ -39,25 +41,34 @@ public class RetexController {
         Record record = new Record();
         Solution solution = new Solution();
 
-        model.addAttribute("record", record);
-        model.addAttribute("solution", solution);
+        RecordSolution recordSolution = new RecordSolution(record,solution);
+
+        model.addAttribute("recordSolution", recordSolution);
 
         return "retexAddNewRetex";
     }
 
     @PostMapping(value = "/saveNewRetex")
-    public String saveNewRetex(@ModelAttribute("record") Record record, BindingResult result){
+    public String saveNewRetex(@ModelAttribute("recordSolution") RecordSolution recordSolution, BindingResult result){
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String data = dateFormat.format(Calendar.getInstance().getTime());
 
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
-        record.setDate(data);
+        Record record = recordSolution.getRecord();
+
+        record.setAutor(userExpleo.getNume() + " " + userExpleo.getPrenume());
         record.setId_autor((long) userExpleo.getId());
 
-        retexService.saveOrUpdateRecord(record);
+        Solution solution = recordSolution.getSolution();
 
+        solution.setAutor(userExpleo.getNume() + " " + userExpleo.getPrenume());
+        solution.setDate(data);
+        solution.setRecord(record);
+
+        retexService.saveOrUpdateRecord(record);
+        retexService.saveOrUpdateSolution(solution);
         return "redirect:/retex";
     }
 

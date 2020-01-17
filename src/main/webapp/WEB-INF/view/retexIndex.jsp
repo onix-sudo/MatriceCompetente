@@ -38,7 +38,7 @@
                     <th>Categorie</th>
                     <th>Titlu</th>
                     <th width="230">Descriere</th>
-                    <th>Data</th>
+                    <th>Autor</th>
                 </tr>
             </thead>
 
@@ -48,7 +48,7 @@
                         <td>${record.categorie}</td>
                         <td>${record.titlu}</td>
                         <td>${record.descriere}</td>
-                        <td>${record.date}</td>
+                        <td>${record.autor}</td>
                     </tr>
                 </c:forEach>
             </tbody>

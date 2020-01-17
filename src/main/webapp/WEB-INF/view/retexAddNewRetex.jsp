@@ -6,7 +6,7 @@
 <h3>Adauga o noua inregistrare</h3>
 <hr>
 
-<form:form action="saveNewRetex" modelAttribute="record" method="POST" accept-charset = "utf-8">
+<form:form action="saveNewRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
 <div class="separatecontainer">
 
         <div class = "row">
@@ -15,26 +15,32 @@
             </div>
 
             <div class = "col-75">
-                <form:input path="titlu"/>
+                <form:input path="record.titlu"/>
             </div>
         </div>
-
         <div class = "row">
             <div class="col-25">
                 <label class="label1">Categorie:</label>
             </div>
 
             <div class = "col-75">
-                <form:input path="categorie"/>
+                <form:input path="record.categorie"/>
             </div>
         </div>
-
         <div class="row">
               <div class="col-25">
                 <label class="label1">Descriere:</label>
               </div>
               <div class="col-75">
-                <textarea id="descriere" name="descriere" placeholder="Write something.." style="height:200px"></textarea>
+                <textarea id="descriere" name="record.descriere" placeholder="Write something.." style="height:200px"></textarea>
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-25">
+                <label class="label1">Solutie:</label>
+              </div>
+              <div class="col-75">
+                <textarea id="descriere" name="solution.solutie" placeholder="Write something.." style="height:200px"></textarea>
               </div>
         </div>
 </div>
