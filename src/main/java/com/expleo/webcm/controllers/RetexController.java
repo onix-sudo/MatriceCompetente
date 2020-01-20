@@ -74,6 +74,20 @@ public class RetexController {
         return "redirect:/retex";
     }
 
+    @PostMapping(value = "/editRetex")
+    public String editRetex(@RequestParam("idSolutie") Integer idSolutie,
+                            @RequestParam("textSolutie") String textSolutie,
+                            @RequestParam("recordId") Integer recordId){
+
+
+        Solution solution = retexService.getSolution(idSolutie);
+        solution.setSolutie(textSolutie);
+
+        retexService.saveOrUpdateSolution(solution);
+        return "redirect:/retex/solution?recordId=" + recordId;
+    }
+
+
     @GetMapping("/search")
     public String searchResult(@RequestParam("terms") String searchTerms, @RequestParam("category") String searchCategory,
                                ModelMap model){
@@ -88,6 +102,10 @@ public class RetexController {
     @GetMapping("/solution")
     public String showSolution(@RequestParam("recordId") Integer recordId, ModelMap model) {
         List<Solution> solutionList = retexService.getSolutions(recordId);
+
+        UserExpleo mainUser = userService.getUserExpleoPrincipal();
+
+        model.addAttribute("mainUser", mainUser);
 
         model.addAttribute("solutionList", solutionList);
 
