@@ -41,6 +41,7 @@ public class RetexDAOImpl implements RetexDAO {
             if(foundRecords.isEmpty()){
                 foundRecords.addAll(getRecords(searchTerms,searchCategory, "keyword"));
             }
+
             return foundRecords;
         }else {
             return getRecords(searchTerms, searchCategory, "keyword");
@@ -60,6 +61,10 @@ public class RetexDAOImpl implements RetexDAO {
             Query query = fullTextSession.createFullTextQuery(luceneQuery, Record.class);
             List<Record> recordsFound = recordsIterator(query);
 
+            for(Record record:recordsFound){
+                Hibernate.initialize(record.getSolutions());
+            }
+
             tx.commit();
             session.close();
             return recordsFound;
@@ -68,6 +73,10 @@ public class RetexDAOImpl implements RetexDAO {
             org.apache.lucene.search.Query luceneQuery = keywordQuery(searchTerms, searchCategory, queryBuilder);
             Query query = fullTextSession.createFullTextQuery(luceneQuery, Record.class);
             List<Record> recordsFound = recordsIterator(query);
+
+            for(Record record:recordsFound){
+                Hibernate.initialize(record.getSolutions());
+            }
 
             tx.commit();
             session.close();

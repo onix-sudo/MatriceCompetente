@@ -9,7 +9,9 @@ import org.hibernate.search.annotations.Index;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 
 @AnalyzerDef(name = "keywordTokenizer",
@@ -120,9 +122,10 @@ public class Record {
         this.solutions = solutions;
     }
 
-//    public String getLastDate(){
-//
-//    }
+    public Date getLastDate(){
+        Date maxDate = solutions.stream().map(u -> u.getDate()).max(Date::compareTo).get();
+        return maxDate;
+    }
 
     @Override
     public String toString() {
