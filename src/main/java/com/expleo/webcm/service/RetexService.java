@@ -12,5 +12,6 @@ public interface RetexService {
     Solution getSolution(Integer solutionId);
     void saveOrUpdateSolution(Solution solution);
     List<Record> getLastTenRecords();
+    List<Solution> getLastTenSolutions();
     List<Solution> getSolutions(Integer recordId);
 }

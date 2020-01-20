@@ -2,6 +2,7 @@ package com.expleo.webcm.dao;
 
 import com.expleo.webcm.entity.expleodb.Record;
 import com.expleo.webcm.entity.expleodb.Solution;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -189,6 +190,27 @@ public class RetexDAOImpl implements RetexDAO {
             return query.list();
         }catch (NoResultException exp) {
             logger.info("getLastTenRecords - " + exp.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Solution> getLastTenSolutions() {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Query query = session.createQuery("from Solution order by ID_solution DESC");
+            query.setMaxResults(10);
+            session.getTransaction().commit();
+
+            List<Solution> solutions = new ArrayList<Solution>(query.list());
+
+            for (Solution solution: solutions){
+                Hibernate.initialize(solution.getRecord());
+            }
+
+            return query.list();
+        }catch (NoResultException e){
+            logger.info("getLastTenSolutions - " + e.getMessage());
             return new ArrayList<>();
         }
     }

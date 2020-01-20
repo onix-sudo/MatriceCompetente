@@ -41,6 +41,7 @@
     <br>
     <hr>
 
+<%--
     <table class="table table-hover" cellspacing="0">
         <thead class="thead-dark">
             <tr>
@@ -58,7 +59,32 @@
                         <td>${record.categorie}</td>
                         <td><a href="/retex/solution?recordId=${record.id}">${record.titlu}</a></td>
                         <td>${record.descriere}</td>
-                        <td>${record.date}</td>
+                        <td></td>
+                    </tr>
+                </a>
+            </c:forEach>
+        </tbody>
+    </table>
+--%>
+
+    <table class="table table-hover" cellspacing="0">
+        <thead class="thead-dark">
+            <tr>
+                <th>Categorie</th>
+                <th>Titlu</th>
+                <th>Descriere</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <c:forEach var="solution" items="${solutionList}">
+                <a href="/retex/solution">
+                    <tr>
+                        <td>${solution.getRecord().categorie}</td>
+                        <td><a href="/retex/solution?recordId=${solution.getRecord().id}">${solution.getRecord().titlu}</a></td>
+                        <td>${solution.getRecord().descriere}</td>
+                        <td>${solution.getDate()}</td>
                     </tr>
                 </a>
             </c:forEach>

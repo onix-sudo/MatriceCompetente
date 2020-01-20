@@ -56,7 +56,7 @@
                     <td>${record.categorie}</td>
                     <td>${record.titlu}</td>
                     <td>${record.descriere}</td>
-                    <td>${record.date}</td>
+                    <td></td>
                 </tr>
             </a>
             </c:forEach>

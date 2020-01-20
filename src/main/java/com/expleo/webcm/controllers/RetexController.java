@@ -30,8 +30,10 @@ public class RetexController {
 
     @GetMapping
     public String indexPage(ModelMap model){
-        List<Record> recordList = retexService.getLastTenRecords();
-        model.addAttribute("recordList", recordList);
+        List<Solution> solutionList = retexService.getLastTenSolutions();
+        model.addAttribute("solutionList", solutionList);
+
+
         return "retexIndex";
     }
 
