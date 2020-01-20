@@ -13,8 +13,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -32,8 +34,7 @@ public class RetexController {
     public String indexPage(ModelMap model){
         List<Solution> solutionList = retexService.getLastTenSolutions();
         model.addAttribute("solutionList", solutionList);
-
-
+        
         return "retexIndex";
     }
 
@@ -53,8 +54,8 @@ public class RetexController {
     @PostMapping(value = "/saveNewRetex")
     public String saveNewRetex(@ModelAttribute("recordSolution") RecordSolution recordSolution, BindingResult result){
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String data = dateFormat.format(Calendar.getInstance().getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
 
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
@@ -66,7 +67,13 @@ public class RetexController {
         Solution solution = recordSolution.getSolution();
 
         solution.setAutor(userExpleo.getNume() + " " + userExpleo.getPrenume());
-        solution.setDate(data);
+        Date data;
+        try {
+            data = dateFormat.parse(dateManipulation);
+            solution.setDate(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         solution.setRecord(record);
 
         retexService.saveOrUpdateRecord(record);
@@ -94,7 +101,6 @@ public class RetexController {
 
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
-
 
         return "retexSearchResult";
     }

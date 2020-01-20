@@ -1,6 +1,7 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "Solution")
 @Table(name = "solution")
@@ -22,16 +23,9 @@ public class Solution {
     private String autor;
 
     @Column(name="Data")
-    private String date;
+    private Date date;
 
     public Solution() {
-    }
-
-    public Solution(Record record, String solutie, String autor, String date) {
-        this.record = record;
-        this.solutie = solutie;
-        this.autor = autor;
-        this.date = date;
     }
 
     public Integer getId() {
@@ -66,12 +60,11 @@ public class Solution {
         this.autor = autor;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-
 }
