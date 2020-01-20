@@ -120,6 +120,10 @@ public class Record {
         this.solutions = solutions;
     }
 
+//    public String getLastDate(){
+//
+//    }
+
     @Override
     public String toString() {
         return "Record{" +

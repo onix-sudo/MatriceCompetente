@@ -81,6 +81,7 @@ public class RetexController {
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
 
+
         return "retexSearchResult";
     }
 

@@ -46,13 +46,13 @@
       </tr>
    </thead>
    <tbody>
-      <c:forEach var="record" items="${recordList}">
+      <c:forEach var="solution" items="${solutionList}">
          <a href="/retex/solution">
-            <tr class="clickable-row" data-href="retex/solution?recordId=${record.id}">
-               <td>${record.categorie}</td>
-               <td>${record.titlu}</td>
-               <td>${record.descriere}</td>
-               <td></td>
+            <tr class="clickable-row" data-href="retex/solution?recordId=${solution.getRecord().id}">
+               <td>${solution.getRecord().categorie}</td>
+               <td>${solution.getRecord().titlu}</td>
+               <td>${solution.getRecord().descriere}</td>
+               <td>${solution.date}</td>
             </tr>
          </a>
       </c:forEach>
