@@ -33,6 +33,7 @@ public class RetexController {
 
     @GetMapping
     public String indexPage(ModelMap model){
+
         List<Solution> solutionList = retexService.getLastTenSolutions();
         model.addAttribute("solutionList", solutionList);
         
@@ -117,5 +118,26 @@ public class RetexController {
         model.addAttribute("record", record);
 
         return "retexSolutions";
+    }
+
+    @PostMapping(value = "/addSolution")
+    public String editRetex(@RequestParam("textSolutie") String textSolutie,
+                            @RequestParam("recordId") Integer recordId){
+        UserExpleo userExpleo = userService.getUserExpleoPrincipal();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
+
+        String data = dateFormat.format(new Date());
+
+        Solution solution = new Solution();
+        solution.setSolutie(textSolutie);
+        solution.setDate(data);
+        Record record = retexService.getRecord(recordId);
+        solution.setRecord(record);
+        solution.setUserExpleo(userExpleo);
+
+        retexService.saveOrUpdateSolution(solution);
+        return "redirect:/retex/solution?recordId=" + recordId;
     }
 }

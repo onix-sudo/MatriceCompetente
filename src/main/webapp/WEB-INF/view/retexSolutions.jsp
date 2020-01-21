@@ -1,5 +1,4 @@
 <%@ include file="header.jspf"%>
-<br>
 <h2 class="display-2">${record.titlu}</h2>
 <div class="font-weight-normal text-break">${record.descriere}</div>
 <hr>
@@ -64,6 +63,9 @@
    }
    }
 </style>
+
+<a class="btn btn-primary btn-lg" href="#popup2">Adauga solutie</a>
+<br><br>
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
       <div class="message">
@@ -71,19 +73,40 @@
          <div style="clear:both;"></div>
          <div class="content">${solution.solutie}</div>
          <br>
-         <c:if test="${mainUser.id} eq ${solution.getUserExpleo().getId()}">
+         <c:if test="${mainUser.id==solution.getUserExpleo().getId()}">
             <div class="content"><a class="btn btn-info" onclick="editSolution(${solution.id}, '${solution.solutie}')"
             href="#popup1">Editeaza</a></div>
          </c:if>
       </div>
    </div>
 </c:forEach>
+
 <div id="popup1" class="overlay">
    <div class="popup">
       <h2>Editeaza solutie</h2>
       <a class="close" href="#">&times;</a>
       <div class="content">
          <form:form action="editRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
+            Solutie:
+            <div class="col-75">
+               <textarea  id="edit-input" maxlength="20000" name="textSolutie" placeholder="Write something.."
+               style="height:200px"></textarea><span id='remainingD'></span>
+            </div>
+            <hr>
+            <input type="submit" value="Salveaza" class="btn btn-outline-primary"/>
+            <input id="input-solutie" type="hidden" name="idSolutie"/>
+            <input name="recordId" type="hidden" value="${record.id}"/>
+         </form:form>
+      </div>
+   </div>
+</div>
+
+<div id="popup2" class="overlay">
+   <div class="popup">
+      <h2>Adauga solutie</h2>
+      <a class="close" href="#">&times;</a>
+      <div class="content">
+         <form:form action="addSolution" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
             Solutie:
             <div class="col-75">
                <textarea  id="edit-input" maxlength="20000" name="textSolutie" placeholder="Write something.."

@@ -47,7 +47,11 @@
 </div>
 <hr>
        <input type="submit" value="Adauga" class="btn btn-outline-primary"/>
+
+       <button type="button" class="btn btn-outline-danger" onclick="closeAddRetex()">Inchide</button>
 </form:form>
+
+
 
 </body>
 
@@ -55,6 +59,10 @@
 <%@ include file="footer.jspf"%>
 
 <script>
+
+function closeAddRetex() {
+    window.location.href = '/retex';
+}
 
 $(document).ready(function() {
   var len = 0;
