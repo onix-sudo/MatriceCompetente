@@ -57,6 +57,7 @@
    @media screen and (max-width: 700px){
    .box{
    width: 70%;
+
    }
    .popup{
    width: 70%;
@@ -66,11 +67,11 @@
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
       <div class="message">
-         <div class="user">${status.index+1}. ${solution.autor} -- ${solution.date}</div>
+         <div class="user">${status.index+1}. ${solution.getUserExpleo().getFullName()} -- ${solution.date}</div>
          <div style="clear:both;"></div>
          <div class="content">${solution.solutie}</div>
          <br>
-         <c:if test="${mainUser.id} eq ${solution.autor}">
+         <c:if test="${mainUser.id} eq ${solution.getUserExpleo().getId()}">
             <div class="content"><a class="btn btn-info" onclick="editSolution(${solution.id}, '${solution.solutie}')"
             href="#popup1">Editeaza</a></div>
          </c:if>

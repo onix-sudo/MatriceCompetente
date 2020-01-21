@@ -7,6 +7,8 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -123,7 +125,16 @@ public class Record {
     }
 
     public Date getLastDate(){
-        Date maxDate = solutions.stream().map(u -> u.getDate()).max(Date::compareTo).get();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
+        Date maxDate = solutions.stream().map(u -> {
+            try {
+                return u.getDate1();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+       return null; }).max(Date::compareTo).get();
         return maxDate;
     }
 

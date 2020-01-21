@@ -1,6 +1,9 @@
 package com.expleo.webcm.entity.expleodb;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(name = "Solution")
@@ -16,14 +19,15 @@ public class Solution {
     @JoinColumn(name="ID_record")
     private Record record;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ID_user")
+    private UserExpleo userExpleo;
+
     @Column(name="Solutie")
     private String solutie;
 
-    @Column(name="Autor")
-    private String autor;
-
     @Column(name="Data")
-    private Date date;
+    private String date;
 
     public Solution() {
     }
@@ -52,19 +56,30 @@ public class Solution {
         this.solutie = solutie;
     }
 
-    public String getAutor() {
-        return autor;
+    public UserExpleo getUserExpleo() {
+        return userExpleo;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setUserExpleo(UserExpleo userExpleo) {
+        this.userExpleo = userExpleo;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public Date getDate1() throws ParseException {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        String data = dateFormat.format(new Date());
+
+        Date a = dateFormat.parse(data);
+
+        return a;
+    }
+
+    public void setDate(String date) {
         this.date = date;
     }
 }

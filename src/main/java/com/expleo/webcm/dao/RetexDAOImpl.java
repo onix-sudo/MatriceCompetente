@@ -232,6 +232,12 @@ public class RetexDAOImpl implements RetexDAO {
             query.setParameter("recordId", recordId);
             session.getTransaction().commit();
 
+            List<Solution> solutions = new ArrayList<Solution>(query.list());
+
+            for (Solution solution: solutions){
+                Hibernate.initialize(solution.getUserExpleo());
+            }
+
             return query.list();
         } catch(NoResultException exp) {
             logger.info("getSolutions - " + exp.getMessage());

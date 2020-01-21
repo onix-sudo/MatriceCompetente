@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,7 +55,7 @@ public class RetexController {
     @PostMapping(value = "/saveNewRetex")
     public String saveNewRetex(@ModelAttribute("recordSolution") RecordSolution recordSolution, BindingResult result){
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
 
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
@@ -66,14 +67,10 @@ public class RetexController {
 
         Solution solution = recordSolution.getSolution();
 
-        solution.setAutor(userExpleo.getNume() + " " + userExpleo.getPrenume());
-        Date data;
-        try {
-            data = dateFormat.parse(dateManipulation);
-            solution.setDate(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        solution.setUserExpleo(userExpleo);
+
+        String data = dateFormat.format(new Date());
+        solution.setDate(data);
         solution.setRecord(record);
 
         retexService.saveOrUpdateRecord(record);

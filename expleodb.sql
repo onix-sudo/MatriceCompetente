@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`record` (
   `id_autor`INT(11) NOT NULL,
   `Categorie` VARCHAR(20) NOT NULL,
   `Titlu` VARCHAR(200) NOT NULL,
-  `Descriere` VARCHAR(2500) NOT NULL,
+  `Descriere` VARCHAR(10000) NOT NULL,
   `Autor`VARCHAR(40) NOT NULL,
 
   INDEX `FK_Id_autor` (`Id_autor` ASC),
@@ -208,18 +208,24 @@ COLLATE = utf8_romanian_ci;
   CREATE TABLE IF NOT EXISTS `expleodb`.`solution` (
   `ID_solution` INT(11) NOT NULL AUTO_INCREMENT,
   `id_record` INT(11) NOT NULL,
-  `Solutie` VARCHAR(20000) NOT NULL,
-  `Autor` VARCHAR(40) NOT NULL,
+  `id_user` INT(11) NOT NULL,
+  `Solutie` VARCHAR(21000) NOT NULL,
   `Data` VARCHAR(30) NOT NULL,
 
   INDEX `FK_id_record` (`id_record` ASC),
+  INDEX `FK_id_user_solution` (`id_user` ASC),
 
   CONSTRAINT `FK_id_record`
   FOREIGN KEY (`id_record`)
   REFERENCES `expleodb`.`record` (`ID_record`),
 
+  CONSTRAINT `FK_id_user_solution`
+  FOREIGN KEY (`id_user`)
+  REFERENCES `expleodb`.`user` (`ID_user`),
+
   PRIMARY KEY (`ID_solution`),
-  KEY (`id_record`))
+  KEY (`id_record`),
+  KEY(`id_user`))
 
 ENGINE = InnoDB
 AUTO_INCREMENT = 6

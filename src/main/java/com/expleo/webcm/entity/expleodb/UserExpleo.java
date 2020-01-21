@@ -103,6 +103,9 @@ public class UserExpleo {
     @OneToMany(mappedBy = "user")
     private List<History> histories;
 
+    @OneToMany(mappedBy = "userExpleo")
+    private List<Solution> solutions;
+
 //    @OneToMany(mappedBy = "userExpleo")
 //    private List<Record> records;
 
@@ -202,6 +205,14 @@ public class UserExpleo {
         userSkills.add(skill);
     }
 
+    public List<Solution> getSolutions() {
+        return solutions;
+    }
+
+    public void setSolutions(List<Solution> solutions) {
+        this.solutions = solutions;
+    }
+
     public List<History> getHistories() {
         return histories;
     }
@@ -220,6 +231,10 @@ public class UserExpleo {
 
     public void removeProiecte(Proiect proiect) {
         proiecte.remove(proiect);
+    }
+
+    public String getFullName(){
+        return this.nume + " " + this.prenume;
     }
 
     @Override
