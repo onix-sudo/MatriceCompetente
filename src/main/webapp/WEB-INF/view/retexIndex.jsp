@@ -48,7 +48,7 @@
    <tbody>
       <c:forEach var="solution" items="${solutionList}">
          <a href="/retex/solution">
-            <tr class="clickable-row" data-href="retex/solution?recordId=${solution.getRecord().id}">
+            <tr class="clickable-row" data-href="retex/solution?recordId=${solution.record.id}">
                <td>${solution.getRecord().categorie}</td>
                <td>${solution.getRecord().titlu}</td>
                <td>${solution.getRecord().descriere}</td>

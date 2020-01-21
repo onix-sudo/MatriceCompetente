@@ -207,15 +207,20 @@ public class RetexDAOImpl implements RetexDAO {
     public List<Solution> getLastTenSolutions() {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("from Solution order by ID_solution DESC");
+//            Query query = session.createQuery("select distinct ID_record from Solution s inner join Record" +
+//                    " order by " +
+//                    "ID_solution DESC");
+            Query query = session.createQuery("select distinct sol.record.id from Solution sol " +
+                    "order by sol.date" +
+                    " desc");
             query.setMaxResults(10);
             session.getTransaction().commit();
 
-            List<Solution> solutions = new ArrayList<Solution>(query.list());
-
-            for (Solution solution: solutions){
-                Hibernate.initialize(solution.getRecord());
-            }
+//            List<Solution> solutions = new ArrayList<Solution>(query.list());
+//
+//            for (Solution solution: solutions){
+//                Hibernate.initialize(solution.getRecord());
+//            }
 
             return query.list();
         }catch (NoResultException e){
