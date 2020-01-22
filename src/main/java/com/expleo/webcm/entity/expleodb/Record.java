@@ -10,9 +10,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 
@@ -124,18 +122,21 @@ public class Record {
         this.solutions = solutions;
     }
 
-    public Date getLastDate(){
+    public String getLastDate() throws ParseException {
+
+        List<Date> dates = new ArrayList<Date>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
-        Date maxDate = solutions.stream().map(u -> {
-            try {
-                return u.getDate1();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-       return null; }).max(Date::compareTo).get();
-        return maxDate;
+
+        for(Solution solution:solutions){
+            dates.add(solution.getDate1());
+        }
+
+        Date latest = Collections.max(dates);
+
+        String ldate = dateFormat.format(latest);
+
+        return ldate;
     }
 
     @Override
