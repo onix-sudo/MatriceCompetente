@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -85,11 +84,7 @@ public class RetexDAOImpl implements RetexDAO {
     }
 
     private List<Record> recordsIterator(Query query) {
-//        Iterator iterator = query.iterate();
         List<Record> recordsFound = new LinkedList<>();
-//        while (iterator.hasNext()) {
-//            recordsFound.add((Record) iterator.next());
-//        }
         for(final Object o : query.list()){
             recordsFound.add((Record) o);
         }
@@ -196,7 +191,7 @@ public class RetexDAOImpl implements RetexDAO {
             query.setMaxResults(10);
             session.getTransaction().commit();
 
-            return query.list();
+            return recordsIterator(query);
         }catch (NoResultException exp) {
             logger.info("getLastTenRecords - " + exp.getMessage());
             return new ArrayList<>();
@@ -206,23 +201,11 @@ public class RetexDAOImpl implements RetexDAO {
     @Override
     public List<Solution> getLastTenSolutions() {
         try(Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-//            Query query = session.createQuery("select distinct ID_record from Solution s inner join Record" +
-//                    " order by " +
-//                    "ID_solution DESC");
-            Query query = session.createQuery("select distinct sol.record.id from Solution sol " +
-                    "order by sol.date" +
-                    " desc");
+            Query query = session.createQuery("select sol from Solution as sol join fetch sol.record " +
+                    "where sol.id in (select MAX(nes) from Solution as nes group by nes.record.id)" +
+                    " order by sol.id desc", Solution.class);
             query.setMaxResults(10);
-            session.getTransaction().commit();
-
-//            List<Solution> solutions = new ArrayList<Solution>(query.list());
-//
-//            for (Solution solution: solutions){
-//                Hibernate.initialize(solution.getRecord());
-//            }
-
-            return query.list();
+            return solutionIterator(query);
         }catch (NoResultException e){
             logger.info("getLastTenSolutions - " + e.getMessage());
             return new ArrayList<>();
@@ -233,20 +216,22 @@ public class RetexDAOImpl implements RetexDAO {
     public List<Solution> getSolutions(Integer recordId) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("from Solution where ID_record = :recordId");
+            Query query = session.createQuery("select sol from Solution sol join fetch sol.userExpleo where sol.record.id = :recordId");
             query.setParameter("recordId", recordId);
             session.getTransaction().commit();
 
-            List<Solution> solutions = new ArrayList<Solution>(query.list());
-
-            for (Solution solution: solutions){
-                Hibernate.initialize(solution.getUserExpleo());
-            }
-
-            return query.list();
+            return solutionIterator(query);
         } catch(NoResultException exp) {
             logger.info("getSolutions - " + exp.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    private List<Solution> solutionIterator(Query query){
+        List<Solution> solutions = new LinkedList<>();
+        for(final Object o : query.list()){
+            solutions.add((Solution) o);
+        }
+        return solutions;
     }
 }

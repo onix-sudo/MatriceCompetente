@@ -108,13 +108,10 @@ public class RetexController {
         List<Solution> solutionList = retexService.getSolutions(recordId);
 
         UserExpleo mainUser = userService.getUserExpleoPrincipal();
-
-        model.addAttribute("mainUser", mainUser);
-
-        model.addAttribute("solutionList", solutionList);
-
         Record record = retexService.getRecord(recordId);
 
+        model.addAttribute("mainUser", mainUser);
+        model.addAttribute("solutionList", solutionList);
         model.addAttribute("record", record);
 
         return "retexSolutions";
