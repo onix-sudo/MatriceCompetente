@@ -14,9 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +55,6 @@ public class RetexController {
     public String saveNewRetex(@ModelAttribute("recordSolution") RecordSolution recordSolution, BindingResult result){
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
 
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
@@ -92,7 +89,6 @@ public class RetexController {
         return "redirect:/retex/solution?recordId=" + recordId;
     }
 
-
     @GetMapping("/search")
     public String searchResult(@RequestParam("terms") String searchTerms, @RequestParam("category") String searchCategory,
                                ModelMap model){
@@ -123,7 +119,6 @@ public class RetexController {
         UserExpleo userExpleo = userService.getUserExpleoPrincipal();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
 
         String data = dateFormat.format(new Date());
 
