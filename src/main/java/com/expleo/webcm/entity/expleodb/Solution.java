@@ -72,11 +72,8 @@ public class Solution {
     public Date getDate1() throws ParseException {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String dateManipulation = dateFormat.format(Calendar.getInstance().getTime());
 
-        Date a = dateFormat.parse(date);
-
-        return a;
+        return dateFormat.parse(date);
     }
 
     public void setDate(String date) {
