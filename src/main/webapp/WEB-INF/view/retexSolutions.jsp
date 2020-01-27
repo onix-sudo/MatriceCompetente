@@ -1,4 +1,8 @@
 <%@ include file="header.jspf"%>
+
+<br>
+<button class="btn btn-dark" onclick="window.location.href = '/retex';">Inapoi la Retex</button>
+
 <h2 class="display-2">${record.titlu}</h2>
 <div class="font-weight-normal text-break">${record.descriere}</div>
 <hr>
@@ -64,7 +68,7 @@
    }
 </style>
 
-<a class="btn btn-primary btn-lg" href="#popup2">Adauga solutie</a>
+<button class="btn btn-primary btn-lg" onclick="#popup2">Adauga solutie</button>
 <br><br>
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
@@ -121,9 +125,15 @@
    </div>
 </div>
 <script>
+
+
    function editSolution(idSolutie, solutie) {
         $('#edit-input').val(solutie);
         $('#input-solutie').val(idSolutie);
+        var Backlen=history.length;
+        history.go(-Backlen);
+
+
    }
 </script>
 

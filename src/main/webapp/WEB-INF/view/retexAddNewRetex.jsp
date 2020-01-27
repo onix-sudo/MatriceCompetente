@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="/resources/css/addRetexForm.css">
 <security:csrfMetaTags/>
 
+<br>
+<button class="btn btn-dark" onclick="window.location.href = '/retex';">Inapoi la Retex</button>
 
 <h1 style="color:black;text-align:left;"> Adauga o noua inregistrare</h1>
 <hr>
@@ -93,5 +95,6 @@ $(document).ready(function() {
     }
   })
 });
+
 
 </script>

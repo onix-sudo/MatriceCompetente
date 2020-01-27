@@ -1,4 +1,17 @@
 <%@ include file="header.jspf"%>
+
+<br>
+
+<div>
+
+<button class="btn btn-dark" onclick="window.location.href = '/';">Inapoi la Home</button>
+
+<button type="button" class="btn btn-outline-primary" onclick="window.location
+.href='/retex/addNewRetex'">Add new RETEX</button>
+</div>
+
+<hr>
+
 <style>
    td {
    max-width: 100px;
@@ -33,7 +46,7 @@
 </div>
 <br>
 <hr>
-<table class="table table-hover" cellspacing="0">
+<table id="retexSearchResultTable" class="table table-hover" cellspacing="0">
    <thead class="thead-dark">
       <tr>
          <th>Categorie</th>
@@ -45,7 +58,7 @@
    <tbody>
       <c:forEach var="record" items="${recordsFound}">
          <a href="/retex/solution">
-            <tr class="clickable-row" data-href="solution?recordId=${record.id}">
+            <tr style="cursor: pointer;" class="clickable-row" data-href="solution?recordId=${record.id}">
                <td>${record.categorie}</td>
                <td>${record.titlu}</td>
                <td>${record.descriere}</td>
@@ -67,5 +80,15 @@
                    window.location = $(this).data("href");
                });
    });
+
+   $(document).ready(function () {
+               $('#retexSearchResultTable tbody tr').click(function () {
+               }).hover(function () {
+                     $(this).css('background-color','#9999ff');
+                  }, function () {
+                     $(this).css('background-color','#fff');
+               });
+   });
+
 </script>
 <%@ include file="footer.jspf"%>
