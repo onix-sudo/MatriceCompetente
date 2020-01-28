@@ -68,7 +68,7 @@
    }
 </style>
 
-<button class="btn btn-primary btn-lg" onclick="#popup2">Adauga solutie</button>
+<a class="btn btn-primary btn-lg" href="#popup2">Adauga solutie</a>
 <br><br>
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
