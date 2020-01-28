@@ -211,6 +211,7 @@ COLLATE = utf8_romanian_ci;
   `id_user` INT(11) NOT NULL,
   `Solutie` VARCHAR(21000) NOT NULL,
   `Data` VARCHAR(30) NOT NULL,
+  `Data_update` VARCHAR(30),
 
   INDEX `FK_id_record` (`id_record` ASC),
   INDEX `FK_id_user_solution` (`id_user` ASC),
