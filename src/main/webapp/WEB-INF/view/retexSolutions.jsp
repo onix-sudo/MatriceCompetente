@@ -73,7 +73,8 @@
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
       <div class="message">
-         <div class="user">${status.index+1}. ${solution.getUserExpleo().getFullName()} -- ${solution.date}</div>
+         <div class="user">${status.index+1}. ${solution.getUserExpleo().getFullName()} -- ${solution.date}
+           <c:if test = "${not empty solution.date_update}"> -- Ultima Modificare: ${solution.date_update}</div> </c:if>
          <div style="clear:both;"></div>
          <div class="content">${solution.solutie}</div>
          <br>

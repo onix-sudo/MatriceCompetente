@@ -82,8 +82,14 @@ public class RetexController {
                             @RequestParam("recordId") Integer recordId){
 
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        String data = dateFormat.format(new Date());
+
         Solution solution = retexService.getSolution(idSolutie);
         solution.setSolutie(textSolutie);
+
+        solution.setDate_update(data);
 
         retexService.saveOrUpdateSolution(solution);
         return "redirect:/retex/solution?recordId=" + recordId;

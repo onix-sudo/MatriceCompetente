@@ -30,6 +30,9 @@ public class Solution {
     @Column(name="Data")
     private String date;
 
+    @Column(name="Data_update")
+    private String date_update;
+
     public Solution() {
     }
 
@@ -78,5 +81,13 @@ public class Solution {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDate_update() {
+        return date_update;
+    }
+
+    public void setDate_update(String date_update) {
+        this.date_update = date_update;
     }
 }
