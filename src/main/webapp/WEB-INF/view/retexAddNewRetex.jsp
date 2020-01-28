@@ -8,8 +8,8 @@
 <h1 style="color:black;text-align:left;"> Adauga o noua inregistrare</h1>
 <hr>
 
-<%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script> tinymce.init({selector:'textarea'});</script>--%>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script> tinymce.init({selector:'textarea'});</script>
 
 <body>
 <form:form action="saveNewRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
