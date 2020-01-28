@@ -11,14 +11,14 @@
 <%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script> tinymce.init({selector:'textarea'});</script>--%>
 
-<script src="//cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
+<%--<script src="//cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
 
 <body>
 
 <textarea name="editor1"><button>Save</button></textarea>
                 <script>
                         CKEDITOR.replace( 'editor1' );
-                </script>
+                </script>--%>
 
 <form:form action="saveNewRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
 <div class="separatecontainer">
@@ -39,6 +39,7 @@
 
             <div class = "col-75">
                 <form:input path="record.categorie"/>
+
             </div>
         </div>
         <div class="row">
@@ -46,7 +47,23 @@
                 <label class="label1">Descriere:</label>
               </div>
               <div class="col-75">
-                <textarea id="my-input" maxlength="10000" name="record.descriere" placeholder="Write something.." style="height:200px"></textarea><span id='remainingC'></span>
+                <textarea id="summernote" maxlength="10000" name="record.descriere" style="height:200px"></textarea>
+                                                <script>
+                                                  $('#summernote').summernote({
+                                                    placeholder: 'Adauga descriere',
+                                                    tabsize: 2,
+                                                    height: 200,
+                                                    toolbar: [
+                                                      ['style', ['style']],
+                                                      ['font', ['bold', 'underline', 'clear']],
+                                                      ['color', ['color']],
+                                                      ['para', ['ul', 'ol', 'paragraph']],
+                                                      ['table', ['table']],
+                                                      ['insert', ['link', 'picture', 'video']],
+                                                      ['view', ['fullscreen', 'codeview', 'help']]
+                                                    ]
+                                                  });
+                                                </script>
               </div>
         </div>
         <div class="row">
@@ -54,7 +71,23 @@
                 <label class="label1">Solutie:</label>
               </div>
               <div class="col-75">
-                <textarea  id="my-input1" maxlength="20000" name="solution.solutie" placeholder="Write something.." style="height:200px"></textarea><span id='remainingD'></span>
+                <textarea  id="summernoteSol" name="solution.solutie"></textarea>
+                                                              <script>
+                                                                $('#summernoteSol').summernote({
+                                                                  placeholder: 'Adauga solutie',
+                                                                  tabsize: 1,
+                                                                  height: 200,
+                                                                  toolbar: [
+                                                                    ['style', ['style']],
+                                                                    ['font', ['bold', 'underline', 'clear']],
+                                                                    ['color', ['color']],
+                                                                    ['para', ['ul', 'ol', 'paragraph']],
+                                                                    ['table', ['table']],
+                                                                    ['insert', ['link', 'picture', 'video']],
+                                                                    ['view', ['fullscreen', 'codeview', 'help']]
+                                                                  ]
+                                                                });
+                                                              </script>
               </div>
         </div>
 </div>
@@ -81,7 +114,7 @@ $(document).ready(function() {
   var len = 0;
   var maxchar = 10000;
 
-  $( '#my-input' ).keyup(function(){
+  $( '#summernote' ).keyup(function(){
     len = this.value.length
     if(len > maxchar){
         return false;
@@ -96,7 +129,7 @@ $(document).ready(function() {
   var len = 0;
   var maxchar = 20000;
 
-  $( '#my-input1' ).keyup(function(){
+  $( '#summernote' ).keyup(function(){
     len = this.value.length
     if(len > maxchar){
         return false;

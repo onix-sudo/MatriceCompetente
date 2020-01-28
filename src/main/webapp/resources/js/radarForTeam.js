@@ -38,7 +38,7 @@ function plotRadarTeam() {
     };
 
     targetData.push(targetData[0]);
-    Plotly.plot("chart", allData, layout);
+    Plotly.plot("chart", allData, layout, {showSendToCloud: false, modeBarButtonsToRemove: ['lasso2d', 'zoom2d', 'select2d']});
 
 }
 

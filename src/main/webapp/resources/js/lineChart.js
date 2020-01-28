@@ -35,5 +35,5 @@ var layout = {
   title:'Istorie evaluari'
 };
 
-Plotly.newPlot('myDiv', finalData, layout);
+Plotly.newPlot('myDiv', finalData, layout, {modeBarButtonsToRemove: ['lasso2d', 'pan2d', 'zoom2d', 'select2d', 'resetScale2d']});
 }

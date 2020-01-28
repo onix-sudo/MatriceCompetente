@@ -36,6 +36,6 @@ function plotRadar() {
       showlegend: false
     }
 
-    Plotly.plot("chartDiv", data, layout, {showSendToCloud: true})
+    Plotly.plot("chartDiv", data, layout, {showSendToCloud: false, modeBarButtonsToRemove: ['lasso2d', 'zoom2d', 'select2d']})
 
 }
