@@ -77,9 +77,9 @@
            <c:if test = "${not empty solution.date_update}"> -- Ultima Modificare: ${solution.date_update}</div> </c:if>
          <div style="clear:both;"></div>
          <div class="content">${solution.solutie}</div>
-         <br>
-         <c:if test="${mainUser.id==solution.userExpleo.id}">
-            <div class="content"><a class="btn btn-info" href="#popup1">Modifica</a></div>
+         <br> <br> <br> <br>
+         <c:if test="${mainUser.id==solution.getUserExpleo().getId()}">
+            <div class="content"><a class="btn btn-info" onclick="editSolution(${solution.id}, '${solution.solutie}')" href="#popup1">Modifica</a></div>
          </c:if>
       </div>
    </div>
@@ -109,7 +109,7 @@
    <div class="popup">
       <h2>Adauga solutie</h2>
       <a class="close" href="#">&times;</a>
-      <div class="content"
+      <div class="content">
          <form:form action="addSolution" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
             Solutie:
             <div class="col-75">
@@ -137,7 +137,7 @@
    }
 </script>
 
-<%--<script>
+<script>
 
 $(document).ready(function() {
   var len = 0;
@@ -154,5 +154,5 @@ $(document).ready(function() {
   })
 });
 
-</script>--%>
+</script>
 <%@ include file="footer.jspf"%>
