@@ -11,14 +11,16 @@
 <%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script> tinymce.init({selector:'textarea'});</script>--%>
 
-<%--<script src="//cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
+<%--
+<script src="//cdn.ckeditor.com/4.13.1/full-all/ckeditor.js"></script>
 
 <body>
 
 <textarea name="editor1"><button>Save</button></textarea>
                 <script>
                         CKEDITOR.replace( 'editor1' );
-                </script>--%>
+                </script>
+--%>
 
 <form:form action="saveNewRetex" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
 <div class="separatecontainer">

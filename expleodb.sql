@@ -209,7 +209,7 @@ COLLATE = utf8_romanian_ci;
   `ID_solution` INT(11) NOT NULL AUTO_INCREMENT,
   `id_record` INT(11) NOT NULL,
   `id_user` INT(11) NOT NULL,
-  `Solutie` VARCHAR(21000) NOT NULL,
+  `Solutie` LONGTEXT NOT NULL,
   `Data` VARCHAR(30) NOT NULL,
   `Data_update` VARCHAR(30),
 
