@@ -15,3 +15,9 @@
 8. Profil Personal -> Competente aditionale -> Valoare noua -> Submit nu merge
 
 9. Adauga angajat in proiect -> De rezolvat
+
+10. Solutii in text:-fisier .properties unde sa scriem path-ul(pana la record) -> folder numit record
+                    -in folder, fiecare record sa aiba cate un folder pentru fiecare record (nume folderului=idrecord)
+                    -in fiecare folder idrecord sa avem solutiile denumite idsolution si le citim in ordine crescatoare
+                    -o clasa care citeste/scrie fisierul
+                    -salvam in baza de date path-ul solutiei
