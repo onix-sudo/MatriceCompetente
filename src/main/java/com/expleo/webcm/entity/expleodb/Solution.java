@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity(name = "Solution")
@@ -75,8 +74,7 @@ public class Solution {
     public Date getDate1() throws ParseException {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-        return dateFormat.parse(date);
+        return dateFormat.parse(getDate());
     }
 
     public void setDate(String date) {

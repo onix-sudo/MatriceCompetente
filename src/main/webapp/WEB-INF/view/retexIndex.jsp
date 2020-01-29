@@ -59,9 +59,9 @@
          <a href="/retex/solution">
             <tr style="cursor: pointer;" class="clickable-row" data-href="retex/solution?recordId=${solution
             .record.id}">
-               <td>${solution.getRecord().categorie}</td>
-               <td>${solution.getRecord().titlu}</td>
-               <td>${solution.getRecord().descriere}</td>
+               <td>${solution.record.categorie}</td>
+               <td>${solution.record.titlu}</td>
+               <td>${solution.record.descriere}</td>
                <td>${solution.date}</td>
             </tr>
          </a>

@@ -109,7 +109,7 @@
    <div class="popup">
       <h2>Adauga solutie</h2>
       <a class="close" href="#">&times;</a>
-      <div class="content">
+      <div class="content"
          <form:form action="addSolution" modelAttribute="recordSolution" method="POST" accept-charset = "utf-8">
             Solutie:
             <div class="col-75">

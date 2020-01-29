@@ -11,7 +11,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Function;
 
 
 @AnalyzerDef(name = "keywordTokenizer",
@@ -124,19 +123,17 @@ public class Record {
 
     public String getLastDate() throws ParseException {
 
-        List<Date> dates = new ArrayList<Date>();
+        List<Date> dates = new LinkedList<>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        for(Solution solution:solutions){
+        for(Solution solution:getSolutions()){
             dates.add(solution.getDate1());
+            System.out.println("solution.getDate1() = " + solution.getDate1());
         }
-
-        Date latest = Collections.max(dates);
-
-        String ldate = dateFormat.format(latest);
-
-        return ldate;
+        System.out.println("getSolutions().isEmpty() = " + getSolutions().isEmpty());
+        System.out.println("dates.isEmpty() = " + dates.isEmpty());
+        return dateFormat.format(Collections.max(dates));
     }
 
     @Override
