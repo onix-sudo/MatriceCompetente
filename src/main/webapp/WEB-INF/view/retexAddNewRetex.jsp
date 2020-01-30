@@ -24,7 +24,7 @@
             <label class="label1">Titlu:</label>
          </div>
          <div class = "col-75">
-            <form:input path="record.titlu"/>
+            <form:input path="record.titlu" id="titlu"/>
          </div>
       </div>
       <div class = "row">
@@ -32,7 +32,7 @@
             <label class="label1">Categorie:</label>
          </div>
          <div class = "col-75">
-            <form:input path="record.categorie" />
+            <form:input path="record.categorie" id="categorie" />
          </div>
       </div>
       <div class="row">
@@ -91,39 +91,12 @@
 </body>
 <%@ include file="footer.jspf"%>
 <script>
+
+ document.getElementById("titlu").required = true;
+ document.getElementById("categorie").required = true;
+
    function closeAddRetex() {
        window.location.href = '/retex';
    }
-
-   $(document).ready(function() {
-     var len = 0;
-     var maxchar = 10000;
-
-     $( '#summernote' ).keyup(function(){
-       len = this.value.length
-       if(len > maxchar){
-           return false;
-       }
-       else {
-           $( "#remainingC" ).html(( maxchar - len ) +"/10000 " );
-       }
-     })
-   });
-
-   $(document).ready(function() {
-     var len = 0;
-     var maxchar = 20000;
-
-     $( '#summernote' ).keyup(function(){
-       len = this.value.length
-       if(len > maxchar){
-           return false;
-       }
-       else {
-           $( "#remainingD" ).html( ( maxchar - len ) +"/20000 " );
-       }
-     })
-   });
-
 
 </script>
