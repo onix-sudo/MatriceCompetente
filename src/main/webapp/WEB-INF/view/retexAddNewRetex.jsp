@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="/resources/css/addRetexForm.css">
 <security:csrfMetaTags/>
 <br>
-<button class="btn btn-dark" onclick="window.location.href = '/retex';">Inapoi la Retex</button>
-<h1 style="color:black;text-align:left;"> Adauga o noua inregistrare</h1>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';">Inapoi</button>
+<h1 style="color:black;text-align:left;">Creeaza inregistrarea</h1>
 <hr>
 <%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
    <script> tinymce.init({selector:'textarea'});</script>--%>
@@ -32,7 +32,7 @@
             <label class="label1">Categorie:</label>
          </div>
          <div class = "col-75">
-            <form:input path="record.categorie"/>
+            <form:input path="record.categorie" />
          </div>
       </div>
       <div class="row">
@@ -85,7 +85,7 @@
       </div>
    </div>
    <hr>
-   <input type="submit" value="Adauga" class="btn btn-outline-primary"/>
+   <input type="submit" value="Adauga" class="btn btn-outline-primary" />
    <button type="button" class="btn btn-outline-danger" onclick="closeAddRetex()">Inchide</button>
 </form:form>
 </body>

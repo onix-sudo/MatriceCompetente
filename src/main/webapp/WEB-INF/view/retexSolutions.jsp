@@ -1,8 +1,9 @@
 <%@ include file="header.jspf"%>
 <br>
-<button class="btn btn-dark" onclick="window.location.href = '/retex';">Inapoi la Retex</button>
-<h2 class="display-2">${record.titlu}</h2>
-<div class="font-weight-normal text-break">${record.descriere}</div>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';" >Inapoi</button>
+<button id="btnAddSol" class="btn btn-outline-primary btn-lg" style="float: right;">Adauga solutie</button>
+<h2 class="display-2" align="center">${record.titlu}</h2>
+<div class="font-weight-normal text-break" align="center">${record.descriere}</div>
 <hr>
 <style>
    .modal {
@@ -41,7 +42,6 @@
    }
 </style>
 
-<button id="btnAddSol" class="btn btn-primary btn-lg">Adauga solutie</button>
 <br><br>
 
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
@@ -57,11 +57,12 @@
          <br>
          <c:if test="${mainUser.id==solution.userExpleo.id}">
             <div class="content">
-                <button id="btnModSol" class="btn btn-info"
+                <button id="btnModSol" class="btn btn-outline-success"
                     onclick="editSolution(${solution.id}, '${solution.solutie}')" name="btnModName">Modifica</button>
             </div>
          </c:if>
       </div>
+   </div>
    </div>
    <br><br>
 </c:forEach>
@@ -102,6 +103,18 @@
       </form:form>
    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
    function editSolution(idSolutie, solutie) {
         $('#idSolutie1').val(idSolutie);
@@ -126,7 +139,7 @@
 
     $('#adaugaSolutie').summernote({
             tabsize: 1,
-            height: 200,
+            height: 500,
             toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],

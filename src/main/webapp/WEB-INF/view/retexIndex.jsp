@@ -12,10 +12,9 @@
 
 <div>
 
-<button class="btn btn-dark" onclick="window.location.href = '/';">Inapoi la Home</button>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/';">Inapoi</button>
 
-<button type="button" class="btn btn-outline-primary" onclick="window.location
-.href='/retex/addNewRetex'">Add new RETEX</button>
+<button type="button" class="btn btn-outline-primary btn-lg" style="float: right;" onclick="window.location.href='/retex/addNewRetex'">Adauga inregistrare</button>
 </div>
 
 <hr>
