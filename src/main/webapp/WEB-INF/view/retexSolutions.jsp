@@ -9,7 +9,6 @@
    .modal {
    display: none; /* Hidden by default */
    position: fixed; /* Stay in place */
-   z-index: 1; /* Sit on top */
    padding-top: 100px; /* Location of the box */
    left: 0;
    top: 0;
@@ -54,15 +53,15 @@
          </c:if>
          <div style="clear:both;"></div>
          <div class="content">${solution.solutie}</div>
-         <br>
-         <c:if test="${mainUser.id==solution.userExpleo.id}">
-            <div class="content">
-                <button id="btnModSol" class="btn btn-outline-success"
-                    onclick="editSolution(${solution.id}, '${solution.solutie}')" name="btnModName">Modifica</button>
-            </div>
-         </c:if>
+             <br>
+             <c:if test="${mainUser.id==solution.userExpleo.id}">
+                <div class="content">
+                    <button id="btnModSol" class="btn btn-outline-success"
+                        onclick="editSolution(${solution.id}, '${solution.solutie}')" name="btnModName">Modifica</button>
+                </div>
+             </c:if>
+         </div>
       </div>
-   </div>
    </div>
    <br><br>
 </c:forEach>
@@ -104,21 +103,12 @@
    </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
 <script>
    function editSolution(idSolutie, solutie) {
         $('#idSolutie1').val(idSolutie);
-        $('#modificaSolutie').val(solutie);
+        $('#modificaSolutie').summernote('code', solutie);
+        console.log(idSolutie);
+        console.log(solutie);
 
         document.getElementById("popup1").style.display = "block";
    }
@@ -150,6 +140,8 @@
             ['view', ['fullscreen', 'codeview', 'help']]
             ]
     });
+
+    $('#adaugaSolutie').summernote('code', "");
 
     // Get the modal
     var modal1 = document.getElementById("popup1")
