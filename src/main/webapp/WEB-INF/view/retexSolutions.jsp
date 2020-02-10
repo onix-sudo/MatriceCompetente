@@ -57,7 +57,7 @@
              <c:if test="${mainUser.id==solution.userExpleo.id}">
                 <div class="content">
                     <button id="btnModSol" class="btn btn-outline-success"
-                        onclick="editSolution(${solution.id}, ${status.index+1})" name="btnModName">Modifica</button>
+                        onclick="editSolution(${solution.id}, `<c:out value="${solution.solutie}"/>`)" name="btnModName">Modifica</button>
                 </div>
              </c:if>
          </div>
@@ -104,9 +104,7 @@
 </div>
 
 <script>
-   function editSolution(idSolutie, status) {
-        console.log(status)
-        let solutie = `${solutionList[1].solutie}`
+   function editSolution(idSolutie, solutie) {
         $('#idSolutie1').val(idSolutie);
         $('#modificaSolutie').summernote('code', solutie);
 
