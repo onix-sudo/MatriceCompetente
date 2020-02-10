@@ -46,22 +46,22 @@
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
       <div class="message">
-         <div class="user">
-            ${status.index+1}. ${solution.getUserExpleo().getFullName()} -- Creat la: ${solution.date}
-            <c:if test = "${not empty solution.date_update}"> -- Ultima Modificare: ${solution.date_update}
-         </div>
-         </c:if>
-         <div style="clear:both;"></div>
-         <div class="content">${solution.solutie}</div>
-             <br>
+             <div class="user" style="float: left">
+                ${status.index+1}. ${solution.getUserExpleo().getFullName()} -- Creat la: ${solution.date}
+                <c:if test = "${not empty solution.date_update}">
+                 -- Ultima Modificare: ${solution.date_update}
+                </c:if>
+             </div>
+
              <c:if test="${mainUser.id==solution.userExpleo.id}">
                 <div class="content">
-                    <button id="btnModSol" class="btn btn-outline-success"
+                    <button id="btnModSol" style="float: right" class="btn btn-outline-success"
                         onclick="editSolution(${solution.id}, `<c:out value="${solution.solutie}"/>`)" name="btnModName">Modifica</button>
                 </div>
              </c:if>
+             <br><br>
+         <div class="content">${solution.solutie}</div>
          </div>
-      </div>
    </div>
    <br><br>
 </c:forEach>

@@ -1,11 +1,14 @@
 html, body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
     width:100%;
-    zoom:90%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 
-
+.user{
+font-size: 20px;
+}
 
  
 #wrapper {width: 100%; margin-top: 0px; }
@@ -43,7 +46,11 @@ html, body{
     color: var(--charcoal);
 }
 
-
+.message {
+    margin-left: 10px;
+    margin-right: 10px;
+    word-wrap: break-word;
+}
 
 .centerDiv{
       width: 30%;
