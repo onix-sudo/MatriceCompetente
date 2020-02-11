@@ -90,13 +90,16 @@
 </form:form>
 </body>
 <%@ include file="footer.jspf"%>
+
 <script>
+ $('#summernote').summernote('code', "");
+ $('#summernoteSol').summernote('code', "");
 
  document.getElementById("titlu").required = true;
  document.getElementById("categorie").required = true;
 
-   function closeAddRetex() {
-       window.location.href = '/retex';
-   }
+ function closeAddRetex() {
+     window.location.href = '/retex';
+ }
 
 </script>
