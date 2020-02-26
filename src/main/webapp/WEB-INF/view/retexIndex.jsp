@@ -1,4 +1,7 @@
 <%@ include file="header.jspf"%>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <style>
    td {
    max-width: 100px;
@@ -11,7 +14,7 @@
        position: fixed;
        bottom: 0px;
        right: 30px;
-       width: 300px;
+       width: 500px;
        height: 400px;
        background-color: #fff;
        font-family: 'Lato', sans-serif;
@@ -150,6 +153,7 @@
 
    .chatbox__body {
        overflow-y: auto;
+       height:fixed;
    }
 
    .chatbox__body__message {
@@ -196,7 +200,7 @@
 
    .chatbox__message {
        padding: 15px;
-       min-height: 50px;
+       min-height: 92px;
        outline: 0;
        resize: none;
        border: none;
@@ -304,7 +308,7 @@
             </span>
         </button>
     </div>
-    <div class="chatbox__body">
+    <div class="chatbox__body" id="chatIndex">
         <div class="chatbox__body__message chatbox__body__message--left">
             <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
             <p>Care este problema dumneavoastra, domnule?</p>
@@ -329,7 +333,17 @@
         </div>
         <button type="submit" class="btn btn-success btn-block">Enter Chat</button>
     </form>
-    <textarea class="chatbox__message" placeholder="Write something interesting"></textarea>
+
+
+
+
+
+<div class="chatbox__message" id="parent-dv" style=" margin-bottom: 39.5px">
+    <textarea style="width:400px; height:auto;" placeholder="Write something interesting" id="textInput"> </textarea>
+    <input style="float:right; height:61px" type="Submit" id="inputsubmit" value="SEND" >
+
+</div>
+
 </div>
 
 <script src="resources/js/extention/choices.js"></script>
@@ -372,6 +386,23 @@
         $chatbox.on('transitionend', function() {
             if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
         });
+
+
+        $(document).ready(function(){
+        $('#inputsubmit').on('click',function(event)
+        	{
+        var $inpute2xt = $("#parent-dv").find('textarea').val();
+        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--right\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+$inpute2xt+"</p></div>");
+        $('#textInput').val('');
+
+
+        	}
+        		);
+
+        	}
+        	);
+
+
     });
 })(jQuery);
 
