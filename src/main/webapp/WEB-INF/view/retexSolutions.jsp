@@ -42,7 +42,7 @@
    }
 </style>
 
-<br><br>
+<br>
 
 <c:forEach var="solution" items="${solutionList}" varStatus="status">
    <div>
@@ -64,7 +64,8 @@
          <div class="content">${solution.solutie}</div>
          </div>
    </div>
-   <br><br>
+   <hr>
+   <br>
 </c:forEach>
 
 <div id="popup1" class="modal">
