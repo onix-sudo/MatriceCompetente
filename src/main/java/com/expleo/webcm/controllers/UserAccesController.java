@@ -201,7 +201,6 @@ public class UserAccesController {
             errorMessages.add("Confirmarea parolei nu coincide cu noua parola.");
             model.addAttribute("errors", errorMessages);
             return newPassword(token, model);
-
         } else if(errorMessages != null){
             model.addAttribute("errors", errorMessages);
             return newPassword(token, model);

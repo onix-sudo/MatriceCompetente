@@ -64,11 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //setup of authorization and accesses by roles
         http.authorizeRequests()
                     .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/forgotPassword/**").permitAll()
+                    .antMatchers("/changePassword/**").permitAll()
                     .antMatchers("/webCM").hasAnyRole("EMPLOYEE","MANAGER")
-                .antMatchers("/webCM/leaders/project/{codProiect}/**").access("@guard.checkCodProiect(#codProiect)") //to check if manager has project?????
-                .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
-                .antMatchers("/retex/**").hasRole("EMPLOYEE")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/webCM/leaders/project/{codProiect}/**").access("@guard.checkCodProiect(#codProiect)") //to check if manager has project?????
+                    .antMatchers("/webCM/leaders/**").hasRole("MANAGER")
+                    .antMatchers("/retex/**").hasRole("EMPLOYEE")
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/manager/**").hasRole("ADMIN")
                     .antMatchers("/**").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
                 .and()
