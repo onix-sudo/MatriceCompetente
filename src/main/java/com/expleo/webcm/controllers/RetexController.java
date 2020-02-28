@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/retex")
@@ -27,7 +26,6 @@ public class RetexController {
 
     @Autowired
     private UserService userService;
-
 
     @GetMapping
     public String indexPage(ModelMap model){
@@ -102,6 +100,8 @@ public class RetexController {
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
 
+        System.out.println("searchCategory = " + searchCategory);
+
         return "retexSearchResult";
     }
 
@@ -138,4 +138,27 @@ public class RetexController {
         retexService.saveOrUpdateSolution(solution);
         return "redirect:/retex/solution?recordId=" + recordId;
     }
+
+    @PostMapping(value = "/reply")
+    @ResponseBody
+    public String chatBox(@RequestParam("terms") String searchTerms){
+
+        List<Record> recordsFound = retexService.searchRecords(searchTerms,"Toate");
+        List<String> propozitii = new ArrayList<>();
+
+        for(Record test : recordsFound){
+            String[] array = test.getDescriere().split("\\.");
+
+            Collections.addAll(propozitii, array);
+        }
+        System.out.println("propozitii.size() = " + propozitii.size());
+        for(String str: propozitii){
+            if(str.contains(searchTerms)){
+                return str;
+            }
+        }
+
+        return "nu avem asa ceva";
+    }
+
 }
