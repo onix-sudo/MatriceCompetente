@@ -52,6 +52,8 @@ public class LeadersController {
     @Autowired
     private UserSkillService userSkillService;
 
+
+
     /**
      * Get method that handles the request mapping below
      * @param model pass to the jsp file the list of projects available to the user

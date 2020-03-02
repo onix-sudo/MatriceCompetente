@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.Record;
 import com.expleo.webcm.entity.expleodb.Solution;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.helper.RecordSolution;
+import com.expleo.webcm.service.ChatbotService;
 import com.expleo.webcm.service.RetexService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class RetexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ChatbotService chatbotService;
 
     @GetMapping
     public String indexPage(ModelMap model){
@@ -143,20 +147,27 @@ public class RetexController {
     @ResponseBody
     public String chatBox(@RequestParam("terms") String searchTerms){
 
-        List<Record> recordsFound = retexService.searchRecords(searchTerms,"Toate");
+        List<Solution> solutionsFound = chatbotService.searchSolutions(searchTerms);
         List<String> propozitii = new ArrayList<>();
 
-        for(Record test : recordsFound){
-            String[] array = test.getDescriere().split("\\.");
+        for(Solution test : solutionsFound){
+            String[] array = test.getSolutie().split("\\.");
 
             Collections.addAll(propozitii, array);
         }
         System.out.println("propozitii.size() = " + propozitii.size());
-        for(String str: propozitii){
-            if(str.contains(searchTerms)){
-                return str;
-            }
-        }
+        for(Solution solution : solutionsFound)
+            System.out.println(solution.getSolutie());
+//        for(String str : propozitii){
+//            System.out.println("str = " + str);
+//            if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(str, searchTerms)){
+//                return str;
+//            }
+//        }
+
+        System.out.println("<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getId() + "\">Link</a>");
+        if(!solutionsFound.isEmpty())
+            return "<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getId() + "\">Link</a>";
 
         return "nu avem asa ceva";
     }
