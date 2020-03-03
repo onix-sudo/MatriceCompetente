@@ -150,8 +150,10 @@ public class RetexController {
         if (searchTerms.isEmpty()) {
               return "";
           }
+        System.out.println("searchTerms = " + searchTerms);
+        String st = searchTerms.replace("?"," ").replace("!"," ").replace("."," ");
 
-        List<Solution> solutionsFound = chatbotService.searchSolutions(searchTerms);
+        List<Solution> solutionsFound = chatbotService.searchSolutions(st);
         List<String> propozitii = new ArrayList<>();
 
         for(Solution test : solutionsFound){
@@ -164,9 +166,9 @@ public class RetexController {
         for(Solution solution : solutionsFound)
             chatResponse.append("<a href=\"retex/solution?recordId=").append(solution.getRecord().getId()).append("\">").append(solution.getRecord().getCategorie()).append("</a>, ");
 
-        if(!solutionsFound.isEmpty()){
-            if(solutionsFound.size()==1){
-                return chatResponse.toString().substring(0, chatResponse.length() - 2);}
+        if(solutionsFound.size()==1){
+            return chatResponse.toString().substring(0, chatResponse.length() - 2);}
+        else if(solutionsFound.size()>1){
 
         return "Te rog sa alegi link-ul corespunzator:<br>" + chatResponse.toString().substring(0, chatResponse.length() - 2);
         }

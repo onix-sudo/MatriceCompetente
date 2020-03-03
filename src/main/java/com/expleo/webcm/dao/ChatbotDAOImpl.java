@@ -58,6 +58,7 @@ public class ChatbotDAOImpl implements ChatbotDAO{
 
             for (Solution solution : solutionsFound) {
                 Hibernate.initialize(solution);
+                Hibernate.initialize(solution.getRecord());
             }
 
             tx.commit();
