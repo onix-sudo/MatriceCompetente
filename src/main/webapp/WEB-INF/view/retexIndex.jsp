@@ -175,7 +175,7 @@
        border-radius: 4px;
        border: 2px solid #fcfcfc;
        position: absolute;
-       top: 15px;
+       top: 6.8px;
    }
 
    .chatbox__body__message--left p {
@@ -311,7 +311,7 @@
     <div class="chatbox__body" id="chatIndex">
         <div class="chatbox__body__message chatbox__body__message--left">
             <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
-            <p>Cu ce va pot ajuta?</p>
+            <p>Cu ce te pot ajuta?</p>
         </div>
 
     </div>
@@ -329,7 +329,7 @@
 
 
 <div class="chatbox__message" id="parent-dv" style=" margin-bottom: 39.5px">
-    <textarea style="width:400px; height:auto;" placeholder="Write something interesting" id="textInput"> </textarea>
+    <textarea style="width:400px; height:auto;" id="textInput"></textarea>
     <input style="float:right; height:61px" type="Submit" id="inputsubmit" value="SEND">
 
 </div>
@@ -382,27 +382,30 @@
         $('#inputsubmit').on('click',function(event)
         	{
         var $inpute2xt = $("#parent-dv").find('textarea').val();
+
+        if($('#textInput').val().length != 0){
         $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--right\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+$inpute2xt+"</p></div>");
+        }
         inputcopy = $inpute2xt;
-        console.log($inpute2xt);
         $('#textInput').val('');
 
          $.ajax({
-                            url: "/retex/reply?terms="+inputcopy,
-                            type: "POST",
-                            headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
-                            <%--data: {skillId: skillId},--%>
-                            success: function(res){
-                                console.log(res + "asta este raspunsul din controlllller")
-                                $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--left\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+res+"</p></div>");
+                    url: "/retex/reply?terms="+inputcopy,
+                    type: "POST",
+                    headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                    <%--data: {skillId: skillId},--%>
+                    success: function(res){
+                        if (res != ""){
+                        console.log("MAAMAMMAMAAAa");
+                        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--left\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+res+"</p></div>");}
 
-                            },
-                            error: function(res){
-                                console.log(res);
+                    },
+                    error: function(res){
+                        console.log(res);
 
 
-                            }
-                        });
+                    }
+                });
         	});
         console.log(inputcopy);
 

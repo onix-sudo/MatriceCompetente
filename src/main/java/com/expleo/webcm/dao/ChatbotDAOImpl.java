@@ -62,7 +62,6 @@ public class ChatbotDAOImpl implements ChatbotDAO{
 
             tx.commit();
             session.close();
-            System.out.println("solutionsFound.size() = " + solutionsFound.size());
             return solutionsFound;
 
         } else {
@@ -72,11 +71,11 @@ public class ChatbotDAOImpl implements ChatbotDAO{
 
             for (Solution solution : solutionsFound) {
                 Hibernate.initialize(solution);
+                Hibernate.initialize(solution.getRecord());
             }
 
             tx.commit();
             session.close();
-            System.out.println("solutionsFound.size() = " + solutionsFound.size());
             return solutionsFound;
         }
     }

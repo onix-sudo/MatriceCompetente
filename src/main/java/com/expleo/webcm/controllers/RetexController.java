@@ -147,6 +147,10 @@ public class RetexController {
     @ResponseBody
     public String chatBox(@RequestParam("terms") String searchTerms){
 
+        if (searchTerms.isEmpty()) {
+              return "";
+          }
+
         List<Solution> solutionsFound = chatbotService.searchSolutions(searchTerms);
         List<String> propozitii = new ArrayList<>();
 
@@ -155,21 +159,19 @@ public class RetexController {
 
             Collections.addAll(propozitii, array);
         }
-        System.out.println("propozitii.size() = " + propozitii.size());
+
+        StringBuilder chatResponse = new StringBuilder();
         for(Solution solution : solutionsFound)
-            System.out.println(solution.getSolutie());
-//        for(String str : propozitii){
-//            System.out.println("str = " + str);
-//            if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(str, searchTerms)){
-//                return str;
-//            }
-//        }
+            chatResponse.append("<a href=\"retex/solution?recordId=").append(solution.getRecord().getId()).append("\">").append(solution.getRecord().getCategorie()).append("</a>, ");
 
-        System.out.println("<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getId() + "\">Link</a>");
-        if(!solutionsFound.isEmpty())
-            return "<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getRecord().getId() + "\">Link</a>";
+        if(!solutionsFound.isEmpty()){
+            if(solutionsFound.size()==1){
+                return chatResponse.toString().substring(0, chatResponse.length() - 2);}
 
-        return "nu avem asa ceva";
+        return "Te rog sa alegi link-ul corespunzator:<br>" + chatResponse.toString().substring(0, chatResponse.length() - 2);
+        }
+
+        return "Imi pare rau, nu te pot ajuta.";
     }
 
 }
