@@ -167,7 +167,7 @@ public class RetexController {
 
         System.out.println("<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getId() + "\">Link</a>");
         if(!solutionsFound.isEmpty())
-            return "<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getId() + "\">Link</a>";
+            return "<a href=\"retex/solution?recordId=" + solutionsFound.get(0).getRecord().getId() + "\">Link</a>";
 
         return "nu avem asa ceva";
     }
