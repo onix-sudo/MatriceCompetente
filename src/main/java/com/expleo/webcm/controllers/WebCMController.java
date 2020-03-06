@@ -132,8 +132,6 @@ public class WebCMController {
             }
         }
 
-        System.out.println("skillsFromProjects = " + skillsFromProjects);
-        System.out.println("searchResult111 = " + searchResult);
 
         theModel.addAttribute("result", searchResult);
         theModel.addAttribute("user", user);
