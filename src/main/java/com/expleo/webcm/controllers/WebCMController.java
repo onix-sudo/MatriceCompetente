@@ -120,20 +120,27 @@ public class WebCMController {
             }
         }
 
-//        searchResult.removeAll(skillsFromProjects);
+        searchResult.removeAll(skillsFromProjects);
         List<String> numeSkill = new LinkedList<>();
         for(Skill skill: skillsFromProjects){
             numeSkill.add(skill.getNumeSkill());
         }
 
-        for(Skill skill: searchResult){
+
+        List<Skill> temp = new ArrayList<>(searchResult);
+        List<Skill> finalList = new ArrayList<>(searchResult);
+
+        for(Skill skill : temp){
             if(numeSkill.contains(skill.getNumeSkill())){
-                searchResult.remove(skill);
+                if(searchResult.size() == 1)
+                    finalList.remove(0);
+                else
+                    finalList.remove(skill);
             }
         }
 
 
-        theModel.addAttribute("result", searchResult);
+        theModel.addAttribute("result", finalList);
         theModel.addAttribute("user", user);
 
         return "skill-form";
