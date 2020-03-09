@@ -125,7 +125,7 @@ COLLATE = utf8_romanian_ci;
 CREATE TABLE IF NOT EXISTS `expleodb`.`user_skill` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `id_user` INT(11) NOT NULL,
-  `id_skill` INT(11) NOT NULL,
+  `id_skill` INT(11) NOT NULL UNIQUE,
   `evaluare` INT(1) UNSIGNED NOT NULL,
   `data_evaluare` DATE NOT NULL,
 
