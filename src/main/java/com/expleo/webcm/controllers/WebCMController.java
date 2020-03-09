@@ -107,6 +107,32 @@ public class WebCMController {
         UserExpleo user = userService.getUserExpleoPrincipal();
         List<Skill> searchResult = searchService.searchPrincipalSkill(text, user.getId());
 
+
+
+        List<Proiect> principalProjects = user.getProiecte(); //toate proiectele userului
+
+        List<Skill> skillsFromProjects = new LinkedList<>();
+
+        for(Proiect proiect:principalProjects){
+            List<ProiectSkill> proiectSkills = proiect.getSkills();
+            for(ProiectSkill tempProjectSkill : proiectSkills){
+                skillsFromProjects.add(tempProjectSkill.getSkill());
+            }
+        }
+
+//        searchResult.removeAll(skillsFromProjects);
+        List<String> numeSkill = new LinkedList<>();
+        for(Skill skill: skillsFromProjects){
+            numeSkill.add(skill.getNumeSkill());
+        }
+
+        for(Skill skill: searchResult){
+            if(numeSkill.contains(skill.getNumeSkill())){
+                searchResult.remove(skill);
+            }
+        }
+
+
         theModel.addAttribute("result", searchResult);
         theModel.addAttribute("user", user);
 
@@ -116,6 +142,7 @@ public class WebCMController {
     @GetMapping("/personalProfile/showFormForAddSkill/search/addSkillToUser")
     public void addSkilltoUser(@RequestParam(value = "skillId") int skillId,
                                @RequestParam(value = "userID") int userId){
+
         userSkillService.saveUserSkill(userId, skillId);
 
     }

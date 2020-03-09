@@ -1,5 +1,8 @@
 package com.expleo.webcm.dao;
 
+import com.expleo.webcm.entity.expleodb.Proiect;
+import com.expleo.webcm.entity.expleodb.ProiectSkill;
+import com.expleo.webcm.entity.expleodb.Skill;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginRoles;
 import com.expleo.webcm.entity.securitydb.LoginUser;
@@ -108,6 +111,15 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
 
         UserExpleo user = (UserExpleo) query.getSingleResult();
+
+        Hibernate.initialize(user.getProiecte());
+
+        for(Proiect proiect: user.getProiecte()){
+            Hibernate.initialize(proiect.getSkills());
+            for(ProiectSkill skill:proiect.getSkills()){
+                Hibernate.initialize(skill.getSkill());
+            }
+        }
 
         session.getTransaction().commit();
         session.close();
