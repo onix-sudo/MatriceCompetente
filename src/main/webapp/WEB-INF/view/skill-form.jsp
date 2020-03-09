@@ -75,7 +75,7 @@
     function ps(skillID, userID) {
     $.ajax({
             type: "GET",
-            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID+"&userID="+userID,
+            url: "/webCM/personalProfile/showFormForAddSkill/search/addSkillToUser?skillId=" + skillID + "&userID="+userID,
             success: function(data){
                 $("#tab2").click();
             },

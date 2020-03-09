@@ -1,6 +1,6 @@
 <%@ include file="header.jspf"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<security:csrfMetaTags/>
 
 <style>
    td {
@@ -175,7 +175,7 @@
        border-radius: 4px;
        border: 2px solid #fcfcfc;
        position: absolute;
-       top: 15px;
+       top: 6.8px;
    }
 
    .chatbox__body__message--left p {
@@ -311,16 +311,9 @@
     <div class="chatbox__body" id="chatIndex">
         <div class="chatbox__body__message chatbox__body__message--left">
             <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
-            <p>Care este problema dumneavoastra, domnule?</p>
+            <p>Cu ce te pot ajuta?</p>
         </div>
-        <div class="chatbox__body__message chatbox__body__message--right">
-            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
-            <p>Nu stiu cum sa te implementez.</p>
-        </div>
-        <div class="chatbox__body__message chatbox__body__message--left">
-            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
-            <p>"not found" error 404.</p>
-        </div>
+
     </div>
     <form class="chatbox__credentials">
         <div class="form-group">
@@ -335,17 +328,13 @@
     </form>
 
 
-
-
-
 <div class="chatbox__message" id="parent-dv" style=" margin-bottom: 39.5px">
-    <textarea style="width:400px; height:auto;" placeholder="Write something interesting" id="textInput"> </textarea>
-    <input style="float:right; height:61px" type="Submit" id="inputsubmit" value="SEND" >
+    <textarea style="width:400px; height:auto;" id="textInput"></textarea>
+    <input style="float:right; height:61px" type="Submit" id="inputsubmit" value="SEND">
 
 </div>
 
 </div>
-
 <script src="resources/js/extention/choices.js"></script>
 <script>
    var choices = new Choices('[data-trigger]', {
@@ -387,17 +376,38 @@
             if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
         });
 
+        var inputcopy;
 
         $(document).ready(function(){
         $('#inputsubmit').on('click',function(event)
         	{
         var $inpute2xt = $("#parent-dv").find('textarea').val();
+
+        if($('#textInput').val().length != 0){
         $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--right\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+$inpute2xt+"</p></div>");
+        }
+        inputcopy = $inpute2xt;
         $('#textInput').val('');
 
+         $.ajax({
+                    url: "/retex/reply?terms="+inputcopy,
+                    type: "POST",
+                    headers: {"X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")},
+                    <%--data: {skillId: skillId},--%>
+                    success: function(res){
+                        if (res != ""){
+                        console.log("MAAMAMMAMAAAa");
+                        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--left\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+res+"</p></div>");}
 
-        	}
-        		);
+                    },
+                    error: function(res){
+                        console.log(res);
+
+
+                    }
+                });
+        	});
+        console.log(inputcopy);
 
         	}
         	);
@@ -405,6 +415,8 @@
 
     });
 })(jQuery);
+
+
 
 </script>
 <%@ include file="footer.jspf"%>

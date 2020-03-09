@@ -4,6 +4,7 @@ import com.expleo.webcm.entity.expleodb.Record;
 import com.expleo.webcm.entity.expleodb.Solution;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.helper.RecordSolution;
+import com.expleo.webcm.service.ChatbotService;
 import com.expleo.webcm.service.RetexService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/retex")
@@ -28,6 +28,8 @@ public class RetexController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ChatbotService chatbotService;
 
     @GetMapping
     public String indexPage(ModelMap model){
@@ -102,6 +104,8 @@ public class RetexController {
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
 
+        System.out.println("searchCategory = " + searchCategory);
+
         return "retexSearchResult";
     }
 
@@ -138,4 +142,38 @@ public class RetexController {
         retexService.saveOrUpdateSolution(solution);
         return "redirect:/retex/solution?recordId=" + recordId;
     }
+
+    @PostMapping(value = "/reply")
+    @ResponseBody
+    public String chatBox(@RequestParam("terms") String searchTerms){
+
+        if (searchTerms.isEmpty()) {
+              return "";
+          }
+        System.out.println("searchTerms = " + searchTerms);
+        String st = searchTerms.replace("?"," ").replace("!"," ").replace("."," ");
+
+        List<Solution> solutionsFound = chatbotService.searchSolutions(st);
+        List<String> propozitii = new ArrayList<>();
+
+        for(Solution test : solutionsFound){
+            String[] array = test.getSolutie().split("\\.");
+
+            Collections.addAll(propozitii, array);
+        }
+
+        StringBuilder chatResponse = new StringBuilder();
+        for(Solution solution : solutionsFound)
+            chatResponse.append("<a href=\"retex/solution?recordId=").append(solution.getRecord().getId()).append("\">").append(solution.getRecord().getCategorie()).append("</a>, ");
+
+        if(solutionsFound.size()==1){
+            return chatResponse.toString().substring(0, chatResponse.length() - 2);}
+        else if(solutionsFound.size()>1){
+
+        return "Te rog sa alegi link-ul corespunzator:<br>" + chatResponse.toString().substring(0, chatResponse.length() - 2);
+        }
+
+        return "Imi pare rau, nu te pot ajuta.";
+    }
+
 }

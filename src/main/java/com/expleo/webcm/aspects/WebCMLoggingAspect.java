@@ -1,4 +1,4 @@
-package com.expleo.webcm.aspepcts;
+package com.expleo.webcm.aspects;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

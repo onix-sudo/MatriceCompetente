@@ -1,13 +1,27 @@
 package com.expleo.webcm.entity.expleodb;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@AnalyzerDef(name = "solutionTokenizer",
+        tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+        filters = {
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+        })
+
 @Entity(name = "Solution")
 @Table(name = "solution")
+@Indexed
 public class Solution {
 
     @Id
@@ -23,6 +37,8 @@ public class Solution {
     @JoinColumn(name="ID_user")
     private UserExpleo userExpleo;
 
+    @Field(name = "solutie", index = org.hibernate.search.annotations.Index.YES)
+    @Field(name = "solutieKw", index = Index.YES,analyze = Analyze.YES,store = Store.NO,analyzer = @Analyzer(definition = "solutionTokenizer"))
     @Column(name="Solutie")
     private String solutie;
 
