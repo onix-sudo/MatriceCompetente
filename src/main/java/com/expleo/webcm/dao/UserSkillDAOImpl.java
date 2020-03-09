@@ -150,7 +150,7 @@ public class UserSkillDAOImpl implements UserSkillDAO {
                         "where user.id = :userId", UserExpleo.class);
         queryUser.setParameter("userId", userId);
         UserExpleo principalUser = queryUser.getSingleResult();
-        List<Proiect> principalProjects = principalUser.getProiecte(); //toate proiectele userului
+        List<Proiect> principalProjects = principalUser.getProiecte();
         session.flush();
 
         List<Skill> skillsFromProjects = new LinkedList<>();
@@ -162,19 +162,15 @@ public class UserSkillDAOImpl implements UserSkillDAO {
             session.flush();
         }
 
-        int i=0, j=0;
         for(UserSkill tempUserSkill:allUserSkillsList){
             if(skillsFromProjects.contains(tempUserSkill.getSkill())){
                 projectSkills.add(tempUserSkill);
-                i++;
             }else{
                 userAdditionalSkills.add(tempUserSkill);
-                j++;
             }
         }
 
-        System.out.println("i = " + i);
-        System.out.println("j = " + j);
+
         session.getTransaction().commit();
         session.close();
     }

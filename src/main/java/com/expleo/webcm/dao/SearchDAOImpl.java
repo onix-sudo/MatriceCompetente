@@ -110,8 +110,6 @@ public class SearchDAOImpl implements SearchDAO {
 
 
         for(UserSkill tempUs:foundSkills){
-            System.out.println("tempUs = " + tempUs.getSkill().getClass());
-            System.out.println("result = " + result);
             result.remove(Arrays.asList(tempUs.getSkill()));
         }
 

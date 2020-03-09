@@ -104,8 +104,6 @@ public class RetexController {
         List<Record> recordsFound = retexService.searchRecords(searchTerms, searchCategory);
         model.addAttribute("recordsFound", recordsFound);
 
-        System.out.println("searchCategory = " + searchCategory);
-
         return "retexSearchResult";
     }
 
@@ -150,7 +148,6 @@ public class RetexController {
         if (searchTerms.isEmpty()) {
               return "";
           }
-        System.out.println("searchTerms = " + searchTerms);
         String st = searchTerms.replace("?"," ").replace("!"," ").replace("."," ");
 
         List<Solution> solutionsFound = chatbotService.searchSolutions(st);

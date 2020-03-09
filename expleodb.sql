@@ -125,7 +125,7 @@ COLLATE = utf8_romanian_ci;
 CREATE TABLE IF NOT EXISTS `expleodb`.`user_skill` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `id_user` INT(11) NOT NULL,
-  `id_skill` INT(11) NOT NULL UNIQUE,
+  `id_skill` INT(11) NOT NULL,
   `evaluare` INT(1) UNSIGNED NOT NULL,
   `data_evaluare` DATE NOT NULL,
 
@@ -137,6 +137,8 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`user_skill` (
   CONSTRAINT `FK_user_skill_user`
     FOREIGN KEY (`id_user`)
     REFERENCES `expleodb`.`user` (`ID_user`),
+    CONSTRAINT `clustered_index`
+    UNIQUE(`id_user`, `id_skill`),
 
       PRIMARY KEY (`id`))
 ENGINE = InnoDB
