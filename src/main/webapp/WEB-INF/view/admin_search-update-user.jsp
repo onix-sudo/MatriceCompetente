@@ -7,20 +7,20 @@
      --%>
 
 <br>
-<h3>Modifica angajat</h3>
+<h3>Edit Employee</h3>
 <hr>
 <spring:url var="go" value="/admin/updateUser/search" > </spring:url>
 <form:form action="${go}" method="get">
     <table class="table table-striped">
            <thead class="thead-light">
         <tr>
-            <th><label>Cauta angajat</label></th>
-            <th><input type="text" pattern=".{3,}" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+            <th><label>Search Employee</label></th>
+            <th><input type="text" pattern=".{3,}" name = "searchTerm" title="Field must contain at least 4 characters." required/>
         </tr>
 
         <tr>
             <th></th>
-            <th><input type="submit" value="Cauta" class="btn btn-outline-primary"/></th>
+            <th><input type="submit" value="Search" class="btn btn-outline-primary"/></th>
         </tr>
         </thead>
     </table>
@@ -35,11 +35,11 @@
          <table class="table table-striped">
                 <thead class="thead-dark">
             <tr>
-                <th>Nume</th>
-                <th>Prenume</th>
-                <th>Numar Matricol</th>
+                <th>Last name</th>
+                <th>First name</th>
+                <th>ID number</th>
                 <th>Email</th>
-                <th>Functie</th>
+                <th>Position</th>
                 <th></th>
             </tr>
             </thead>
@@ -55,7 +55,7 @@
                 <td>${tempResult.functie}</td>
 
                 <td>
-                 <button type="button" class="btn btn btn-outline-primary" onclick="window.location.href='${modifyUser}'">Modifica</button>
+                 <button type="button" class="btn btn btn-outline-primary" onclick="window.location.href='${modifyUser}'">Edit</button>
 
                 </td>
             </tr>

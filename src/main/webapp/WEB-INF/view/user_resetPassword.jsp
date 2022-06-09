@@ -19,18 +19,18 @@
      <table class="table table-striped">
         <thead class="thead-light">
         <tr>
-            <th><label> Parola noua: </label>
+            <th><label> New password: </label>
             <form:input type="password" path="newPassword"/></th>
         </tr>
         <tr>
-            <th><label> Confirma parola noua: </label>
+            <th><label> Confirm new password: </label>
             <form:input type="password" path="confirmPassword" /></th>
         </tr>
         <input type="hidden" name="userId" value="${loginUser.id}">
         </thead>
     </table>
 <input type="hidden" name = "token" value="${token}">
-   <button type="submit" class = "btn btn-outline-success" style="position: absolute; right: 10;">Change Password</button>
+   <button type="submit" class = "btn btn-outline-success" style="position: absolute; right: 10%;">Change Password</button>
    <br>
 
             <c:forEach var="message"  items = "${errors}">
@@ -42,7 +42,7 @@
 </c:when>
 <c:otherwise>
 <br><br>
-<h2> <p> Link-ul este invalid. </p> <h2>
+<h2> <p> The link is invalid. </p> <h2>
 
 <script>
   setTimeout(function() {

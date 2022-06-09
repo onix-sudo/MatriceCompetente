@@ -15,10 +15,10 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
-                        <th>Nume competenta</th>
-                        <th>Categorie</th>
-                        <th>Evaluare</th>
-                        <th>Schimba evaluare</th>
+                        <th>Skill</th>
+                        <th>Category</th>
+                        <th>Evaluation</th>
+                        <th>Change Evaluation</th>
                     </tr>
                     </thead>
 

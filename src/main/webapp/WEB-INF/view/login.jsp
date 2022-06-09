@@ -32,7 +32,7 @@
 body {
     background: url( /resources/background.png) no-repeat center center fixed;
     background-size: 100% 85%;
-    background-color: #6946C6;
+    background-color: #022051;
    }
 </style>
 
@@ -41,12 +41,12 @@ body {
 
 <div class = "container">
 
-    <div id="loginbox" style="margin-top: 310px; margin-left:100px" class="mainbox col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1">
+    <div id="loginbox" style="margin-top: 310px; margin-left:310px" class="mainbox col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1">
 
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                <div class="panel-title">Autentificare</div>
+                <div class="panel-title">Authentication</div>
             </div>
 
             <div style="padding-top: 30px" class="panel-body">
@@ -95,7 +95,7 @@ body {
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                        <input type="text" name="username" placeholder="Adresa email" class="form-control">
+                        <input type="text" name="username" placeholder="Email address" class="form-control">
                     </div>
 
 <%--
@@ -104,22 +104,22 @@ body {
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 
-                        <input type="password" name="password" placeholder="Parola" class="form-control">
+                        <input type="password" name="password" placeholder="Password" class="form-control">
                     </div>
 
 <%--
                     <!-- Login/Submit Button -->
 --%>
-                    <div style="float: left; padding-left: 5px" class="form-group">
+                    <div style="float: left; padding-left: 20px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-primary">Autentificare</button>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
                         </div>
                     </div>
                 </form:form>
 
                     <div style="float: right; padding-right: 5px" class="form-group">
                         <div class="col-sm-6 controls">
-                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Am uitat parola..</button>
+                            <button type="submit" class="btn btn-light" onclick="window.location.href='/forgotPassword'">Forgot password</button>
                         </div>
                     </div>
 

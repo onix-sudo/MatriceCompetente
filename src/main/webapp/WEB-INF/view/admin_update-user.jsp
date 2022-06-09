@@ -24,13 +24,13 @@
         <c:choose>
             <c:when test="${managerCheck}">
                <form:form action="${toRedirectForRemove}" method="post">
-                    <button class="btn btn-danger" >Sterge rolul de manager</button>
+                    <button class="btn btn-danger" >Delete manager role</button>
                </form:form>
              </c:when>
 
              <c:otherwise>
                <form:form action="${toRedirectForAdd}" method="post">
-                    <button class="btn btn-outline-success" >Adauga rol de manager</button>
+                    <button class="btn btn-outline-success" >Add manager role</button>
                </form:form>
              </c:otherwise>
         </c:choose>
@@ -42,19 +42,19 @@
     <table class="table table-striped">
                 <thead class="thead-light">
         <tr>
-            <th><label> Nume: </label></th>
+            <th><label> Last name: </label></th>
             <th><form:input path="nume" /></th>
             <th></th>
         </tr>
 
         <tr>
-            <th><label> Prenume: </label></th>
+            <th><label> First name: </label></th>
             <th><form:input path="prenume"  /></th>
             <th></th>
         </tr>
 
         <tr>
-            <th><label> Numar matricol: </label></th>
+            <th><label> ID number: </label></th>
             <th><form:input path="numarMatricol" class="form-control" type="text" readonly="true" /></th>
             <th><form:errors path="numarMatricol" cssClass="error"/></th>
         </tr>
@@ -66,20 +66,20 @@
         </tr>
 
         <tr>
-            <th><label> Data angajare: </label></th>
+            <th><label> Starting date: </label></th>
             <th><form:input path="dataAngajare" placeholder="aaaa-ll-zz" class="form-control" type="text" readonly="true" /></th>
             <th><form:errors path="dataAngajare" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <th><label> Rol: </label></th>
+            <th><label> Role: </label></th>
             <th><form:input path="functie" /></th>
             <th></th>
         </tr>
 
         <tr>
             <th></th>
-            <th><input type="submit" value="Salveaza" class="btn btn-success"/></th>
+            <th><input type="submit" value="Save" class="btn btn-success"/></th>
             <th></th>
         </tr>
         </thead>

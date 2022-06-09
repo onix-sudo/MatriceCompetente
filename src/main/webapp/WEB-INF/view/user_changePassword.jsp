@@ -13,7 +13,7 @@
      --%>
 
 <br>
-<h3>Schimba parola</h3>
+<h3>Change password</h3>
 <hr>
 <br>
 <div>
@@ -21,26 +21,26 @@
         <table class="table table-striped">
             <thead class="thead-light">
                 <tr>
-                    <th><label> Parola actuala: </label></th>
+                    <th><label> Old password: </label></th>
                     <th><form:input type="password" path="oldPassword" /></th>
                     <%--<th><form:errors path="oldPassword" cssClass="error"/></th>--%>
                 </tr>
 
                 <tr>
-                    <th><label> Parola noua: </label></th>
+                    <th><label> New password: </label></th>
                     <th><form:input type="password" path="newPassword"  /></th>
 
                 </tr>
 
                 <tr>
-                    <th><label> Confirma parola noua: </label></th>
+                    <th><label> Confirm new password: </label></th>
                     <th><form:input type="password" path="confirmPassword" /></th>
 
                 </tr>
                 <tr>
                     <th></th>
                     <th>
-                          <button type="submit" class = "btn btn-outline-success">Schimba</button>
+                          <button type="submit" class = "btn btn-outline-success">Submit</button>
                     </th>
                 </tr>
 

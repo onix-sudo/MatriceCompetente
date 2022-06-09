@@ -8,9 +8,9 @@
 
 <%-- This file renders the successfully changed password page --%>
 
-    <font size="5"> Un email pentru schimbarea parolei a fost trimis la adresa: ${email} </font>
+    <font size="5"> An email to change your password has been sent to: ${email} </font>
     <br><br>
-    <font size="4"> Link-ul este valabil <b>30 de minute.</b> </font>
+    <font size="4"> The link is valid for <b>30 minutes.</b> </font>
 
 <script>
   setTimeout(function() {

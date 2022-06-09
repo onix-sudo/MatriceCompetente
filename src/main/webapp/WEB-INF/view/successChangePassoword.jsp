@@ -8,7 +8,7 @@
 
 <%-- This file renders the change-password page --%>
 
-    <font size="5"> Parola a fost schimbata. Vei fi redirectionat in 5 secunde. </font>
+    <font size="5"> Password changed. You will be redirected in 5 seconds. </font>
 
 <script>
   setTimeout(function() {

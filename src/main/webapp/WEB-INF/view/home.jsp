@@ -5,7 +5,7 @@
     <hr>
 <h3>
     <p>
-        Salutare, ${nume}!
+        Hello, ${nume}!
     </p>
 </h3>
     <hr>

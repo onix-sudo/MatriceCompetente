@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Expleo webCM - ADMIN</title>
+        <title>ADMIN</title>
 
             <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
@@ -43,6 +43,6 @@
     </head>
 
     <%@ include file="navigation.jspf"%>
-<body>
+<%--<body>--%>
 
-    <div class="ownBody">
+<%--    <div class="ownBody">--%>

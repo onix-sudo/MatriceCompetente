@@ -7,10 +7,10 @@
      --%>
 
 <br>
-<h3>Introduceti adresa de email:</h3>
+<h3> Please enter a valid email address :</h3>
 <hr>
     <c:if test="${not empty email}">
-    <h2> Emailul ${email} nu exista in baza de date. </h2>
+    <h2> Email ${email} not found in database. </h2>
     </c:if>
                 <form:form action="${pageContext.request.contextPath}/forgotPassword/reset"
                            method="POST" class="form-group">
@@ -25,7 +25,7 @@
                                 <c:if test="${param.logout != null}">
 
                                     <div class="alert alert-success col-xs-offset-1 col-xs-10">
-                                       Ati fost deconectat cu succes.
+                                        You have been successfully logged out.
                                     </div>
 
                                 </c:if>
