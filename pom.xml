@@ -134,7 +134,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>5.1.9.RELEASE</version>
+            <version>${springframework.version}</version>
         </dependency>
 
         <dependency>
@@ -172,6 +172,7 @@
             <artifactId>spring-tx</artifactId>
             <version>${springframework.version}</version>
         </dependency>
+
 
         <!--      @PostConstruct-->
         <dependency>
@@ -274,10 +275,16 @@
             <version>3.9</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>javax.mail</groupId>-->
+<!--            <artifactId>mail</artifactId>-->
+<!--            <version>1.4.7</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->

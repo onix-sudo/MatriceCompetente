@@ -19,12 +19,12 @@
 <br>
 
  <button type="button" class="btn btn-outline-primary"
-         onclick="return addCollaborators('${varPath}')">Colaboratori</button>
+         onclick="return addCollaborators('${varPath}')">Employees</button>
 
  <button type="button" class="btn btn-outline-primary"
- onclick="return adaugaCompetente()">Competente</button>
+ onclick="return adaugaCompetente()">Skills</button>
 
-  <button type="button" class="btn btn-danger" onclick="renunta()" style="float: right;">Renunta la proiect</button>
+  <button type="button" class="btn btn-danger" onclick="renunta()" style="float: right;">Remove project</button>
 <br>
 <br>
 
@@ -34,9 +34,9 @@
 
  <hr>
 
- <font size="5">Numele proiectului: ${project.numeProiect}</font>
+ <font size="5">Project name: ${project.numeProiect}</font>
  <br>
- <font size="5"> Cod: ${project.codProiect}</font>
+ <font size="5"> Project ID: ${project.codProiect}</font>
  <br><hr>
 
 
@@ -67,14 +67,14 @@ th
                         <td>Total</td>
                     </tr>
                     <tr class="table-danger">
-                        <td><b>Pondere</b></td>
+                        <td><b>Average</b></td>
                             <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                                 <td><b>${projectSkill.pondere}</b></td>
                             </c:forEach>
                             <td></td>
                     </tr>
                     <tr class="table-primary">
-                        <td><b>Necesar</b></td>
+                        <td><b>Needed</b></td>
                         <c:forEach var="projectSkill" items="${matrixTeam[0].proiectSkills}">
                             <td><b>${projectSkill.target}</b></td>
                                 <script>

@@ -72,7 +72,7 @@
         </tr>
 
         <tr>
-            <th><label> Role: </label></th>
+            <th><label> Position: </label></th>
             <th><form:input path="functie" /></th>
             <th></th>
         </tr>

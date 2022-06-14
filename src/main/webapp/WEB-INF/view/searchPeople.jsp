@@ -13,15 +13,16 @@
     </spring:url>
 
     <form id="searchForm">
-        <h3>Cauta colaboratori in functie de competenta</h3>
+        <h3>Search employees by skill</h3>
         <hr>
         <br>
         <label>
-        Cautare competenta:
+            Search skill:
         </label>
-        <input type="text" pattern=".{1,}" placeholder="Numele competentei" name = "searchTerm" title="Campul trebuie sa contina cel putin 4 caractere." required/>
+        <input type="text" pattern=".{1,}" placeholder="Skill" name = "searchTerm" title="Field must contain at least 4 characters." required/>
         <label>
-                 Evaluare minima:
+
+            Minimum rating:
         </label>
         <td>
             <select name="evaluation">
@@ -30,7 +31,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <input type='submit' value='Cauta' class="btn btn-outline-primary" />
+            <input type='submit' value='Search' class="btn btn-outline-primary" />
         </td>
     </form>
 
@@ -42,17 +43,17 @@
         </spring:url>
     <br>
                                 <form:form action="${download}" method="POST">
-                                    <input type="submit" class="btn btn-warning" value="Descarca lista">
+                                    <input type="submit" class="btn btn-warning" value="Download list">
                                 </form:form>
 
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th>Nume User</th>
-        <th>Functie</th>
-        <th>Competenta</th>
-        <th>Categorie</th>
-        <th>Evaluare</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Skill</th>
+        <th>Category</th>
+        <th>Assessment</th>
         <th></th>
     </tr>
     </thead>

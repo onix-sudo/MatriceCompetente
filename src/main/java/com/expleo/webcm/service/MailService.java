@@ -5,7 +5,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
@@ -33,14 +34,15 @@ public class MailService {
             mimeMessageHelper = new MimeMessageHelper(message, true);
             mimeMessageHelper.setTo(mail);
 
-            mimeMessageHelper.setFrom("ovidiu-marian.milea@expleogroup.com");
+            mimeMessageHelper.setFrom("testmailhtsr@gmail.com");
             mimeMessageHelper.setSubject("Reset password");
-            mimeMessageHelper.setText("<html><body>Salut, "+name+"!<br/><a href='http://10.140.16.47/forgotPassword/newPassword?token="+token+"'>" +
-                    " Apasa aici</a> pentru introduce o noua parola.</body></html>", true);
+            mimeMessageHelper.setText("<html><body>Salut, "+name+"!<br/><a href='http://localhost:8080/forgotPassword/newPassword?token="+token+"'>" +
+                    " Click here </a> for a new password.</body></html>", true);
             javaMailSender.send(message);
 
         }catch (MessagingException e){
             System.out.println("Error sending mail: " + e.getMessage());
         }
     }
+
 }

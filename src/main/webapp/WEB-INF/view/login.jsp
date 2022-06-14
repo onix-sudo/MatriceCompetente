@@ -81,7 +81,7 @@ body {
                                 <c:if test="${param.logout != null}">
 
                                     <div class="alert alert-success col-xs-offset-1 col-xs-10">
-                                        Ati fost deconectat cu succes.
+                                        You have been successfully logged out.
                                     </div>
 
                                 </c:if>

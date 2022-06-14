@@ -17,8 +17,8 @@
                     <tr>
                         <th>Skill</th>
                         <th>Category</th>
-                        <th>Evaluation</th>
-                        <th>Change Evaluation</th>
+                        <th>Assessment</th>
+                        <th>Edit Assessment</th>
                     </tr>
                     </thead>
 
@@ -42,11 +42,17 @@
                                         <input type=hidden name="idskill" value="${skill.skill.idSkill}"/>
                                         <input type="hidden" value="${projectId}" name="proiectId"
                                                style="display: none">
-                                        <input class="btn btn-outline-primary btn-sm" type='submit' value='Schimba'/>
+                                        <input class="btn btn-outline-primary btn-sm" type='submit' value='Submit'/>
                                     </form>
                                 </td>
                             </tr>
                         </c:forEach>
+                            <div style="margin-top: 10px" class="form-group">
+                                <div class="col-sm-6 controls">
+                                    <button type="submit" onclick="window.location.href='/webCM/sendSkillMail?projectId=${projectId}'" class="btn btn-outline-success">Validate with Manager</button>
+
+                                </div>
+                            </div>
                     </tbody>
                 </table>
             </div>

@@ -11,16 +11,16 @@
 
         <c:choose>
             <c:when test="${empty proiectList}">
-            <h4><p>Nu ai fost adaugat in niciun proiect.</p><h4>
+            <h4><p>You are not assigned to a project.</p><h4>
             </c:when>
             <c:otherwise>
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
-                <th>Nr.</th>
-                <th>Nume Proiect</th>
-                <th>Cod</th>
-                <th>Competente</th>
+                <th>No.</th>
+                <th>Project Name</th>
+                <th>Project ID</th>
+                <th>Skill</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                     <td>${proiect.codProiect}</td>
                     <td>
                         <form method="GET" action="/webCM/cmptMat" onsubmit="return cmptMat(${proiect.proiectId})">
-                            <input class="btn btn-outline-primary" type="submit" value="Deschide" name="proiect">
+                            <input class="btn btn-outline-primary" type="submit" value="Open" name="proiect">
                             <input type="hidden" value="${proiect.proiectId}" name="proiectId" style="display: none" >
                         </form>
                     </td>

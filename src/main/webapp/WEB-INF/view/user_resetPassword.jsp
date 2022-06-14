@@ -7,12 +7,12 @@
      --%>
 
 <br>
-<h3>Resetare parola</h3>
+<h3>Reset password</h3>
 <hr>
 <br>
 <c:choose>
 <c:when test="${loginUser.isExpired()}">
-<h3>Salut, ${userExpleo.prenume}!</h3>
+<h3>Hello, ${userExpleo.prenume}!</h3>
 
 <div>
     <form:form action="${pageContext.request.contextPath}/forgotPassword/newPassword" method="POST" modelAttribute = "password">

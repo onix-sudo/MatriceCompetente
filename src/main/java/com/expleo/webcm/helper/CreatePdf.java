@@ -52,7 +52,7 @@ public class CreatePdf {
 
         DateFormat df = new SimpleDateFormat("dd-MM-yy HH:mm");
         Date dateobj = new Date();
-        Paragraph paragraph = new Paragraph(df.format(dateobj) + "\nTermenul cautarii: " + text + "\nEvaluare minimum: " + evaluation + " \n\n");
+        Paragraph paragraph = new Paragraph(df.format(dateobj) + "\nSearch keyword: " + text + "\nMinimum rating: " + evaluation + " \n\n");
 
         Header headerHandler = new Header(paragraph);
         Footer footerHandler = new Footer();
@@ -69,12 +69,12 @@ public class CreatePdf {
         table.setMarginTop(0);
         table.setMarginBottom(0);
 
-        table.addCell(makeCell("Nume", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
-        table.addCell(makeCell("Rol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
-        table.addCell(makeCell("Numar matricol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
-        table.addCell(makeCell("Competenta", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
-        table.addCell(makeCell("Categorie", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
-        table.addCell(makeCell("Evaluare", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(111, 66, 193)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Nume", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Rol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Numar matricol", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Competenta", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Categorie", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
+        table.addCell(makeCell("Evaluare", TextAlignment.CENTER).setBold().setBackgroundColor(new DeviceRgb(0, 39, 118)).setFontColor(new DeviceRgb(Color.white)));
 
 
         for (int i = 0; i < userSkills.size(); i++) {
@@ -139,7 +139,7 @@ public class CreatePdf {
 
             Canvas canvas = new Canvas(new PdfCanvas(page),pdf,pageSize);
 
-            ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("expleoImg.png"));
+            ImageData data = ImageDataFactory.create(getClass().getClassLoader().getResource("hays.png"));
             Image image = new Image(data).scale((float)2.8, (float) 2.8);
 
             canvas.showTextAligned(header,
@@ -183,7 +183,7 @@ public class CreatePdf {
             PdfCanvas pdfCanvas = new PdfCanvas(page);
             Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);
 
-                    Paragraph p = new Paragraph().add("© expleo Romania | Restricted");
+                    Paragraph p = new Paragraph().add("© HTSR | Restricted");
                     p.add(new Tab());
                     p.addTabStops(new TabStop(500, TabAlignment.RIGHT));
                     p.add(pageNumber +"/"+ pdf.getNumberOfPages());

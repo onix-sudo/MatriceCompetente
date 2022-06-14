@@ -15,6 +15,6 @@
 <script>
   setTimeout(function() {
       window.location.href = "/";
-  }, 3000); // <-- this is the delay in milliseconds
+  }, 4000); // <-- this is the delay in milliseconds
 </script>
 

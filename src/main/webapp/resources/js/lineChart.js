@@ -32,7 +32,7 @@ function push(nm) {
 function plot(){
 
 var layout = {
-  title:'Istorie evaluari'
+  title:'Evaluation History'
 };
 
 Plotly.newPlot('myDiv', finalData, layout, {modeBarButtonsToRemove: ['lasso2d', 'pan2d', 'zoom2d', 'select2d', 'resetScale2d']});

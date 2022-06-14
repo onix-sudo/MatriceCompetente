@@ -17,25 +17,25 @@
 <br>
 
  <button type="button" class="btn btn-outline-primary"
- onclick="return adaugaCompetente();">Competente</button>
+ onclick="return adaugaCompetente();">Skills</button>
 
  <button type="button" class="btn btn-outline-primary"
- onclick="return modify('${codProiect}')">Inapoi</button>
+ onclick="return modify('${codProiect}')">Back</button>
 
 <hr>
 
 <c:choose>
 <c:when test="${empty users}">
-<h4>Niciun colaborator adaugat proiectului.</h4>
+<h4>No employees added to the project.</h4>
 </c:when>
 <c:otherwise>
 <table class="table table-striped">
            <thead class="thead-dark">
-             <h3>Colaboratori</h3>
+             <h3>Employees</h3>
              <tr>
-                <th>Nume</th>
-                <th>Prenume</th>
-                <th>Numar Matricol</th>
+                <th>Last name</th>
+                <th>First name</th>
+                <th>ID Number</th>
                 <th></th>
              </tr>
          </thead>
@@ -50,7 +50,7 @@
                  <td>${user.prenume}</td>
                  <td>${user.numarMatricol}</td>
                  <td>
-                    <button class="btn btn-outline-danger" onclick="return removeEmpFromProject('${user.id}')">Elimina</button>
+                    <button class="btn btn-outline-danger" onclick="return removeEmpFromProject('${user.id}')">Delete</button>
                  </td>
                </tr>
             </c:forEach>
@@ -65,10 +65,9 @@
                    <thead class="thead-dark">
                 <tr>
                     <th>
-                    <label>Cautare colaboratori: </label>
-                    <input type="text" placeholder="Numele colaboratorului" pattern=".{3,}" id = "searchTermUser" title="Campul trebuie sa contina cel
-                    putin 3 caractere." required/>
-                    <input type="submit" class="btn btn-outline-primary" value="Cauta"></th>
+                    <label>Search employees: </label>
+                    <input type="text" placeholder="Employee name" pattern=".{3,}" id = "searchTermUser" title="Field must contain at least 3 characters." required/>
+                    <input type="submit" class="btn btn-outline-primary" value="Search"></th>
                 </tr>
                 </thead>
             </table>
@@ -99,7 +98,7 @@
 
                      <td>
                         <button class="btn btn-outline-primary"
-                        onclick="addUser(${tempResult.id}, '${param.searchTerm}')">Adauga</button>
+                        onclick="addUser(${tempResult.id}, '${param.searchTerm}')">Add</button>
                      </td>
                  </tr>
                  </c:forEach>

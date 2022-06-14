@@ -15,7 +15,7 @@
 
 <security:csrfMetaTags/>
 
-<h3> Creeaza un nou proiect</h3>
+<h3> Create a new project</h3>
 <hr>
 
 <form:form action="/webCM/leaders/addProject" modelAttribute = "newProject" method="POST" id="addProject" accept-charset = "utf-8">
@@ -23,20 +23,20 @@
         <thead class="thead-light">
 
         <tr>
-            <th><label>Nume proiect:</label></th>
+            <th><label>Project name:</label></th>
             <th><form:input path="numeProiect"/></th>
             <th><form:errors path="numeProiect" cssClass="error"/></th>
         </tr>
 
         <tr>
-            <th><label>Cod proiect:</label></th>
+            <th><label>Project ID:</label></th>
             <th><form:input path="codProiect"/></th>
             <th><form:errors path="codProiect" cssClass="error"/></th>
         </tr>
 
         <tr>
             <th></th>
-            <th><input type="submit" value="Creeaza" class="btn btn-outline-primary"/></th>
+            <th><input type="submit" value="Create" class="btn btn-outline-primary"/></th>
             <th></th>
         </tr>
         </thead>

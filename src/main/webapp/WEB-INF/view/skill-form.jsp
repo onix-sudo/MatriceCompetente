@@ -11,20 +11,20 @@
      The JSTL core tag provides variable support and flow control
      --%>
 
-<h2>Adauga competenta aditionala</h2>
+<h2>Add aditional skill</h2>
 
 <p>
 <hr>
-<b>Nume:</b> ${user.nume} ${user.prenume}
+<b>Name:</b> ${user.nume} ${user.prenume}
 <br>
-<b>Numar matricol</b>: ${user.numarMatricol}
+<b>ID number</b>: ${user.numarMatricol}
 <br>
-<b>Adresa email:</b>
+<b>Email:</b>
 <security:authentication property="principal.username"/>
 <br>
-<b>Data angajare:</b> ${user.dataAngajare}
+<b>Starting date:</b> ${user.dataAngajare}
 <br>
-<b>Functie:</b> ${user.functie}
+<b>Position:</b> ${user.functie}
 <br>
 <hr>
 </p>
@@ -34,12 +34,11 @@
 </spring:url>
 
 <form id="searchForm">
-<label><b>Cautare competente:</b></label>
-    <input type="text" placeholder="Numele competentei" pattern=".{1,}" id="searchTerm" name = "searchTerm" title="Campul trebuie sa contina cel putin 1
-    caracter."
+<label><b>Search skill:</b></label>
+    <input type="text" placeholder="Skill" pattern=".{1,}" id="searchTerm" name = "searchTerm" title="Field must contain at least 1 character."
            required/>
 
-    <input type="submit" value="Cauta" class="btn btn-outline-primary" />
+    <input type="submit" value="Search" class="btn btn-outline-primary" />
 
 </form>
 
@@ -49,8 +48,8 @@
      <table class="table table-striped">
          <thead class="thead-dark">
             <tr>
-                <th>Nume Competenta</th>
-                <th>Categorie</th>
+                <th>Skill</th>
+                <th>Category</th>
                 <th></th>
             </tr>
         </thead>
@@ -62,7 +61,7 @@
                 <td>${tempResult.numeSkill}</td>
                 <td>${tempResult.categorie}</td>
                 <td>
-                        <button class="btn btn-outline-primary" onclick="return ps(${tempResult.idSkill}, ${user.id})">Adauga</button>
+                        <button class="btn btn-outline-primary" onclick="return ps(${tempResult.idSkill}, ${user.id})">Add</button>
                 </td>
             </tr>
         </core:forEach>

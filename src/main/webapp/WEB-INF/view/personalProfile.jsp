@@ -11,41 +11,41 @@
      The JSTL core tag provides variable support and flow control
      --%>
 
-<h2>Profil Personal</h2>
+<h2>Personal profile</h2>
 <p>
 <hr>
-    <b>Nume:</b> ${user.nume} ${user.prenume}
+    <b>Name:</b> ${user.nume} ${user.prenume}
     <br>
-    <b>Numar matricol</b>: ${user.numarMatricol}
+    <b>ID number</b>: ${user.numarMatricol}
     <br>
-    <b>Adresa email:</b>
+    <b>Email:</b>
     <security:authentication property="principal.username"/>
     <br>
-    <b>Data angajare:</b> ${user.dataAngajare}
+    <b>Starting date:</b> ${user.dataAngajare}
     <br>
-    <b>Rol:</b> ${user.functie}
+    <b>Position:</b> ${user.functie}
     <br>
     <hr>
 </p>
 
 <c:choose>
 <c:when test="${empty projectSkills && empty userSkills}">
-<h4>Nu ai nicio competenta adauata.</h4>
+<h4>No added skills.</h4>
 </c:when>
 <c:otherwise>
 
 <c:choose>
 <c:when test="${empty projectSkills}">
-<h4>Nu ai fost adaugat in niciun proiect.</h4>
+<h4>No added project.</h4>
 </c:when>
 <c:otherwise>
-<h4><p><b>Competente din proiecte:</b></p></h4>
+<h4><p><b>Project skills:</b></p></h4>
 <table class="table table-striped">
  <thead class="thead-dark">
  <tr>
-        <th>Competente</th>
-        <th>Categorie</th>
-        <th>Evaluare</th>
+        <th>Skills</th>
+        <th>Category</th>
+        <th>Assessment</th>
  </tr>
  </thead>
     <tbody>
@@ -64,17 +64,17 @@
 
 <c:choose>
 <c:when test="${empty userSkills}">
-<h4>Nu ai adaugat nicio competenta aditionala.</h4>
+<h4>No additional skills.</h4>
 </c:when>
 <c:otherwise>
-<h4><p><b>Competente aditionale:</b></p></h4>
+<h4><p><b>Additional skills:</b></p></h4>
 <table class="table table-striped">
  <thead class="thead-dark">
     <tr>
-        <th>Competente</th>
-        <th>Categorie</th>
-        <th>Evaluare</th>
-        <th>Valoare noua</th>
+        <th>Skills</th>
+        <th>Category</th>
+        <th>Assessment</th>
+        <th>Edit assessment</th>
         <th></th>
     </tr>
  </thead>
@@ -96,12 +96,12 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <input type="submit" class="btn btn-outline-primary" value="Schimba">
+                        <input type="submit" class="btn btn-outline-primary" value="Change">
                     </form>
                 </td>
                 <td>
-                    <a onclick="if((confirm('Esti sigur ca vrei sa elimini competenta?'))) return elimina(${userSkill.skill.idSkill})">
-                        <button type="button" class="btn btn-outline-danger">Elimina</button>
+                    <a onclick="if((confirm('Are you sure you want to eliminate the skill?'))) return elimina(${userSkill.skill.idSkill})">
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
                     </a>
                 </td>
             </tr>
@@ -117,9 +117,11 @@
 
 <div>
 
-<button type="button" class="btn btn-outline-danger" onclick="schimbaParola()">Schimba parola</button>
-<button type="button" class="btn btn-outline-primary" onclick="addSkill()">Adauga competenta</button>
-<button type="button" class="btn btn-outline-primary" onclick="viewHistory()">Istoric</button>
+<button type="button" class="btn btn-outline-danger" onclick="schimbaParola()">Change password</button>
+<button type="button" class="btn btn-outline-primary" onclick="addSkill()">Add skill</button>
+<button type="button" class="btn btn-outline-primary" onclick="viewHistory()">History</button>
+
+
 
 </div>
 

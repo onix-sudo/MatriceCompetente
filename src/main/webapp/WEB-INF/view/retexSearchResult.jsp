@@ -4,9 +4,9 @@
 
 <div>
 
-<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/';">Inapoi</button>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/';">Back</button>
 
-<button type="button"  class="btn btn-outline-primary btn-lg" style="float: right;" onclick="window.location.href='/retex/addNewRetex'">Adauga inregistrare</button>
+<button type="button"  class="btn btn-outline-primary btn-lg" style="float: right;" onclick="window.location.href='/retex/addNewRetex'">Add</button>
 </div>
 
 <hr>
@@ -24,14 +24,14 @@
       <div class="inner-form">
          <div class="input-field first-wrap">
             <select data-trigger="" name="category" id="searchCategory">
-               <option selected="selected">Toate</option>
-               <option>Titlu</option>
-               <option>Categorie</option>
-               <option>Descriere</option>
+               <option selected="selected">All</option>
+               <option>Title</option>
+               <option>Category</option>
+               <option>Description</option>
             </select>
          </div>
          <div class="input-field second-wrap">
-            <input name="terms" id="search" type="text" placeholder="Cauta solutie" required/>
+            <input name="terms" id="search" type="text" placeholder="Search solution" required/>
          </div>
          <div class="input-field third-wrap">
             <button class="btn-search" type="submit">

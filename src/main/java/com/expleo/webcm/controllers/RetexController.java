@@ -167,10 +167,10 @@ public class RetexController {
             return chatResponse.toString().substring(0, chatResponse.length() - 2);}
         else if(solutionsFound.size()>1){
 
-        return "Te rog sa alegi link-ul corespunzator:<br>" + chatResponse.toString().substring(0, chatResponse.length() - 2);
+        return "Please choose the appropriate link:<br>" + chatResponse.toString().substring(0, chatResponse.length() - 2);
         }
 
-        return "Imi pare rau, nu te pot ajuta.";
+        return "I'm sorry, I can't help you.";
     }
 
 }

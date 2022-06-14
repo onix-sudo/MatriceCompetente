@@ -12,22 +12,22 @@
      The JSTL core tag provides variable support and flow control
      --%>
 
-<button type="button" class="btn btn-outline-primary" onclick="return createProject()">Creeaza un proiect</button>
+<button type="button" class="btn btn-outline-primary" onclick="return createProject()">Create a project</button>
 <button type="button" class="btn btn-outline-primary"
- onclick="return proiectFaraManageri()">Alege un proiect fara manager</button>
+ onclick="return proiectFaraManageri()">Choose a project without a manager</button>
 
 <hr>
 <c:choose>
 <c:when test="${empty projects}">
-<h4>Nu gestionezi niciun proiect.</h4>
+<h4>You do not manage any projects.</h4>
 </c:when>
 <c:otherwise>
    <table class="table table-striped">
            <thead class="thead-dark">
-            <h2>Proiectele tale:</h2>
+            <h2>Your projects:</h2>
             <tr>
-                <th>Nume proiect</th>
-                <th>Cod proiect</th>
+                <th>Project name</th>
+                <th>Project ID</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,7 +38,7 @@
                     <td>${proiecte.numeProiect}</td>
                     <td>${proiecte.codProiect}</td>
                     <td>
-                        <button class="btn btn-outline-primary" onclick="return modify('${proiecte.codProiect}')">Deschide</button>
+                        <button class="btn btn-outline-primary" onclick="return modify('${proiecte.codProiect}')">Open</button>
                     </td>
                 </tr>
             </c:forEach>

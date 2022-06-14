@@ -14,21 +14,21 @@
 
 <c:choose>
 <c:when test="${empty result}">
-<h3>Niciun proiect disponibil.</h3>
+<h3>No available project.</h3>
 <hr>
 </c:when>
 <c:otherwise>
 <br>
-<h3>Proiecte disponibile:</h3>
+<h3>Available project:</h3>
 
 <hr>
 
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th>Nume proiect</th>
-        <th>Cod</th>
-        <th>Preia</th>
+        <th>Project name</th>
+        <th>Project ID</th>
+        <th>Add</th>
     </tr>
     </thead>
     <tbody>
@@ -42,7 +42,7 @@
             <td>${tempResult.codProiect}</td>
             <td>
                 <button onclick="return preiaProiect('${tempResult.codProiect}')" class="btn btn-outline-primary">
-                    Preia
+                    Add
                 </button>
             </td>
 

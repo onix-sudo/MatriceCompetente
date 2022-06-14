@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="/resources/css/addRetexForm.css">
 <security:csrfMetaTags/>
 <br>
-<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';">Inapoi</button>
-<h1 style="color:black;text-align:left;">Creeaza inregistrarea</h1>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';">Back</button>
+<h1 style="color:black;text-align:left;">Create</h1>
 <hr>
 <%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
    <script> tinymce.init({selector:'textarea'});</script>--%>
@@ -21,7 +21,7 @@
    <div class="separatecontainer">
       <div class = "row">
          <div class="col-25">
-            <label class="label1">Titlu:</label>
+            <label class="label1">Title:</label>
          </div>
          <div class = "col-75">
             <form:input path="record.titlu" id="titlu"/>
@@ -29,7 +29,7 @@
       </div>
       <div class = "row">
          <div class="col-25">
-            <label class="label1">Categorie:</label>
+            <label class="label1">Category:</label>
          </div>
          <div class = "col-75">
             <form:input path="record.categorie" id="categorie" />
@@ -37,7 +37,7 @@
       </div>
       <div class="row">
          <div class="col-25">
-            <label class="label1">Descriere:</label>
+            <label class="label1">Description:</label>
          </div>
          <div class="col-75">
             <textarea id="summernote" maxlength="10000" name="record.descriere" style="height:200px"></textarea>
@@ -61,13 +61,13 @@
       </div>
       <div class="row">
          <div class="col-25">
-            <label class="label1">Solutie:</label>
+            <label class="label1">Solution:</label>
          </div>
          <div class="col-75">
             <textarea  id="summernoteSol" name="solution.solutie"></textarea>
             <script>
                $('#summernoteSol').summernote({
-                 placeholder: 'Adauga solutie',
+                 placeholder: 'Add solution',
                  tabsize: 1,
                  height: 200,
                  toolbar: [
@@ -85,8 +85,8 @@
       </div>
    </div>
    <hr>
-   <input type="submit" value="Adauga" class="btn btn-outline-primary" />
-   <button type="button" class="btn btn-outline-danger" onclick="closeAddRetex()">Inchide</button>
+   <input type="submit" value="Add" class="btn btn-outline-primary" />
+   <button type="button" class="btn btn-outline-danger" onclick="closeAddRetex()">Close</button>
 </form:form>
 </body>
 <%@ include file="footer.jspf"%>

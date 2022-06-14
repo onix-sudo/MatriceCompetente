@@ -17,27 +17,27 @@
 <br>
 
  <button type="button" class="btn btn-outline-primary"
- onclick="return addCollaborators('${varPath}');">Colaboratori</button>
+ onclick="return addCollaborators('${varPath}');">Employees</button>
 
  <button type="button" class="btn btn-outline-primary"
- onclick="return modify('${codProiect}')">Inapoi</button>
+ onclick="return modify('${codProiect}')">Back</button>
 
   <br>
  <hr>
 
 <c:choose>
 <c:when test="${empty skills}">
-<h4>Nicio competenta adaugata proiectului.</h4>
+<h4>No skills added to the project.</h4>
 </c:when>
 <c:otherwise>
-  <h3>Competente</h3>
+  <h3>Skills</h3>
 <table class="table table-striped">
            <thead class="thead-dark">
           <tr>
-             <th>Competenta</th>
-             <th>Categorie</th>
-             <th>Pondere</th>
-             <th>Necesar</th>
+             <th>Skill</th>
+             <th>Category</th>
+             <th>Average</th>
+             <th>Needed</th>
              <th></th>
           </tr>
           </thead>
@@ -85,7 +85,7 @@
                          </td>
                   <td>
                      <button class="btn btn-outline-danger" onclick="return removeSkillForProject(${skill.skill.idSkill})">
-                         Elimina
+                         Delete
                      </button>
                   </td>
                 </tr>
@@ -102,11 +102,9 @@
                 <tr>
                     <th></th>
                     <th>
-                    <label>Cautare competente: </label>
-                    <input type="text" placeholder="Numele competentei" pattern=".{3,}" id = "searchTermSkill" title="Campul trebuie sa contina cel putin
-                     3
-                    caractere." required/>
-                    <input type="submit" class="btn btn-outline-primary" value="Cauta"></th>
+                    <label>Search skill: </label>
+                    <input type="text" placeholder="Skill" pattern=".{3,}" id = "searchTermSkill" title="The field must contain at least 3 characters." required/>
+                    <input type="submit" class="btn btn-outline-primary" value="Search"></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -117,8 +115,8 @@
      <table class="table table-striped">
             <thead class="thead-dark">
              <tr>
-                 <th>Competenta</th>
-                 <th>Categorie</th>
+                 <th>Skill</th>
+                 <th>Category</th>
                  <th></th>
              </tr>
             </thead>
@@ -130,7 +128,7 @@
                  <td>${tempResult.categorie}</td>
                  <td>
                      <button class="btn btn-outline-primary" onclick="return addSkill(${tempResult.idSkill}, ${status.count}, '${search}')">
-                        Adauga
+                        Add
                      </button>
                  </td>
              </tr>

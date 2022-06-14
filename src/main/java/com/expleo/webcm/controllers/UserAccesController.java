@@ -1,5 +1,6 @@
 package com.expleo.webcm.controllers;
 
+import com.expleo.webcm.config.SpringMailConfig;
 import com.expleo.webcm.entity.expleodb.UserExpleo;
 import com.expleo.webcm.entity.securitydb.LoginUser;
 import com.expleo.webcm.helper.Password;
@@ -7,6 +8,7 @@ import com.expleo.webcm.helper.PasswordValidator;
 import com.expleo.webcm.service.MailService;
 import com.expleo.webcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -151,6 +153,9 @@ public class UserAccesController {
 
         return "successResetPasswordTokenCreate";
     }
+
+    /**
+
 
     /**
      * Get method that handles the request mapping below in order to set the new password

@@ -35,6 +35,9 @@ public class WebCMController {
     @Autowired
     private HistoryService historyService;
 
+    @Autowired
+    private SkillMailService skillMailService;
+
     @GetMapping
     public String webCM(ModelMap model){
         return "webCM";
@@ -199,6 +202,14 @@ public class WebCMController {
 
         return "currentProj";
     }
+
+    @RequestMapping("/sendSkillMail")
+    public String sendSkillMail(@RequestParam(name = "projectId") Integer projectId){
+        List<UserSkill> userSkillList = userSkillService.getUserSkillByProjectSkills(projectId);
+        skillMailService.sendSkillMail(userSkillList);
+        return "sendSkillMail";
+    }
+
 
     /**
      * The method extracts the evaluation history for all of the logged-in user's skills

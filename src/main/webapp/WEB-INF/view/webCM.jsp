@@ -9,19 +9,19 @@
         <!-- tabs -->
         <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
             <input type="radio" name="pcss3t" checked  id="tab1"class="tab-content-first" onclick="skillMatrix()">
-            <label for="tab1"><i class="icon-bolt"></i>Matrice competente</label>
+            <label for="tab1"><i class="icon-bolt"></i>Skill Matrix</label>
 
             <input type="radio" name="pcss3t" id="tab2" class="tab-content-2" onclick="showSkills()">
-            <label for="tab2"><i class="icon-picture"></i>Profil personal</label>
+            <label for="tab2"><i class="icon-picture"></i>Personal profile</label>
 
             <security:authorize access="hasRole('MANAGER')">
                 <input type="radio" name="pcss3t" id="tab3" class="tab-content-3" onclick="leaders()">
-                <label for="tab3"><i class="icon-cogs"></i>Gestionare proiecte</label>
+                <label for="tab3"><i class="icon-cogs"></i>Project management</label>
             </security:authorize>
 
             <security:authorize access="hasRole('MANAGER')">
                 <input type="radio" name="pcss3t" id="tab5" class="tab-content-last" onclick="searchPeople()">
-                <label for="tab5"><i class="icon-globe"></i>Cauta colaboratori</label>
+                <label for="tab5"><i class="icon-globe"></i>Search employee</label>
             </security:authorize>
 
             <ul>

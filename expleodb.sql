@@ -23,9 +23,16 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `proiect` VALUES 
-	(1,'webCM','I1030', null),
-	(2,'Plastice','P1056', null),
-	(3,'Motoare','P1020', null);
+	(1,'Project1','H0001', null),
+	(2,'Project2','H0002', null),
+	(3,'Project3','H0003', null),
+	(4,'Project4','H0004', null),
+	(5,'Project5','H0005', null),
+	(6,'Project6','H0006', null),
+	(7,'Project7','H0007', null),
+	(8,'Project8','H0008', null),
+	(9,'Project9','H0009', null),
+	(10,'Project10','H0010', null);
 
 
 
@@ -43,16 +50,16 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `skill` VALUES 
-	(1,'Java','Programare'),
-	(2,'C','Programare'),
-	(3,'C++','Programare'),
-	(4,'Python','Programare'),
-	(5,'Catia V5','Proiectare'),
-	(6,'Plastice','Proiectare'),
-	(7,'Motoare','Proiectare'),
-	(8,'Drawings','Proiectare'),
-	(9,'Motivare','Management'),
-	(10,'Luarea deciziilor','Management');
+	(1,'Java','Programming'),
+	(2,'C','Programming'),
+	(3,'C++','Programming'),
+	(4,'Python','Programming'),
+	(5,'Microcontrollers','Embedded'),
+	(6,'Microprocessors','Embedded'),
+	(7,'Cloud','DevOps'),
+	(8,'Automation','DevOps'),
+	(9,'Coaching and mentoring','Management'),
+	(10,'Conflict resolution','Management');
 
 
 -- -----------------------------------------------------
@@ -75,6 +82,14 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
+INSERT INTO `proiect_skill` VALUES
+(1,1,2, 3),
+(5,2,2, 3),
+(1,3,2, 3),
+(4,3,1, 3),
+(7,3,2, 3),
+(9,3,2, 3);
+
 
 -- -----------------------------------------------------
 -- Table `expleodb`.`user`
@@ -94,11 +109,20 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `user` VALUES
-	(1,'Milea','Ovidiu','3465','ovidiu-marian.milea@expleogroup.com','2017-11-20','Angajat'),
-	(2,'Rusu','Tiberiu','5421','tiberiu.rusu@expleogroup.com','2019-07-20','Angajat'),
-	(3,'Baldovin','Virgil-Florentin','5428','virgil-florentin.baldovin@expleogroup.com','2019-07-26','Angajat'),
-	(4,'Sterpu','Cristian','1823','dumitru-cristian.sterpu@expleogroup.com','2010-02-13','LT'),
-	(5,'Admin','Admin','0000','admin@expleogroup.com','2019-11-18','Admin');
+(1,'Admin','Admin','0000','admin@htsr.eu','2019-11-18','Admin');
+(2,'Smith','John','5428','ioana.popescu@htsg.eu','2019-07-26','Angajat'),
+(3,'Sterpu','Cristian','1823','dumitru.sterpu@htsg.eu','2010-02-13','LT'),
+(4,'Counihan','Ulrica','4551','ucounihan0@htsg.eu','2010-02-08','Angajat'),
+(5,'Paxman','Hillary','1058','hpaxman1@htsg.eu','2010-04-20','Angajat'),
+(6,'Unworth','Bibby','1012','bunworth2@htsg.eu','2020-04-20','Angajat'),
+(7,'Sole','Dolf','4911','dsole3@htsg.eu','2010-04-20','Angajat'),
+(8,'Moulsdale','Dacey','6756','dmoulsdale4@htsg.eu','2000-04-20','Angajat'),
+(9,'Jirek','Jacqui','0583','jjirek5@htsg.eu','2022-04-20','Angajat'),
+(10,'Pincked','Mirna','5228','mpincked6@htsg.eu','2021-04-20','Angajat');
+
+
+
+
 
 -- -----------------------------------------------------
 -- Table `expleodb`.`user_proiect`
@@ -117,6 +141,15 @@ CREATE TABLE IF NOT EXISTS `expleodb`.`user_proiect` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
+
+INSERT INTO `user_proiect` VALUES
+(3,3),
+(4,3),
+(5,2),
+(8,5),
+(6,6),
+(3,8),
+(2,2);
 
 
 -- -----------------------------------------------------
@@ -145,6 +178,13 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
+
+INSERT INTO `user_skill` VALUES
+ (5,3,1, 2,'2019-07-12'),
+ (5,3,1, 2,'2019-07-26'),
+ (5,3,1, 2,'2019-07-26'),
+ (5,3,1, 2,'2019-07-26'),
+ (5,3,1, 2,'2019-07-26'),
 
 -- -----------------------------------------------------
 -- Table `expleodb`.`history`

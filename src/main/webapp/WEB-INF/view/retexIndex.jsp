@@ -237,9 +237,9 @@
 
 <div>
 
-<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/';">Inapoi</button>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/';">Back</button>
 
-<button type="button" class="btn btn-outline-primary btn-lg" style="float: right;" onclick="window.location.href='/retex/addNewRetex'">Adauga inregistrare</button>
+<button type="button" class="btn btn-outline-primary btn-lg" style="float: right;" onclick="window.location.href='/retex/addNewRetex'">Add</button>
 </div>
 
 <hr>
@@ -248,14 +248,14 @@
       <div class="inner-form">
          <div class="input-field first-wrap">
             <select data-trigger="" name="category" id="searchCategory">
-               <option selected="selected">Toate</option>
-               <option>Titlu</option>
-               <option>Categorie</option>
-               <option>Descriere</option>
+               <option selected="selected">All</option>
+               <option>Title</option>
+               <option>Category</option>
+               <option>Description</option>
             </select>
          </div>
          <div class="input-field second-wrap">
-            <input name="terms" id="search" type="text" placeholder="Cauta solutie" required/>
+            <input name="terms" id="search" type="text" placeholder="Search solution" required/>
          </div>
          <div class="input-field third-wrap">
             <button class="btn-search" type="submit">
@@ -272,10 +272,10 @@
 <table id="retexIndexTable" class="table" cellspacing="0">
    <thead class="thead-dark">
       <tr>
-         <th scope="col">Categorie</th>
-         <th>Titlu</th>
-         <th>Descriere</th>
-         <th>Data</th>
+         <th scope="col">Category</th>
+         <th>Title</th>
+         <th>Description</th>
+         <th>Date</th>
       </tr>
    </thead>
    <tbody>
@@ -295,7 +295,7 @@
 
 <div class="chatbox chatbox--tray chatbox--empty">
     <div class="chatbox__title">
-        <h5><a href="#">Expleo ChatBot</a></h5>
+        <h5><a href="#">ChatBot</a></h5>
         <button class="chatbox__title__tray">
             <span></span>
         </button>
@@ -310,8 +310,8 @@
     </div>
     <div class="chatbox__body" id="chatIndex">
         <div class="chatbox__body__message chatbox__body__message--left">
-            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
-            <p>Cu ce te pot ajuta?</p>
+            <img src="/resources/Hays_logo.png" alt="Picture">
+            <p>How can I help?</p>
         </div>
 
     </div>
@@ -384,7 +384,7 @@
         var $inpute2xt = $("#parent-dv").find('textarea').val();
 
         if($('#textInput').val().length != 0){
-        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--right\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+$inpute2xt+"</p></div>");
+        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--right\"><img src=\"/resources/chatbox.png\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+$inpute2xt+"</p></div>");
         }
         inputcopy = $inpute2xt;
         $('#textInput').val('');
@@ -397,7 +397,7 @@
                     success: function(res){
                         if (res != ""){
                         console.log("MAAMAMMAMAAAa");
-                        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--left\"><img src=\"https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+res+"</p></div>");}
+                        $('#chatIndex').append("<div class=\"chatbox__body__message chatbox__body__message--left\"><img src=\"/resources/Hays_logo.png\" alt=\"Picture\"><p style=\"word-wrap:break-word;\">"+res+"</p></div>");}
 
                     },
                     error: function(res){
