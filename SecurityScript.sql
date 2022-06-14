@@ -30,12 +30,16 @@ COLLATE = utf8_romanian_ci;
 
 INSERT INTO `users` 
 VALUES 
-(1,'ovidiu-marian.milea@expleogroup.com','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
-(2,'tiberiu.rusu@expleogroup.com','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
-(3,'virgil-florentin.baldovin@expleogroup.com','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
-(4,'dumitru-cristian.sterpu@expleogroup.com','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
-(5,'admin@expleogroup.com','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL);
-
+(1,'admin@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(2,'ioana.popescu@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(3,'dumitru.sterpu@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(4,'ucounihan0@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(5,'hpaxman1@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(6,'bunworth2@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(7,'dsole3@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(8,'dmoulsdale4@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(9,'jjirek5@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL),
+(10,'mpincked6@htsg.eu','{bcrypt}$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K',1,NULL,NULL);
 
 /* JOIN TABLE for MANY-TO-MANY relationship*/  
 DROP TABLE IF EXISTS `roles`;
@@ -80,10 +84,14 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `authorities` 
 VALUES 
-(1,1),
+(1,3),
 (2,1),
-(2,2),
 (3,1),
+(3,2),
 (4,1),
-(4,2),
-(5,3);
+(5,1),
+(6,1),
+(7,1),
+(8,1),
+(9,1),
+(10,1);

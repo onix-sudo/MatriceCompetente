@@ -48,10 +48,10 @@
 <table id="retexSearchResultTable" class="table table-hover" cellspacing="0">
    <thead class="thead-dark">
       <tr>
-         <th>Categorie</th>
-         <th>Titlu</th>
-         <th>Descriere</th>
-         <th>Data</th>
+         <th>Category</th>
+         <th>Title</th>
+         <th>Description</th>
+         <th>Date</th>
       </tr>
    </thead>
    <tbody>

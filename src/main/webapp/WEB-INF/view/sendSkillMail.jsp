@@ -7,7 +7,7 @@
     <hr>
 <h3>
     <p>
-        Mail was sent to the manager
+        Mail has been sent to the manager.
     </p>
 </h3>
     <hr>

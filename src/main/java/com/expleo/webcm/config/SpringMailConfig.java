@@ -54,46 +54,7 @@ public class SpringMailConfig {
         javaMailProperties.setProperty("mail.smtp.ssl.trust", "*");
 
 
-//        javaMailProperties.setProperty("mail.smtp.host", "smtp.gmail.com");
-//        javaMailProperties.setProperty("mail.smtp.port", "587");
-//        javaMailProperties.setProperty("mail.smtp.ssl.enabled", "true");
-//        javaMailProperties.setProperty("mail.smtp.auth", "true");
 
-
-//        Session session = Session.getInstance(javaMailProperties, new javax.mail.Authenticator() {
-//
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//
-//                return new PasswordAuthentication("onixpopescu@gmail.com", "thiwmcuqjkmqzhud"); //ioana.popescu@htsg.eu
-//
-//            }
-//
-//        });
-//
-//        session.setDebug(true);
-//        try {
-//            // Create a default MimeMessage object.
-//            MimeMessage message = new MimeMessage(session);
-//
-//            // Set From: header field of the header.
-//            message.setFrom(new InternetAddress("onixpopescu@gmail.com"));
-//
-//            // Set To: header field of the header.
-//            message.addRecipient(Message.RecipientType.TO, new InternetAddress("ioana.popescu@htsg.eu"));
-//
-//            // Set Subject: header field
-//            message.setSubject("This is the Subject Line!");
-//
-//            // Now set the actual message
-//            message.setText("This is actual message");
-//
-//            System.out.println("sending...");
-//            // Send message
-//            Transport.send(message);
-//            System.out.println("Sent message successfully....");
-//        } catch (MessagingException mex) {
-//            mex.printStackTrace();
-//        }
 
         mailSender.setJavaMailProperties(javaMailProperties);
 

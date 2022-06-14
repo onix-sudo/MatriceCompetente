@@ -1,7 +1,7 @@
 <%@ include file="header.jspf"%>
 <br>
-<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';" >Inapoi</button>
-<button id="btnAddSol" class="btn btn-outline-primary btn-lg" style="float: right;">Adauga solutie</button>
+<button class="btn btn-outline-dark btn-lg" onclick="window.location.href = '/retex';" >Back</button>
+<button id="btnAddSol" class="btn btn-outline-primary btn-lg" style="float: right;">Add solution</button>
 <h2 class="display-2" align="center">${record.titlu}</h2>
 <div class="font-weight-normal text-break" align="center">${record.descriere}</div>
 <hr>

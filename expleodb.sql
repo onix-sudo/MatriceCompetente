@@ -22,10 +22,10 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
-INSERT INTO `proiect` VALUES 
+INSERT INTO `proiect` VALUES
 	(1,'Project1','H0001', null),
 	(2,'Project2','H0002', null),
-	(3,'Project3','H0003', null),
+	(3,'Project3','H0003', 'dumitru.sterpu@htsg.eu'),
 	(4,'Project4','H0004', null),
 	(5,'Project5','H0005', null),
 	(6,'Project6','H0006', null),
@@ -49,7 +49,7 @@ AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
-INSERT INTO `skill` VALUES 
+INSERT INTO `skill` VALUES
 	(1,'Java','Programming'),
 	(2,'C','Programming'),
 	(3,'C++','Programming'),
@@ -83,12 +83,16 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `proiect_skill` VALUES
-(1,1,2, 3),
-(5,2,2, 3),
-(1,3,2, 3),
-(4,3,1, 3),
-(7,3,2, 3),
-(9,3,2, 3);
+(1,1,2,3),
+(2,1,2,3),
+(3,1,2,3),
+(4,1,2,3),
+(5,1,2,3),
+(5,2,2,3),
+(1,3,2,3),
+(4,3,1,3),
+(7,3,2,3),
+(9,3,2,3);
 
 
 -- -----------------------------------------------------
@@ -109,7 +113,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `user` VALUES
-(1,'Admin','Admin','0000','admin@htsr.eu','2019-11-18','Admin');
+(1,'Admin','Admin','0000','admin@htsg.eu','2019-11-18','Admin'),
 (2,'Smith','John','5428','ioana.popescu@htsg.eu','2019-07-26','Angajat'),
 (3,'Sterpu','Cristian','1823','dumitru.sterpu@htsg.eu','2010-02-13','LT'),
 (4,'Counihan','Ulrica','4551','ucounihan0@htsg.eu','2010-02-08','Angajat'),
@@ -145,6 +149,9 @@ COLLATE = utf8_romanian_ci;
 INSERT INTO `user_proiect` VALUES
 (3,3),
 (4,3),
+(5,3),
+(6,3),
+(7,3),
 (5,2),
 (8,5),
 (6,6),
@@ -180,41 +187,75 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_romanian_ci;
 
 INSERT INTO `user_skill` VALUES
- (5,3,1, 2,'2019-07-12'),
- (5,3,1, 2,'2019-07-26'),
- (5,3,1, 2,'2019-07-26'),
- (5,3,1, 2,'2019-07-26'),
- (5,3,1, 2,'2019-07-26'),
+                             (5,3,1, 2,'2021-09-12'),
+                             (6,3,4, 2,'2021-09-12'),
+                             (7,3,7, 2,'2021-09-12'),
+                             (8,3,9, 2,'2021-09-12'),
+                             (13,4,1, 2,'2021-07-12'),
+                             (14,4,4, 2,'2021-07-12'),
+                             (15,4,7, 2,'2021-07-12'),
+                             (16,4,9, 2,'2021-07-12'),
+                             (17,5,1, 2,'2021-07-12'),
+                             (18,5,4, 2,'2021-07-12'),
+                             (19,5,7, 2,'2021-07-12'),
+                             (20,5,9, 2,'2021-07-12');
+
 
 -- -----------------------------------------------------
 -- Table `expleodb`.`history`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `expleodb`.`history` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_user` INT(11) NOT NULL,
-  `id_skill` INT(11) NOT NULL,
-  `evaluare` INT(1) UNSIGNED NOT NULL,
-  `data_evaluare` DATE NOT NULL,
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `id_user` INT(11) NOT NULL,
+    `id_skill` INT(11) NOT NULL,
+    `evaluare` INT(1) UNSIGNED NOT NULL,
+    `data_evaluare` DATE NOT NULL,
 
-  INDEX `FK_id_user` (`id_user` ASC),
-  INDEX `FK_id_skill` (`id_skill` ASC),
+    INDEX `FK_id_user` (`id_user` ASC),
+    INDEX `FK_id_skill` (`id_skill` ASC),
 
-  CONSTRAINT `FK_id_user`
+    CONSTRAINT `FK_id_user`
     FOREIGN KEY (`id_user`)
     REFERENCES `expleodb`.`user` (`ID_user`),
-  CONSTRAINT `FK_id_skill`
+    CONSTRAINT `FK_id_skill`
     FOREIGN KEY (`id_skill`)
     REFERENCES `expleodb`.`skill` (`ID_skill`),
 
-  PRIMARY KEY (`id`),
-  KEY (`id_user`),
-  KEY (`id_skill`))
+    PRIMARY KEY (`id`),
+    KEY (`id_user`),
+    KEY (`id_skill`))
 
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_romanian_ci;
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 6
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_romanian_ci;
+
+INSERT INTO `history` VALUES
+(1,3,1, 1,'2021-07-12'),
+(2,3,4, 1,'2021-07-12'),
+(3,3,7, 1,'2021-07-12'),
+(4,3,9, 1,'2021-07-12'),
+(5,3,1, 2,'2021-09-12'),
+(6,3,4, 2,'2021-09-12'),
+(7,3,7, 2,'2021-09-12'),
+(8,3,9, 2,'2021-09-12'),
+(9,4,1, 1,'2021-06-12'),
+(10,4,4, 1,'2021-06-12'),
+(11,4,7, 1,'2021-06-12'),
+(12,4,9, 1,'2021-06-12'),
+(13,5,1, 1,'2021-06-12'),
+(14,5,4, 1,'2021-06-12'),
+(15,5,7, 1,'2021-06-12'),
+(16,5,9, 1,'2021-06-12'),
+(17,4,1, 2,'2021-07-12'),
+(18,4,4, 2,'2021-07-12'),
+(19,4,7, 2,'2021-07-12'),
+(20,4,9, 2,'2021-07-12'),
+(21,5,1, 2,'2021-07-12'),
+(22,5,4, 2,'2021-07-12'),
+(23,5,7, 2,'2021-07-12'),
+(24,5,9, 2,'2021-07-12');
 
 -- -----------------------------------------------------
 -- Table `expleodb`.`record`

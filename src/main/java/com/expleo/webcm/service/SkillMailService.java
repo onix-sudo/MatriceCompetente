@@ -26,6 +26,7 @@ public class SkillMailService {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
         String table;
+        String table1;
 
         try{
             mimeMessageHelper = new MimeMessageHelper(message, true);
@@ -46,20 +47,38 @@ public class SkillMailService {
                     "    </thead>\n" +
                     "\n"+
                     "</table>";
+            table1= "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "<style>\n" +
+                    "table, th, td {\n" +
+                    "  border: 1px solid white;\n" +
+                    "  border-collapse: collapse;\n" +
+                    "}\n" +
+                    "th, td {\n" +
+                    "  background-color: #009FD9;\n" +
+                    "}\n" +
+                    "</style>\n" +
+                    "</head>\n" +
+                    "<body>" +
+                    "<table style=\"width:100%\">\n" +
+                    "  <tr>\n" +
+                    "    <th>Name</th>\n" +
+                    "    <th>Skill</th> \n" +
+                    "    <th>Category</th>\n" +
+                    "    <th>Assessment</th>\n" +
+                    "  </tr>\n" ;
             for( UserSkill userSkill : usersSkills) {
-                table = table.concat("<table >\n" +
-                        "    <tr>\n" +
-                        "        <th>" + userSkill.getUser().getNume()+" "+userSkill.getUser().getPrenume() +"</th>\n" +
-                        "        <th>" + userSkill.getSkill().getNumeSkill() +"</th>\n" +
-                        "        <th>" + userSkill.getSkill().getCategorie() +"</th>\n" +
-                        "        <th>" + userSkill.getEvaluation() + "</th>\n" +
-                        "        <th></th>\n" +
-                        "    </tr>\n" +
-                        "    </thead>\n" +
-                        "\n" +
-                        "</table>");
+                table1 = table1.concat(
+                        "  <tr>\n" +
+                        "        <td>" + userSkill.getUser().getNume()+" "+userSkill.getUser().getPrenume() +"</th>\n" +
+                        "        <td>" + userSkill.getSkill().getNumeSkill() +"</th>\n" +
+                        "        <td>" + userSkill.getSkill().getCategorie() +"</th>\n" +
+                        "        <td>" + userSkill.getEvaluation() + "</th>\n" +
+                        "    </tr>\n");
             }
-            mimeMessageHelper.setText(table, true);
+            table1 = table1.concat("</table>");
+            mimeMessageHelper.setText(table1, true);
             javaMailSender.send(message);
 
         }catch (MessagingException e){
